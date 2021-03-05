@@ -22,9 +22,15 @@
     <body class="bg-gray-100">
         <div id="app" class="h-screen">
 
+            <!-- Navigation Bar -->
+            @include('components.nav')
+
+            <!-- Site -->
+            {{ $slot }}
+
+            <!-- Footer -->
             @include('components.footer')
 
-            {{ $slot }}
         </div>
     </body>
 </html>
