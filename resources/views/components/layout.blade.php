@@ -4,6 +4,8 @@
             <meta charset="utf-8">
             <meta name="viewport" content="width=device-width, initial-scale=1">
 
+            <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
             <!-- CSRF Token -->
             <meta name="csrf-token" content="{{ csrf_token() }}">
 
@@ -18,14 +20,17 @@
 
             <!-- Styles -->
             <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+            <link href="https://unpkg.com/tailwindcss@1.4.6/dist/tailwind.min.css" rel="stylesheet">
         </head>
     <body class="bg-gray-100">
-        <div id="app" class="h-screen">
-            <!-- Navigation Bar -->
+        <div id="app" class="h-screen flex flex-col">
+            <!-- Header -->
             @include('components.nav')
 
-            <!-- Site -->
+            <!-- Content -->
+            <main class="p-4 flex-grow">
             {{ $slot }}
+            </main>
 
             <!-- Footer -->
             @include('components.footer')
