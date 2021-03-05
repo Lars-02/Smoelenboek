@@ -21,7 +21,6 @@
         </head>
     <body class="bg-gray-100">
         <div id="app" class="h-screen">
-
             <!-- Navigation Bar -->
             @include('components.nav')
 
@@ -31,6 +30,8 @@
             <!-- Footer -->
             @include('components.footer')
 
+            <!-- Javascript -->
+            @include('components.scripts')
         </div>
     </body>
 </html>
