@@ -20,3 +20,8 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+//Registration
+Route::get('/register', [\App\Http\Controllers\RegistrationController::class, 'index'])->name('registration.index');
+
+Route::post('/register-form', [\App\Http\Controllers\RegistrationController::class, 'store'])->name('registration');

@@ -8,6 +8,7 @@
             @else
                 <h1> Welcome to Smoelenboek</h1>
                 <h3>Please sign in</h3>
+                <x-input labeltext="test label" placeholder="test placeholder"></x-input>
             @endif
         </div>
     </div>
