@@ -45,5 +45,10 @@ class CreateEmployeesTable extends Migration
     public function down()
     {
         Schema::dropIfExists('employees');
+
+        Schema::table('users', function (Blueprint $table) {
+            $table->dropForeign('employees_department_foreign');
+            $table->dropColumn('employee_id');
+        });
     }
 }
