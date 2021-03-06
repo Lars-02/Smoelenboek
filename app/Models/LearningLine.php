@@ -8,4 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class LearningLine extends Model
 {
     use HasFactory;
+
+    public function employees() {
+        return $this->belongsToMany(Employee::class);
+    }
 }

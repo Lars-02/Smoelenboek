@@ -8,4 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Lectorate extends Model
 {
     use HasFactory;
+
+    public function employees() {
+        return $this->belongsToMany(Employee::class);
+    }
 }
