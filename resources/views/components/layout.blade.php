@@ -20,11 +20,20 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 <body class="bg-gray-100">
-    <div id="app" class="h-screen">
+<div id="app" class="h-screen">
+    <!-- Header -->
+    @include('components.nav')
 
-        @include('components.nav')
-
+    <!-- Content -->
+    <main class="p-4 flex-grow">
         {{ $slot }}
-    </div>
+    </main>
+
+    <!-- Footer -->
+    @include('components.footer')
+
+    <!-- Javascript -->
+    @include('components.scripts')
+</div>
 </body>
 </html>
