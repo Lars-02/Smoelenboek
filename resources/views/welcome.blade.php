@@ -11,5 +11,12 @@
                 <h3>Please sign in</h3>
             @endif
         </div>
+        <div class="w-full">
+            <div class="w-full px-10 flex flex-row border">
+                <x-card image-asset-path="uploads/maxresdefault.jpg" departement-and-function="AI&I - Docent web" user-name="Stefan van Haarlem" email="docent@avans.nl" telephone-number="0639564734"></x-card>
+                <x-card image-asset-path="uploads/maxresdefault.jpg" departement-and-function="AI&I - Docent web" user-name="Stefan van Haarlem" email="docent@avans.nl" telephone-number="0639564734"></x-card>
+                <x-card image-asset-path="uploads/maxresdefault.jpg" departement-and-function="AI&I - Docent web" user-name="Stefan van Haarlem" email="docent@avans.nl" telephone-number="0639564734"></x-card>
+            </div>
+        </div>
     </div>
 </x-layout>
