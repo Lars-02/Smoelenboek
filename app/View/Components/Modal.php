@@ -6,15 +6,17 @@ use Illuminate\View\Component;
 
 class Modal extends Component
 {
-    public $messageText;
+    public $title;
+    public $message;
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct($messageText)
+    public function __construct($title, $message)
     {
-        $this->messageText = $messageText;
+        $this->title = $title;
+        $this->message = $message;
     }
 
     /**
