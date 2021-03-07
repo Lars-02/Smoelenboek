@@ -9,6 +9,8 @@
             @else
                 <h1> Welcome to Smoelenboek</h1>
                 <h3>Please sign in</h3>
+                <x-button-submit text="Inloggen"/>
+                <x-ahref text="Google" link="https://www.google.nl" target="_top"/>
             @endif
         </div>
     </div>
