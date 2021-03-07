@@ -31,9 +31,6 @@
 
     <!-- Footer -->
     @include('components.footer')
-
-    <!-- Javascript -->
-    @include('components.scripts')
 </div>
 </body>
 </html>
