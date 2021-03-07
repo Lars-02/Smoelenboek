@@ -10,6 +10,9 @@
                 <h1> Welcome to Smoelenboek</h1>
                 <h3>Please sign in</h3>
             @endif
+
+            <x-button x-data="{ show: true }" x-show="show" click="show = false">Example button</x-button>
+
         </div>
     </div>
 </x-layout>
