@@ -9,8 +9,8 @@
             @else
                 <h1> Welcome to Smoelenboek</h1>
                 <h3>Please sign in</h3>
-                {{-- @include('components.button-submit', ["text" => "Inloggen"])
-                @include('components.ahref', ["text" => "google", "link" => "https://www.google.nl", "target" => "_top"]) --}}
+                <x-button-submit text="Inloggen"/>
+                <x-ahref text="Google" link="https://www.google.nl" target="_top"/>
             @endif
         </div>
     </div>
