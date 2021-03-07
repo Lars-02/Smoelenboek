@@ -13,7 +13,7 @@ class input extends Component
      */
     public $icon;
     public $id;
-    public function __construct($icon, $id = null)
+    public function __construct($icon, $id)
     {
         $this->icon = $icon;
         $this->id = $id;
