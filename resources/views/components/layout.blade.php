@@ -25,6 +25,8 @@
         @include('components.nav')
 
         {{ $slot }}
+
+        @include('components.footer')
     </div>
 </body>
 </html>
