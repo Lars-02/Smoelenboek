@@ -12,11 +12,11 @@ class input extends Component
      * @return void
      */
     public $icon;
-    public $name;
-    public function __construct($icon, $name = null)
+    public $id;
+    public function __construct($icon, $id = null)
     {
         $this->icon = $icon;
-        $this->name = $name;
+        $this->id = $id;
     }
 
     /**

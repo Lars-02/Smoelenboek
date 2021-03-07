@@ -10,7 +10,7 @@
                 <h1> Welcome to Smoelenboek</h1>
                 <h3>Please sign in</h3>
             @endif
-            <x-input name="test" type="text" icon="fas fa-user">Test</x-input>
+            <x-input type="text" icon="fas fa-user">Test</x-input>
         </div>
     </div>
 </x-layout>
