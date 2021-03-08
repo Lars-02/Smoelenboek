@@ -12,6 +12,7 @@
             @endif
             <x-input id="test" type="text" icon="fas fa-user">Test</x-input>
             <x-button x-data="{ show: true }" x-show="show" click="show = false">Example button</x-button>
+            <x-modal message="Explanation part!" title="Dit is Modal." button-left="Terug" button-right="Volgende"/>
         </div>
     </div>
 </x-layout>
