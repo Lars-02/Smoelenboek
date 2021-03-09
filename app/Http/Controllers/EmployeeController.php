@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Department;
 use App\Models\Employee;
+use App\Models\Expertise;
 use App\Models\User;
 use Illuminate\Http\Request;
+use phpDocumentor\Reflection\Types\Expression;
 
 class EmployeeController extends Controller
 {
@@ -26,6 +29,17 @@ class EmployeeController extends Controller
      */
     public function store(Request $request)
     {
+        request()->validate([
+            'username' => 'required',
+            'firstname' => 'required',
+            'lastname' => 'required',
+            'department' => 'required',
+            'expertise' => 'required',
+            'job' => 'required',
+        ]);
+
+        dd();
+
         $employee = new Employee();
         $employee->username = request('username');
         $employee->firstname = request('firstname');
@@ -33,8 +47,11 @@ class EmployeeController extends Controller
         $employee->department = request('department');
         $employee->save();
 
+        $expertise = Expertise::where('id', request('expertise'));
+        $employee->expertise()->save($expertise->id);
+
         //Redirect to dashboard maybe?
-        redirect('/');
+        return view('welcome');
     }
 
     /**
@@ -56,7 +73,7 @@ class EmployeeController extends Controller
      */
     public function edit(Employee $employee)
     {
-        return view('employee.form', compact('employee'));
+        abort(404);
     }
 
     /**
@@ -79,6 +96,6 @@ class EmployeeController extends Controller
      */
     public function destroy(Employee $employee)
     {
-
+        abort(404);
     }
 }
