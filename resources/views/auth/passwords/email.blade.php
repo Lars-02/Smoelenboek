@@ -1,6 +1,6 @@
 <x-layout>
     <x-card title="Wachtwoord Vergeten">
-        <x-input id="email" type="email" icon="fas fa-user">Email</x-input>
+        <x-input id="email" type="email" name="email" icon="fas fa-user">Email</x-input>
         @error('email')
         <span class="text-red-700" role="alert">
             <strong>{{ $message }}</strong>
