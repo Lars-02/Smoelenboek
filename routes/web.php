@@ -20,4 +20,6 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::view('/employee/registerFirst', 'employee.registerFirst');
 Route::view('/employee/registerSecond', 'employee.registerSecond');
+Route::view('/employee/registerThird', 'employee.registerThird');
