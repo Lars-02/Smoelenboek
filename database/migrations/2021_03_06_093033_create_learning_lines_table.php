@@ -18,23 +18,6 @@ class CreateLearningLinesTable extends Migration
             $table->string('name')->unique();
             $table->timestamps();
         });
-
-        Schema::create('employee_learning_line', function (Blueprint $table) {
-            $table->primary(['employee_id', 'learning_line_id']);
-            $table->unsignedBigInteger('employee_id');
-            $table->unsignedBigInteger('learning_line_id');
-            $table->timestamps();
-
-
-            $table->foreign('employee_id')
-                ->references('id')
-                ->on('employees')
-                ->onDelete('cascade');
-            $table->foreign('learning_line_id')
-                ->references('id')
-                ->on('learning_lines')
-                ->onDelete('cascade');
-        });
     }
 
     /**
@@ -45,6 +28,5 @@ class CreateLearningLinesTable extends Migration
     public function down()
     {
         Schema::dropIfExists('learning_lines');
-        Schema::dropIfExists('employee_learning_line');
     }
 }
