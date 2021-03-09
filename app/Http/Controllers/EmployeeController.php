@@ -3,20 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Employee;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class EmployeeController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
-
     /**
      * Show the form for creating a new resource.
      *
@@ -24,7 +15,7 @@ class EmployeeController extends Controller
      */
     public function create()
     {
-        //
+        return view('employee.form');
     }
 
     /**
@@ -35,7 +26,15 @@ class EmployeeController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $employee = new Employee();
+        $employee->username = request('username');
+        $employee->firstname = request('firstname');
+        $employee->lastname = request('lastname');
+        $employee->department = request('department');
+        $employee->save();
+
+        //Redirect to dashboard maybe?
+        redirect('/');
     }
 
     /**
@@ -46,7 +45,7 @@ class EmployeeController extends Controller
      */
     public function show(Employee $employee)
     {
-        //
+        dump($employee);
     }
 
     /**
@@ -57,7 +56,7 @@ class EmployeeController extends Controller
      */
     public function edit(Employee $employee)
     {
-        //
+        return view('employee.form', compact('employee'));
     }
 
     /**
@@ -69,7 +68,7 @@ class EmployeeController extends Controller
      */
     public function update(Request $request, Employee $employee)
     {
-        //
+        abort(404);
     }
 
     /**
@@ -80,6 +79,6 @@ class EmployeeController extends Controller
      */
     public function destroy(Employee $employee)
     {
-        //
+
     }
 }

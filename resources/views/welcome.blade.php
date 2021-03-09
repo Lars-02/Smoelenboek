@@ -9,10 +9,19 @@
             @else
                 <h1> Welcome to Smoelenboek</h1>
                 <h3>Please sign in</h3>
-                <x-input labeltext="test label" placeholder="test placeholder"></x-input>
                 <x-button-submit text="Inloggen"/>
                 <x-ahref text="Google" link="https://www.google.nl" target="_top"/>
             @endif
+            <form action="/employee" method="POST">
+                @csrf
+                <input type="text" name="username" id="username">
+                <input type="text" name="firstname" id="firstname">
+                <input type="text" name="lastname" id="lastname">
+                <select name="department" id="department">
+                    <option value="department 1">Department 1</option>
+                </select>
+                <button type="submit">Submit</button>
+            </form>
         </div>
     </div>
 </x-layout>

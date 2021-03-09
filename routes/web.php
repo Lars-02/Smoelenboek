@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\EmployeeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -22,6 +23,9 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 //Registration
-Route::get('/register', [\App\Http\Controllers\RegistrationController::class, 'index'])->name('registration.index');
+Route::resource('employee', EmployeeController::class);
 
-Route::post('/register-form', [\App\Http\Controllers\RegistrationController::class, 'store'])->name('registration');
+//Add a redirect to the main page with an error.
+Route::fallback(function () {
+    return view('welcome');
+});
