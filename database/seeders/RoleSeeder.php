@@ -20,6 +20,6 @@ class RoleSeeder extends Seeder
         \App\Models\Role::factory()->create(['name' => 'Software Tester']);
         \App\Models\Role::factory()->create(['name' => 'Medewerker Multimedia Support']);
         \App\Models\Role::factory()->create(['name' => 'Senior Scrum Master']);
-        \App\Models\Role::factory()->create(['name' => 'Docent Bedrijfskunde']);
+        \App\Models\Role::factory()->create(['name' => 'Docent']);
     }
 }
