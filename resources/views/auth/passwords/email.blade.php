@@ -1,12 +1,12 @@
 <x-layout>
     <x-card title="Wachtwoord Vergeten">
-        <form method="POST" action="{{ route('password.email') }}">
+        <form method="POST" action="{{ url('/forgot-password') }}">
             @csrf
             <x-input id="email" type="email" name="email" icon="fas fa-user">Email</x-input>
             @error('email')
             <span class="text-red-700" role="alert">
-            <strong>{{ $message }}</strong>
-        </span>
+                <strong>{{ $message }}</strong>
+            </span>
             @enderror
             <x-button type="submit">Wachtwoord resetten</x-button>
             <span class="text-blue-500 underline">
