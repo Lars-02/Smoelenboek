@@ -10,7 +10,7 @@
                 value="{{ old('email') }}"
                 autocomplete="email"
                 required autofocus
-            >Email
+            >{{ __('Email') }}
             </x-input>
             <x-input
                 icon="fas fa-lock"
@@ -19,18 +19,18 @@
                 name="password"
                 autocomplete="password"
                 required
-            >Password
+            >{{ __('Wachtwoord') }}
             </x-input>
             <div class="flex">
                 <div class="mr-4">
                     <x-button type="submit"
                               class="px-10 rounded-lg font-medium">
-                        Login
+                        {{ __('Inloggen') }}
                     </x-button>
                 </div>
                 <div class="self-end">
                     <a href="{{ route('password.request') }}" class="text-blue-500 underline">
-                        Forgot password?
+                        {{ __('Wachtwoord vergeten?') }}
                     </a>
                 </div>
             </div>
