@@ -9,8 +9,12 @@
             @else
                 <h1> Welcome to Smoelenboek</h1>
                 <h3>Please sign in</h3>
+                <x-button-submit text="Inloggen"/>
+                <x-ahref text="Google" link="https://www.google.nl" target="_top"/>
             @endif
             <x-input id="test" type="text" icon="fas fa-user">Test</x-input>
+            <x-select id="testid">Test</x-select>
+
             <x-button x-data="{ show: true }" x-show="show" click="show = false">Example button</x-button>
         </div>
     </div>
