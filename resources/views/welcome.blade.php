@@ -18,7 +18,14 @@
                 <input type="text" name="firstname" id="firstname">
                 <input type="text" name="lastname" id="lastname">
                 <select name="department" id="department">
-                    <option value="department 1">Department 1</option>
+                    <option value="AII">Department 1</option>
+                    <option value="AFM">Department 2</option>
+                </select>
+                <select name="expertise" id="expertise">
+                    <option value="1">expertise 1</option>
+                </select>
+                <select name="job" id="job">
+                    <option value="1">job 1</option>
                 </select>
                 <button type="submit">Submit</button>
             </form>
