@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\LearningLine;
 use Illuminate\Database\Seeder;
 
 class LearningLineSeeder extends Seeder
@@ -13,12 +14,12 @@ class LearningLineSeeder extends Seeder
      */
     public function run()
     {
-        \App\Models\LearningLine::factory()->create(['name' => 'Onderzoeksvaardigheden']);
-        \App\Models\LearningLine::factory()->create(['name' => 'Academische taalvaardigheid']);
-        \App\Models\LearningLine::factory()->create(['name' => 'Algemene Vaardigheden']);
-        \App\Models\LearningLine::factory()->create(['name' => 'Klinische leerlijn']);
-        \App\Models\LearningLine::factory()->create(['name' => 'Onderzoeksmethodologie']);
-        \App\Models\LearningLine::factory()->create(['name' => 'Programmeervaardigheden']);
-        \App\Models\LearningLine::factory()->create(['name' => 'Vaardigheden in lesgeven']);
+        LearningLine::factory()->create(['name' => 'Onderzoeksvaardigheden']);
+        LearningLine::factory()->create(['name' => 'Academische taalvaardigheid']);
+        LearningLine::factory()->create(['name' => 'Algemene Vaardigheden']);
+        LearningLine::factory()->create(['name' => 'Klinische leerlijn']);
+        LearningLine::factory()->create(['name' => 'Onderzoeksmethodologie']);
+        LearningLine::factory()->create(['name' => 'Programmeervaardigheden']);
+        LearningLine::factory()->create(['name' => 'Vaardigheden in lesgeven']);
     }
 }

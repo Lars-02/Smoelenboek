@@ -16,25 +16,26 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        $this->call(HobbySeeder::class);
-        $this->call(DepartmentSeeder::class);
-        $this->call(EmployeeSeeder::class);
-        $this->call(UserSeeder::class);
-        $this->call(RoleSeeder::class);
-        $this->call(MinorSeeder::class);
-        $this->call(LectorateSeeder::class);
-        $this->call(LearningLineSeeder::class);
-        $this->call(ExpertiseSeeder::class);
-        $this->call(CourseSeeder::class);
-        $this->call(WorkHoursSeeder::class);
-        $this->call(RoleUserSeeder::class);
-        $this->call(EmployeeMinorSeeder::class);
-        $this->call(EmployeeLectorateSeeder::class);
-        $this->call(EmployeeLearningLineSeeder::class);
-        $this->call(EmployeeHobbySeeder::class);
-        $this->call(EmployeeExpertiseSeeder::class);
-        $this->call(CourseEmployeeSeeder::class);
-        $this->call(AbilitySeeder::class);
-        $this->call(AbilityRoleSeeder::class);
+        $this->call([
+            HobbySeeder::class,
+            DepartmentSeeder::class,
+            EmployeeSeeder::class,
+            UserSeeder::class,
+            RoleSeeder::class,
+            MinorSeeder::class,
+            LectorateSeeder::class,
+            LearningLineSeeder::class,
+            ExpertiseSeeder::class,
+            CourseSeeder::class,
+            WorkHoursSeeder::class,
+            RoleUserSeeder::class,
+            EmployeeMinorSeeder::class,
+            EmployeeLectorateSeeder::class,
+            EmployeeLearningLineSeeder::class,
+            EmployeeHobbySeeder::class,
+            EmployeeExpertiseSeeder::class,
+            CourseEmployeeSeeder::class,
+            AbilitySeeder::class,
+            AbilityRoleSeeder::class]);
     }
 }

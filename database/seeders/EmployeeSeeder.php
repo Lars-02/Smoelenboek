@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Employee;
 use Illuminate\Database\Seeder;
 
 class EmployeeSeeder extends Seeder
@@ -13,8 +14,8 @@ class EmployeeSeeder extends Seeder
      */
     public function run()
     {
-        \App\Models\Employee::factory()->times(10)->create(['department' => 'AI&I']);
-        \App\Models\Employee::factory()->times(5)->create(['department' => 'AFM']);
-        \App\Models\Employee::factory()->times(5)->create(['department' => 'AB&I']);
+        Employee::factory()->times(10)->create(['department' => 'AI&I']);
+        Employee::factory()->times(5)->create(['department' => 'AFM']);
+        Employee::factory()->times(5)->create(['department' => 'AB&I']);
     }
 }

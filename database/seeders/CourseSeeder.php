@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Course;
 use Illuminate\Database\Seeder;
 
 class CourseSeeder extends Seeder
@@ -13,16 +14,16 @@ class CourseSeeder extends Seeder
      */
     public function run()
     {
-        \App\Models\Course::factory()->create(['name' => 'Businessmarketing']);
-        \App\Models\Course::factory()->create(['name' => 'Organisatiekunde']);
-        \App\Models\Course::factory()->create(['name' => 'Projectmanagement']);
-        \App\Models\Course::factory()->create(['name' => 'Wachtrij theorie']);
-        \App\Models\Course::factory()->create(['name' => 'Statistiek']);
-        \App\Models\Course::factory()->create(['name' => 'ICT']);
-        \App\Models\Course::factory()->create(['name' => 'Productiebesturing']);
-        \App\Models\Course::factory()->create(['name' => 'Kwaliteitsbeheersing']);
-        \App\Models\Course::factory()->create(['name' => 'Productie en magazijn logistiek']);
-        \App\Models\Course::factory()->create(['name' => 'Discrete simulatie']);
-        \App\Models\Course::factory()->create(['name' => 'Bedrijfseconomie en recht']);
+        Course::factory()->create(['name' => 'Businessmarketing']);
+        Course::factory()->create(['name' => 'Organisatiekunde']);
+        Course::factory()->create(['name' => 'Projectmanagement']);
+        Course::factory()->create(['name' => 'Wachtrij theorie']);
+        Course::factory()->create(['name' => 'Statistiek']);
+        Course::factory()->create(['name' => 'ICT']);
+        Course::factory()->create(['name' => 'Productiebesturing']);
+        Course::factory()->create(['name' => 'Kwaliteitsbeheersing']);
+        Course::factory()->create(['name' => 'Productie en magazijn logistiek']);
+        Course::factory()->create(['name' => 'Discrete simulatie']);
+        Course::factory()->create(['name' => 'Bedrijfseconomie en recht']);
     }
 }

@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Department;
 use Illuminate\Database\Seeder;
 
 class DepartmentSeeder extends Seeder
@@ -13,14 +14,14 @@ class DepartmentSeeder extends Seeder
      */
     public function run()
     {
-        \App\Models\Department::factory()->create(['department' => 'AI&I']);
-        \App\Models\Department::factory()->create(['department' => 'ASIS']);
-        \App\Models\Department::factory()->create(['department' => 'AKV']);
-        \App\Models\Department::factory()->create(['department' => 'AB&I']);
-        \App\Models\Department::factory()->create(['department' => 'AGZ']);
-        \App\Models\Department::factory()->create(['department' => 'PABO']);
-        \App\Models\Department::factory()->create(['department' => 'AOC']);
-        \App\Models\Department::factory()->create(['department' => 'LIC']);
-        \App\Models\Department::factory()->create(['department' => 'AFM']);
+        Department::factory()->create(['department' => 'AI&I']);
+        Department::factory()->create(['department' => 'ASIS']);
+        Department::factory()->create(['department' => 'AKV']);
+        Department::factory()->create(['department' => 'AB&I']);
+        Department::factory()->create(['department' => 'AGZ']);
+        Department::factory()->create(['department' => 'PABO']);
+        Department::factory()->create(['department' => 'AOC']);
+        Department::factory()->create(['department' => 'LIC']);
+        Department::factory()->create(['department' => 'AFM']);
     }
 }

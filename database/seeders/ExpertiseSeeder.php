@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Expertise;
 use Illuminate\Database\Seeder;
 
 class ExpertiseSeeder extends Seeder
@@ -13,15 +14,15 @@ class ExpertiseSeeder extends Seeder
      */
     public function run()
     {
-        \App\Models\Expertise::factory()->create(['name' => 'Leidinggeven']);
-        \App\Models\Expertise::factory()->create(['name' => 'Communicatie en interactie']);
-        \App\Models\Expertise::factory()->create(['name' => 'Flexibiliteit']);
-        \App\Models\Expertise::factory()->create(['name' => 'Empatisch gedrag']);
-        \App\Models\Expertise::factory()->create(['name' => 'Management']);
-        \App\Models\Expertise::factory()->create(['name' => 'Organisatorisch']);
-        \App\Models\Expertise::factory()->create(['name' => 'Oplossingsgericht']);
-        \App\Models\Expertise::factory()->create(['name' => 'Behulpzaam']);
-        \App\Models\Expertise::factory()->create(['name' => 'Samenwerking']);
-        \App\Models\Expertise::factory()->create(['name' => 'Besluitvorming']);
+        Expertise::factory()->create(['name' => 'Leidinggeven']);
+        Expertise::factory()->create(['name' => 'Communicatie en interactie']);
+        Expertise::factory()->create(['name' => 'Flexibiliteit']);
+        Expertise::factory()->create(['name' => 'Empatisch gedrag']);
+        Expertise::factory()->create(['name' => 'Management']);
+        Expertise::factory()->create(['name' => 'Organisatorisch']);
+        Expertise::factory()->create(['name' => 'Oplossingsgericht']);
+        Expertise::factory()->create(['name' => 'Behulpzaam']);
+        Expertise::factory()->create(['name' => 'Samenwerking']);
+        Expertise::factory()->create(['name' => 'Besluitvorming']);
     }
 }

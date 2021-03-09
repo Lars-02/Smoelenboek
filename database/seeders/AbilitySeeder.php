@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Ability;
 use Illuminate\Database\Seeder;
 
 class AbilitySeeder extends Seeder
@@ -13,9 +14,9 @@ class AbilitySeeder extends Seeder
      */
     public function run()
     {
-        \App\Models\Ability::factory()->create(['name' => 'Create', 'label' => 'User can create a user']);
-        \App\Models\Ability::factory()->create(['name' => 'Update', 'label' => 'User can update a user']);
-        \App\Models\Ability::factory()->create(['name' => 'Delete', 'label' => 'User can delete users']);
-        \App\Models\Ability::factory()->create(['name' => 'View', 'label' => 'User can view content']);
+        Ability::factory()->create(['name' => 'Create', 'label' => 'User can create a user']);
+        Ability::factory()->create(['name' => 'Update', 'label' => 'User can update a user']);
+        Ability::factory()->create(['name' => 'Delete', 'label' => 'User can delete users']);
+        Ability::factory()->create(['name' => 'View', 'label' => 'User can view content']);
     }
 }

@@ -2,9 +2,8 @@
 
 namespace Database\Seeders;
 
-use App\Models\Role;
+use App\Models\User;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
 
 class UserSeeder extends Seeder
 {
@@ -15,8 +14,8 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-        for ($i = 1; $i <= 20; $i++){
-            \App\Models\User::factory()->create(['employee_id' => $i]);
+        for ($i = 1; $i <= User::All()->count(); $i++){
+            User::factory()->create(['employee_id' => $i]);
         }
     }
 }

@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Role;
 use Illuminate\Database\Seeder;
 
 class RoleSeeder extends Seeder
@@ -13,13 +14,13 @@ class RoleSeeder extends Seeder
      */
     public function run()
     {
-        \App\Models\Role::factory()->create(['name' => 'Admin']);
-        \App\Models\Role::factory()->create(['name' => 'StandardUser']);
-        \App\Models\Role::factory()->create(['name' => 'Medewerker Administratie & Organisatie']);
-        \App\Models\Role::factory()->create(['name' => 'Docent Management in de Zorg']);
-        \App\Models\Role::factory()->create(['name' => 'Software Tester']);
-        \App\Models\Role::factory()->create(['name' => 'Medewerker Multimedia Support']);
-        \App\Models\Role::factory()->create(['name' => 'Senior Scrum Master']);
-        \App\Models\Role::factory()->create(['name' => 'Docent']);
+        Role::factory()->create(['name' => 'Admin']);
+        Role::factory()->create(['name' => 'StandardUser']);
+        Role::factory()->create(['name' => 'Medewerker Administratie & Organisatie']);
+        Role::factory()->create(['name' => 'Docent Management in de Zorg']);
+        Role::factory()->create(['name' => 'Software Tester']);
+        Role::factory()->create(['name' => 'Medewerker Multimedia Support']);
+        Role::factory()->create(['name' => 'Senior Scrum Master']);
+        Role::factory()->create(['name' => 'Docent']);
     }
 }

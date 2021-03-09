@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Hobby;
 use Illuminate\Database\Seeder;
 
 class HobbySeeder extends Seeder
@@ -13,40 +14,40 @@ class HobbySeeder extends Seeder
      */
     public function run()
     {
-        \App\Models\Hobby::factory()->create(['name' => 'Voetbal']);
-        \App\Models\Hobby::factory()->create(['name' => 'Handbal']);
-        \App\Models\Hobby::factory()->create(['name' => 'Volleybal']);
-        \App\Models\Hobby::factory()->create(['name' => 'Gymnastiek']);
-        \App\Models\Hobby::factory()->create(['name' => 'Turnen']);
-        \App\Models\Hobby::factory()->create(['name' => 'Hardlopen']);
-        \App\Models\Hobby::factory()->create(['name' => 'Zwemmen']);
-        \App\Models\Hobby::factory()->create(['name' => 'Tennis']);
-        \App\Models\Hobby::factory()->create(['name' => 'Badminton']);
-        \App\Models\Hobby::factory()->create(['name' => 'Hengelsport']);
-        \App\Models\Hobby::factory()->create(['name' => 'Hockey']);
-        \App\Models\Hobby::factory()->create(['name' => 'Roeien']);
-        \App\Models\Hobby::factory()->create(['name' => 'Zeilen']);
-        \App\Models\Hobby::factory()->create(['name' => 'Watersport']);
-        \App\Models\Hobby::factory()->create(['name' => 'Golf']);
-        \App\Models\Hobby::factory()->create(['name' => 'Judo']);
-        \App\Models\Hobby::factory()->create(['name' => 'Boksen']);
-        \App\Models\Hobby::factory()->create(['name' => 'Wandelsport']);
-        \App\Models\Hobby::factory()->create(['name' => 'Biljarten']);
-        \App\Models\Hobby::factory()->create(['name' => 'Tafeltennis']);
-        \App\Models\Hobby::factory()->create(['name' => 'Dammen']);
-        \App\Models\Hobby::factory()->create(['name' => 'Bridgen']);
-        \App\Models\Hobby::factory()->create(['name' => 'SjoelbakkenHonkbal']);
-        \App\Models\Hobby::factory()->create(['name' => 'Basketbal']);
-        \App\Models\Hobby::factory()->create(['name' => 'Korfbal']);
-        \App\Models\Hobby::factory()->create(['name' => 'Kegelen']);
-        \App\Models\Hobby::factory()->create(['name' => 'Rugby']);
-        \App\Models\Hobby::factory()->create(['name' => 'Paardrijden']);
-        \App\Models\Hobby::factory()->create(['name' => 'Schaatsen']);
-        \App\Models\Hobby::factory()->create(['name' => 'Ijshockey']);
-        \App\Models\Hobby::factory()->create(['name' => 'Skeeleren']);
-        \App\Models\Hobby::factory()->create(['name' => 'Joggen']);
-        \App\Models\Hobby::factory()->create(['name' => 'Fitness']);
-        \App\Models\Hobby::factory()->create(['name' => 'Mediteren']);
-        \App\Models\Hobby::factory()->create(['name' => 'Yoga']);
+        Hobby::factory()->create(['name' => 'Voetbal']);
+        Hobby::factory()->create(['name' => 'Handbal']);
+        Hobby::factory()->create(['name' => 'Volleybal']);
+        Hobby::factory()->create(['name' => 'Gymnastiek']);
+        Hobby::factory()->create(['name' => 'Turnen']);
+        Hobby::factory()->create(['name' => 'Hardlopen']);
+        Hobby::factory()->create(['name' => 'Zwemmen']);
+        Hobby::factory()->create(['name' => 'Tennis']);
+        Hobby::factory()->create(['name' => 'Badminton']);
+        Hobby::factory()->create(['name' => 'Hengelsport']);
+        Hobby::factory()->create(['name' => 'Hockey']);
+        Hobby::factory()->create(['name' => 'Roeien']);
+        Hobby::factory()->create(['name' => 'Zeilen']);
+        Hobby::factory()->create(['name' => 'Watersport']);
+        Hobby::factory()->create(['name' => 'Golf']);
+        Hobby::factory()->create(['name' => 'Judo']);
+        Hobby::factory()->create(['name' => 'Boksen']);
+        Hobby::factory()->create(['name' => 'Wandelsport']);
+        Hobby::factory()->create(['name' => 'Biljarten']);
+        Hobby::factory()->create(['name' => 'Tafeltennis']);
+        Hobby::factory()->create(['name' => 'Dammen']);
+        Hobby::factory()->create(['name' => 'Bridgen']);
+        Hobby::factory()->create(['name' => 'SjoelbakkenHonkbal']);
+        Hobby::factory()->create(['name' => 'Basketbal']);
+        Hobby::factory()->create(['name' => 'Korfbal']);
+        Hobby::factory()->create(['name' => 'Kegelen']);
+        Hobby::factory()->create(['name' => 'Rugby']);
+        Hobby::factory()->create(['name' => 'Paardrijden']);
+        Hobby::factory()->create(['name' => 'Schaatsen']);
+        Hobby::factory()->create(['name' => 'Ijshockey']);
+        Hobby::factory()->create(['name' => 'Skeeleren']);
+        Hobby::factory()->create(['name' => 'Joggen']);
+        Hobby::factory()->create(['name' => 'Fitness']);
+        Hobby::factory()->create(['name' => 'Mediteren']);
+        Hobby::factory()->create(['name' => 'Yoga']);
     }
 }
