@@ -6,21 +6,33 @@ use Illuminate\View\Component;
 
 class Modal extends Component
 {
+    public $modal;
     public $title;
-    public $message;
-    public $buttonLeft;
-    public $buttonRight;
+    public $btnNameLeft;
+    public $btnNameRight;
+    public $typeLeft;
+    public $typeRight;
+    public $hrefLeft;
+    public $hrefRight;
+
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct($title, $message, $buttonLeft, $buttonRight)
+    public function __construct($title, $modal,
+                                $btnNameLeft, $btnNameRight,
+                                $typeLeft = 'button', $typeRight = 'button',
+                                $hrefLeft = '#', $hrefRight ='#')
     {
         $this->title = $title;
-        $this->message = $message;
-        $this->buttonLeft = $buttonLeft;
-        $this->buttonRight = $buttonRight;
+        $this->btnNameLeft = $btnNameLeft;
+        $this->btnNameRight = $btnNameRight;
+        $this->modal = $modal;
+        $this->typeLeft = $typeLeft;
+        $this->typeRight = $typeRight;
+        $this->hrefLeft = $hrefLeft;
+        $this->hrefRight = $hrefRight;
     }
 
     /**
