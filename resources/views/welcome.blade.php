@@ -11,6 +11,8 @@
                 <h3>Please sign in</h3>
             @endif
             <x-input id="test" type="text" icon="fas fa-user">Test</x-input>
+            <x-select id="testid">Test</x-select>
+
             <x-button x-data="{ show: true }" x-show="show" click="show = false">Example button</x-button>
         </div>
     </div>
