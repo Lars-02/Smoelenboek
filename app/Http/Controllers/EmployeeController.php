@@ -48,7 +48,10 @@ class EmployeeController extends Controller
         $employee->save();
 
         $expertise = Expertise::where('id', request('expertise'));
-        $employee->expertise()->save($expertise->id);
+        $employee->expertise()->save($expertise);
+
+        $roles = request('job');
+        $employee->user()->roles()->save($roles);
 
         //Redirect to dashboard maybe?
         return view('welcome');
