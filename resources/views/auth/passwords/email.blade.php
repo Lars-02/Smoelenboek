@@ -8,10 +8,14 @@
                 <strong>{{ $message }}</strong>
             </span>
             @enderror
-            <x-button type="submit">Wachtwoord resetten</x-button>
-            <span class="text-blue-500 underline">
-            <a href="{{ route('login') }}">Toch inloggen</a>
-        </span>
+            <div class="flex">
+                <div class="mr-4">
+                    <x-button type="submit">Wachtwoord resetten</x-button>
+                </div>
+                <div class="self-end">
+                    <a href="{{ route('login') }}" class="text-blue-500 underline">Toch inloggen</a>
+                </div>
+            </div>
         </form>
     </x-card>
 </x-layout>
