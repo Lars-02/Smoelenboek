@@ -9,7 +9,7 @@
                     <i class="fas fa-times ml-auto fill-current -ml-2 text-white w-6 h-6 cursor-pointer"></i>
                 </x-button>
             </div>
-            <div class="text-white">
+            <div class="text-white mb-14">
                 {{ $slot }}
             </div>
             <div class="ml-auto text-white">
