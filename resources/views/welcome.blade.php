@@ -14,18 +14,26 @@
             @endif
             <form action="/employee" method="POST">
                 @csrf
+                <input type="text" name="email" id="email">
                 <input type="text" name="username" id="username">
                 <input type="text" name="firstname" id="firstname">
                 <input type="text" name="lastname" id="lastname">
                 <select name="department" id="department">
-                    <option value="AII">Department 1</option>
+                    <option value="AOC">Department 1</option>
                     <option value="AFM">Department 2</option>
                 </select>
-                <select name="expertise" id="expertise">
+                <select name="expertise[]" id="expertise" multiple>
                     <option value="1">expertise 1</option>
+                    <option value="2">expertise 2</option>
+                    <option value="3">expertise 3</option>
+                    <option value="4">expertise 4</option>
                 </select>
-                <select name="job" id="job">
+                <select name="job[]" id="job" multiple>
                     <option value="1">job 1</option>
+                    <option value="2">job 2</option>
+                    <option value="3">job 3</option>
+                    <option value="4">job 4</option>
+                    <option value="5">job 5</option>
                 </select>
                 <button type="submit">Submit</button>
             </form>

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Department;
 use App\Models\Employee;
 use App\Models\Expertise;
+use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
 use phpDocumentor\Reflection\Types\Expression;
@@ -38,20 +39,18 @@ class EmployeeController extends Controller
             'job' => 'required',
         ]);
 
-        dd();
+        $user = User::where('email', request('email'))->firstOrFail();
+        $user->roles()->attach(request('job.*'));
 
         $employee = new Employee();
         $employee->username = request('username');
         $employee->firstname = request('firstname');
         $employee->lastname = request('lastname');
         $employee->department = request('department');
+
         $employee->save();
-
-        $expertise = Expertise::where('id', request('expertise'));
-        $employee->expertise()->save($expertise);
-
-        $roles = request('job');
-        $employee->user()->roles()->save($roles);
+        $employee->user()->associate($user);
+        $employee->expertise()->attach(request('expertise'));
 
         //Redirect to dashboard maybe?
         return view('welcome');
@@ -65,7 +64,7 @@ class EmployeeController extends Controller
      */
     public function show(Employee $employee)
     {
-        dump($employee);
+        return dump($employee);
     }
 
     /**
@@ -76,7 +75,7 @@ class EmployeeController extends Controller
      */
     public function edit(Employee $employee)
     {
-        abort(404);
+        return abort(404);
     }
 
     /**
@@ -88,7 +87,7 @@ class EmployeeController extends Controller
      */
     public function update(Request $request, Employee $employee)
     {
-        abort(404);
+        return abort(404);
     }
 
     /**
@@ -99,6 +98,6 @@ class EmployeeController extends Controller
      */
     public function destroy(Employee $employee)
     {
-        abort(404);
+        return abort(404);
     }
 }
