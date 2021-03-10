@@ -1,6 +1,6 @@
 <div class="mb-8">
     @if(isset($slot))
-        <label class="mb-1.5 pl-1.5 py-0.5 float-left text-left text-white w-6/12 bg-red-700 rounded font-medium" for="{{$id}}">{{$slot}}</label><br/>
+    <label class="mb-1.5 pl-1.5 py-0.5 float-left text-left text-white w-6/12 bg-red-700 rounded font-medium break-all" for="{{$id}}">{{$slot}}</label><br/>
     @endif
     <div>
         <i class="absolute pl-3 pt-4 text-gray-600 {{ $icon }}"></i>
