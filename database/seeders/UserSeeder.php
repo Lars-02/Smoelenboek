@@ -14,7 +14,8 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-        for ($i = 1; $i <= User::All()->count(); $i++){
+        $amountOfUsers = 20;
+        for ($i = 1; $i <= $amountOfUsers; $i++){
             User::factory()->create(['employee_id' => $i]);
         }
     }

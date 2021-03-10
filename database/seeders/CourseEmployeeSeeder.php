@@ -16,17 +16,6 @@ class CourseEmployeeSeeder extends Seeder
      */
     public function run()
     {
-        $courses = Course::paginate(5);
-        $employees = Employee::paginate(5);
-
-        foreach ($courses as $course) {
-            foreach ($employees as $employee) {
-                CourseEmployee::firstOrCreate([
-                    'course_id' => $course->id,
-                    'employee_id' => $employee->id,
-                ]);
-            }
-        }
-
+        CourseEmployee::factory()->times(20)->create();
     }
 }

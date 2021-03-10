@@ -16,17 +16,6 @@ class EmployeeLectorateSeeder extends Seeder
      */
     public function run()
     {
-        $lectorates = Lectorate::paginate(5);
-        $employees = Employee::paginate(5);
-
-        foreach ($lectorates as $lectorate) {
-            foreach ($employees as $employee) {
-                EmployeeLectorate::firstOrCreate([
-                    'lectorate_id' => $lectorate->id,
-                    'employee_id' => $employee->id,
-                ]);
-            }
-        }
-
+        EmployeeLectorate::factory()->times(20)->create();
     }
 }

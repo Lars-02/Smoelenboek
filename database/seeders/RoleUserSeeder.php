@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\EmployeeMinor;
 use App\Models\Role;
 use App\Models\RoleUser;
 use App\Models\User;
@@ -16,16 +17,6 @@ class RoleUserSeeder extends Seeder
      */
     public function run()
     {
-        $roles = Role::paginate(5);
-        $user = User::paginate(5);
-
-        foreach ($user as $user) {
-            foreach ($roles as $role) {
-                RoleUser::firstOrCreate([
-                    'user_id' => $user->id,
-                    'role_id' => $role->id,
-                ]);
-            }
-        }
+        RoleUser::factory()->times(20)->create();
     }
 }

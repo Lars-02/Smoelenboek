@@ -16,17 +16,6 @@ class EmployeeLearningLineSeeder extends Seeder
      */
     public function run()
     {
-        $learningLines = LearningLine::paginate(5);
-        $employees = Employee::paginate(5);
-
-        foreach ($learningLines as $learningLine) {
-            foreach ($employees as $employee) {
-                EmployeeLearningLine::firstOrCreate([
-                    'learning_line_id' => $learningLine->id,
-                    'employee_id' => $employee->id,
-                ]);
-            }
-        }
-
+        EmployeeLearningLine::factory()->times(20)->create();
     }
 }

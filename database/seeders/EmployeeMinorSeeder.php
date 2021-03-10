@@ -16,16 +16,6 @@ class EmployeeMinorSeeder extends Seeder
      */
     public function run()
     {
-        $minors = Minor::paginate(5);
-        $employees = Employee::paginate(5);
-
-        foreach ($employees as $employee) {
-            foreach ($minors as $minor) {
-                EmployeeMinor::firstOrCreate([
-                    'employee_id' => $employee->id,
-                    'minor_id' => $minor->id,
-                ]);
-            }
-        }
+        EmployeeMinor::factory()->times(20)->create();
     }
 }

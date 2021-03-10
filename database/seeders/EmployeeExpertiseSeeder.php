@@ -16,17 +16,7 @@ class EmployeeExpertiseSeeder extends Seeder
      */
     public function run()
     {
-        $expertises = Expertise::paginate(5);
-        $employees = Employee::paginate(5);
-
-        foreach ($expertises as $expertise) {
-            foreach ($employees as $employee) {
-                EmployeeExpertise::firstOrCreate([
-                    'expertise_id' => $expertise->id,
-                    'employee_id' => $employee->id,
-                ]);
-            }
-        }
+        EmployeeExpertise::factory()->times(20)->create();
 
     }
 }

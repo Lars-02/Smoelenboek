@@ -16,16 +16,6 @@ class AbilityRoleSeeder extends Seeder
      */
     public function run()
     {
-        $roles = Role::paginate(5);
-        $abilities = Ability::paginate(5);
-
-        foreach ($roles as $role) {
-            foreach ($abilities as $ability) {
-                AbilityRole::firstOrCreate([
-                    'role_id' => $role->id,
-                    'ability_id' => $ability->id,
-                ]);
-            }
-        }
+        AbilityRole::factory()->times(Ability::All()->count())->create();
     }
 }
