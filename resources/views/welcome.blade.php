@@ -10,8 +10,6 @@
                 <h1> Welcome to Smoelenboek</h1>
                 <h3>Please sign in</h3>
                 <x-time></x-time>
-                <x-button-submit text="Inloggen"/>
-                <x-ahref text="Google" link="https://www.google.nl" target="_top"/>
             @endif
             <x-input id="test" type="text" icon="fas fa-user">Test</x-input>
             <x-select id="testid">Test</x-select>
