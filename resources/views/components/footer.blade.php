@@ -1,4 +1,4 @@
-<footer class="p-4 flex justify-center px-4 text-red-700-100 bg-red-800 text-white">
+<footer class="p-4 flex justify-center px-4 text-red-700-100 bg-red-800 text-white bottom-0 fixed w-full">
     <div class="container py-6">
         <h1 class="text-center text-lg font-bold lg:text-2xl text-">
 Dit is onze footer! <br> Super cool. Made by Groep J Inc.
