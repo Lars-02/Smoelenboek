@@ -9,8 +9,11 @@
             @else
                 <h1> Welcome to Smoelenboek</h1>
                 <h3>Please sign in</h3>
+                <x-time></x-time>
             @endif
             <x-input id="test" type="text" icon="fas fa-user">Test</x-input>
+            <x-select id="testid">Test</x-select>
+
             <x-button x-data="{ show: true }" x-show="show" click="show = false">Example button</x-button>
             <x-modal type-left="button" type-right="submit" href-left="/auth/login" href-right="/auth/register" modal="Open Modal" title="Dit is de Modal." btn-name-left="Terug" btn-name-right="Volgende">
                 <div>Inhoud van het bericht!</div>
