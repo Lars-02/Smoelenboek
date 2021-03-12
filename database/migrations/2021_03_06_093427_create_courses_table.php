@@ -20,23 +20,6 @@ class CreateCoursesTable extends Migration
             $table->unique(['name', 'term']);
             $table->timestamps();
         });
-
-        Schema::create('course_employee', function (Blueprint $table) {
-            $table->primary(['course_id', 'employee_id']);
-            $table->unsignedBigInteger('employee_id');
-            $table->unsignedBigInteger('course_id');
-            $table->timestamps();
-
-
-            $table->foreign('employee_id')
-                ->references('id')
-                ->on('employees')
-                ->onDelete('cascade');
-            $table->foreign('course_id')
-                ->references('id')
-                ->on('courses')
-                ->onDelete('cascade');
-        });
     }
 
     /**
@@ -47,6 +30,5 @@ class CreateCoursesTable extends Migration
     public function down()
     {
         Schema::dropIfExists('courses');
-        Schema::dropIfExists('course_employee');
     }
 }

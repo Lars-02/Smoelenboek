@@ -18,23 +18,6 @@ class CreateLectoratesTable extends Migration
             $table->string('name')->unique();
             $table->timestamps();
         });
-
-        Schema::create('employee_lectorate', function (Blueprint $table) {
-            $table->primary(['employee_id', 'lectorate_id']);
-            $table->unsignedBigInteger('employee_id');
-            $table->unsignedBigInteger('lectorate_id');
-            $table->timestamps();
-
-
-            $table->foreign('employee_id')
-                ->references('id')
-                ->on('employees')
-                ->onDelete('cascade');
-            $table->foreign('lectorate_id')
-                ->references('id')
-                ->on('lectorates')
-                ->onDelete('cascade');
-        });
     }
 
     /**
@@ -45,6 +28,5 @@ class CreateLectoratesTable extends Migration
     public function down()
     {
         Schema::dropIfExists('lectorates');
-        Schema::dropIfExists('employee_lectorate');
     }
 }

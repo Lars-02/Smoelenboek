@@ -18,23 +18,6 @@ class CreateHobbiesTable extends Migration
             $table->string('name')->unique();
             $table->timestamps();
         });
-
-        Schema::create('employee_hobby', function (Blueprint $table) {
-            $table->primary(['employee_id', 'hobby_id']);
-            $table->unsignedBigInteger('employee_id');
-            $table->unsignedBigInteger('hobby_id');
-            $table->timestamps();
-
-
-            $table->foreign('employee_id')
-                ->references('id')
-                ->on('employees')
-                ->onDelete('cascade');
-            $table->foreign('hobby_id')
-                ->references('id')
-                ->on('hobbies')
-                ->onDelete('cascade');
-        });
     }
 
     /**
@@ -45,6 +28,5 @@ class CreateHobbiesTable extends Migration
     public function down()
     {
         Schema::dropIfExists('hobbies');
-        Schema::dropIfExists('employee_hobby');
     }
 }
