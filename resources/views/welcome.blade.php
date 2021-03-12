@@ -13,14 +13,10 @@
             @endif
             <form action="/employee" method="POST">
                 @csrf
-                <label class="block">E-mail</label>
-                <input type="text" name="email" id="email">
-                <label class="block">Username</label>
-                <input type="text" name="username" id="username">
-                <label class="block">Firstname</label>
-                <input type="text" name="firstname" id="firstname">
-                <label class="block">Lastname</label>
-                <input type="text" name="lastname" id="lastname">
+                <x-input type="text" name="email" id="email" icon="fas fa-envelope">E-mail</x-input>
+                <x-input type="text" name="username" id="username" icon="fas fa-user-circle">Username</x-input>
+                <x-input type="text" name="firstname" id="firstname" icon="fas fa-user-circle">First name</x-input>
+                <x-input type="text" name="lastname" id="lastname" icon="fas fa-user-circle">Last name</x-input>
                 <label class="block">Department</label>
                 <select name="department" id="department">
                     <option value="AOC">Department 1</option>
