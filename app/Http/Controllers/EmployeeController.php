@@ -2,21 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Department;
 use App\Models\Employee;
+use App\Models\Expertise;
+use App\Models\Role;
+use App\Models\User;
 use Illuminate\Http\Request;
+use phpDocumentor\Reflection\Types\Expression;
 
 class EmployeeController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
-
     /**
      * Show the form for creating a new resource.
      *
@@ -24,7 +19,7 @@ class EmployeeController extends Controller
      */
     public function create()
     {
-        //
+        return view('employee.form');
     }
 
     /**
@@ -35,7 +30,28 @@ class EmployeeController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        request()->validate([
+            'email' => 'required',
+            'username' => 'required',
+            'firstname' => 'required',
+            'lastname' => 'required',
+            'department' => 'required',
+            'expertise' => 'required',
+            'job' => 'required',
+        ]);
+
+        $user = User::where('email', request('email'))->firstOrFail();
+        $user->roles()->attach(request('job'));
+
+        $user->employee->username = request('username');
+        $user->employee->firstname = request('firstname');
+        $user->employee->lastname = request('lastname');
+        $user->employee->department = request('department');
+        $user->employee->save();
+        $user->employee->expertises()->attach(request('expertise'));
+
+        //Redirect to dashboard maybe?
+        return view('welcome');
     }
 
     /**
@@ -46,7 +62,7 @@ class EmployeeController extends Controller
      */
     public function show(Employee $employee)
     {
-        //
+        return dump($employee);
     }
 
     /**
@@ -57,7 +73,7 @@ class EmployeeController extends Controller
      */
     public function edit(Employee $employee)
     {
-        //
+        return abort(404);
     }
 
     /**
@@ -69,7 +85,7 @@ class EmployeeController extends Controller
      */
     public function update(Request $request, Employee $employee)
     {
-        //
+        return abort(404);
     }
 
     /**
@@ -80,6 +96,6 @@ class EmployeeController extends Controller
      */
     public function destroy(Employee $employee)
     {
-        //
+        return abort(404);
     }
 }
