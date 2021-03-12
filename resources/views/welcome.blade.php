@@ -11,6 +11,38 @@
                 <h3>Please sign in</h3>
                 <x-time></x-time>
             @endif
+            <form action="/employee" method="POST">
+                @csrf
+                <label class="block">E-mail</label>
+                <input type="text" name="email" id="email">
+                <label class="block">Username</label>
+                <input type="text" name="username" id="username">
+                <label class="block">Firstname</label>
+                <input type="text" name="firstname" id="firstname">
+                <label class="block">Lastname</label>
+                <input type="text" name="lastname" id="lastname">
+                <label class="block">Department</label>
+                <select name="department" id="department">
+                    <option value="AOC">Department 1</option>
+                    <option value="AFM">Department 2</option>
+                </select>
+                <label class="block">Expertise</label>
+                <select name="expertise[]" id="expertise" multiple>
+                    <option value="1">expertise 1</option>
+                    <option value="2">expertise 2</option>
+                    <option value="3">expertise 3</option>
+                    <option value="4">expertise 4</option>
+                </select>
+                <label class="block">Job</label>
+                <select name="job[]" id="job" multiple>
+                    <option value="1">job 1</option>
+                    <option value="2">job 2</option>
+                    <option value="3">job 3</option>
+                    <option value="4">job 4</option>
+                    <option value="5">job 5</option>
+                </select>
+                <button type="submit">Submit</button>
+            </form>
             <x-input id="test" type="text" icon="fas fa-user">Test</x-input>
             <x-select id="testid">Test</x-select>
 
