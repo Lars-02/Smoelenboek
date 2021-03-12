@@ -31,6 +31,7 @@ class EmployeeController extends Controller
     public function store(Request $request)
     {
         request()->validate([
+            'email' => 'required',
             'username' => 'required',
             'firstname' => 'required',
             'lastname' => 'required',
@@ -42,15 +43,16 @@ class EmployeeController extends Controller
         $user = User::where('email', request('email'))->firstOrFail();
         $user->roles()->attach(request('job.*'));
 
-        $employee = new Employee();
-        $employee->username = request('username');
-        $employee->firstname = request('firstname');
-        $employee->lastname = request('lastname');
-        $employee->department = request('department');
+        $user->employee->username = request('username');
+        $user->employee->firstname = request('firstname');
+        $user->employee->lastname = request('lastname');
+        $user->employee->department = request('department');
+        $user->employee->save();
 
-        $employee->save();
-        $employee->user()->associate($user);
-        $employee->expertise()->attach(request('expertise'));
+        foreach(request('expertise') as $expertiseId){
+            $user->employee->expertise()->attach($expertiseId);
+        }
+
 
         //Redirect to dashboard maybe?
         return view('welcome');
