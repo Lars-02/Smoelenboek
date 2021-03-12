@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\EmployeeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -20,3 +21,11 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+//Registration
+Route::resource('employee', EmployeeController::class)->only(['create', 'store']);
+
+//Add a redirect to the main page with an error.
+Route::fallback(function () {
+    return view('welcome');
+});
