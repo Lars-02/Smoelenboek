@@ -15,6 +15,7 @@ class CreateEmployeesTable extends Migration
     {
         Schema::create('employees', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('user_id')->unique()->nullable();
             $table->string('username');
             $table->string('firstname');
             $table->string('lastname');
@@ -25,14 +26,10 @@ class CreateEmployeesTable extends Migration
             $table->foreign('department')
                 ->references('department')
                 ->on('departments');
-        });
 
-        Schema::table('users', function (Blueprint $table) {
-            $table->unsignedBigInteger('employee_id')->unique()->nullable();
-
-            $table->foreign('employee_id')
+            $table->foreign('user_id')
                 ->references('id')
-                ->on('employees')
+                ->on('users')
                 ->NullOnDelete();
         });
     }
