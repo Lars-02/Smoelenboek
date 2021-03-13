@@ -1,7 +1,7 @@
 <x-layout>
     <x-card title="Nieuw wachtwoord">
         <form method="POST" action="{{ route('password.update') }}">
-            <input type="hidden" name="token" value="{{ $token }}">
+            @csrf
             <x-input
                 icon="fas fa-lock"
                 type="password"
