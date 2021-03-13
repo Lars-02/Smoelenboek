@@ -15,7 +15,7 @@
             <x-select id="testid">Test</x-select>
 
             <x-button x-data="{ show: true }" x-show="show" click="show = false">Example button</x-button>
-            <x-modal type-left="button" type-right="submit" href-left="/auth/login" href-right="/auth/register" modal="Open Modal" title="Dit is de Modal." btn-name-left="Terug" btn-name-right="Volgende">
+            <x-modal button-type-left="button" button-type-right="submit" button-href-left="/auth/login" button-href-right="/auth/register" modal="Open Modal" title="Dit is de Modal." button-name-left="Terug" button-name-right="Volgende">
                 <div>Inhoud van het bericht!</div>
             </x-modal>
         </div>

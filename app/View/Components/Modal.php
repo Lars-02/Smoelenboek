@@ -8,12 +8,12 @@ class Modal extends Component
 {
     public $modal;
     public $title;
-    public $btnNameLeft;
-    public $btnNameRight;
-    public $typeLeft;
-    public $typeRight;
-    public $hrefLeft;
-    public $hrefRight;
+    public $buttonNameLeft;
+    public $buttonNameRight;
+    public $buttonTypeLeft;
+    public $buttonTypeRight;
+    public $buttonHrefLeft;
+    public $buttonHrefRight;
 
     /**
      * Create a new component instance.
@@ -21,18 +21,18 @@ class Modal extends Component
      * @return void
      */
     public function __construct($title, $modal,
-                                $btnNameLeft, $btnNameRight,
-                                $typeLeft = 'button', $typeRight = 'button',
-                                $hrefLeft = '#', $hrefRight ='#')
+                                $buttonNameLeft, $buttonNameRight,
+                                $buttonTypeLeft = 'button', $buttonTypeRight = 'button',
+                                $buttonHrefLeft = '#', $buttonHrefRight ='#')
     {
         $this->title = $title;
-        $this->btnNameLeft = $btnNameLeft;
-        $this->btnNameRight = $btnNameRight;
+        $this->buttonNameLeft = $buttonNameLeft;
+        $this->buttonNameRight = $buttonNameRight;
         $this->modal = $modal;
-        $this->typeLeft = $typeLeft;
-        $this->typeRight = $typeRight;
-        $this->hrefLeft = $hrefLeft;
-        $this->hrefRight = $hrefRight;
+        $this->buttonTypeLeft = $buttonTypeLeft;
+        $this->buttonTypeRight = $buttonTypeRight;
+        $this->buttonHrefLeft = $buttonHrefLeft;
+        $this->buttonHrefRight = $buttonHrefRight;
     }
 
     /**
