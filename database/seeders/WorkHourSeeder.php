@@ -3,11 +3,11 @@
 namespace Database\Seeders;
 
 use App\Models\Employee;
-use App\Models\WorkHours;
+use App\Models\WorkHour;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
-class WorkHoursSeeder extends Seeder
+class WorkHourSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -26,7 +26,7 @@ class WorkHoursSeeder extends Seeder
         }
 
         for ($i = 1; $i <= Employee::All()->count(); $i++){
-            WorkHours::factory()->create(['employee_id' => $i, 'day' => $days[array_rand($days)]]);
+            WorkHour::factory()->create(['employee_id' => $i, 'day' => $days[array_rand($days)]]);
         }
     }
 }

@@ -27,7 +27,7 @@ class DatabaseSeeder extends Seeder
             LearningLineSeeder::class,
             ExpertiseSeeder::class,
             CourseSeeder::class,
-            WorkHoursSeeder::class,
+            WorkHourSeeder::class,
             RoleUserSeeder::class,
             EmployeeMinorSeeder::class,
             EmployeeLectorateSeeder::class,

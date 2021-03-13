@@ -5,7 +5,7 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
-class CreateWorkHoursTable extends Migration
+class CreateWorkHourTable extends Migration
 {
     /**
      * Run the migrations.
@@ -42,7 +42,7 @@ class CreateWorkHoursTable extends Migration
             ],
         ]);
 
-        Schema::create('work_hours', function (Blueprint $table) {
+        Schema::create('work_hour', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('employee_id');
             $table->time('start_time');
@@ -67,6 +67,6 @@ class CreateWorkHoursTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('work_hours');
+        Schema::dropIfExists('work_hour');
     }
 }
