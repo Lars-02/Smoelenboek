@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateEmployeeExpertiseTable extends Migration
+class CreateEmployeeExpertisesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateEmployeeExpertiseTable extends Migration
      */
     public function up()
     {
-        Schema::create('employee_expertise', function (Blueprint $table) {
+        Schema::create('employee_expertises', function (Blueprint $table) {
             $table->primary(['employee_id', 'expertise_id']);
             $table->unsignedBigInteger('employee_id');
             $table->unsignedBigInteger('expertise_id');
@@ -22,11 +22,11 @@ class CreateEmployeeExpertiseTable extends Migration
 
             $table->foreign('employee_id')
                 ->references('id')
-                ->on('employee')
+                ->on('employees')
                 ->onDelete('cascade');
             $table->foreign('expertise_id')
                 ->references('id')
-                ->on('expertise')
+                ->on('expertises')
                 ->onDelete('cascade');
         });
     }
@@ -38,6 +38,6 @@ class CreateEmployeeExpertiseTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('employee_expertise');
+        Schema::dropIfExists('employee_expertises');
     }
 }

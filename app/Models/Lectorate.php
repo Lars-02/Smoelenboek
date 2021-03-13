@@ -9,9 +9,7 @@ class Lectorate extends Model
 {
     use HasFactory;
 
-    protected $table = 'lectorate';
-
-    public function employee() {
+    public function employees() {
         return $this->belongsToMany(Employee::class);
     }
 }

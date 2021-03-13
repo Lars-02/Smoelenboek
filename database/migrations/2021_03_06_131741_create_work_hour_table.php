@@ -56,7 +56,7 @@ class CreateWorkHourTable extends Migration
                 ->on('day_of_week');
             $table->foreign('employee_id')
                 ->references('id')
-                ->on('employee');
+                ->on('employees');
         });
     }
 

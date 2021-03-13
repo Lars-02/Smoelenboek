@@ -9,14 +9,12 @@ class Role extends Model
 {
     use HasFactory;
 
-    protected $table = 'role';
-
     public function allowTo($ability)
     {
         $this->abilities()->save($ability);
     }
 
-    public function ability()
+    public function abilities()
     {
         return $this->belongsToMany(Ability::class)->withTimestamps();
     }

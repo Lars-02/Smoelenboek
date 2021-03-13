@@ -14,9 +14,8 @@ class EmployeeSeeder extends Seeder
      */
     public function run()
     {
-        $amountOfUsers = 20; 
-        for ($i = 1; $i <= $amountOfUsers; $i++){
-             Employee::factory()->create(['user_id' => $i, 'department' => 'AI&I']); 
-        }
+        Employee::factory()->times(10)->create(['department' => 'AI&I']);
+        Employee::factory()->times(5)->create(['department' => 'AFM']);
+        Employee::factory()->times(5)->create(['department' => 'AB&I']);
     }
 }

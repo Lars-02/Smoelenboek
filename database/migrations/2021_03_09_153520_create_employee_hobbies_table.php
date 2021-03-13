@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateEmployeeHobbyTable extends Migration
+class CreateEmployeeHobbiesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,7 +14,7 @@ class CreateEmployeeHobbyTable extends Migration
     public function up()
     {
 
-        Schema::create('employee_hobby', function (Blueprint $table) {
+        Schema::create('employee_hobbies', function (Blueprint $table) {
             $table->primary(['employee_id', 'hobby_id']);
             $table->unsignedBigInteger('employee_id');
             $table->unsignedBigInteger('hobby_id');
@@ -23,11 +23,11 @@ class CreateEmployeeHobbyTable extends Migration
 
             $table->foreign('employee_id')
                 ->references('id')
-                ->on('employee')
+                ->on('employees')
                 ->onDelete('cascade');
             $table->foreign('hobby_id')
                 ->references('id')
-                ->on('hobby')
+                ->on('hobbies')
                 ->onDelete('cascade');
         });
     }
@@ -39,6 +39,6 @@ class CreateEmployeeHobbyTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('employee_hobby');
+        Schema::dropIfExists('employee_hobbies');
     }
 }

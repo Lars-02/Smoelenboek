@@ -9,8 +9,6 @@ class Employee extends Model
 {
     use HasFactory;
 
-    protected $table = 'employee';
-
     public function user()
     {
         return $this->belongsTo(User::class);
@@ -21,27 +19,27 @@ class Employee extends Model
         return $this->belongsTo(Department::class, 'department', 'department');
     }
 
-    public function lectorate()
+    public function lectorates()
     {
         return $this->belongsToMany(Lectorate::class);
     }
 
-    public function hobby()
+    public function hobbies()
     {
         return $this->belongsToMany(Hobby::class);
     }
 
-    public function course()
+    public function courses()
     {
         return $this->belongsToMany(Course::class);
     }
 
-    public function minor()
+    public function minors()
     {
         return $this->belongsToMany(Minor::class);
     }
 
-    public function learningLine()
+    public function learningLines()
     {
         return $this->belongsToMany(LearningLine::class);
     }

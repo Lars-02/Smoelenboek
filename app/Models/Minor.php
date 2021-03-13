@@ -9,9 +9,7 @@ class Minor extends Model
 {
     use HasFactory;
 
-    protected $table = 'minor';
-
-    public function employee() {
+    public function employees() {
         return $this->belongsToMany(Employee::class);
     }
 }

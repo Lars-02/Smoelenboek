@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateEmployeeLectorateTable extends Migration
+class CreateEmployeeMinorsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,20 +13,20 @@ class CreateEmployeeLectorateTable extends Migration
      */
     public function up()
     {
-        Schema::create('employee_lectorate', function (Blueprint $table) {
-            $table->primary(['employee_id', 'lectorate_id']);
+        Schema::create('employee_minors', function (Blueprint $table) {
+            $table->primary(['employee_id', 'minor_id']);
             $table->unsignedBigInteger('employee_id');
-            $table->unsignedBigInteger('lectorate_id');
+            $table->unsignedBigInteger('minor_id');
             $table->timestamps();
 
 
             $table->foreign('employee_id')
                 ->references('id')
-                ->on('employee')
+                ->on('employees')
                 ->onDelete('cascade');
-            $table->foreign('lectorate_id')
+            $table->foreign('minor_id')
                 ->references('id')
-                ->on('lectorate')
+                ->on('minors')
                 ->onDelete('cascade');
         });
     }
@@ -38,6 +38,6 @@ class CreateEmployeeLectorateTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('employee_lectorate');
+        Schema::dropIfExists('employee_minors');
     }
 }

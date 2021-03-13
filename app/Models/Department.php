@@ -9,9 +9,7 @@ class Department extends Model
 {
     use HasFactory;
 
-    protected $table = 'department';
-
-    public function employee() {
+    public function employees() {
         return $this->hasMany(Employee::class, 'department', 'department');
     }
 }
