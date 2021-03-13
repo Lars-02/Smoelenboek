@@ -8,8 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class Ability extends Model
 {
     use HasFactory;
+    
+    protected $table = 'ability';
 
-    public function roles() {
+    public function role() {
         return $this->belongsToMany(Role::class);
     }
 }

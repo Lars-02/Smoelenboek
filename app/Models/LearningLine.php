@@ -9,7 +9,9 @@ class LearningLine extends Model
 {
     use HasFactory;
 
-    public function employees() {
+    protected $table = 'learning_line';
+
+    public function employee() {
         return $this->belongsToMany(Employee::class);
     }
 }

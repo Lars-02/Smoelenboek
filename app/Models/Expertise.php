@@ -9,7 +9,9 @@ class Expertise extends Model
 {
     use HasFactory;
 
-    public function employees() {
+    protected $table = 'expertise';
+
+    public function employee() {
         return $this->belongsToMany(Employee::class);
     }
 }
