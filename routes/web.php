@@ -20,6 +20,20 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::view('/employee/registerFirst', 'employee.registerFirst');
-Route::view('/employee/registerSecond', 'employee.registerSecond');
-Route::view('/employee/registerThird', 'employee.registerThird');
+
+Route::get('/employee/registerFirst', function () {
+    $array = array('1', '2');
+    return view('employee.registerFirst', compact('array'));
+});
+
+Route::get('/employee/registerSecond', function () {
+    $afdeling = array('AB&I', 'AII', 'AKD');
+    $functie = array('Docent', 'Directeur', 'Conciërge');
+    $expertise = array('Big Data Management', 'Data Analyst', 'Consultancy');
+    return view('employee.registerSecond', compact('afdeling', 'functie', 'expertise'));
+});
+
+Route::get('/employee/registerThird', function () {
+    $array = array('1', '2');
+    return view('employee.registerThird', compact('array'));
+});
