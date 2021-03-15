@@ -5,8 +5,10 @@ namespace Tests\Unit;
 use App\Models\User;
 use Illuminate\Auth\Notifications\ResetPassword;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Notification;
+use Illuminate\Support\Facades\Password;
 use Tests\DuskTestCase;
 
 
@@ -33,6 +35,21 @@ class EmailTest extends DuskTestCase
     protected function passwordEmailPostRoute(): string
     {
         return route('password.email');
+    }
+
+    protected function getValidToken($user): string
+    {
+        return Password::broker()->createToken($user);
+    }
+
+    protected function passwordResetGetRoute($token): string
+    {
+        return route('password.reset', $token);
+    }
+
+    protected function passwordResetPostRoute(): string
+    {
+        return '/password/reset';
     }
 
     /*Check if the email is valid. */
@@ -72,6 +89,27 @@ class EmailTest extends DuskTestCase
             return Hash::check($notification->token, $token->token) === true;
         });
 
+    }
+
+    public function test_user_cannot_reset_password_without_giving_their_email()
+    {
+        $user = User::factory()->create([
+            'password' => Hash::make('your_old_password'),
+        ]);
+
+        $response = $this->from($this->passwordResetGetRoute($token = $this->getValidToken($user)))->post($this->passwordResetPostRoute(), [
+            'token' => $token,
+            'email' => '',
+            'password' => 'my-new-password',
+            'password_confirmation' => 'my-new-password',
+        ]);
+
+        $response->assertRedirect($this->passwordResetGetRoute($token));
+        $response->assertSessionHasErrors('email');
+        $this->assertFalse(session()->hasOldInput('password'));
+        $this->assertEquals($user->email, $user->fresh()->email);
+        $this->assertTrue(Hash::check('your_old_password', $user->fresh()->password));
+        $this->assertGuest();
     }
 
 
