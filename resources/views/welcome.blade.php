@@ -1,5 +1,5 @@
 <x-layout>
-    <div class="grid place-items-center">
+    <div class="">
         <div class="w-11/12 p-12 sm:w-8/12 md:w-6/12 lg:w-4/12 2xl:w-3/12
             px-6 py-10 sm:px-10 sm:py-6
             bg-white rounded-lg shadow-md lg:shadow-lg my-10 text-center">
@@ -13,12 +13,8 @@
             <x-input id="test" type="text" icon="fas fa-user">Test</x-input>
             <x-button x-data="{ show: true }" x-show="show" click="show = false">Example button</x-button>
         </div>
-        <div class="w-full">
-            <div class="w-full px-10 flex flex-row border">
-                <x-profilecard image-asset-path="uploads/maxresdefault.jpg" departement-and-function="AI&I - Docent web" user-name="Stefan van Haarlem" email="docent@avans.nl" telephone-number="0639564734"></x-profilecard>
-                <x-profilecard image-asset-path="uploads/maxresdefault.jpg" departement-and-function="AI&I - Docent web" user-name="Stefan van Haarlem" email="docent@avans.nl" telephone-number="0639564734"></x-profilecard>
-                <x-profilecard image-asset-path="uploads/maxresdefault.jpg" departement-and-function="AI&I - Docent web" user-name="Stefan van Haarlem" email="docent@avans.nl" telephone-number="0639564734"></x-profilecard>
-            </div>
-        </div>
+            <x-profilecard image-asset-path="uploads/maxresdefault.jpg" departement-and-function="AI&I - Docent web" user-name="Stefan van Haarlem" email="docent@avans.nl" telephone-number="0639564734"></x-profilecard>
+            <x-profilecard image-asset-path="uploads/maxresdefault.jpg" departement-and-function="AI&I - Docent web" user-name="Stefan van Haarlem" email="docent@avans.nl" telephone-number="0639564734"></x-profilecard>
+
     </div>
 </x-layout>
