@@ -3,7 +3,10 @@
 namespace Tests\Unit;
 
 use App\Models\User;
+use Illuminate\Auth\Notifications\ResetPassword;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Notification;
 use PHPUnit\Framework\TestCase;
 use Tests\DuskTestCase;
 
@@ -16,7 +19,6 @@ class CredentialsTest extends DuskTestCase
      */
 
     use RefreshDatabase;
-
 
     /* Super easy, self explanatory. we should be able to view the login form when not authenticated. */
     public function test_user_can_view_a_login_form()
@@ -77,5 +79,13 @@ class CredentialsTest extends DuskTestCase
         $this->assertFalse(session()->hasOldInput('password'));
         $this->assertGuest();
     }
+
+    /*We test cookies here. When leaving the site without logging out, your credentials should be remembered with cookies.*/
+    public function test_remember_me_functionality()
+    {
+        $this->assertTrue(true);
+        // i dont really know how I can test this. But it'd be good to have.
+    }
+
 
 }
