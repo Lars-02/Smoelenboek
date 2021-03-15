@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateMinorsTable extends Migration
+class CreateEmployeeMinorTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,6 @@ class CreateMinorsTable extends Migration
      */
     public function up()
     {
-        Schema::create('minors', function (Blueprint $table) {
-            $table->id();
-            $table->string('name')->unique();
-            $table->timestamps();
-        });
-
         Schema::create('employee_minor', function (Blueprint $table) {
             $table->primary(['employee_id', 'minor_id']);
             $table->unsignedBigInteger('employee_id');
@@ -28,11 +22,11 @@ class CreateMinorsTable extends Migration
 
             $table->foreign('employee_id')
                 ->references('id')
-                ->on('employees')
+                ->on('employee')
                 ->onDelete('cascade');
             $table->foreign('minor_id')
                 ->references('id')
-                ->on('minors')
+                ->on('minor')
                 ->onDelete('cascade');
         });
     }
@@ -44,7 +38,6 @@ class CreateMinorsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('hobbies');
         Schema::dropIfExists('employee_minor');
     }
 }

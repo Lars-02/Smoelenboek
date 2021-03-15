@@ -11,6 +11,8 @@ class User extends Authenticatable
 {
     use HasFactory, Notifiable;
 
+    protected $table = 'user';
+    
     /**
      * The attributes that are mass assignable.
      *
@@ -40,7 +42,7 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function roles() {
+    public function role() {
         return $this->belongsToMany(Role::class)->withTimestamps();
     }
 
@@ -48,7 +50,7 @@ class User extends Authenticatable
         $this->roles()->save($role);
     }
 
-    public function abilities() {
+    public function ability() {
         return $this->roles()->map->abilites->flatten()->pluck('name')->unique();
     }
 
