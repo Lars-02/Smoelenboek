@@ -14,9 +14,20 @@
             <x-input id="test" type="text" icon="fas fa-user">Test</x-input>
             <x-select id="testid">Test</x-select>
 
-            <x-button x-data="{ show: true }" x-show="show" click="show = false">Example button</x-button>
-            <x-modal button-type-left="button" button-type-right="submit" button-href-left="/auth/login" button-href-right="/auth/register" modal="Open Modal" title="Dit is de Modal." button-name-left="Terug" button-name-right="Volgende">
-                <div>Inhoud van het bericht!</div>
+            <x-modal
+                modalTitle="Our modal example"
+                submitLabel="Submit button"
+                route="{{ route('home') }}"
+                method="GET"
+                icon="fas fa-redo-alt">
+                <x-slot name="trigger">
+                    <x-button>
+                        Test our modal
+                    </x-button>
+                </x-slot>
+                <div>
+                    Our very very amazing modal text.
+                </div>
             </x-modal>
         </div>
     </div>
