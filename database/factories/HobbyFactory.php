@@ -1,5 +1,4 @@
 <?php
-
 namespace Database\Factories;
 
 use App\Models\Hobby;
@@ -22,7 +21,8 @@ class HobbyFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'name' => $this->faker->text(13)
         ];
     }
+
 }
