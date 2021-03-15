@@ -22,7 +22,7 @@ class LearningLineFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'name' => $this->faker->text(20)
         ];
     }
 }

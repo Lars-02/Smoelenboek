@@ -2,17 +2,17 @@
 
 namespace Database\Factories;
 
-use App\Models\WorkHours;
+use App\Models\WorkHour;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-class WorkHoursFactory extends Factory
+class WorkHourFactory extends Factory
 {
     /**
      * The name of the factory's corresponding model.
      *
      * @var string
      */
-    protected $model = WorkHours::class;
+    protected $model = WorkHour::class;
 
     /**
      * Define the model's default state.
@@ -22,7 +22,8 @@ class WorkHoursFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'start_time' => $this->faker->time(),
+            'end_time' => $this->faker->time()
         ];
     }
 }

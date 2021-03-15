@@ -22,7 +22,8 @@ class CourseFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'name' => $this->faker->text(15),
+            'term' => $this->faker->randomDigit(15) + 1
         ];
     }
 }
