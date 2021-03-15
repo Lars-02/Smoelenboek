@@ -2,6 +2,7 @@
 
 namespace Tests\Unit;
 
+use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use PHPUnit\Framework\TestCase;
 use Tests\DuskTestCase;
@@ -31,7 +32,7 @@ class CredentialsTest extends DuskTestCase
     public function test_user_cannot_view_a_login_form_when_authenticated()
     {
         /*we use 'make' here instead of create, so we can use the User but it won't get saved in the database.*/
-        $user = factory(User::class)->make();
+        $user = User::factory(User::class)->make();
 
         $response = $this->actingAs($user)->get('/login');
 
@@ -41,7 +42,7 @@ class CredentialsTest extends DuskTestCase
     /* We assert if a user is logged in after creating an account and logging in with these correct credentials..*/
     public function test_user_can_login_with_correct_credentials()
     {
-        $user = factory(User::class)->create([
+        $user = User::factory(User::class)->create([
             'password' => bcrypt($password = 'nick-is-cool'),
         ]);
 
@@ -59,7 +60,7 @@ class CredentialsTest extends DuskTestCase
     doesn't have a bad input, and assert if the user is still a guest(so not logged in).  */
     public function test_user_cannot_login_with_incorrect_password()
     {
-        $user = factory(User::class)->create([
+        $user = User::factory(User::class)->create([
             'password' => bcrypt('nick-is-cool'),
         ]);
 
