@@ -5,11 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class WorkHours extends Model
+class AbilityRole extends Model
 {
     use HasFactory;
 
-    public function employees() {
-        return $this->belongsToMany(Employee::class);
-    }
+    protected $table = 'ability_role';
 }

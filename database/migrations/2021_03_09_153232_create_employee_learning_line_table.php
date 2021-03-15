@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateExpertisesTable extends Migration
+class CreateEmployeeLearningLineTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,26 +13,20 @@ class CreateExpertisesTable extends Migration
      */
     public function up()
     {
-        Schema::create('expertises', function (Blueprint $table) {
-            $table->id();
-            $table->string('name')->unique();
-            $table->timestamps();
-        });
-
-        Schema::create('employee_expertise', function (Blueprint $table) {
-            $table->primary(['employee_id', 'expertise_id']);
+        Schema::create('employee_learning_line', function (Blueprint $table) {
+            $table->primary(['employee_id', 'learning_line_id']);
             $table->unsignedBigInteger('employee_id');
-            $table->unsignedBigInteger('expertise_id');
+            $table->unsignedBigInteger('learning_line_id');
             $table->timestamps();
 
 
             $table->foreign('employee_id')
                 ->references('id')
-                ->on('employees')
+                ->on('employee')
                 ->onDelete('cascade');
-            $table->foreign('expertise_id')
+            $table->foreign('learning_line_id')
                 ->references('id')
-                ->on('expertises')
+                ->on('learning_line')
                 ->onDelete('cascade');
         });
     }
@@ -44,7 +38,6 @@ class CreateExpertisesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('expertises');
-        Schema::dropIfExists('employee_expertises');
+        Schema::dropIfExists('employee_learning_line');
     }
 }

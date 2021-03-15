@@ -9,7 +9,9 @@ class Course extends Model
 {
     use HasFactory;
 
-    public function employees() {
+    protected $table = 'course';
+
+    public function employee() {
         return $this->belongsToMany(Employee::class);
     }
 }
