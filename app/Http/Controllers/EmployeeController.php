@@ -76,7 +76,7 @@ class EmployeeController extends Controller
         $request->session()->flash('succes', 'Your data has been stored succesfully.');
 
         //Redirect to dashboard maybe?
-        return redirect('/employee');
+        return redirect('/test');
     }
 
     /**

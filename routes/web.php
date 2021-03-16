@@ -1,6 +1,9 @@
 <?php
 
 use App\Http\Controllers\EmployeeController;
+use App\Models\Department;
+use App\Models\Expertise;
+use App\Models\Role;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,7 +20,11 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::get('/test', function () {
-    return view('welcome');
+
+    $departments = Department::all();
+    $roles = Role::all();
+    $expertises = Expertise::all();
+    return view('welcome', compact('departments', 'roles', 'expertises'));
 });
 
 Auth::routes();
