@@ -10,8 +10,6 @@ use App\Models\User;
 use App\Models\WorkHour;
 use App\Models\WorkHours;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-use phpDocumentor\Reflection\Types\Expression;
 
 class EmployeeController extends Controller
 {
@@ -43,37 +41,34 @@ class EmployeeController extends Controller
             'lastname' => 'required',
             'department' => 'required',
             'expertise' => 'required',
-//            'telephone' => 'required',
-            'job' => 'required',
+            'telephone' => 'required',
+            'role' => 'required',
         ]);
 
         $user = User::where('email', request('email'))->firstOrFail();
-
-//        $user->role()->attach(request('job'));
+        $user->role()->sync(request('role'));
 
         $user->employee->firstname = request('firstname');
         $user->employee->lastname = request('lastname');
-//        $user->employee->telephone = request('telephone');
+        $user->employee->phoneNumber = request('telephone');
         $user->employee->department = request('department');
         $user->employee->save();
+        $user->employee->expertise()->sync(request('expertise'));
 
-//        $user->employee->expertise()->attach(request('expertise'));
-
-        //Loop to add workinghours
+        //Loop to pick day from array
         for($i = 0; $i < 5; $i++) {
             $days = array('monday', 'tuesday', 'wednesday', 'thursday', 'friday');
             if(! empty(request($days[$i]))) {
+                //Loop to add each work hour entry
                 foreach (request($days[$i]) as $parent) {
-
                     if (!empty($parent["start_time"]) && !empty($parent["end_time"])) {
-                        $workinghours = new WorkHour();
+                        $workinghours = new WorkHour;
                         $workinghours->day = ucfirst($days[$i]);
                         $workinghours->employee_id = $user->employee->id;
                         $workinghours->start_time = $parent["start_time"];
                         $workinghours->end_time = $parent["end_time"];
                         $workinghours->save();
                     }
-
                 }
             }
         }
@@ -81,7 +76,7 @@ class EmployeeController extends Controller
         $request->session()->flash('succes', 'Your data has been stored succesfully.');
 
         //Redirect to dashboard maybe?
-        return view('welcome');
+        return redirect('/employee');
     }
 
     /**

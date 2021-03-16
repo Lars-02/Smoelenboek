@@ -13,7 +13,7 @@
             @endif
             {{--Include this below into the page were you redirect to--}}
             @if(\Illuminate\Support\Facades\Session::has('succes'))
-                <h2 class="">{{ \Illuminate\Support\Facades\Session::get('succes')  }}</h2>
+                <h2 class="bg-green-500 text-center p-1">{{ \Illuminate\Support\Facades\Session::get('succes')  }}</h2>
             @endif
             <x-input id="test" type="text" icon="fas fa-user">Test</x-input>
             <x-select id="testid">Test</x-select>
