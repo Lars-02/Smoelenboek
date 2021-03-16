@@ -11,52 +11,28 @@
                 <h3>Please sign in</h3>
                 <x-time></x-time>
             @endif
-            <form action="/employee" method="POST">
-                @csrf
-                <x-input type="text" name="email" id="email" icon="fas fa-envelope">E-mail</x-input>
-                <x-input type="text" name="username" id="username" icon="fas fa-user-circle">Username</x-input>
-                <x-input type="text" name="firstname" id="firstname" icon="fas fa-user-circle">First name</x-input>
-                <x-input type="text" name="lastname" id="lastname" icon="fas fa-user-circle">Last name</x-input>
-                <label class="block">Department</label>
-                <select name="department" id="department">
-                    <option value="AOC">Department 1</option>
-                    <option value="AFM">Department 2</option>
-                </select>
-                <label class="block">Expertise</label>
-                <select name="expertise[]" id="expertise" multiple>
-                    <option value="1">expertise 1</option>
-                    <option value="2">expertise 2</option>
-                    <option value="3">expertise 3</option>
-                    <option value="4">expertise 4</option>
-                </select>
-                <label class="block">Job</label>
-                <select name="job[]" id="job" multiple>
-                    <option value="1">job 1</option>
-                    <option value="2">job 2</option>
-                    <option value="3">job 3</option>
-                    <option value="4">job 4</option>
-                    <option value="5">job 5</option>
-                </select>
-                <button type="submit">Submit</button>
-            </form>
+            {{--Include this below into the page were you redirect to--}}
+            @if(\Illuminate\Support\Facades\Session::has('succes'))
+                <h2 class="">{{ \Illuminate\Support\Facades\Session::get('succes')  }}</h2>
+            @endif
             <x-input id="test" type="text" icon="fas fa-user">Test</x-input>
             <x-select id="testid">Test</x-select>
 
-            <x-modal
-                modalTitle="Our modal example"
-                submitLabel="Submit button"
-                route="{{ route('home') }}"
-                method="GET"
-                icon="fas fa-redo-alt">
-                <x-slot name="trigger">
-                    <x-button>
-                        Test our modal
-                    </x-button>
-                </x-slot>
-                <div>
-                    Our very very amazing modal text.
-                </div>
-            </x-modal>
+{{--            <x-modal--}}
+{{--                modalTitle="Our modal example"--}}
+{{--                submitLabel="Submit button"--}}
+{{--                route="{{ route('home') }}"--}}
+{{--                method="GET"--}}
+{{--                icon="fas fa-redo-alt">--}}
+{{--                <x-slot name="trigger">--}}
+{{--                    <x-button>--}}
+{{--                        Test our modal--}}
+{{--                    </x-button>--}}
+{{--                </x-slot>--}}
+{{--                <div>--}}
+{{--                    Our very very amazing modal text.--}}
+{{--                </div>--}}
+{{--            </x-modal>--}}
         </div>
     </div>
 </x-layout>
