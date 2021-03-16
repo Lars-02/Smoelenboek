@@ -2,9 +2,13 @@
 
 namespace Database\Seeders;
 
+use App\Models\EmployeeMinor;
+use App\Models\Role;
+use App\Models\RoleUser;
+use App\Models\User;
 use Illuminate\Database\Seeder;
 
-class WorkHoursSeeder extends Seeder
+class RoleUserSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -13,6 +17,6 @@ class WorkHoursSeeder extends Seeder
      */
     public function run()
     {
-        //
+        RoleUser::factory()->times(20)->create();
     }
 }
