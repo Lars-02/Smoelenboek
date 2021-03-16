@@ -12,23 +12,27 @@
                 <x-button-submit text="Inloggen"/>
                 <x-ahref text="Google" link="https://www.google.nl/" target="_top"/>
             @endif
+            {{--Include this below into the page were you redirect to--}}
+            @if(\Illuminate\Support\Facades\Session::has('succes'))
+                <h2 class="bg-green-500 text-center p-1">{{ \Illuminate\Support\Facades\Session::get('succes')  }}</h2>
+            @endif
             <x-input id="test" type="text" icon="fas fa-user">Test</x-input>
 
-            <x-modal
-                modalTitle="Our modal example"
-                submitLabel="Submit button"
-                route="{{ route('home') }}"
-                method="GET"
-                icon="fas fa-redo-alt">
-                <x-slot name="trigger">
-                    <x-button>
-                        Test our modal
-                    </x-button>
-                </x-slot>
-                <div>
-                    Our very very amazing modal text.
-                </div>
-            </x-modal>
+{{--            <x-modal--}}
+{{--                modalTitle="Our modal example"--}}
+{{--                submitLabel="Submit button"--}}
+{{--                route="{{ route('home') }}"--}}
+{{--                method="GET"--}}
+{{--                icon="fas fa-redo-alt">--}}
+{{--                <x-slot name="trigger">--}}
+{{--                    <x-button>--}}
+{{--                        Test our modal--}}
+{{--                    </x-button>--}}
+{{--                </x-slot>--}}
+{{--                <div>--}}
+{{--                    Our very very amazing modal text.--}}
+{{--                </div>--}}
+{{--            </x-modal>--}}
         </div>
     </div>
 </x-layout>
