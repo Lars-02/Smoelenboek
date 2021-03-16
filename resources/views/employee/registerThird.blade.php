@@ -1,11 +1,12 @@
 <x-layout>
     <i class="fas fa-clock fa-2x"></i>
-    <div >
-        <form action="" class="md:w-1/2 md:ml-20 px-3 mb-6 md:mb-0">
-            @csrf
-        
-            <x-button>Terug</x-button>
-            <x-button>Afronden</x-button>
-        </form>
+    <div>
+            <label class="pl-1.5 py-0.5 float-left text-left text-white text-2xl w-7/12 bg-red-700 rounded font-medium">Werkdagen</label>
+            @livewire('user-registration');
+        <template x-for="item in items" :key="item">
+            <div x-text="item"></div>
+        </template>
+    </div>
     </div>
 </x-layout>
+

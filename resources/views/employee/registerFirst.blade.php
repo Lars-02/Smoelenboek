@@ -1,3 +1,6 @@
+@if(\Illuminate\Support\Facades\Session::has('succes'))
+    <h2 class="bg-green-500 text-center p-1">{{ \Illuminate\Support\Facades\Session::get('succes')  }}</h2>
+@endif
 <x-layout>
     <div>
         <h1 class="text-5xl pl-10 pt-3 pb-2">Gegevens invullen</h1>
