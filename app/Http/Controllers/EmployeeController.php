@@ -7,7 +7,10 @@ use App\Models\Employee;
 use App\Models\Expertise;
 use App\Models\Role;
 use App\Models\User;
+use App\Models\WorkHour;
+use App\Models\WorkHours;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use phpDocumentor\Reflection\Types\Expression;
 
 class EmployeeController extends Controller
@@ -19,7 +22,11 @@ class EmployeeController extends Controller
      */
     public function create()
     {
-        return view('employee.form');
+        $departments = Department::all();
+        $roles = Role::all();
+        $expertises = Expertise::all();
+
+        return view('employee.form', compact('departments', 'roles', 'expertises'));
     }
 
     /**
@@ -32,23 +39,46 @@ class EmployeeController extends Controller
     {
         request()->validate([
             'email' => 'required',
-            'username' => 'required',
             'firstname' => 'required',
             'lastname' => 'required',
             'department' => 'required',
             'expertise' => 'required',
+//            'telephone' => 'required',
             'job' => 'required',
         ]);
 
         $user = User::where('email', request('email'))->firstOrFail();
-        $user->roles()->attach(request('job'));
 
-        $user->employee->username = request('username');
+//        $user->role()->attach(request('job'));
+
         $user->employee->firstname = request('firstname');
         $user->employee->lastname = request('lastname');
+//        $user->employee->telephone = request('telephone');
         $user->employee->department = request('department');
         $user->employee->save();
-        $user->employee->expertises()->attach(request('expertise'));
+
+//        $user->employee->expertise()->attach(request('expertise'));
+
+        //Loop to add workinghours
+        for($i = 0; $i < 5; $i++) {
+            $days = array('monday', 'tuesday', 'wednesday', 'thursday', 'friday');
+            if(! empty(request($days[$i]))) {
+                foreach (request($days[$i]) as $parent) {
+
+                    if (!empty($parent["start_time"]) && !empty($parent["end_time"])) {
+                        $workinghours = new WorkHour();
+                        $workinghours->day = ucfirst($days[$i]);
+                        $workinghours->employee_id = $user->employee->id;
+                        $workinghours->start_time = $parent["start_time"];
+                        $workinghours->end_time = $parent["end_time"];
+                        $workinghours->save();
+                    }
+
+                }
+            }
+        }
+
+        $request->session()->flash('succes', 'Your data has been stored succesfully.');
 
         //Redirect to dashboard maybe?
         return view('welcome');
