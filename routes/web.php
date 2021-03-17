@@ -1,5 +1,8 @@
 <?php
 
+use App\Models\Department;
+use App\Models\Expertise;
+use App\Models\Role;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -21,19 +24,9 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::get('/employee/registerFirst', function () {
-    $array = array('1', '2');
-    return view('employee.registerFirst', compact('array'));
-});
-
-Route::get('/employee/registerSecond', function () {
-    $afdeling = array('AB&I', 'AII', 'AKD');
-    $functie = array('Docent', 'Directeur', 'Conciërge');
-    $expertise = array('Big Data Management', 'Data Analyst', 'Consultancy');
-    return view('employee.registerSecond', compact('afdeling', 'functie', 'expertise'));
-});
-
-Route::get('/employee/registerThird', function () {
-    $array = array('1', '2');
-    return view('employee.registerThird', compact('array'));
+Route::get('/employee/form', function () {
+    $departments = Department::All();
+    $roles = Role::All();
+    $expertises = Expertise::all();
+    return view('employee.form', compact('departments', 'roles', 'expertises'));
 });
