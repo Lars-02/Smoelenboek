@@ -30,4 +30,5 @@
                 </div>
             </x-modal>
         </div>
+    </div>
 </x-layout>
