@@ -1,9 +1,7 @@
 <?php
 
 use App\Http\Controllers\EmployeeController;
-use App\Models\Department;
-use App\Models\Expertise;
-use App\Models\Role;
+use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/', [HomeController::class, 'index'])->name('home');
 
 Auth::routes();
 
@@ -26,5 +24,5 @@ Route::resource('employee', EmployeeController::class)->only(['create', 'store']
 
 //Add a redirect to the main page with an error.
 Route::fallback(function () {
-    return view('welcome');
+    return route('/');
 });
