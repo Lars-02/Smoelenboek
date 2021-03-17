@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\EmployeeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,18 +13,27 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
-Route::get('/test', function () {
+Route::get('/', function () {
     return view('welcome');
 });
 
 Auth::routes();
 
-//Registration
-Route::resource('employee', EmployeeController::class)->only(['create', 'store']);
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-//Add a redirect to the main page with an error.
-Route::fallback(function () {
-    return view('welcome');
+Route::get('/employee/registerFirst', function () {
+    $array = array('1', '2');
+    return view('employee.registerFirst', compact('array'));
+});
+
+Route::get('/employee/registerSecond', function () {
+    $afdeling = array('AB&I', 'AII', 'AKD');
+    $functie = array('Docent', 'Directeur', 'Conciërge');
+    $expertise = array('Big Data Management', 'Data Analyst', 'Consultancy');
+    return view('employee.registerSecond', compact('afdeling', 'functie', 'expertise'));
+});
+
+Route::get('/employee/registerThird', function () {
+    $array = array('1', '2');
+    return view('employee.registerThird', compact('array'));
 });
