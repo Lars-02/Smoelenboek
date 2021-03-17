@@ -9,9 +9,26 @@
             @else
                 <h1> Welcome to Smoelenboek</h1>
                 <h3>Please sign in</h3>
+                <x-time></x-time>
             @endif
             <x-input id="test" type="text" icon="fas fa-user">Test</x-input>
-            <x-button x-data="{ show: true }" x-show="show" click="show = false">Example button</x-button>
+            <x-select id="testid">Test</x-select>
+
+            <x-modal
+                modalTitle="Our modal example"
+                submitLabel="Submit button"
+                route="{{ route('home') }}"
+                method="GET"
+                icon="fas fa-redo-alt">
+                <x-slot name="trigger">
+                    <x-button>
+                        Test our modal
+                    </x-button>
+                </x-slot>
+                <div>
+                    Our very very amazing modal text.
+                </div>
+            </x-modal>
         </div>
             <x-profilecard image-asset-path="uploads/maxresdefault.jpg" departement-and-function="AI&I - Docent web" user-name="Stefan van Haarlem" email="docent@avans.nl" telephone-number="0639564734"></x-profilecard>
             <x-profilecard image-asset-path="uploads/maxresdefault.jpg" departement-and-function="AI&I - Docent web" user-name="Stefan van Haarlem" email="docent@avans.nl" telephone-number="0639564734"></x-profilecard>
