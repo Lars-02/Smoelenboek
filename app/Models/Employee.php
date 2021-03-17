@@ -23,31 +23,31 @@ class Employee extends Model
 
     public function lectorate()
     {
-        return $this->belongsToMany(Lectorate::class)->withTimestamps();
+        return $this->belongsToMany(Lectorate::class);
     }
 
     public function hobby()
     {
-        return $this->belongsToMany(Hobby::class)->withTimestamps();
+        return $this->belongsToMany(Hobby::class);
     }
 
     public function course()
     {
-        return $this->belongsToMany(Course::class)->withTimestamps();
+        return $this->belongsToMany(Course::class);
     }
 
     public function minor()
     {
-        return $this->belongsToMany(Minor::class)->withTimestamps();
+        return $this->belongsToMany(Minor::class);
     }
 
     public function learningLine()
     {
-        return $this->belongsToMany(LearningLine::class)->withTimestamps();
+        return $this->belongsToMany(LearningLine::class);
     }
 
     public function expertise()
     {
-        return $this->belongsToMany(Expertise::class)->withTimestamps();
+        return $this->belongsToMany(Expertise::class);
     }
 }
