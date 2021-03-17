@@ -56,28 +56,28 @@
                 <div>
                     <div>
                         <label>Maandag</label><br>
-                        Van: <x-time type="time" name="monday[1][start_time]"/>
-                        Tot: <x-time type="time"  name="monday[1][end_time]"/><br>
+                        Van: <x-time name="monday[1][start_time]"/>
+                        Tot: <x-time name="monday[1][end_time]"/><br>
                     </div><br>
                     <div>
                         <label>Dinsdag</label><br>
-                        Van: <x-time type="time" name="tuesday[1][start_time]"/>
-                        Tot: <x-time type="time"  name="tuesday[1][end_time]"/><br>
+                        Van: <x-time name="tuesday[1][start_time]"/>
+                        Tot: <x-time name="tuesday[1][end_time]"/><br>
                     </div><br>
                     <div>
                         <label>Woensdag</label><br>
-                        Van: <x-time type="time" name="wednesday[1][start_time]"/>
-                        Tot: <x-time type="time"  name="wednesday[1][end_time]"/><br>
+                        Van: <x-time name="wednesday[1][start_time]"/>
+                        Tot: <x-time name="wednesday[1][end_time]"/><br>
                     </div><br>
                     <div>
                         <label>Donderdag</label><br>
-                        Van: <x-time type="time" name="thursday[1][start_time]"/>
-                        Tot: <x-time type="time"  name="thursday[1][end_time]"/><br>
+                        Van: <x-time name="thursday[1][start_time]"/>
+                        Tot: <x-time  name="thursday[1][end_time]"/><br>
                     </div><br>
                     <div>
                         <label>Vrijdag</label><br>
-                        Van: <x-time type="time" name="friday[1][start_time]"/>
-                        Tot: <x-time type="time"  name="friday[1][end_time]"/><br>
+                        Van: <x-time name="friday[1][start_time]"/>
+                        Tot: <x-time  name="friday[1][end_time]"/><br>
                     </div><br>
                 </div>
                     <x-button type="submit">Submit</x-button>
