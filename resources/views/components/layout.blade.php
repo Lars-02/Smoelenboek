@@ -21,11 +21,13 @@
     @livewireStyles
 </head>
 <body class="bg-gray-100">
-    <div id="app" class="h-screen">
+    <div id="app" class="min-h-screen flex flex-col">
 
         @include('components.nav')
 
-        {{ $slot }}
+        <div class="flex-grow">
+            {{ $slot }}
+        </div>
 
         @include('components.footer')
     </div>
