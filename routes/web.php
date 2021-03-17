@@ -19,14 +19,6 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::get('/test', function () {
-
-    $departments = Department::all();
-    $roles = Role::all();
-    $expertises = Expertise::all();
-    return view('welcome', compact('departments', 'roles', 'expertises'));
-});
-
 Auth::routes();
 
 //Registration
