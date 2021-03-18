@@ -17,6 +17,7 @@ class CreateEmployeeTable extends Migration
             $table->id();
             $table->string('firstname');
             $table->string('lastname');
+            $table->string('phoneNumber');
             $table->string('linkedInUrl')->nullable();
             $table->string('department');
             $table->unsignedBigInteger('user_id')->unique();
