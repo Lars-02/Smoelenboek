@@ -1,8 +1,6 @@
 <?php
 
-use App\Models\Department;
-use App\Models\Expertise;
-use App\Models\Role;
+use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 use App\http\controllers\EmployeeController;
 /*
@@ -16,17 +14,15 @@ use App\http\controllers\EmployeeController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/home', [HomeController::class, 'index'])->name('home');
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
-Route::resource('employee', EmployeeController::class)->only(['create', 'store']);
+Route::group(['middleware' => 'auth'], function(){
+    Route::resource('employee', EmployeeController::class)->only(['create', 'store']);
+});
 
 //Add a redirect to the main page with an error.
 Route::fallback(function () {
-    return route('/');
+    return route('home');
 });
