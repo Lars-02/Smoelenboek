@@ -20,7 +20,6 @@
                             </ul>
                         </div>
                     @endif
-                <x-input type="text" name="email" id="email" icon="fas fa-envelope">E-mail</x-input>
                 <x-input type="text" name="firstname" id="firstname" icon="fas fa-user-circle">Naam</x-input>
                 <x-input type="text" name="lastname" id="lastname" icon="fas fa-user-circle">Achternaam</x-input>
                 <x-input type="tel" name="telephone" id="telephone" icon="fas fa-phone">Telefoonnummer</x-input>
