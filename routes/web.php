@@ -4,7 +4,7 @@ use App\Models\Department;
 use App\Models\Expertise;
 use App\Models\Role;
 use Illuminate\Support\Facades\Route;
-
+use App\http\controllers\EmployeeController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -24,9 +24,9 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::get('/employee/form', function () {
-    $departments = Department::All();
-    $roles = Role::All();
-    $expertises = Expertise::all();
-    return view('employee.form', compact('departments', 'roles', 'expertises'));
+Route::resource('employee', EmployeeController::class)->only(['create', 'store']);
+
+//Add a redirect to the main page with an error.
+Route::fallback(function () {
+    return route('/');
 });

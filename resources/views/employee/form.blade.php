@@ -21,34 +21,16 @@
                         </div>
                     @endif
                 <x-input type="text" name="email" id="email" icon="fas fa-envelope">E-mail</x-input>
-                <x-input type="text" name="firstname" id="firstname" icon="fas fa-user-circle">First name</x-input>
-                <x-input type="text" name="lastname" id="lastname" icon="fas fa-user-circle">Last name</x-input>
-                <x-input type="tel" name="telephone" id="telephone" icon="fas fa-phone">Telephone number</x-input>
+                <x-input type="text" name="firstname" id="firstname" icon="fas fa-user-circle">Naam</x-input>
+                <x-input type="text" name="lastname" id="lastname" icon="fas fa-user-circle">Achternaam</x-input>
+                <x-input type="tel" name="telephone" id="telephone" icon="fas fa-phone">Telefoonnummer</x-input>
                 </x-card>
             </div>
             <div x-show="currentTab === 'second'">
                 <x-card title="Extra info">
-                <label class="block">Department</label>
-                <select name="department" id="department">
-                    <option disabled selected>Kies een departement...</option>
-                    @foreach($departments as $department)
-                        <option value="{{$department->department}}">{{$department->department}}</option>
-                    @endforeach
-                </select>
-                <label class="block">Expertise</label>
-                <select name="expertise" id="expertise" >
-                    <option disabled selected>Kies een expertise...</option>
-                    @foreach($expertises as $expertise)
-                        <option value="{{$expertise->id}}">{{$expertise->name}}</option>
-                    @endforeach
-                </select>
-                <label class="block">Job</label>
-                <select name="role" id="role">
-                    <option disabled selected>Kies een functie...</option>
-                    @foreach($roles as $role)
-                        <option value="{{$role->id}}">{{$role->name}}</option>
-                    @endforeach
-                </select>
+                    <x-select id="departments" :options="$departments">Afdeling</x-select>
+                    <x-select id="expertise" :options="$expertises">Expertise</x-select>
+                    <x-select id="role" :options="$roles">Rollen</x-select>
                 </x-card>
             </div>
             <div x-show="currentTab === 'third'">
@@ -80,7 +62,7 @@
                         Tot: <x-time  name="friday[1][end_time]"/><br>
                     </div><br>
                 </div>
-                    <x-button type="submit">Submit</x-button>
+                    <x-button type="submit">Afronden</x-button>
                 </x-card>
             </div>
         </div>
