@@ -2,16 +2,21 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Department;
 use App\Models\Employee;
-use App\Models\Expertise;
-use App\Models\Role;
-use App\Models\User;
-use App\Models\WorkHour;
 use Illuminate\Http\Request;
 
 class EmployeeController extends Controller
 {
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
+    {
+        //
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -19,11 +24,7 @@ class EmployeeController extends Controller
      */
     public function create()
     {
-        $departments = Department::all();
-        $roles = Role::all();
-        $expertises = Expertise::all();
-
-        return view('employee.form', compact('departments', 'roles', 'expertises'));
+        //
     }
 
     /**
@@ -86,7 +87,7 @@ class EmployeeController extends Controller
      */
     public function show(Employee $employee)
     {
-        return dump($employee);
+        //
     }
 
     /**
@@ -97,7 +98,7 @@ class EmployeeController extends Controller
      */
     public function edit(Employee $employee)
     {
-        return abort(404);
+        //
     }
 
     /**
@@ -109,7 +110,7 @@ class EmployeeController extends Controller
      */
     public function update(Request $request, Employee $employee)
     {
-        return abort(404);
+        //
     }
 
     /**
@@ -120,6 +121,6 @@ class EmployeeController extends Controller
      */
     public function destroy(Employee $employee)
     {
-        return abort(404);
+        //
     }
 }
