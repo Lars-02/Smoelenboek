@@ -44,7 +44,7 @@ class EmployeeController extends Controller
             'role' => 'required',
         ]);
 
-        $user = User::where('email', request('email'))->firstOrFail();
+        $user = auth()->user();
         $user->role()->sync(request('role'));
 
         $user->employee->firstname = request('firstname');
