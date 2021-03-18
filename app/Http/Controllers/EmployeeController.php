@@ -8,7 +8,6 @@ use App\Models\Expertise;
 use App\Models\Role;
 use App\Models\User;
 use App\Models\WorkHour;
-use App\Models\WorkHours;
 use Illuminate\Http\Request;
 
 class EmployeeController extends Controller
@@ -20,9 +19,9 @@ class EmployeeController extends Controller
      */
     public function create()
     {
-        $departments = Department::all();
-        $roles = Role::all();
-        $expertises = Expertise::all();
+        $departments = Department::select("department")->pluck("department");
+        $roles = Role::all()->pluck("name");
+        $expertises = Expertise::all()->pluck("name");
 
         return view('employee.form', compact('departments', 'roles', 'expertises'));
     }
@@ -76,7 +75,7 @@ class EmployeeController extends Controller
         $request->session()->flash('succes', 'Your data has been stored succesfully.');
 
         //Redirect to dashboard maybe?
-        return redirect('/test');
+        return redirect('/home');
     }
 
     /**
