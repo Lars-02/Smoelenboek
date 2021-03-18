@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Notification;
 use PHPUnit\Framework\TestCase;
 use Tests\DuskTestCase;
 
-class CredentialsTest extends DuskTestCase
+class LoginTest extends DuskTestCase
 {
     /**
      * A Dusk test example.

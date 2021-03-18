@@ -112,5 +112,27 @@ class EmailTest extends DuskTestCase
         $this->assertGuest();
     }
 
+    public function test_user_cannot_reset_password_without_giving_a_new_password()
+    {
+        $user = User::factory()->create([
+            'password' => Hash::make('old-password'),
+        ]);
+
+        $response = $this->from($this->passwordResetGetRoute($token = $this->getValidToken($user)))->post($this->passwordResetPostRoute(), [
+            'token' => $token,
+            'email' => $user->email,
+            'password' => '',
+            'password_confirmation' => '',
+        ]);
+
+        $response->assertRedirect($this->passwordResetGetRoute($token));
+        $response->assertSessionHasErrors('password');
+        $this->assertTrue(session()->hasOldInput('email'));
+        $this->assertFalse(session()->hasOldInput('password'));
+        $this->assertEquals($user->email, $user->fresh()->email);
+        $this->assertTrue(Hash::check('old-password', $user->fresh()->password));
+        $this->assertGuest();
+    }
+
 
 }
