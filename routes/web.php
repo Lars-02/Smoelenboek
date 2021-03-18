@@ -1,8 +1,7 @@
 <?php
 
-use App\Models\Department;
-use App\Models\Expertise;
-use App\Models\Role;
+use App\Http\Controllers\EmployeeController;
+use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,17 +15,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [HomeController::class, 'index'])->name('home');
 
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::get('/employee/form', function () {
-    $departments = Department::All();
-    $roles = Role::All();
-    $expertises = Expertise::all();
-    return view('employee.form', compact('departments', 'roles', 'expertises'));
+//Add a redirect to the main page with an error.
+Route::fallback(function () {
+    return route('/');
 });
