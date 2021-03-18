@@ -20,8 +20,8 @@ class EmployeeController extends Controller
     public function create()
     {
         $departments = Department::select("department")->pluck("department");
-        $roles = Role::select("name", "id")->pluck("name", "id");
-        $expertises = Expertise::select("name", "id")->pluck("name", "id");
+        $roles = Role::all()->pluck("name");
+        $expertises = Expertise::all()->pluck("name");
 
         return view('employee.form', compact('departments', 'roles', 'expertises'));
     }
@@ -75,7 +75,7 @@ class EmployeeController extends Controller
         $request->session()->flash('succes', 'Your data has been stored succesfully.');
 
         //Redirect to dashboard maybe?
-        return redirect('/test');
+        return redirect('/home');
     }
 
     /**

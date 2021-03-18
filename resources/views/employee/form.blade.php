@@ -28,7 +28,15 @@
             </div>
             <div x-show="currentTab === 'second'">
                 <x-card title="Extra info">
-                    <x-select id="departments" :options="$departments">Afdeling</x-select>
+                    <div class="mb-8">
+                    <label class="mb-1.5 pl-1.5 py-0.5 float-left text-left text-white w-6/12 bg-red-700 rounded">Department</label>
+                    <select name="department" id="department" class="px-2.5 py-2.5 w-full rounded">
+                        <option disabled selected>Kies een departement...</option>
+                        @foreach($departments as $department)
+                            <option value="{{$department}}">{{$department}}</option>
+                        @endforeach
+                    </select>
+                    </div>
                     <x-select id="expertise" :options="$expertises">Expertise</x-select>
                     <x-select id="role" :options="$roles">Rollen</x-select>
                 </x-card>
