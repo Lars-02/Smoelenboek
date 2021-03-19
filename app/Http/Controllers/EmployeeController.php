@@ -20,8 +20,8 @@ class EmployeeController extends Controller
     public function create()
     {
         $departments = Department::select("department")->pluck("department");
-        $roles = Role::all()->pluck("name");
-        $expertises = Expertise::all()->pluck("name");
+        $roles = Role::all()->pluck('name', 'id');
+        $expertises = Expertise::all()->pluck('name', 'id');;
 
         return view('employee.form', compact('departments', 'roles', 'expertises'));
     }
