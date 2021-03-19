@@ -1,7 +1,4 @@
 <x-layout>
-        @if(\Illuminate\Support\Facades\Session::has('succes'))
-            <h2 class="bg-green-500 text-center p-1">{{ \Illuminate\Support\Facades\Session::get('succes')  }}</h2>
-        @endif
     <form action="/employee" method="POST">
         @csrf
         <div class="mt-6" x-data="{ currentTab: 'first' }">
@@ -23,7 +20,7 @@
                 <x-input type="text" name="email" id="email" icon="fas fa-envelope">E-mail</x-input>
                 <x-input type="text" name="firstname" id="firstname" icon="fas fa-user-circle">Naam</x-input>
                 <x-input type="text" name="lastname" id="lastname" icon="fas fa-user-circle">Achternaam</x-input>
-                <x-input type="tel" name="telephone" id="telephone" icon="fas fa-phone">Telefoonnummer</x-input>
+                <x-input type="tel" name="phoneNumber" id="phoneNumber" icon="fas fa-phone">Telefoonnummer</x-input>
                 </x-card>
             </div>
             <div x-show="currentTab === 'second'">
