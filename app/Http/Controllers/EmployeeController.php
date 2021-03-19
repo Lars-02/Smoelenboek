@@ -20,8 +20,8 @@ class EmployeeController extends Controller
     public function create()
     {
         $departments = Department::select("department")->pluck("department");
-        $roles = Role::all()->pluck("name");
-        $expertises = Expertise::all()->pluck("name");
+        $roles = Role::all()->pluck('name', 'id');
+        $expertises = Expertise::all()->pluck('name', 'id');;
 
         return view('employee.form', compact('departments', 'roles', 'expertises'));
     }
@@ -40,18 +40,14 @@ class EmployeeController extends Controller
             'lastname' => 'required',
             'department' => 'required',
             'expertise' => 'required',
-            'telephone' => 'required|numeric',
+            'phoneNumber' => 'required',
             'role' => 'required',
         ]);
 
         $user = auth()->user();
         $user->role()->sync(request('role'));
 
-        $user->employee->firstname = request('firstname');
-        $user->employee->lastname = request('lastname');
-        $user->employee->phoneNumber = request('telephone');
-        $user->employee->department = request('department');
-        $user->employee->save();
+        $user->employee->update($request->only(['firstname', 'lastname', 'phoneNumber', 'department']));
         $user->employee->expertise()->sync(request('expertise'));
 
         //Loop to pick day from array
