@@ -13,7 +13,7 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+
     }
 
     /**
@@ -23,6 +23,14 @@ class HomeController extends Controller
      */
     public function index()
     {
+        $employee = auth()->user()->employee;
+        if(is_null($employee->firstname)
+            && is_null($employee->lastname)
+            && is_null($employee->phoneNumber)
+            && is_null($employee->department)) {
+            return redirect()->route('employee.create');
+        }
+
         return view('home');
     }
 }

@@ -35,7 +35,6 @@ class EmployeeController extends Controller
     public function store(Request $request)
     {
         request()->validate([
-            'email' => 'required|regex:/^.+@.+$/i',
             'firstname' => 'required',
             'lastname' => 'required',
             'department' => 'required',

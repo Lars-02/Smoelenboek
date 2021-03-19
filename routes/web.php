@@ -14,15 +14,19 @@ use App\http\controllers\EmployeeController;
 |
 */
 
-Route::get('/', [HomeController::class, 'index'])->name('home');
+
 
 Auth::routes();
 
 Route::group(['middleware' => 'auth'], function(){
+    Route::get('/', [HomeController::class, 'index'])->name('home');
+
     Route::resource('employee', EmployeeController::class)->only(['create', 'store']);
+
+    //Add a redirect to the main page with an error.
+    Route::fallback(function () {
+        return redirect()->route('home');
+    });
 });
 
-//Add a redirect to the main page with an error.
-Route::fallback(function () {
-    return redirect()->route('home');
-});
+
