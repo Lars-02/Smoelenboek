@@ -40,18 +40,14 @@ class EmployeeController extends Controller
             'lastname' => 'required',
             'department' => 'required',
             'expertise' => 'required',
-            'telephone' => 'required|numeric',
+            'phoneNumber' => 'required',
             'role' => 'required',
         ]);
 
         $user = User::where('email', request('email'))->firstOrFail();
         $user->role()->sync(request('role'));
 
-        $user->employee->firstname = request('firstname');
-        $user->employee->lastname = request('lastname');
-        $user->employee->phoneNumber = request('telephone');
-        $user->employee->department = request('department');
-        $user->employee->save();
+        $user->employee->update($request->only(['firstname', 'lastname', 'phoneNumber', 'department']));
         $user->employee->expertise()->sync(request('expertise'));
 
         //Loop to pick day from array
