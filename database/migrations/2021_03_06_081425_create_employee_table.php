@@ -15,11 +15,12 @@ class CreateEmployeeTable extends Migration
     {
         Schema::create('employee', function (Blueprint $table) {
             $table->id();
-            $table->string('firstname');
-            $table->string('lastname');
-            $table->string('phoneNumber');
+            $table->string('username')->unique()->nullable();
+            $table->string('firstname')->nullable();
+            $table->string('lastname')->nullable();
+            $table->string('phoneNumber')->nullable();
             $table->string('linkedInUrl')->nullable();
-            $table->string('department');
+            $table->string('department')->nullable();
             $table->unsignedBigInteger('user_id')->unique();
             $table->timestamps();
 
