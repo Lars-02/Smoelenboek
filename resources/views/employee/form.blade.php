@@ -19,7 +19,7 @@
                     <x-input type="text" name="email" id="email" icon="fas fa-envelope">E-mail</x-input>
                     <x-input type="text" name="firstname" id="firstname" icon="fas fa-user-circle">Voornaam</x-input>
                     <x-input type="text" name="lastname" id="lastname" icon="fas fa-user-circle">Achternaam</x-input>
-                    <x-input type="tel" name="telephone" id="telephone" icon="fas fa-phone">Telefoonnummer</x-input>
+                    <x-input type="tel" name="phoneNumber" id="phoneNumber" icon="fas fa-phone">Telefoonnummer</x-input>
                     <div>
                         <x-button @click="currentTab = 'second'">Doorgaan</x-button>
                     </div>
@@ -37,7 +37,7 @@
                         </select>
                     </div>
                     <x-select id="expertise" :options="$expertises">Expertise</x-select>
-                    <x-select id="role" :options="$roles">Rol</x-select>
+                    <x-select id="role" :options="$roles">Functie</x-select>
                     <div>
                         <x-button @click="currentTab = 'first'">Terug</x-button>
                         <x-button @click="currentTab = 'third'">Doorgaan</x-button>
