@@ -1,6 +1,9 @@
 <x-layout>
-        @if(\Illuminate\Support\Facades\Session::has('succes'))
-            <h2 class="bg-green-500 text-center p-1">{{ \Illuminate\Support\Facades\Session::get('succes')  }}</h2>
+        @if(\Illuminate\Support\Facades\Session::has('dbError'))
+            <div class="bg-red-800 text-white ">
+                <h2 class="text-center">Database error: Working days cannot be duplicate.</h2>
+                <p class="text-left py-1 px-5">{{ \Illuminate\Support\Facades\Session::get('dbError')  }}</p>
+            </div>
         @endif
     <form action="/employee" method="POST">
         @csrf
@@ -16,7 +19,6 @@
                             </ul>
                         </div>
                     @endif
-                    <x-input type="text" name="email" id="email" icon="fas fa-envelope">E-mail</x-input>
                     <x-input type="text" name="firstname" id="firstname" icon="fas fa-user-circle">Voornaam</x-input>
                     <x-input type="text" name="lastname" id="lastname" icon="fas fa-user-circle">Achternaam</x-input>
                     <x-input type="tel" name="phoneNumber" id="phoneNumber" icon="fas fa-phone">Telefoonnummer</x-input>

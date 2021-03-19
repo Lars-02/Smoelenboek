@@ -9,6 +9,7 @@ use App\Models\Role;
 use App\Models\User;
 use App\Models\WorkHour;
 use Illuminate\Http\Request;
+Use Exception;
 
 class EmployeeController extends Controller
 {
@@ -35,7 +36,6 @@ class EmployeeController extends Controller
     public function store(Request $request)
     {
         request()->validate([
-            'email' => 'required|regex:/^.+@.+$/i',
             'firstname' => 'required',
             'lastname' => 'required',
             'department' => 'required',
@@ -44,29 +44,35 @@ class EmployeeController extends Controller
             'role' => 'required',
         ]);
 
-        $user = User::where('email', request('email'))->firstOrFail();
+        $user = auth()->user();
+
+        try {
+            //Loop to pick day from array
+            for ($i = 0; $i < 5; $i++) {
+                $days = array('monday', 'tuesday', 'wednesday', 'thursday', 'friday');
+                if (!empty(request($days[$i]))) {
+                    //Loop to add each work hour entry
+                    foreach (request($days[$i]) as $parent) {
+                        if (!empty($parent["start_time"]) && !empty($parent["end_time"])) {
+                            $workinghours = new WorkHour;
+                            $workinghours->day = ucfirst($days[$i]);
+                            $workinghours->employee_id = $user->employee->id;
+                            $workinghours->start_time = $parent["start_time"];
+                            $workinghours->end_time = $parent["end_time"];
+                            $workinghours->save();
+                        }
+                    }
+                }
+            }
+        } catch(Exception $error) {
+            $request->session()->flash('dbError', $error->getMessage());
+            return redirect()->route('employee.create');
+        }
+        
         $user->role()->sync(request('role'));
 
         $user->employee->update($request->only(['firstname', 'lastname', 'phoneNumber', 'department']));
         $user->employee->expertise()->sync(request('expertise'));
-
-        //Loop to pick day from array
-        for($i = 0; $i < 5; $i++) {
-            $days = array('monday', 'tuesday', 'wednesday', 'thursday', 'friday');
-            if(! empty(request($days[$i]))) {
-                //Loop to add each work hour entry
-                foreach (request($days[$i]) as $parent) {
-                    if (!empty($parent["start_time"]) && !empty($parent["end_time"])) {
-                        $workinghours = new WorkHour;
-                        $workinghours->day = ucfirst($days[$i]);
-                        $workinghours->employee_id = $user->employee->id;
-                        $workinghours->start_time = $parent["start_time"];
-                        $workinghours->end_time = $parent["end_time"];
-                        $workinghours->save();
-                    }
-                }
-            }
-        }
 
         $request->session()->flash('succes', 'Your data has been stored succesfully.');
 
