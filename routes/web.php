@@ -14,7 +14,7 @@ use App\http\controllers\EmployeeController;
 |
 */
 
-Route::get('/home', [HomeController::class, 'index'])->name('home');
+Route::get('/', [HomeController::class, 'index'])->name('home');
 
 Auth::routes();
 
@@ -24,5 +24,5 @@ Route::group(['middleware' => 'auth'], function(){
 
 //Add a redirect to the main page with an error.
 Route::fallback(function () {
-    return route('home');
+    return redirect()->route('home');
 });
