@@ -1,6 +1,9 @@
 <x-layout>
         @if(\Illuminate\Support\Facades\Session::has('dbError'))
-            <h2 class="bg-red-800 text-white text-center p-1">{{ \Illuminate\Support\Facades\Session::get('dbError')  }}</h2>
+            <div class="bg-red-800 text-white ">
+                <h2 class="text-center">Database error: Working days cannot be duplicate.</h2>
+                <p class="text-left py-1 px-5">{{ \Illuminate\Support\Facades\Session::get('dbError')  }}</p>
+            </div>
         @endif
     <form action="/employee" method="POST">
         @csrf
