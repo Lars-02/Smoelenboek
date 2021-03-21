@@ -16,20 +16,22 @@ class profilecard extends Component
     public $userName;
     public $email;
     public $telephoneNumber;
-    public $expertise;
+    public $expertises;
     public $profileLink;
-    public $workweek;
+    public $workingDays;
+    public $allWorkingDays = ['Monday', 'Thuesday', 'Wednesday', 'Thursday', 'Friday'];
+    public $dayAbbreviation = ['Ma', 'Di', 'Wo', 'Do', 'Vr'];
 
-    public function __construct($imageAssetPath, $departementAndFunction, $userName, $email, $telephoneNumber, $expertise = ['Webdev', 'Computeren', 'Databases'], $workweek = ['Maandag', 'Woensdag'], $profileLink = '#')
+    public function __construct($imageAssetPath, $departementAndFunction, $userName, $email, $telephoneNumber, $expertises = [''], $workingDays = [''], $profileLink = '#')
     {
         $this->imageAssetPath = $imageAssetPath;
         $this->departementAndFunction = $departementAndFunction;
         $this->userName = $userName;
         $this->email = $email;
         $this->telephoneNumber = $telephoneNumber;
-        $this->expertise = $expertise;
+        $this->expertises = $expertises;
         $this->profileLink = $profileLink;
-        $this->workweek = $workweek;
+        $this->workingDays = $workingDays;
     }
 
     /**
