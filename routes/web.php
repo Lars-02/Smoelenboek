@@ -1,7 +1,8 @@
 <?php
 
+use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
-
+use App\http\controllers\EmployeeController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -13,10 +14,19 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::group(['middleware' => 'auth'], function(){
+    Route::get('/', [HomeController::class, 'index'])->name('home');
+
+    Route::resource('employee', EmployeeController::class)->only(['create', 'store']);
+
+    //Add a redirect to the main page with an error.
+    Route::fallback(function () {
+        return redirect()->route('home');
+    });
+});
+
+

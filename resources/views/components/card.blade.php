@@ -1,17 +1,14 @@
-@props(['title' => 'Card'])
+<div class="grid justify-items-center py-5">
 
-<div class="grid place-items-center">
-    <div class="w-11/12 p-12 sm:w-8/12 md:w-6/12
-            px-6 py-10 sm:px-10 sm:py-6
-            bg-white rounded-lg border-4 border-red-700 shadow-md my-10">
-        <div class="w-1/2">
-            <h2 class="font-semibold text-xl lg:text-2xl text-gray-600 mb-2">
-                {{ $title }}
-            </h2>
-            <div class="h-2.5 bg-red-700 rounded-full"></div>
-        </div>
-        <div class="px-20 mt-8">
-            {{ $slot }}
+    <div class="w-11/12 sm:max-w-3xl overflow-hidden sm:shadow-lg rounded border-2 border-gray-500 bg-white ">
+        <div class="p-2.5 items-center">
+            <div class="tracking-wide text-xl text-center sm:text-left">{{$title}}</div>
+            <div class="h-2 w-full sm:w-6/12 bg-red-700 rounded-full"></div>
+            <div class="px-5 pt-5 sm:px-16">
+                {{ $slot }}
+            </div>
         </div>
     </div>
+
 </div>
+

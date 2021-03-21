@@ -2,21 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Department;
 use App\Models\Employee;
+use App\Models\Expertise;
+use App\Models\Role;
+use App\Models\User;
+use App\Models\WorkHour;
 use Illuminate\Http\Request;
+Use Exception;
 
 class EmployeeController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
-
     /**
      * Show the form for creating a new resource.
      *
@@ -24,7 +20,11 @@ class EmployeeController extends Controller
      */
     public function create()
     {
-        //
+        $departments = Department::select("department")->pluck("department");
+        $roles = Role::all()->pluck('name', 'id');
+        $expertises = Expertise::all()->pluck('name', 'id');;
+
+        return view('employee.form', compact('departments', 'roles', 'expertises'));
     }
 
     /**
@@ -35,7 +35,49 @@ class EmployeeController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        request()->validate([
+            'firstname' => 'required',
+            'lastname' => 'required',
+            'department' => 'required',
+            'expertise' => 'required',
+            'phoneNumber' => 'required',
+            'role' => 'required',
+        ]);
+
+        $user = auth()->user();
+
+        try {
+            //Loop to pick day from array
+            for ($i = 0; $i < 5; $i++) {
+                $days = array('monday', 'tuesday', 'wednesday', 'thursday', 'friday');
+                if (!empty(request($days[$i]))) {
+                    //Loop to add each work hour entry
+                    foreach (request($days[$i]) as $parent) {
+                        if (!empty($parent["start_time"]) && !empty($parent["end_time"])) {
+                            $workinghours = new WorkHour;
+                            $workinghours->day = ucfirst($days[$i]);
+                            $workinghours->employee_id = $user->employee->id;
+                            $workinghours->start_time = $parent["start_time"];
+                            $workinghours->end_time = $parent["end_time"];
+                            $workinghours->save();
+                        }
+                    }
+                }
+            }
+        } catch(Exception $error) {
+            $request->session()->flash('dbError', $error->getMessage());
+            return redirect()->route('employee.create');
+        }
+        
+        $user->role()->sync(request('role'));
+
+        $user->employee->update($request->only(['firstname', 'lastname', 'phoneNumber', 'department']));
+        $user->employee->expertise()->sync(request('expertise'));
+
+        $request->session()->flash('succes', 'Your data has been stored succesfully.');
+
+        //Redirect to dashboard maybe?
+        return redirect('/home');
     }
 
     /**
@@ -46,7 +88,7 @@ class EmployeeController extends Controller
      */
     public function show(Employee $employee)
     {
-        //
+        return dump($employee);
     }
 
     /**
@@ -57,7 +99,7 @@ class EmployeeController extends Controller
      */
     public function edit(Employee $employee)
     {
-        //
+        return abort(404);
     }
 
     /**
@@ -69,7 +111,7 @@ class EmployeeController extends Controller
      */
     public function update(Request $request, Employee $employee)
     {
-        //
+        return abort(404);
     }
 
     /**
@@ -80,6 +122,6 @@ class EmployeeController extends Controller
      */
     public function destroy(Employee $employee)
     {
-        //
+        return abort(404);
     }
 }
