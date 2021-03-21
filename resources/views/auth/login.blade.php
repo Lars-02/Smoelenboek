@@ -36,4 +36,11 @@
             </div>
         </form>
     </x-card>
+    <div class="w-1/4">
+        <x-filterModal title='Our amazing filter'>
+            <x-filterSelector name="test1">Select 1</x-filterSelector>
+            <x-filterSelector name="test2">Select 2</x-filterSelector>
+            <x-filterSelector name="test3">Select 3</x-filterSelector>
+        </x-filterModal>
+    </div>
 </x-layout>

@@ -1,5 +1,5 @@
 <div x-data="{ open: false }">
-    <div x-on:click="open = true">
+    <div @click="open = true">
         {{ $trigger }}
     </div>
 
