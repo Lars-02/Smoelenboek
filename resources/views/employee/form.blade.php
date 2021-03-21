@@ -8,6 +8,8 @@
     <form action="/employee" method="POST">
         @csrf
         <div class="mt-6" x-data="{ currentTab: 'first' }">
+        <x-profilenavigation href-account="/test" href-work-hours="/test" href-delete="/test" click-action="currentTab = 'second'">
+        </x-profilenavigation>
             <div x-show="currentTab === 'first'">
                 <x-card title="Gegevens invullen">
                     @if ($errors->any())
