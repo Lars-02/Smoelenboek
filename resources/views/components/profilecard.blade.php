@@ -22,32 +22,6 @@
                             <span class="mr-1 text-red-600">{{$dayAbbreviation[$i]}}</span>
                         @endif
                     @endfor
-
-                    {{--@if(! in_array('Maandag', $workweek))
-                        <span class="mr-1">Ma</span>
-                    @else
-                        <span class="mr-1 text-red-600">Ma</span>
-                    @endif
-                    @if(! in_array('Dinsdag', $workweek))
-                        <span class="mx-1">Di</span>
-                    @else
-                        <span class="mr-1 text-red-600">Di</span>
-                    @endif
-                    @if(! in_array('Woensdag', $workweek))
-                        <span class="mx-1">Wo</span>
-                    @else
-                        <span class="mr-1 text-red-600">Wo</span>
-                    @endif
-                    @if(! in_array('Donderdag', $workweek))
-                        <span class="mx-1">Do</span>
-                    @else
-                        <span class="mr-1 text-red-600">Do</span>
-                    @endif
-                    @if(! in_array('Vrijdag', $workweek))
-                        <span class="ml-1">Vr</span>
-                    @else
-                        <span class="mr-1 text-red-600">Vr</span>
-                    @endif--}}
                 </h6>
             </div>
             <div class="mb-3">
