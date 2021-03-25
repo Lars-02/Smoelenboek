@@ -7,19 +7,19 @@
                 <div class="bg-white p-3 border-t-4 border-red-700">
                     <ul class="bg-gray-100 text-gray-600 hover:text-gray-700 hover:shadow py-2 px-3 mt-3 divide-y rounded shadow-sm">
                         <li class="flex items-center justify-center py-3">
-                            <x-button class="w-7/12" @click="tab = 'account'">Account</x-button>
+                            <x-button class="w-7/12 focus:border-red-700 border-4 rounded focus:bg-white focus:text-black" @click="tab = 'account'">Account</x-button>
                         </li>
                         <li class="flex items-center justify-center py-3">
-                            <x-button class="w-7/12" @click="tab = 'afdeling'">Afdeling</x-button>
+                            <x-button class="w-7/12 focus:border-red-700 border-4 rounded focus:bg-white focus:text-black" @click="tab = 'afdeling'">Afdeling</x-button>
                         </li>
                         <li class="flex items-center justify-center py-3">
-                            <x-button class="w-7/12" @click="tab = 'werktijden'">Werktijden</x-button>
+                            <x-button class="w-7/12 focus:border-red-700 border-4 rounded focus:bg-white focus:text-black" @click="tab = 'werktijden'">Werktijden</x-button>
                         </li>
                         <li class="flex items-center justify-center py-3">
-                            <x-button class="w-7/12" @click="tab = 'blokken'">Blokken</x-button>
+                            <x-button class="w-7/12 focus:border-red-700 border-4 rounded focus:bg-white focus:text-black" @click="tab = 'blokken'">Blokken</x-button>
                         </li>
                         <li class="flex items-center justify-center py-3">
-                            <x-button class="w-7/12" @click="tab = 'socialmedia'">Sociale Media</x-button>
+                            <x-button class="w-7/12 focus:border-red-700 border-4 rounded focus:bg-white focus:text-black" @click="tab = 'socialmedia'">Sociale Media</x-button>
                         </li>
                     </ul>
                 </div>
