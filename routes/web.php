@@ -15,6 +15,9 @@ use App\http\controllers\EmployeeController;
 */
 
 
+Route::get('profile', function () {
+    return view('employee.profile');
+});
 
 Auth::routes();
 
@@ -27,6 +30,6 @@ Route::group(['middleware' => 'auth'], function(){
     Route::fallback(function () {
         return redirect()->route('home');
     });
+
+
 });
-
-
