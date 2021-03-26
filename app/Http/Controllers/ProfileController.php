@@ -17,15 +17,15 @@ use Illuminate\Support\Facades\View;
 class ProfileController extends Controller {
 
 
-    public function user($user) {
+    public function user($employee) {
 
-        $user = Employee::where('username', '=' , $user);
+        $employee = Employee::where('username', '=' , $employee);
 
-        if($user->count()) {
-            $user = $user->first();
+        if($employee->count()) {
+            $employee = $employee->first();
 
-            return View::make('employee/profile')
-                ->with('user', $user);
+            $user = User::find($employee->user_id);
+            return View::make('employee/profile', ['employee'=> $employee], ['user' => $user]);
         }
 
         return abort(404);
