@@ -15,12 +15,13 @@ use App\http\controllers\EmployeeController;
 |
 */
 
-Route::get('/profile/{username}', [ProfileController::class, 'user'])->name('profile');
 
 Auth::routes();
 
 Route::group(['middleware' => 'auth'], function(){
     Route::get('/', [HomeController::class, 'index'])->name('home');
+    
+    Route::get('/profile/{username}', [ProfileController::class, 'user'])->name('profile');
 
     Route::resource('employee', EmployeeController::class)->only(['create', 'store']);
 
