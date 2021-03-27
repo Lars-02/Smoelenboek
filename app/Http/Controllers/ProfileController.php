@@ -25,7 +25,10 @@ class ProfileController extends Controller {
             $employee = $employee->first();
 
             $user = User::find($employee->user_id);
-            return View::make('employee/profile', ['employee'=> $employee], ['user' => $user]);
+
+            $workHour = WorkHour::where('employee_id', '=' , $employee->id)->get();
+
+            return View::make('employee/profile', ['employee'=> $employee], ['user' => $user, 'workHour' => $workHour]);
         }
 
         return abort(404);
