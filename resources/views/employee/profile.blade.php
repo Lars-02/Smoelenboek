@@ -60,27 +60,37 @@
                 </div>
 
                 <div x-show="tab === 'afdeling'" class="bg-white p-3 shadow-sm rounded-sm h-full ">
-                    <h2 class="font-bold md:text-5xl mb-5">Afdeling en Lectoraat</h2>
+                    <h2 class="font-bold md:text-5xl mb-5">Afdeling</h2>
                     {{$employee->department}}
-                    @foreach($employee->lectorate as $lectorate)
-                        {{$lectorate->name}}
-                    @endforeach
                 </div>
 
                 <div x-show="tab === 'werktijden'" class="bg-white p-3 shadow-sm rounded-sm h-full ">
-                    <h2 class="font-bold md:text-5xl mb-5">Werktijden</h2>
-                    {{
-                    $workHour->each(function ($collection, $results) {
-                        $results;
-                    })
-                    }}
-                    @foreach($employee as $results => $collection)
-                        {{$results}}
+                    <h2 class="font-bold md:text-5xl mb-5">Werkdagen</h2>
+                    @foreach($workHour as $results)
+                        {{$results->day}}
                     @endforeach
                 </div>
 
                 <div x-show="tab === 'blokken'" class="bg-white p-3 shadow-sm rounded-sm h-full ">
                     <h2 class="font-bold md:text-5xl mb-5">Blokken</h2>
+                    @foreach($employee->lectorate as $lectorate)
+                        <p>{{$lectorate->name}}</p>
+                    @endforeach
+                    @foreach($employee->hobby as $hobby)
+                        <p>Hobby: {{$hobby->name}}</p>
+                    @endforeach
+                    @foreach($employee->course as $course)
+                        <p>Course: {{$course->name}}</p>
+                    @endforeach
+                    @foreach($employee->minor as $minor)
+                        <p>Minor: {{$minor->name}}</p>
+                    @endforeach
+                    @foreach($employee->learningLine as $learningLine)
+                        <p>Leerlijn: {{$learningLine->name}}</p>
+                    @endforeach
+                    @foreach($employee->expertise as $expertise)
+                        <p>Expertise: {{$expertise->name}}</p>
+                    @endforeach
                 </div>
 
                 <div x-show="tab === 'socialmedia'" class="bg-white p-3 shadow-sm rounded-sm h-full ">
