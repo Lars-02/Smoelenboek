@@ -14,4 +14,8 @@ class WorkHour extends Model
     public function employee() {
         return $this->belongsToMany(Employee::class);
     }
+
+    public function week() {
+        return $this->belongsTo(DayOfWeek::class, 'day', 'id');
+    }
 }

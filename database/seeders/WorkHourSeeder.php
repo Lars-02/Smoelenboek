@@ -17,7 +17,7 @@ class WorkHourSeeder extends Seeder
     public function run()
     {
         $data = DB::table('day_of_week')
-            ->select('day_of_week.day as day')
+            ->select('day_of_week.id as day')
             ->get();
         $days = [];
 
