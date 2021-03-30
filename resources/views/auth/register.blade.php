@@ -1,6 +1,6 @@
 <x-layout>
     <x-card title="Nieuwe medewerker">
-        <form method="POST" action="{{ route('register') }}">
+        <form method="POST" action="{{ route('registerNewUser') }}">
             @csrf
             <x-input
                 icon="fas fa-user"
@@ -16,7 +16,7 @@
             <span class="text-red-500 font-medium">{{ $message }}</span>
             @enderror
 
-            <x-toggle id="isAdmin">Admin</x-toggle>
+            <x-toggle name="isAdmin">Admin</x-toggle>
 
             <div class="flex">
                 <div class="mr-4">
