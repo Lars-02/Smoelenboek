@@ -36,6 +36,8 @@ class DatabaseSeeder extends Seeder
             EmployeeExpertiseSeeder::class,
             CourseEmployeeSeeder::class,
             AbilitySeeder::class,
-            AbilityRoleSeeder::class]);
+            AbilityRoleSeeder::class,
+            TestableUserSeeder::class,
+        ]);
     }
 }
