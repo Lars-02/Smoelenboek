@@ -20,7 +20,7 @@ class EmployeeController extends Controller
      */
     public function create()
     {
-        $departments = Department::select("department")->pluck("department");
+        $departments = Department::all()->pluck('name');
         $roles = Role::all()->pluck('name', 'id');
         $expertises = Expertise::all()->pluck('name', 'id');;
 
@@ -68,11 +68,11 @@ class EmployeeController extends Controller
             $request->session()->flash('dbError', $error->getMessage());
             return redirect()->route('employee.create');
         }
-        
-        $user->role()->sync(request('role'));
+
+        $user->roles()->sync(request('role'));
 
         $user->employee->update($request->only(['firstname', 'lastname', 'phoneNumber', 'department']));
-        $user->employee->expertise()->sync(request('expertise'));
+        $user->employee->expertises()->sync(request('expertise'));
 
         $request->session()->flash('succes', 'Your data has been stored succesfully.');
 
