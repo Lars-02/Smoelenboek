@@ -14,14 +14,14 @@ class DepartmentSeeder extends Seeder
      */
     public function run()
     {
-        Department::factory()->create(['department' => 'AI&I']);
-        Department::factory()->create(['department' => 'ASIS']);
-        Department::factory()->create(['department' => 'AKV']);
-        Department::factory()->create(['department' => 'AB&I']);
-        Department::factory()->create(['department' => 'AGZ']);
-        Department::factory()->create(['department' => 'PABO']);
-        Department::factory()->create(['department' => 'AOC']);
-        Department::factory()->create(['department' => 'LIC']);
-        Department::factory()->create(['department' => 'AFM']);
+        Department::factory()->create(['name' => 'AI&I']);
+        Department::factory()->create(['name' => 'ASIS']);
+        Department::factory()->create(['name' => 'AKV']);
+        Department::factory()->create(['name' => 'AB&I']);
+        Department::factory()->create(['name' => 'AGZ']);
+        Department::factory()->create(['name' => 'PABO']);
+        Department::factory()->create(['name' => 'AOC']);
+        Department::factory()->create(['name' => 'LIC']);
+        Department::factory()->create(['name' => 'AFM']);
     }
 }
