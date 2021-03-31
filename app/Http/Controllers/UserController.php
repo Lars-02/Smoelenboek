@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use App\Models\RoleUser;
 use Illuminate\Support\Facades\DB;
+use App\Mail\RegistrationMail;
+use Illuminate\Support\Facades\Mail;
 
 class UserController extends Controller
 {
@@ -42,7 +44,7 @@ class UserController extends Controller
             $roleUser->save(); 
         });
 
-        // TODO: mail senden
+        Mail::to( $user->email)->send(new RegistrationMail($user , $randomPassword));
 
         return redirect()->route('home');
     }
