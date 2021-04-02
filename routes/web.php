@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\http\controllers\EmployeeController;
 use App\http\controllers\UserController;
@@ -21,6 +22,8 @@ Auth::routes();
 
 Route::group(['middleware' => 'auth'], function(){
     Route::get('/', [HomeController::class, 'index'])->name('home');
+    
+    Route::get('/profile/{username}', [ProfileController::class, 'user'])->name('profile');
 
     Route::resource('employee', EmployeeController::class)->only(['create', 'store']);
 
@@ -28,6 +31,6 @@ Route::group(['middleware' => 'auth'], function(){
     Route::fallback(function () {
         return redirect()->route('home');
     });
+
+
 });
-
-
