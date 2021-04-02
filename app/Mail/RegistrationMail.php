@@ -34,7 +34,7 @@ class RegistrationMail extends Mailable
      */
     public function build()
     {
-        $subject = "registratie smoelenboek";
+        $subject = "registratie Smoelenboek";
         return $this->markdown('mails.RegistrationMail')->subject($subject);
     }
 }
