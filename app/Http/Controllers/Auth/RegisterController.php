@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Role;
+use App\Models\RoleUser;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
@@ -39,6 +41,27 @@ class RegisterController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+    }
+
+    public function index() {
+        $user = auth()->user();
+        if($user != null){
+            $admin = Role::where('name', 'Admin')->first();
+            $roleUsers = RoleUser::all();
+            foreach($roleUsers as $roleUser)
+            {
+                if($roleUser->role_id == $admin->id && $user->id == $roleUser->user_id)
+                {
+                    return view('auth.register');
+                }
+                else
+                {
+                    continue;
+                }
+            }
+            return redirect()->route('home');
+        }
+        return redirect()->route('auth.login');
     }
 
     /**

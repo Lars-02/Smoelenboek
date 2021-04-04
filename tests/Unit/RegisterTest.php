@@ -2,27 +2,33 @@
 
 namespace Tests\Unit;
 
-use App\Models\Role;
-use App\Models\RoleUser;
-use App\Models\User;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Support\Facades\DB;
-use Laravel\Dusk\Browser;
 use Tests\DuskTestCase;
 
 class RegisterTest extends DuskTestCase
 {
 
-    use DatabaseMigrations;
-    use DatabaseTransactions;
-
     public function setUp() :void 
     {
         parent::setUp();
-        $user = User::factory()->create(['email' => 'testUser@avans.nl', 'password' => 'password']);
+        foreach (static::$browsers as $browser) {
+            $browser->driver->manage()->deleteAllCookies();
+        }
     }
+
+    /**
+     * A user cannot view the register page without being authenticated. 
+     *
+     * @return void
+     */
+    public function test_user_cannot_view_register_page_when_not_authenticated() 
+    {
+        $this->browse(function ($browser) {
+            $browser->visit('http://127.0.0.1:8000/register');
+            $url = $browser->driver->getCurrentURL();
+            $this->assertEquals('http://127.0.0.1:8000/login', $url);
+        });
+    }
+
     /**
      * A user can see the registration page when authenticated into the system as an admin. 
      *
@@ -30,16 +36,14 @@ class RegisterTest extends DuskTestCase
      */
     public function test_user_can_view_register_page_when_authenticated()
     {
-
-        //1. Vind een manier om in te loggen
-        //2. Visit register pagina
-        $this->browse(function ($browser) {
+        $this->browse(function ($browser) {        
             $browser->visit('http://127.0.0.1:8000/login')
-            ->type('email', 'test@avans.nl')
+            ->type('email', 'testAdmin@avans.nl')
             ->type('password', 'password')
             ->press('Inloggen')
             ->visit('http://127.0.0.1:8000/register');
-            $this->assertTrue(true);
+            $url = $browser->driver->getCurrentURL();
+            $this->assertEquals('http://127.0.0.1:8000/register', $url);
         });
     }
 
@@ -51,8 +55,56 @@ class RegisterTest extends DuskTestCase
     public function test_user_cannot_view_register_page_when_authenticated()
     {
 
-        //1. Log in als een standaard gebruiker
-        //2. Visit register pagina
+        $this->browse(function ($browser) {        
+            $browser->visit('http://127.0.0.1:8000/login')
+            ->type('email', 'testDocent@avans.nl')
+            ->type('password', 'password')
+            ->press('Inloggen')
+            ->visit('http://127.0.0.1:8000/register');
+            $url = $browser->driver->getCurrentURL();
+            $this->assertEquals('http://127.0.0.1:8000/employee/create', $url);
+        });
+    }
+
+    /**
+     * A user can be registered with a teacher role, if the entered email does not exist in the database. 
+     *
+     * @return void
+     */
+    public function test_user_can_be_registered_with_teacher_role() 
+    {
+        $this->browse(function ($browser) {        
+            $browser->visit('http://127.0.0.1:8000/login')
+            ->type('email', 'testAdmin@avans.nl')
+            ->type('password', 'password')
+            ->press('Inloggen')
+            ->visit('http://127.0.0.1:8000/register')
+            ->type('email', 'newUser@avans.nl')
+            ->press('Aanmaken');
+            $url = $browser->driver->getCurrentURL();
+            $this->assertEquals('http://127.0.0.1:8000/employee/create', $url);
+        });
+    }
+
+    /**
+     * A user can be registered with an admin role, if the entered email does not exist in the database. 
+     *
+     * @return void
+     */
+    public function test_user_can_be_registered_with_admin_role() 
+    {
+        $this->browse(function ($browser) {        
+            $browser->visit('http://127.0.0.1:8000/login')
+            ->type('email', 'testAdmin@avans.nl')
+            ->type('password', 'password')
+            ->press('Inloggen')
+            ->visit('http://127.0.0.1:8000/register')
+            ->type('email', 'newUser2@avans.nl')
+            ->click('@select-admin')
+            ->press('Aanmaken');
+            $url = $browser->driver->getCurrentURL();
+            $this->assertEquals('http://127.0.0.1:8000/employee/create', $url);
+        });
     }
 
     /**
@@ -60,42 +112,22 @@ class RegisterTest extends DuskTestCase
      *
      * @return void
      */
-    public function test_user_cannot_view_register_page_when_not_authenticated() 
+    public function test_user_cannot_be_registered_when_existing_in_database() 
     {
-            //1. Zonder ingelogd te zijn Visit register pagina
-            $this->browse(function ($browser) {
-                $browser->visit('http://127.0.0.1:8000/register');
-                $this->assertTrue(true);
-            });
-    }
-
-    /**
-     * A user can be registered when the email does not exist in the database. 
-     *
-     * @return void
-     */
-    public function test_user_can_be_registered_when_not_existing_in_database() 
-    {
-
-
-    }
-
-    /**
-     * A user can be registered with a teacher role. 
-     *
-     * @return void
-     */
-    public function test_user_can_be_created_with_teacher_role() 
-    {
-
-    }
-
-    /**
-     * A user can be registered with a admin role. 
-     *
-     * @return void
-     */
-    public function test_user_can_be_created_with_admin_role() 
-    {
+        $this->browse(function ($browser) {        
+            $browser->visit('http://127.0.0.1:8000/login')
+            ->type('email', 'testAdmin@avans.nl')
+            ->type('password', 'password')
+            ->press('Inloggen')
+            ->visit('http://127.0.0.1:8000/register')
+            ->type('email', 'newUser3@avans.nl')
+            ->press('Aanmaken')
+            //Trying to create an account the second time with the same email.
+            ->visit('http://127.0.0.1:8000/register')
+            ->type('email', 'newUser3@avans.nl')
+            ->press('Aanmaken');
+            $url = $browser->driver->getCurrentURL();
+            $this->assertEquals('http://127.0.0.1:8000/register', $url);
+        });
     }
 }
