@@ -19,7 +19,12 @@ class TestableUserSeeder extends Seeder
         ]);
 
         \DB::table('employee')->insert([
+            'username' => 'testuser',
             'user_id' => 21,
+            'firstname' => 'test',
+            'lastname' => 'user',
+            'phoneNumber' => '06987476733',
+            'department' => 'AI&I',
         ]);
     }
 }
