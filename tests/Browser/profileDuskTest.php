@@ -51,8 +51,4 @@ class profileDuskTest extends DuskTestCase
                     ->press('socialmedia');
         });
     }
-    public function test_user_can_view_account() {
-
-    }
-
 }
