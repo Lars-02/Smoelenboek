@@ -27,4 +27,14 @@ class UserDataTest extends TestCase
         $response->assertRedirect('/login');
     }
 
+    // test 2 : pagina zichtbaar wanneer eerste login 
+    public function test_user_can_view_form_when_first_logged_in()
+    {
+        $user = User::factory(User::class)->make();
+
+        $response = $this->actingAs($user)->get('/employee/create');
+
+        $response->assertViewIs('employee.form');
+    }
+
 }
