@@ -16,13 +16,14 @@ use App\http\controllers\UserController;
 |
 */
 
-
-Route::post('/', [UserController::class, 'registerNewUser'])->name('registerNewUser');
 Auth::routes();
 
 Route::group(['middleware' => 'auth'], function(){
     Route::get('/', [HomeController::class, 'index'])->name('home');
     
+    Route::get('/register', 'App\Http\Controllers\Auth\RegisterController@index');
+    Route::post('/', [UserController::class, 'registerNewUser'])->name('registerNewUser');
+
     Route::get('/profile/{username}', [ProfileController::class, 'user'])->name('profile');
 
     Route::resource('employee', EmployeeController::class)->only(['create', 'store']);
