@@ -19,4 +19,12 @@ class UserDataTest extends TestCase
      * @return void
      */
 
+
+    // test 1 : pagina niet zichtbaar wanneer niet ingelogd 
+    public function test_user_cant_view_form_when_not_logged_in()
+    {        
+        $response = $this->get('/employee/create');
+        $response->assertRedirect('/login');
+    }
+
 }
