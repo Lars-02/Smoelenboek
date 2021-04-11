@@ -11,6 +11,13 @@ class WorkHour extends Model
 
     protected $table = 'work_hour';
 
+    protected $fillable = [
+        'employee_id',
+        'start_time',
+        'end_time',
+        'day',
+    ];
+
     public function employee() {
         return $this->belongsToMany(Employee::class);
     }
