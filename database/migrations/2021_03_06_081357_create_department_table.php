@@ -14,7 +14,7 @@ class CreateDepartmentTable extends Migration
     public function up()
     {
         Schema::create('department', function (Blueprint $table) {
-            $table->string('department')->primary();
+            $table->string('name')->primary();
             $table->timestamps();
         });
     }

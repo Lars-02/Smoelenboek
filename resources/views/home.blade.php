@@ -1,13 +1,38 @@
 <x-layout>
-    @if(\Illuminate\Support\Facades\Session::has('succes'))
-        <h2 class="bg-green-500 text-center p-1">{{ \Illuminate\Support\Facades\Session::get('succes')  }}</h2>
-    @endif
-    <div class="container">
-
-    </div>
-        <div class="w-full px-10 flex flex-wrap border justify-center">
-            <x-profilecard image-asset-path="uploads/maxresdefault.jpg" departement-and-function="AI&I - Docent web" user-name="Stefan van Haarlem" email="docent@avans.nl" telephone-number="0639564734"></x-profilecard>
-            <x-profilecard image-asset-path="uploads/maxresdefault.jpg" departement-and-function="AI&I - Docent web" user-name="Stefan van Haarlem" email="docent@avans.nl" telephone-number="0639564734"></x-profilecard>
-            <x-profilecard image-asset-path="https://tetsuro.photography/wp-content/uploads/2018/10/20160928-Lieneke-de-Windt-8641-e1539805277627.jpg" departement-and-function="AI&I - Docent web" user-name="Stefan van Haarlem" email="docent@avans.nl" telephone-number="0639564734"></x-profilecard>
+    <div class="h-12"></div>
+    <div class="sm:flex sm:h-screen sm:overflow-hidden mb-2 mx-3 sm:mx-4 md:mx-5">
+        <div class="sm:w-1/3 xl:w-1/4 mr-0 sm:mr-3 sm:overflow-y-scroll scrollbar-hide">
+            <x-filterModal title="Filters 1">
+                <x-filterSelector name="filter">Filter 1</x-filterSelector>
+                <x-filterSelector name="filter">Filter 2</x-filterSelector>
+                <x-filterSelector name="filter">Filter 3</x-filterSelector>
+                <x-filterSelector name="filter">Filter 4</x-filterSelector>
+                <x-filterSelector name="filter">Filter 5</x-filterSelector>
+                <x-filterSelector name="filter">Filter 6</x-filterSelector>
+            </x-filterModal>
+            <x-filterModal title="Filters 2">
+                <x-filterSelector name="filter">Filter 1</x-filterSelector>
+                <x-filterSelector name="filter">Filter 2</x-filterSelector>
+                <x-filterSelector name="filter">Filter 3</x-filterSelector>
+                <x-filterSelector name="filter">Filter 4</x-filterSelector>
+                <x-filterSelector name="filter">Filter 5</x-filterSelector>
+                <x-filterSelector name="filter">Filter 6</x-filterSelector>
+            </x-filterModal>
+            <x-filterModal title="Filters 3">
+                <x-filterSelector name="filter">Filter 1</x-filterSelector>
+                <x-filterSelector name="filter">Filter 2</x-filterSelector>
+                <x-filterSelector name="filter">Filter 3</x-filterSelector>
+                <x-filterSelector name="filter">Filter 4</x-filterSelector>
+                <x-filterSelector name="filter">Filter 5</x-filterSelector>
+                <x-filterSelector name="filter">Filter 6</x-filterSelector>
+            </x-filterModal>
         </div>
+        <div class="flex-grow mb-4 overflow-x-hidden overflow-y-scroll scrollbar-hide">
+            <div class="grid gap-4 md:gap-6 xl:gap-8 grid-cols-2 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+                @foreach($employees as $employee)
+                    <x-profilecard :employee="$employee"></x-profilecard>
+                @endforeach
+            </div>
+        </div>
+    </div>
 </x-layout>

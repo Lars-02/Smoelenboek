@@ -18,16 +18,14 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    
+
 </head>
 <body class="bg-gray-100">
     <div id="app" class="min-h-screen flex flex-col">
 
         @include('components.nav')
 
-        <div class="flex-grow">
-            {{ $slot }}
-        </div>
+        {{ $slot }}
 
         @include('components.footer')
     </div>
