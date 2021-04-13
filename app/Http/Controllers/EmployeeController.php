@@ -10,6 +10,7 @@ use App\Models\User;
 use App\Models\WorkHour;
 use Illuminate\Http\Request;
 Use Exception;
+use Illuminate\Support\Facades\DB;
 
 class EmployeeController extends Controller
 {
@@ -55,7 +56,7 @@ class EmployeeController extends Controller
                     foreach (request($days[$i]) as $parent) {
                         if (!empty($parent["start_time"]) && !empty($parent["end_time"])) {
                             $workinghours = new WorkHour;
-                            $workinghours->day = ucfirst($days[$i]);
+                            $workinghours->day = DB::table('day_of_week')->where('day', $days[$i])->first()->id;
                             $workinghours->employee_id = $user->employee->id;
                             $workinghours->start_time = $parent["start_time"];
                             $workinghours->end_time = $parent["end_time"];
