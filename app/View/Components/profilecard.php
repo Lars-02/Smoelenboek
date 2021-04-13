@@ -35,12 +35,10 @@ class profilecard extends Component
         $this->workingDays = $employee->workHours->map(function ($item) {
             return $item->week->day;
         })->toArray();
-        if ($employee->user->roles->first() != null) {
-            $this->function = $employee->user->roles->first()->name;
-        }
-        else {
-            $this->function = 'Geen Functie';
-        }
+        
+        if ($employee->user->roles->first() != null)  $this->function = $employee->user->roles->first()->name;
+        else $this->function = 'Geen Functie';
+
         $this->department = $employee->department;
         $this->allDays = DayOfWeek::all()->pluck('day');
     }
