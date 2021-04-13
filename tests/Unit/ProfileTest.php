@@ -5,7 +5,7 @@ namespace Tests\Unit;
 use App\Models\Employee;
 use App\Models\User;
 use App\Models\WorkHour;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
 class ProfileTest extends TestCase
@@ -15,7 +15,7 @@ class ProfileTest extends TestCase
      *
      */
 
-    use DatabaseMigrations;
+    use RefreshDatabase;
 
     //Assert if the view contains the right name and inherently renders
     public function test_profile_view_can_be_rendered()

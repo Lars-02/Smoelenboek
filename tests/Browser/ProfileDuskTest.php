@@ -8,8 +8,6 @@ use Tests\DuskTestCase;
 
 class ProfileDuskTest extends DuskTestCase
 {
-    use DatabaseMigrations;
-
     /**
      * A user cannot view the profile page without being authenticated.
      */
