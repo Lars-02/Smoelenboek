@@ -11,7 +11,7 @@ use Tests\TestCase;
 class ProfileTest extends TestCase
 {
     /**
-     * An unit test for a singular profile page.
+     * An unit test for a profile page view.
      *
      */
 
@@ -21,6 +21,8 @@ class ProfileTest extends TestCase
     public function test_profile_view_can_be_rendered()
     {
         $employee = Employee::factory()->make([
+            'firstname' => 'Test',
+            'lastname' => 'User',
             'department'=>'AFM'
         ]);
         $user = User::factory()->make();
@@ -28,6 +30,7 @@ class ProfileTest extends TestCase
 
         $view = $this->view('employee/profile', ['employee'=> $employee, 'user' => $user, 'workHour' => $workHour]);
 
-        $view->assertSee($employee->name);
+        $view->assertSee($employee->firstname);
+        $view->assertSee($employee->lastname);
     }
 }

@@ -2,6 +2,7 @@
 
 namespace Tests\Browser;
 
+use App\Models\Employee;
 use App\Models\User;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Laravel\Dusk\Browser;
@@ -22,7 +23,7 @@ class ProfileDuskTest extends DuskTestCase
     }
 
     /**
-     * A user can see the profile page when authenticated into the system as an admin.
+     * A user can see the profile page when authenticated.
      */
     public function test_user_can_view_profile_page_when_authenticated()
     {
@@ -37,14 +38,22 @@ class ProfileDuskTest extends DuskTestCase
         });
     }
 
-    public function test_user_can_click_side_nav()
+    /**
+     * A user can see the sidebar nav when authenticated.
+     */
+    public function test_sidebar_nav_is_displayed()
     {
         $this->browse(function ($browser) {
             $browser->visit('http://127.0.0.1:8000/login')
                 ->type('email', 'test@avans.nl')
                 ->type('password', 'password')
                 ->press('Inloggen')
-                ->visit('/profile/testuser');
+                ->visit('/profile/testuser')
+                ->assertSee('Account')
+                ->assertSee('Afdeling')
+                ->assertSee('Werktijden')
+                ->assertSee('Blokken')
+                ->assertSee('Sociale Media');
         });
     }
 }

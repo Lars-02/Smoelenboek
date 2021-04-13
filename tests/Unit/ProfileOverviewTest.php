@@ -2,6 +2,9 @@
 
 namespace Tests\Unit;
 
+use App\Models\Employee;
+use App\Models\User;
+use App\Models\WorkHour;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use PHPUnit\Framework\TestCase;
 
@@ -14,8 +17,15 @@ class ProfileOverviewTest extends TestCase
 
     use RefreshDatabase;
 
-    public function test_profiles_overview_can_be_rendered()
+    public function test_home_profile_overview_view_can_be_rendered()
     {
-        $this->assertTrue(true);
+        $employee = Employee::factory()->make();
+        $user = User::factory()->make();
+        $workHour = WorkHour::where('employee_id', 20)->get();
+
+        $view = $this->view('employee/profile', ['employee'=> $employee, 'user' => $user, 'workHour' => $workHour]);
+
+        $view->assertSee($employee->firstname);
+        $view->assertSee($employee->lastname);
     }
 }

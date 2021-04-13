@@ -21,7 +21,7 @@ class HomeDuskTest extends DuskTestCase
     }
 
     /**
-     * A user can see the profile overview page when authenticated into the system as an admin.
+     * Authentication test.
      */
     public function test_user_can_view_profile_overview_page_when_authenticated()
     {
