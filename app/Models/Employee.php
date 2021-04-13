@@ -22,12 +22,12 @@ class Employee extends Model
 
     public function user()
     {
-        return $this->belongsTo(User::class)->withTimestamps();
+        return $this->belongsTo(User::class);
     }
 
     public function department()
     {
-        return $this->belongsTo(Department::class, 'department', 'department')->withTimestamps();
+        return $this->belongsTo(Department::class, 'department', 'name');
     }
 
     public function lectorate()
@@ -37,26 +37,31 @@ class Employee extends Model
 
     public function hobby()
     {
-        return $this->belongsToMany(Hobby::class)->withTimestamps();;
+        return $this->belongsToMany(Hobby::class)->withTimestamps();
     }
 
     public function course()
     {
-        return $this->belongsToMany(Course::class)->withTimestamps();;
+        return $this->belongsToMany(Course::class)->withTimestamps();
     }
 
     public function minor()
     {
-        return $this->belongsToMany(Minor::class)->withTimestamps();;
+        return $this->belongsToMany(Minor::class)->withTimestamps();
     }
 
     public function learningLine()
     {
-        return $this->belongsToMany(LearningLine::class)->withTimestamps();;
+        return $this->belongsToMany(LearningLine::class)->withTimestamps();
     }
 
-    public function expertise()
+    public function expertises()
     {
         return $this->belongsToMany(Expertise::class)->withTimestamps();
+    }
+
+    public function workHours()
+    {
+        return $this->hasMany(WorkHour::class);
     }
 }

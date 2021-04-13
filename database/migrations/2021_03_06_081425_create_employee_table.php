@@ -25,7 +25,7 @@ class CreateEmployeeTable extends Migration
             $table->timestamps();
 
             $table->foreign('department')
-                ->references('department')
+                ->references('name')
                 ->on('department');
 
             $table->foreign('user_id')

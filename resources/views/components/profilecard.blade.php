@@ -1,43 +1,44 @@
-<div class="mt-4 mx-7 w-72 bg-white border-2 border-gray-600 rounded">
-    <div class="relative h-44">
-        <div class="absolute px-2 mt-32 z-20">
-            <h3 class="text-white">{{ $userName }}</h3>
-            <hr class="p-1 bg-red-700 rounded">
+<div class="bg-white shadow-lg rounded-lg">
+    <div class="relative h-52">
+        <div class="absolute bottom-2 left-2 z-20 w-full">
+            <div class="text-white text-md lg:text-lg xl:text-xl 2xl:text-2xl font-medium">{{ $username }}</div>
+            <div class="h-2 w-2/3 bg-red-700 rounded-full my-1"></div>
         </div>
-        <img class="absolute h-full w-full object-cover" src="{{asset($imageAssetPath)}}">
+        @if(is_null($imageAssetPath))
+            <div class="grid rounded-t-lg absolute h-full w-full object-cover bg-gray-400">
+                <i class="text-white text-6xl far fa-user-circle d-flex place-self-center"></i>
+            </div>
+        @else
+            <img class="rounded-t-lg absolute h-full w-full object-cover" src="{{asset($imageAssetPath)}}"
+                 alt="Profile picture">
+        @endisset
     </div>
     <div class="px-4 py-2">
-        <h1 class="text-gray-500 text-2xl">{{ $departementAndFunction }}</h1>
-        <div class="text-sm">
-            <a class="text-red-700">{{ $email }}</a><br>
-            <a class="text-red-700">{{ $telephoneNumber }}</a>
+        <div class="text-gray-500 text-lg lg:text-xl xl:text-2xl truncate">{{ $department." - ".$function }}</div>
+        <div class="text-sm md:text-md xl:text-lg">
+            <a class="ml-2 text-red-700">{{ $email }}</a><br>
+            <a class="ml-2 text-red-700">{{ $telephoneNumber }}</a>
             <div class="my-1 text-gray-500">
-                <h5 class="text-base">Werkt op</h5>
-                <h6>
-
-                    @for($i = 0; $i < 5; $i++)
-                        @if(! in_array($allWorkingDays[$i], $workingDays))
-                            <span class="mr-1">{{$dayAbbreviation[$i]}}</span>
-                        @else
-                            <span class="mr-1 text-red-600">{{$dayAbbreviation[$i]}}</span>
-                        @endif
-                    @endfor
-                </h6>
+                <div>Werkt op</div>
+                <div>
+                    @foreach($allDays as $day)
+                        <span class="ml-2 {{ in_array($day, $workingDays) ? "text-red-700 font-medium" : "" }}">
+                            {{ substr($day, 0, 2) }}
+                        </span>
+                    @endforeach
+                </div>
             </div>
             <div class="mb-3">
-                <h5 class="text-base text-gray-500">Expertise</h5>
-                @if(!$expertises)
+                @isset($expertises)
+                    <div class="text-gray-500">Expertise</div>
                     @foreach(array_slice($expertises, 0, 2) as $expertise)
-                        <h6 class="text-red-700">{{ $expertise }}</h6>
+                        <div class="ml-2 text-red-700">{{ $expertise }}</div>
                     @endforeach
-                    <h6 class="text-red-700">...</h6>
                 @else
                     <span class="mr-1">Niet ingesteld</span>
-                @endif
+                @endisset
             </div>
         </div>
-        <button href="{{ $profileLink }}" class="px-8 py-1 mb-6 bg-red-700 rounded text-white">
-            Meer info
-        </button>
     </div>
+    <x-button href="{{ route('home') }}" class="m-3 w-40">Meer info</x-button>
 </div>

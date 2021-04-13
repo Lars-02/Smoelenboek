@@ -14,45 +14,17 @@ class CreateWorkHourTable extends Migration
      */
     public function up()
     {
-        Schema::create('day_of_week', function (Blueprint $table) {
-            $table->string('day')->primary();
-        });
-
-        DB::table('day_of_week')->insert([
-            [
-                'day' => 'Monday',
-            ],
-            [
-                'day' => 'Tuesday',
-            ],
-            [
-                'day' => 'Wednesday',
-            ],
-            [
-                'day' => 'Thursday',
-            ],
-            [
-                'day' => 'Friday',
-            ],
-            [
-                'day' => 'Saturday',
-            ],
-            [
-                'day' => 'Sunday',
-            ],
-        ]);
-
         Schema::create('work_hour', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('employee_id');
             $table->time('start_time');
             $table->time('end_time');
-            $table->string('day');
+            $table->unsignedBigInteger('day');
             $table->unique(['start_time', 'end_time', 'day', 'employee_id']);
             $table->timestamps();
 
             $table->foreign('day')
-                ->references('day')
+                ->references('id')
                 ->on('day_of_week');
             $table->foreign('employee_id')
                 ->references('id')
