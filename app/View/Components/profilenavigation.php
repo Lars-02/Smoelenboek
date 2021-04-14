@@ -2,6 +2,7 @@
 
 namespace App\View\Components;
 
+use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
 class profilenavigation extends Component
@@ -18,7 +19,7 @@ class profilenavigation extends Component
     public function __construct($hrefAccount, $hrefWorkHours, $hrefDelete, $clickAction)
     {
         $this->hrefAccount = $hrefAccount;
-        $this->hrefWorkHours = $hrefWorkHours; 
+        $this->hrefWorkHours = $hrefWorkHours;
         $this->hrefDelete = $hrefDelete;
         $this->clickAction = $clickAction;
     }
@@ -26,7 +27,7 @@ class profilenavigation extends Component
     /**
      * Get the view / contents that represent the component.
      *
-     * @return \Illuminate\Contracts\View\View|string
+     * @return View|string
      */
     public function render()
     {
