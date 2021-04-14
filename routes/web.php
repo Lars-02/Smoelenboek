@@ -6,6 +6,7 @@ use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -27,7 +28,7 @@ Route::group(['middleware' => 'auth'], function(){
 
     Route::get('/profile/{username}', [ProfileController::class, 'user'])->name('profile');
 
-    Route::resource('employee', EmployeeController::class);
+    Route::resource('employee', EmployeeController::class)->only(['create', 'store']);
 
     //Add a redirect to the main page with an error.
     Route::fallback(function () {
