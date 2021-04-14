@@ -26,11 +26,11 @@ Route::group(['middleware' => 'auth'], function(){
     Route::get('/register', 'App\Http\Controllers\Auth\RegisterController@index');
     Route::post('/', [UserController::class, 'registerNewUser'])->name('registerNewUser');
 
-    Route::get('/profile/{username}', [ProfileController::class, 'user'])->name('profile');
+    Route::resource('profile', ProfileController::class)->except('show');
+    Route::get('profile/{employee}', [ProfileController::class, 'show'])->name('profile.show');
 
     Route::resource('employee', EmployeeController::class)->only(['create', 'store']);
 
-    //Add a redirect to the main page with an error.
     Route::fallback(function () {
         return redirect()->route('home');
     });
