@@ -22,7 +22,7 @@ class DepartmentFactory extends Factory
     public function definition()
     {
         return [
-            'department' => $this->faker->text(5)
+            'name' => $this->faker->text(5)
         ];
     }
 }

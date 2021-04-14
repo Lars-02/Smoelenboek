@@ -88,7 +88,7 @@
                     @foreach($employee->learningLine as $learningLine)
                         <p class="md:text-2xl">Leerlijn: {{$learningLine->name}}</p>
                     @endforeach
-                    @foreach($employee->expertise as $expertise)
+                    @foreach($employee->expertises as $expertise)
                         <p class="md:text-2xl">Expertise: {{$expertise->name}}</p>
                     @endforeach
                 </div>

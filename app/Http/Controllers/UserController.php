@@ -10,6 +10,8 @@ use Illuminate\Support\Str;
 use App\Models\RoleUser;
 use Illuminate\Support\Facades\DB;
 use App\Mail\RegistrationMail;
+use App\Models\Employee;
+use Exception;
 use Illuminate\Support\Facades\Mail;
 
 class UserController extends Controller
@@ -43,6 +45,11 @@ class UserController extends Controller
             $roleUser->user_id = $user->id;
             $roleUser->save(); 
         });
+        try{
+            Employee::factory()->create(['user_id' => $user->id]);
+        }
+        catch(Exception){
+        }
 
         Mail::to( $user->email)->send(new RegistrationMail($user , $randomPassword));
 

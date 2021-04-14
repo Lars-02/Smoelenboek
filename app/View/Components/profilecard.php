@@ -2,6 +2,8 @@
 
 namespace App\View\Components;
 
+use App\Models\DayOfWeek;
+use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
 class profilecard extends Component
@@ -12,32 +14,41 @@ class profilecard extends Component
      * @return void
      */
     public $imageAssetPath;
-    public $departementAndFunction;
-    public $userName;
+    public $username;
     public $email;
     public $telephoneNumber;
     public $expertises;
-    public $profileLink;
     public $workingDays;
-    public $allWorkingDays = ['Monday', 'Thuesday', 'Wednesday', 'Thursday', 'Friday'];
-    public $dayAbbreviation = ['Ma', 'Di', 'Wo', 'Do', 'Vr'];
+    public $department;
+    public $function;
+    public $allDays;
+    public $userHref;
 
-    public function __construct($imageAssetPath, $departementAndFunction, $userName, $email, $telephoneNumber, $expertises = [''], $workingDays = [''], $profileLink = '#')
+    public function __construct($employee, $userHref)
     {
-        $this->imageAssetPath = $imageAssetPath;
-        $this->departementAndFunction = $departementAndFunction;
-        $this->userName = $userName;
-        $this->email = $email;
-        $this->telephoneNumber = $telephoneNumber;
-        $this->expertises = $expertises;
-        $this->profileLink = $profileLink;
-        $this->workingDays = $workingDays;
+        $this->userHref = $userHref;
+        $this->imageAssetPath = $employee->user->photoUrl;
+        $this->username = $employee->username;
+        $this->email = $employee->user->email;
+        $this->telephoneNumber = $employee->phoneNumber;
+        $this->expertises = $employee->expertises->map(function ($item) {
+            return $item->name;
+        })->toArray();
+        $this->workingDays = $employee->workHours->map(function ($item) {
+            return $item->week->day;
+        })->toArray();
+        
+        if ($employee->user->roles->first() != null)  $this->function = $employee->user->roles->first()->name;
+        else $this->function = 'Geen Functie';
+
+        $this->department = $employee->department;
+        $this->allDays = DayOfWeek::all()->pluck('day');
     }
 
     /**
      * Get the view / contents that represent the component.
      *
-     * @return \Illuminate\Contracts\View\View|string
+     * @return View|string
      */
     public function render()
     {
