@@ -7,24 +7,27 @@ use App\Models\Department;
 use App\Models\Employee;
 use App\Models\Expertise;
 use App\Models\Role;
-use App\Models\User;
 use App\Models\WorkHour;
+use Exception;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-Use Exception;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Http\Response;
 
 class EmployeeController extends Controller
 {
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Application|Factory|View|Response
      */
     public function create()
     {
         $departments = Department::all()->pluck('name');
         $roles = Role::all()->pluck('name', 'id');
-        $expertises = Expertise::all()->pluck('name', 'id');;
+        $expertises = Expertise::all()->pluck('name', 'id');
 
         return view('employee.form', compact('departments', 'roles', 'expertises'));
     }
@@ -32,8 +35,8 @@ class EmployeeController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return RedirectResponse
      */
     public function store(Request $request)
     {
@@ -87,8 +90,8 @@ class EmployeeController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Employee  $employee
-     * @return \Illuminate\Http\Response
+     * @param Employee $employee
+     * @return Response
      */
     public function show(Employee $employee)
     {
@@ -98,8 +101,8 @@ class EmployeeController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Employee  $employee
-     * @return \Illuminate\Http\Response
+     * @param Employee $employee
+     * @return Response
      */
     public function edit(Employee $employee)
     {
@@ -109,9 +112,9 @@ class EmployeeController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Employee  $employee
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @param Employee $employee
+     * @return Response
      */
     public function update(Request $request, Employee $employee)
     {
@@ -121,8 +124,8 @@ class EmployeeController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Employee  $employee
-     * @return \Illuminate\Http\Response
+     * @param Employee $employee
+     * @return Response
      */
     public function destroy(Employee $employee)
     {
