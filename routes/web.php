@@ -1,11 +1,11 @@
 <?php
 
+use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
-use App\http\controllers\EmployeeController;
-use App\http\controllers\UserController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
