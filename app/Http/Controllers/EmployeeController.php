@@ -73,7 +73,9 @@ class EmployeeController extends Controller
 
         $user->roles()->sync(request('role'));
 
-        $user->employee->update($request->only(['firstname', 'lastname', 'phoneNumber', 'department']));
+        $userName = explode('@', $user->email);
+        $user->employee->username = $userName[0];
+        $user->employee->update($request->only(['username','firstname', 'lastname', 'phoneNumber', 'department']));
         $user->employee->expertises()->sync(request('expertise'));
 
         $request->session()->flash('succes', 'Your data has been stored succesfully.');

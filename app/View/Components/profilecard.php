@@ -22,9 +22,11 @@ class profilecard extends Component
     public $department;
     public $function;
     public $allDays;
+    public $userHref;
 
-    public function __construct($employee)
+    public function __construct($employee, $userHref)
     {
+        $this->userHref = $userHref;
         $this->imageAssetPath = $employee->user->photoUrl;
         $this->username = $employee->username;
         $this->email = $employee->user->email;
