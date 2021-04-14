@@ -95,7 +95,7 @@ class EmployeeController extends Controller
      */
     public function show(Employee $employee)
     {
-        return dump($employee);
+        return view('employee.profile', compact(["employee"]));
     }
 
     /**

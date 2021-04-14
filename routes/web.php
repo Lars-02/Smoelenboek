@@ -26,10 +26,7 @@ Route::group(['middleware' => 'auth'], function(){
     Route::get('/register', 'App\Http\Controllers\Auth\RegisterController@index');
     Route::post('/', [UserController::class, 'registerNewUser'])->name('registerNewUser');
 
-    Route::resource('profile', ProfileController::class)->except('show');
-    Route::get('profile/{employee}', [ProfileController::class, 'show'])->name('profile.show');
-
-    Route::resource('employee', EmployeeController::class)->only(['create', 'store']);
+    Route::resource('employee', EmployeeController::class)->only(['create', 'store', 'show']);
 
     Route::fallback(function () {
         return redirect()->route('home');
