@@ -1,7 +1,7 @@
 @props(['type' => 'button', 'route' => ''])
 
 <a href="{{ $route }}">
-    <button {{ $attributes->class(["bg-red-700 hover:bg-red-900 text-white font-bold py-2 px-4 rounded focus:outline-none"]) }} type="{{ $type }}">
+    <button {{ $attributes->class(["text-xs sm:text-sm md:text-base lg:text-lg py-2 px-3 sm:px-4 md:px-5 xl:px-6 bg-red-700 hover:bg-red-900 text-white font-bold rounded focus:outline-none"]) }} type="{{ $type }}">
         {{ $slot }}
     </button>
 </a>
