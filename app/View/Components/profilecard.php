@@ -22,9 +22,11 @@ class profilecard extends Component
     public $department;
     public $function;
     public $allDays;
+    public $userHref;
 
-    public function __construct($employee)
+    public function __construct($employee, $userHref)
     {
+        $this->userHref = $userHref;
         $this->imageAssetPath = $employee->user->photoUrl;
         $this->username = $employee->username;
         $this->email = $employee->user->email;
@@ -35,7 +37,10 @@ class profilecard extends Component
         $this->workingDays = $employee->workHours->map(function ($item) {
             return $item->week->day;
         })->toArray();
-        $this->function = $employee->user->roles->first()->name;
+        
+        if ($employee->user->roles->first() != null)  $this->function = $employee->user->roles->first()->name;
+        else $this->function = 'Geen Functie';
+
         $this->department = $employee->department;
         $this->allDays = DayOfWeek::all()->pluck('day');
     }

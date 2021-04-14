@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\DayOfWeek;
 use App\Models\Department;
 use App\Models\Employee;
 use App\Models\Expertise;
@@ -10,6 +11,7 @@ use App\Models\User;
 use App\Models\WorkHour;
 use Illuminate\Http\Request;
 Use Exception;
+use Illuminate\Support\Facades\DB;
 
 class EmployeeController extends Controller
 {
@@ -55,7 +57,7 @@ class EmployeeController extends Controller
                     foreach (request($days[$i]) as $parent) {
                         if (!empty($parent["start_time"]) && !empty($parent["end_time"])) {
                             $workinghours = new WorkHour;
-                            $workinghours->day = ucfirst($days[$i]);
+                            $workinghours->day = DayOfWeek::where('day', $days[$i])->first()->id;
                             $workinghours->employee_id = $user->employee->id;
                             $workinghours->start_time = $parent["start_time"];
                             $workinghours->end_time = $parent["end_time"];
@@ -71,7 +73,9 @@ class EmployeeController extends Controller
 
         $user->roles()->sync(request('role'));
 
-        $user->employee->update($request->only(['firstname', 'lastname', 'phoneNumber', 'department']));
+        $userName = explode('@', $user->email);
+        $user->employee->username = $userName[0];
+        $user->employee->update($request->only(['username','firstname', 'lastname', 'phoneNumber', 'department']));
         $user->employee->expertises()->sync(request('expertise'));
 
         $request->session()->flash('succes', 'Your data has been stored succesfully.');
