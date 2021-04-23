@@ -42,8 +42,7 @@
             </x-input>
             <div class="flex">
                 <div class="mr-4">
-                    <x-button type="submit"
-                              class="px-10 rounded-lg font-medium">
+                    <x-button type="submit">
                         {{ __('Nieuw wachtwoord') }}
                     </x-button>
                 </div>
