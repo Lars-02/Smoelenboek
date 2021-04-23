@@ -40,5 +40,7 @@
             </div>
         </div>
     </div>
-    <x-button route="{{ route('employee.show', ['employee' => $employee]) }}" class="m-3 w-40">Meer info</x-button>
+    <a href="{{ route('employee.show', ['employee' => $employee]) }}">
+        <x-button class="m-3 w-40">Meer info</x-button>
+    </a>
 </div>
