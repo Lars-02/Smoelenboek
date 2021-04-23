@@ -40,5 +40,5 @@
             </div>
         </div>
     </div>
-    <x-button href="{{ route('home') }}" class="m-3 w-40">Meer info</x-button>
+    <a href="{{$userHref}}"><x-button class="m-3 w-40">Meer info</x-button></a>
 </div>
