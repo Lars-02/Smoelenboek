@@ -14,9 +14,9 @@ class ProfileDuskTest extends DuskTestCase
     public function test_user_cannot_view_profile_page_when_not_authenticated()
     {
         $this->browse(function ($browser) {
-            $browser->visit('http://127.0.0.1:8000/profile/testuser');
+            $browser->visit(config('app.url').'profile/testuser');
             $url = $browser->driver->getCurrentURL();
-            $this->assertEquals('http://127.0.0.1:8000/login', $url);
+            $this->assertEquals(config('app.url').'login', $url);
         });
     }
 
@@ -26,13 +26,13 @@ class ProfileDuskTest extends DuskTestCase
     public function test_user_can_view_profile_page_when_authenticated()
     {
         $this->browse(function ($browser) {
-            $browser->visit('http://127.0.0.1:8000/login')
+            $browser->visit(config('app.url').'login')
                 ->type('email', 'test@avans.nl')
                 ->type('password', 'password')
                 ->press('Inloggen')
                 ->visit('/profile/testuser');
             $url = $browser->driver->getCurrentURL();
-            $this->assertEquals('http://127.0.0.1:8000/profile/testuser', $url);
+            $this->assertEquals(config('app.url').'profile/testuser', $url);
         });
     }
 }
