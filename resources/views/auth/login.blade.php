@@ -23,13 +23,12 @@
             </x-input>
             <div class="flex">
                 <div class="mr-4">
-                    <x-button type="submit"
-                              class="px-10 rounded-lg font-medium">
+                    <x-button type="submit">
                         {{ __('Inloggen') }}
                     </x-button>
                 </div>
                 <div class="self-end">
-                    <a href="{{ route('password.request') }}" class="text-blue-500 underline">
+                    <a href="{{ route('password.request') }}" class="text-xs sm:text-sm md:text-base lg:text-lg text-blue-500 underline">
                         {{ __('Wachtwoord vergeten?') }}
                     </a>
                 </div>

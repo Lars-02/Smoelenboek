@@ -25,7 +25,9 @@
 
         @include('components.nav')
 
-        {{ $slot }}
+        <div class="mb-auto">
+            {{ $slot }}
+        </div>
 
         @include('components.footer')
     </div>

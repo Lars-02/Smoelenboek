@@ -37,7 +37,7 @@
             </div>
         </div>
     </div>
-    <div class="bg-white w-full border-b-4 border-red-700" x-show="open">
+    <div class="bg-white w-full border-b-4 border-red-700 lg:hidden" x-show="open">
         {{--TODO: Check if role is admin--}}
         {{--@auth('admin')--}}
         <div class="self-center p-2 text-xl text-red-700 hover:text-red-800 font-bold">
