@@ -5,7 +5,7 @@
 
             <div class="sticky top-0">
                 <div class="mb-8">
-                    <span class="absolute pl-3 pt-4 text-gray-600">
+                    <span class="absolute pl-3 pt-3 text-gray-600">
                         <i class="fas fa-search"></i>
                     </span>
                     <input type="text" name="searchbar" id="searchbar" placeholder="Zoeken..." class="text-xs sm:text-sm md:text-base lg:text-lg px-2.5 py-2.5 pl-8 w-full rounded border-gray-400 focus:border-gray-400 text-gray-600 focus:ring-0"/>
