@@ -3,6 +3,12 @@
         <div class="sm:mx-4 md:mx-5 my-4">
             <div class="sm:w-1/3 xl:w-1/4">
                 <x-button type="submit">Apply</x-button>
+                <div>
+                    <span class="absolute pl-3 pt-2 md:pt-3 text-gray-600">
+                        <i class="fas fa-search"></i>
+                    </span>
+                    <input type="text" name="searchbar" id="searchbar" placeholder="Zoeken..." class="text-xs sm:text-sm md:text-base lg:text-lg px-2.5 py-2.5 pl-8 w-full rounded border-gray-400 focus:border-gray-400 text-gray-600 focus:ring-0"/>
+                </div>
             </div>
         </div>
         <div class="sm:flex sm:h-screen sm:overflow-hidden mb-2 mx-3 sm:mx-4 md:mx-5">
