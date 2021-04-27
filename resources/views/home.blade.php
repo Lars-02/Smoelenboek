@@ -2,6 +2,17 @@
     <div class="h-12"></div>
     <div class="sm:flex sm:h-screen sm:overflow-hidden mb-2 mx-3 sm:mx-4 md:mx-5">
         <div class="sm:w-1/3 xl:w-1/4 mr-0 sm:mr-3 sm:overflow-y-scroll scrollbar-hide">
+
+            <div class="sticky top-0">
+                <div class="mb-8">
+                    <span class="absolute pl-3 pt-2 md:pt-3 text-gray-600">
+                        <i class="fas fa-search"></i>
+                    </span>
+                    <input type="text" name="searchbar" id="searchbar" placeholder="Zoeken..." class="text-xs sm:text-sm md:text-base lg:text-lg px-2.5 py-2.5 pl-8 w-full rounded border-gray-400 focus:border-gray-400 text-gray-600 focus:ring-0"/>
+                </div>
+                <!-- buttons kunnen hier geplaatst worden -->
+            </div>
+
             <x-filterModal title="Filters 1">
                 <x-filterSelector name="filter">Filter 1</x-filterSelector>
                 <x-filterSelector name="filter">Filter 2</x-filterSelector>
