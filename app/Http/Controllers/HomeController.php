@@ -38,4 +38,14 @@ class HomeController extends Controller
         $employees = Employee::all();
         return view('home', compact(["employees"]));
     }
+
+    public function filterLearningLine()
+    {
+
+    }
+
+    public function filterDepartment()
+    {
+        
+    }
 }
