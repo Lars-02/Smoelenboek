@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Employee;
+use App\Models\EmployeeLearningLine;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\RedirectResponse;
 
@@ -39,13 +40,26 @@ class HomeController extends Controller
         return view('home', compact(["employees"]));
     }
 
-    public function filterLearningLine()
+    public function filterLearningLine($option)
     {
-
+        $option = 1;
+        $learningLines = EmployeeLearningLine::all();
+        $employees = [];
+        foreach($learningLines as $learningLine)
+        {
+            if($learningLine->learning_line_id == $option)
+            {
+                $employee = Employee::find($learningLine->employee_id);
+                array_push($employees, $employee);
+            }
+        }
+        return $employees;
     }
 
-    public function filterDepartment()
+    public function filterDepartment($option)
     {
-        
+        $option = 'AI&I';
+        $employees = Employee::where('department', $option)->get();
+        return $employees;
     }
 }
