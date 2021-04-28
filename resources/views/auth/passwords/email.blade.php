@@ -13,7 +13,7 @@
                     <x-button type="submit">Wachtwoord resetten</x-button>
                 </div>
                 <div class="self-end">
-                    <a href="{{ route('login') }}" class="text-blue-500 underline">Toch inloggen</a>
+                    <a href="{{ route('login') }}" class="text-xs sm:text-sm md:text-base lg:text-lg text-blue-500 underline">Toch inloggen</a>
                 </div>
             </div>
         </form>
