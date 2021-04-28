@@ -6,7 +6,7 @@ use App\Models\DayOfWeek;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-class profilecard extends Component
+class Profilecard extends Component
 {
     /**
      * Create a new component instance.
