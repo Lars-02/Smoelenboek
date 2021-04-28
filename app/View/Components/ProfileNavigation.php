@@ -5,7 +5,7 @@ namespace App\View\Components;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-class profilenavigation extends Component
+class ProfileNavigation extends Component
 {
     public $hrefAccount;
     public $hrefWorkHours;
