@@ -106,7 +106,8 @@ class EmployeeController extends Controller
      */
     public function edit(Employee $employee)
     {
-        return view('employee.editProfile', compact(["employee"]));
+        $departmentss = Department::all()->pluck('name');
+        return view('employee.editProfile', compact(["employee"], 'departmentss'));
     }
 
     /**

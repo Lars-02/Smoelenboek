@@ -56,7 +56,7 @@
                 </div>
 
                 <div x-show="tab === 'afdeling'" class="bg-white p-3 shadow-sm rounded-sm h-full ">
-{{--                    <x-select id="department" :options="$departments">Afdeling</x-select>--}}
+                    <x-select id="department" :options="$departmentss">Afdeling</x-select>
                     {{$employee->department}}
                 </div>
 
