@@ -24,7 +24,9 @@
             </div>
             <!-- Right Side -->
             <div class="w-full md:w-9/12 mx-2 h-auto">
-                <h1 class="text-center p-2 text-white font-bold bg-red-700">{{$succes}}</h1>
+                @if (!empty($succes))
+                    <h1 class="text-center p-2 text-white font-bold bg-red-700">{{$succes}}</h1>
+                @endif
                 <!-- Profile Tab -->
                 <div x-show="tab === 'account'" class="bg-white p-3 shadow-sm rounded-sm md:h-2/3">
                     <div class="md:flex items-center space-x-2 font-semibold text-gray-900 leading-8 mb-5 md:h-1/2 md:flex-shrink-0">
