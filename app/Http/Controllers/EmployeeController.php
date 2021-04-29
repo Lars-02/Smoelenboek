@@ -106,8 +106,8 @@ class EmployeeController extends Controller
      */
     public function edit(Employee $employee)
     {
-        $departmentss = Department::all()->pluck('name');
-        return view('employee.editProfile', compact(["employee"], 'departmentss'));
+        $departments = Department::all()->pluck('name');
+        return view('employee.editProfile', compact(["employee"], 'departments'));
     }
 
     /**
@@ -119,7 +119,19 @@ class EmployeeController extends Controller
      */
     public function update(Request $request, Employee $employee)
     {
-        return abort(404);
+        request()->validate([
+            'firstname' => 'required',
+            'lastname' => 'required',
+            'phoneNumber' => 'required',
+            'email' => 'required',
+        ]);
+
+        $employee->update($request->only(['firstname', 'lastname']));
+
+        $request->session()->flash('succes', 'Je gegevens zijn veranderd.');
+
+
+        return $this->show($employee);
     }
 
     /**

@@ -28,6 +28,10 @@
             <!-- Right Side -->
             <div class="w-full md:w-9/12 mx-2 h-auto">
                 <!-- Profile Tab -->
+                <form method="POST" action="{{route('employee.update', $employee)}}">
+                    @csrf
+
+                <input name="_method" type="hidden" value="PUT">
                 <div x-show="tab === 'account'" class="bg-white p-3 shadow-sm rounded-sm md:h-4/3">
                     <div class="md:flex items-center space-x-2 font-semibold text-gray-900 leading-8 mb-5 md:h-1/2 md:flex-shrink-0">
                         @if (empty($employee->user->photoUrl))
@@ -43,7 +47,7 @@
                                 <x-input id="email" type="email" name="email" icon="" value="{{$employee->user->email}}">Email</x-input>
                             </div>
                             <div class="grid grid-cols-2">
-                                <x-input id="phonenumber" type="tel" name="phonenumber" icon="" value="{{$employee->phoneNumber}}">Telefoon</x-input>
+                                <x-input id="phoneNumber" type="tel" name="phoneNumber" icon="" value="{{$employee->phoneNumber}}">Telefoon</x-input>
                             </div>
                             <div class="grid grid-cols-2">
                                 <x-input id="firstname" type="text" name="firstname" icon="" value="{{$employee->firstname}}">Voornaam</x-input>
@@ -56,7 +60,7 @@
                 </div>
 
                 <div x-show="tab === 'afdeling'" class="bg-white p-3 shadow-sm rounded-sm h-full ">
-                    <x-select id="department" :options="$departmentss">Afdeling</x-select>
+                    <x-select id="department" :options="$departments">Afdeling</x-select>
                     {{$employee->department}}
                 </div>
 
@@ -92,18 +96,20 @@
                 <div x-show="tab === 'socialmedia'" class="bg-white p-3 shadow-sm rounded-sm h-full ">
                     <h2 class="font-bold md:text-5xl mb-5">Sociale Media</h2>
                         <x-input id="linkedInUrl" type="text" name="linkedInUrl" icon="" value="{{$employee->linkedInUrl}}">LinkedIn</x-input>
-                    </div>
+                </div>
 
+                    <div class="flex justify-end pt-6 space-x-4">
+                        <x-button type="submit">
+                            Opslaan
+                        </x-button>
+                        <x-button>
+                            <a href="{{ route('employee.show', ['employee' => $employee]) }}">Annuleren</a>
+                        </x-button>
+                    </div>
+                </form>
                 <!-- End of profile tab -->
 
-                <div class="flex justify-end pt-6 space-x-4">
-                    <x-button>
-                        <a href="{{ route('employee.show', ['employee' => $employee]) }}">Opslaan</a>
-                    </x-button>
-                    <x-button>
-                        <a href="{{ route('employee.show', ['employee' => $employee]) }}">Annuleren</a>
-                    </x-button>
-                </div>
+
             </div>
         </div>
     </div>

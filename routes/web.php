@@ -26,7 +26,8 @@ Route::group(['middleware' => 'auth'], function(){
     Route::get('/register', 'App\Http\Controllers\Auth\RegisterController@index');
     Route::post('/', [UserController::class, 'registerNewUser'])->name('registerNewUser');
 
-    Route::resource('employee', EmployeeController::class)->only(['create', 'store', 'show', 'edit']);
+
+    Route::resource('employee', EmployeeController::class);
 
     Route::fallback(function () {
         return redirect()->route('home');
