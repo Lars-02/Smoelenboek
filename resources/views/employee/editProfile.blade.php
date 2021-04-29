@@ -100,9 +100,12 @@
 
                 <!-- End of profile tab -->
 
-                <div class="flex justify-start pt-6">
+                <div class="flex justify-end pt-6 space-x-4">
                     <x-button>
-                        <a href="{{ route('employee.edit', ['employee' => $employee]) }}">Aanpassen</a>
+                        <a href="{{ route('employee.show', ['employee' => $employee]) }}">Opslaan</a>
+                    </x-button>
+                    <x-button>
+                        <a href="{{ route('employee.show', ['employee' => $employee]) }}">Annuleren</a>
                     </x-button>
                 </div>
             </div>

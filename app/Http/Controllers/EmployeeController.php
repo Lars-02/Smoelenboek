@@ -106,7 +106,7 @@ class EmployeeController extends Controller
      */
     public function edit(Employee $employee)
     {
-        return abort(404);
+        return view('employee.editProfile', compact(["employee"]));
     }
 
     /**
