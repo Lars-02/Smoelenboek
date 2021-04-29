@@ -17,6 +17,7 @@ use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Database\Query\Builder;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
 {
@@ -37,6 +38,7 @@ class HomeController extends Controller
      */
     public function index(Request $request)
     {
+        
         if (!isset(auth()->user()->employee))
             abort(500);
         $employee = auth()->user()->employee;
@@ -47,7 +49,38 @@ class HomeController extends Controller
             return redirect()->route('employee.create');
         }
 
-        $employees = Employee::all();
+        $arrayEmployeeIds = [];
+        $employees;
+        if(isset($request["searchbar"])){
+            $stringToFilter = $request["searchbar"];
+            $splitStringToFilter = explode(" ", $stringToFilter);
+            // dd($splitStringToFilter);
+            foreach ($splitStringToFilter as $filter) {
+                $employees = Employee::select('id')->where('firstname', 'LIKE', '%' . $filter . '%')
+                ->orWhere('lastname', 'LIKE', '%' . $filter . '%')
+                ->get();
+                foreach($employees as $employee) {
+                    if(!in_array($employee->id, $arrayEmployeeIds)){
+                        array_push($arrayEmployeeIds, $employee->id);
+                    }
+                }
+
+                $expertises = Expertise::where('name', 'LIKE', '%' . $filter . '%')->get();
+                foreach($expertises as $expertise) {
+                    $expertiseEmployees = $expertise->employee()->get();
+                    $expertiseEmployeeIds = $expertiseEmployees->pluck('id');
+                    foreach($expertiseEmployeeIds as $id) {
+                        if(!in_array($id, $arrayEmployeeIds)){
+                            array_push($arrayEmployeeIds, $id);
+                        }
+                    }
+                }
+            }
+            $employees = Employee::whereIn('id', $arrayEmployeeIds)->get();
+        } else {
+            $employees = Employee::all();
+        }
+
 
         if (isset($request['courses'])) {
             $courseFilter = new CourseFilter();
