@@ -127,9 +127,10 @@ class EmployeeController extends Controller
             'email' => 'required',
         ]);
 
-        $employee->update($request->only(['firstname', 'lastname']));
+        $employee->update($request->only(['firstname', 'lastname', 'phoneNumber']));
+        $employee->user()->update($request->only(['email']));
 
-        return $this->show($employee);
+        return view('employee.profile', compact(["employee"]))->with('succes', 'Je gegevens zijn veranderd.');
     }
 
     /**
