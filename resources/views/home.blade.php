@@ -7,11 +7,12 @@
                     <x-filterSelector name="{{ $hobby->name }}">{{ $hobby->name }}</x-filterSelector>
                 @endforeach
             </x-filterModal>
+            <x-filterModal title="Lectorates">
                 @foreach($lectorates as $lectorate)
                     <x-filterSelector name="{{ $lectorate->name }}">{{ $lectorate->name }}</x-filterSelector>
                 @endforeach
             </x-filterModal>
-            <x-filterModal title="minors">
+            <x-filterModal title="Minors">
                 @foreach($minors as $minor)
                     <x-filterSelector name="{{ $minor->name }}">{{ $minor->name }}</x-filterSelector>
                 @endforeach
