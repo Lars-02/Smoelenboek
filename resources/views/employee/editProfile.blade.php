@@ -28,7 +28,7 @@
             <!-- Right Side -->
             <div class="w-full md:w-9/12 mx-2 h-auto">
                 <!-- Profile Tab -->
-                <div x-show="tab === 'account'" class="bg-white p-3 shadow-sm rounded-sm md:h-2/3">
+                <div x-show="tab === 'account'" class="bg-white p-3 shadow-sm rounded-sm md:h-4/3">
                     <div class="md:flex items-center space-x-2 font-semibold text-gray-900 leading-8 mb-5 md:h-1/2 md:flex-shrink-0">
                         @if (empty($employee->user->photoUrl))
                             <img src="https://www.shareicon.net/data/128x128/2016/07/26/801997_user_512x512.png" class="md:flex-shrink-0 md:w-48 min-h-full max-h-full">
@@ -40,28 +40,24 @@
                     <div class="text-gray-700">
                         <div class="grid md:grid-cols-2 text-sm">
                             <div class="grid grid-cols-2">
-                                <div class="break-words md:text-2xl font-semibold">E-mail</div>
-                                <div class="break-words md:text-2xl">{{$employee->user->email}}</div>
+                                <x-input id="email" type="email" name="email" icon="" value="{{$employee->user->email}}">Email</x-input>
                             </div>
                             <div class="grid grid-cols-2">
-                                <div class="break-words md:text-2xl font-semibold">Telefoon</div>
-                                <div class="break-words md:text-2xl">{{$employee->phoneNumber}}</div>
+                                <x-input id="phonenumber" type="tel" name="phonenumber" icon="" value="{{$employee->phoneNumber}}">Telefoon</x-input>
                             </div>
                             <div class="grid grid-cols-2">
-                                <div class="break-words md:text-2xl font-semibold">Voornaam</div>
-                                <div class="break-words md:text-2xl">{{$employee->firstname}}</div>
+                                <x-input id="firstname" type="text" name="firstname" icon="" value="{{$employee->firstname}}">Voornaam</x-input>
                             </div>
                             <div class="grid grid-cols-2">
-                                <div class="break-words md:text-2xl font-semibold">Achternaam</div>
-                                <div class="break-words md:text-2xl">{{$employee->lastname}}</div>
+                                <x-input id="lastname" type="text" name="lastname" icon="" value="{{$employee->lastname}}">Achternaam</x-input>
                             </div>
                         </div>
                     </div>
                 </div>
 
                 <div x-show="tab === 'afdeling'" class="bg-white p-3 shadow-sm rounded-sm h-full ">
-                    <h2 class="font-bold md:text-5xl mb-5">Afdeling</h2>
-                    <p class="md:text-2xl">{{$employee->department}}</p>
+{{--                    <x-select id="department" :options="$departments">Afdeling</x-select>--}}
+                    {{$employee->department}}
                 </div>
 
                 <div x-show="tab === 'werktijden'" class="bg-white p-3 shadow-sm rounded-sm h-full ">
@@ -95,8 +91,8 @@
 
                 <div x-show="tab === 'socialmedia'" class="bg-white p-3 shadow-sm rounded-sm h-full ">
                     <h2 class="font-bold md:text-5xl mb-5">Sociale Media</h2>
-                    <a class="md:text-2xl underline font-semibold text-red-700 hover:text-red-800 visited:text-red-600" href="{{$employee->linkedInUrl}}">Linked in</a>
-                </div>
+                        <x-input id="linkedInUrl" type="text" name="linkedInUrl" icon="" value="{{$employee->linkedInUrl}}">LinkedIn</x-input>
+                    </div>
 
                 <!-- End of profile tab -->
 
