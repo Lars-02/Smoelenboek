@@ -18,20 +18,17 @@
                         <li class="flex items-center justify-center py-3">
                             <x-button class="w-7/12 border-red-700 border-4 rounded focus:bg-white focus:text-black" @click="tab = 'blokken'">Blokken</x-button>
                         </li>
-                        <li class="flex items-center justify-center py-3">
-                            <x-button class="w-7/12 border-red-700 border-4 rounded focus:bg-white focus:text-black" @click="tab = 'socialmedia'">Sociale Media</x-button>
-                        </li>
                     </ul>
                 </div>
                 <!-- End of Side navbar -->
             </div>
             <!-- Right Side -->
-            <div class="w-full md:w-9/12 mx-2 h-auto">
+
                 <!-- Profile Tab -->
                 <form method="POST" action="{{route('employee.update', $employee)}}">
                     @csrf
 
-                <input name="_method" type="hidden" value="PUT">
+                    <input name="_method" type="hidden" value="PUT">
                 <div x-show="tab === 'account'" class="bg-white p-3 shadow-sm rounded-sm md:h-4/3">
                     <div class="md:flex items-center space-x-2 font-semibold text-gray-900 leading-8 mb-5 md:h-1/2 md:flex-shrink-0">
                         @if (empty($employee->user->photoUrl))
@@ -59,43 +56,74 @@
                     </div>
                 </div>
 
-                <div x-show="tab === 'afdeling'" class="bg-white p-3 shadow-sm rounded-sm h-full ">
-                    <x-select id="department" :options="$departments">Afdeling</x-select>
-                    {{$employee->department}}
+                <div x-show="tab === 'afdeling'" class="bg-white p-5 shadow-sm rounded-sm h-full ">
+                    <h2 class="font-bold md:text-5xl mb-5">Afdeling</h2>
+                    <select name="department" id="department">
+                        @foreach($departments as $department)
+                            <option>{{$department}}</option>
+                        @endforeach
+                    </select>
                 </div>
 
-                <div x-show="tab === 'werktijden'" class="bg-white p-3 shadow-sm rounded-sm h-full ">
+                <div x-show="tab === 'werktijden'" class="bg-white p-5 shadow-sm rounded-sm h-full ">
                     <h2 class="font-bold md:text-5xl mb-5">Werkdagen</h2>
-                    @foreach($employee->workHours as $workHour)
-                        <p class="md:text-2xl">{{$workHour->day}}</p>
+                    @foreach($days_of_week as $day_of_week)
+                        <label>{{$day_of_week->day}}</label><br>
+                        Van: <x-time name="day_of_week[{{$loop->iteration}}][start_time]"/>
+                        Tot: <x-time name="day_of_week[{{$loop->iteration}}][end_time]"/><br>
                     @endforeach
                 </div>
 
-                <div x-show="tab === 'blokken'" class="bg-white p-3 shadow-sm rounded-sm h-full ">
+                <div x-show="tab === 'blokken'" class="bg-white p-5 shadow-sm rounded-sm h-full ">
                     <h2 class="font-bold md:text-5xl mb-5">Blokken</h2>
                     @foreach($employee->lectorate as $lectorate)
                         <p class="md:text-2xl">{{$lectorate->name}}</p>
+                        <select name="lectorate" id="department">
+                            @foreach($departments as $department)
+                                <option>{{$department}}</option>
+                            @endforeach
+                        </select>
                     @endforeach
                     @foreach($employee->hobby as $hobby)
                         <p class="md:text-2xl">Hobby: {{$hobby->name}}</p>
+                        <select name="hobby" id="department">
+                            @foreach($departments as $department)
+                                <option>{{$department}}</option>
+                            @endforeach
+                        </select>
                     @endforeach
                     @foreach($employee->course as $course)
                         <p class="md:text-2xl">Course: {{$course->name}}</p>
+                        <select name="course" id="department">
+                            @foreach($departments as $department)
+                                <option>{{$department}}</option>
+                            @endforeach
+                        </select>
                     @endforeach
                     @foreach($employee->minor as $minor)
                         <p class="md:text-2xl">Minor: {{$minor->name}}</p>
+                        <select name="minor" id="department">
+                            @foreach($departments as $department)
+                                <option>{{$department}}</option>
+                            @endforeach
+                        </select>
                     @endforeach
                     @foreach($employee->learningLine as $learningLine)
                         <p class="md:text-2xl">Leerlijn: {{$learningLine->name}}</p>
+                        <select name="learningLine" id="department">
+                            @foreach($departments as $department)
+                                <option>{{$department}}</option>
+                            @endforeach
+                        </select>
                     @endforeach
                     @foreach($employee->expertises as $expertise)
                         <p class="md:text-2xl">Expertise: {{$expertise->name}}</p>
+                        <select name="expertise" id="department">
+                            @foreach($departments as $department)
+                                <option>{{$department}}</option>
+                            @endforeach
+                        </select>
                     @endforeach
-                </div>
-
-                <div x-show="tab === 'socialmedia'" class="bg-white p-3 shadow-sm rounded-sm h-full ">
-                    <h2 class="font-bold md:text-5xl mb-5">Sociale Media</h2>
-                        <x-input id="linkedInUrl" type="text" name="linkedInUrl" icon="" value="{{$employee->linkedInUrl}}">LinkedIn</x-input>
                 </div>
 
                     <div class="flex justify-end pt-6 space-x-4">
@@ -108,8 +136,6 @@
                     </div>
                 </form>
                 <!-- End of profile tab -->
-
-
             </div>
         </div>
     </div>

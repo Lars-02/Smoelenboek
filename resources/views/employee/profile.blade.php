@@ -18,9 +18,6 @@
                         <li class="flex items-center justify-center py-3">
                             <x-button class="w-7/12 border-red-700 border-4 rounded focus:bg-white focus:text-black" @click="tab = 'blokken'">Blokken</x-button>
                         </li>
-                        <li class="flex items-center justify-center py-3">
-                            <x-button class="w-7/12 border-red-700 border-4 rounded focus:bg-white focus:text-black" @click="tab = 'socialmedia'">Sociale Media</x-button>
-                        </li>
                     </ul>
                 </div>
                 <!-- End of Side navbar -->
@@ -91,11 +88,6 @@
                     @foreach($employee->expertises as $expertise)
                         <p class="md:text-2xl">Expertise: {{$expertise->name}}</p>
                     @endforeach
-                </div>
-
-                <div x-show="tab === 'socialmedia'" class="bg-white p-3 shadow-sm rounded-sm h-full ">
-                    <h2 class="font-bold md:text-5xl mb-5">Sociale Media</h2>
-                    <a class="md:text-2xl underline font-semibold text-red-700 hover:text-red-800 visited:text-red-600" href="{{$employee->linkedInUrl}}">Linked in</a>
                 </div>
 
                 <!-- End of profile tab -->

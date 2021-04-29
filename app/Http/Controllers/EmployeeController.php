@@ -107,7 +107,8 @@ class EmployeeController extends Controller
     public function edit(Employee $employee)
     {
         $departments = Department::all()->pluck('name');
-        return view('employee.editProfile', compact(["employee"], 'departments'));
+        $days_of_week = DayOfWeek::all();
+        return view('employee.editProfile', compact(["employee"], 'departments', 'days_of_week'));
     }
 
     /**
@@ -127,9 +128,6 @@ class EmployeeController extends Controller
         ]);
 
         $employee->update($request->only(['firstname', 'lastname']));
-
-        $request->session()->flash('succes', 'Je gegevens zijn veranderd.');
-
 
         return $this->show($employee);
     }
