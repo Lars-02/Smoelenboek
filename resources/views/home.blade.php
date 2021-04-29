@@ -29,13 +29,15 @@
                 <x-filterSelector name="filter">Filter 5</x-filterSelector>
                 <x-filterSelector name="filter">Filter 6</x-filterSelector>
             </x-filterModal>
-            <x-filterModal title="Filters 3">
-                <x-filterSelector name="filter">Filter 1</x-filterSelector>
-                <x-filterSelector name="filter">Filter 2</x-filterSelector>
-                <x-filterSelector name="filter">Filter 3</x-filterSelector>
-                <x-filterSelector name="filter">Filter 4</x-filterSelector>
-                <x-filterSelector name="filter">Filter 5</x-filterSelector>
-                <x-filterSelector name="filter">Filter 6</x-filterSelector>
+            <x-filterModal title="Leerlijnen">
+                @foreach($learningLines as $learningLine)
+                <x-filterSelector name="{{ $learningLine->name }}">{{ $learningLine->name }}</x-filterSelector>
+                @endforeach
+            </x-filterModal>
+            <x-filterModal title="Afdelingen">
+                @foreach($departments as $department)
+                <x-filterSelector name="{{ $department->name }}">{{ $department->name }}</x-filterSelector>
+                @endforeach
             </x-filterModal>
         </div>
         <div class="flex-grow mb-4 overflow-x-hidden overflow-y-scroll scrollbar-hide">

@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Department;
 use App\Models\Employee;
 use App\Models\EmployeeLearningLine;
+use App\Models\LearningLine;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\RedirectResponse;
 
@@ -35,19 +37,21 @@ class HomeController extends Controller
             || is_null($employee->department)) {
             return redirect()->route('employee.create');
         }
-
+        $learningLines = LearningLine::all();
+        $departments = Department::all();
         $employees = Employee::all();
-        return view('home', compact(["employees"]));
+        return view('home', compact(["employees", "learningLines", "departments"]));
     }
 
-    public function filterLearningLine($option)
+    public static function filterLearningLine($option)
     {
-        $option = 1;
+        $option = LearningLine::where('name', $option)->first();
         $learningLines = EmployeeLearningLine::all();
         $employees = [];
+
         foreach($learningLines as $learningLine)
         {
-            if($learningLine->learning_line_id == $option)
+            if($learningLine->learning_line_id == $option->id)
             {
                 $employee = Employee::find($learningLine->employee_id);
                 array_push($employees, $employee);
@@ -56,10 +60,10 @@ class HomeController extends Controller
         return $employees;
     }
 
-    public function filterDepartment($option)
+    public static function filterDepartment($option)
     {
-        $option = 'AI&I';
-        $employees = Employee::where('department', $option)->get();
+        $department = Department::where('name', $option)->first();
+        $employees = Employee::where('department', $department->name)->get();
         return $employees;
     }
 }
