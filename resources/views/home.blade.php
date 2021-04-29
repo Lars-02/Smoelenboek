@@ -1,14 +1,15 @@
 <x-layout>
     <form id="filterForm" method="GET" action="{{ route('home') }}">
         <div class="mx-3 sm:mx-4 md:mx-5 my-4">
-            <div class="flex justify-between">
-                <x-button type="submit">Apply</x-button>
+            <div class="space-y-5">
                 <div>
                     <span class="absolute pl-3 pt-1 sm:pt-2 md:pt-1.5 lg:pt-2.5 xl:pt-3 text-gray-600">
                         <i class="fas fa-search"></i>
                     </span>
                     <input type="text" name="searchbar" id="searchbar" placeholder="Zoeken..." class="text-xs sm:text-sm md:text-base lg:text-lg pl-8 rounded border-gray-400 focus:border-gray-400 text-gray-600 focus:ring-0"/>
                 </div>
+                <x-button type="submit">Apply</x-button>
+
             </div>
         </div>
         <div class="sm:flex sm:h-screen sm:overflow-hidden mb-2 mx-3 sm:mx-4 md:mx-5">
