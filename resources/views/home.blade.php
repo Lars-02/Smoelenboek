@@ -8,6 +8,7 @@
                     </span>
                     <input type="text" name="searchbar" id="searchbar" placeholder="Zoeken..." class="text-xs sm:text-sm md:text-base lg:text-lg pl-8 rounded border-gray-400 focus:border-gray-400 text-gray-600 focus:ring-0"/>
                 </div>
+                <x-button type="submit">Clear</x-button>
                 <x-button type="submit">Apply</x-button>
 
             </div>
