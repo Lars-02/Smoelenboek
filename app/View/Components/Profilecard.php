@@ -17,6 +17,7 @@ class Profilecard extends Component
     public $expertises;
     public $workingDays;
     public $function;
+    public $department;
     public $allDays;
 
     public function __construct($employee)
@@ -25,9 +26,11 @@ class Profilecard extends Component
         $this->expertises = $employee->expertises->map(function ($item) {
             return $item->name;
         })->toArray();
-        $this->workingDays = $employee->workHours->map(function ($item) {
+        $this->workingDays = $employee->workDays->map(function ($item) {
             return $item->week->day;
         })->toArray();
+        if ($employee->departments->first() != null)  $this->department = $employee->departments->first()->name;
+        else $this->department = 'Geen Afdeling';
         if ($employee->user->roles->first() != null)  $this->function = $employee->user->roles->first()->name;
         else $this->function = 'Geen Functie';
         $this->allDays = DayOfWeek::all()->pluck('day');

@@ -7,6 +7,7 @@
         @endif
     <form action="/employee" method="POST">
         @csrf
+        <input type="hidden" name="user_id" value="{{ \Illuminate\Support\Facades\Auth::id() }}">
         <div class="mt-6" x-data="{ currentTab: 'first' }">
             <div x-show="currentTab === 'first'">
                 <x-card title="Gegevens invullen">

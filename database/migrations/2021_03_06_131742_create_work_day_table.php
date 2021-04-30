@@ -5,7 +5,7 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
-class CreateWorkHourTable extends Migration
+class CreateWorkDayTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,16 +14,13 @@ class CreateWorkHourTable extends Migration
      */
     public function up()
     {
-        Schema::create('work_hour', function (Blueprint $table) {
-            $table->id();
+        Schema::create('work_day', function (Blueprint $table) {
+            $table->primary(['day_id', 'employee_id']);
             $table->unsignedBigInteger('employee_id');
-            $table->time('start_time');
-            $table->time('end_time');
-            $table->unsignedBigInteger('day');
-            $table->unique(['start_time', 'end_time', 'day', 'employee_id']);
+            $table->unsignedBigInteger('day_id');
             $table->timestamps();
 
-            $table->foreign('day')
+            $table->foreign('day_id')
                 ->references('id')
                 ->on('day_of_week');
             $table->foreign('employee_id')
@@ -39,6 +36,6 @@ class CreateWorkHourTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('work_hour');
+        Schema::dropIfExists('work_day');
     }
 }

@@ -14,7 +14,7 @@
         @endisset
     </div>
     <div class="px-4 py-2">
-        <div class="text-gray-500 text-lg lg:text-xl xl:text-2xl truncate">{{ $employee->department." - ".$function }}</div>
+        <div class="text-gray-500 text-lg lg:text-xl xl:text-2xl truncate">{{ $department." - ".$function }}</div>
         <div class="text-sm md:text-md xl:text-lg">
             <a class="ml-2 text-red-700">{{ $employee->user->email }}</a><br>
             <a class="ml-2 text-red-700">{{ $employee->phoneNumber }}</a>

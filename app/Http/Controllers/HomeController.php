@@ -30,8 +30,7 @@ class HomeController extends Controller
         $employee = auth()->user()->employee;
         if (is_null($employee->firstname)
             || is_null($employee->lastname)
-            || is_null($employee->phoneNumber)
-            || is_null($employee->department)) {
+            || is_null($employee->phoneNumber)) {
             return redirect()->route('employee.create');
         }
 
