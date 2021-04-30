@@ -2,10 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Course;
 use App\Models\DayOfWeek;
 use App\Models\Department;
 use App\Models\Employee;
 use App\Models\Expertise;
+use App\Models\Hobby;
+use App\Models\LearningLine;
+use App\Models\Lectorate;
+use App\Models\Minor;
 use App\Models\Role;
 use App\Models\WorkHour;
 use Exception;
@@ -109,7 +114,14 @@ class EmployeeController extends Controller
     {
         $departments = Department::all()->pluck('name');
         $days_of_week = DayOfWeek::all();
-        return view('employee.editProfile', compact(["employee"], 'departments', 'days_of_week'));
+        $hobbies = Hobby::all();
+        $courses = Course::all();
+        $lectorates = Lectorate::all();
+        $expertises = Expertise::all();
+        $learningLines = LearningLine::all();
+        $minors =  Minor::all();
+
+        return view('employee.editProfile', compact(["employee"], 'departments', 'days_of_week', 'hobbies', 'courses', 'lectorates', 'expertises', 'learningLines', 'minors'));
     }
 
     /**
