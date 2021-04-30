@@ -140,26 +140,25 @@ class EmployeeController extends Controller
             'email' => 'required|email',
             'department' => 'required',
             'linkedInUrl' => 'required',
-//            'expertises' => 'required',
-//            'minors' => 'required',
-//            'courses' => 'required',
-//            'learningLines' => 'required',
-//            'hobby' => 'required',
-
-//            'lectorate' => 'required',
+            'expertises' => 'required',
+            'minors' => 'required',
+            'courses' => 'required',
+            'learningLines' => 'required',
+            'hobbies' => 'required',
+            'lectorates' => 'required',
         ]);
 
 
         $employee->update($request->only(['firstname', 'lastname', 'phoneNumber', 'department', 'expertise', 'role', 'linkedInUrl']));
         $employee->user()->update($request->only(['email']));
 
-//        $employee->expertises()->update($request->only(['expertises']));
-//        $employee->minor()->update($request->only(['minors']));
-//        $employee->course()->update($request->only(['courses']));
-//        $employee->learningLine()->update($request->only(['learningLines']));
-//        $employee->hobby()->update($request->only(['hobby']));
-
-//        $employee->lectorate()->update($request->only(['lectorate']));
+        $employee->lectorate()->sync(request('lectorates'));
+        $employee->hobby()->sync(request('hobbies'));
+        $employee->learningLine()->sync(request('learningLines'));
+        $employee->course()->sync(request('courses'));
+        $employee->minor()->sync(request('minors'));
+        $employee->expertises()->sync(request('expertises'));
+        $employee->save();
 
 
         return view('employee.profile', compact(["employee"]))->with('succes', 'Je gegevens zijn veranderd.');
