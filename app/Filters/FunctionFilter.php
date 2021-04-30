@@ -7,26 +7,19 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Facade;
+use function PHPUnit\Framework\isEmpty;
 
 class FunctionFilter extends Facade implements Filter
 {
     public function filter(Collection $employees, array $filters): Collection
     {
-        $users = DB::table('user')
-            ->select('user.id')
-            ->join('role_user', 'user.id', '=', "role_user.user_id")
-            ->join('role', 'role_user.role_id', '=', 'role.id')
-            ->whereIn('role.id', array_keys($filters))
-            ->get();
 
         foreach ($employees as $employee) {
 
             $forget = true;
 
-            foreach ($users as $user) {
-                if ($user->id == $employee->user->id) {
-                    $forget = false;
-                }
+            if($employee->user->roles->whereIn('id', array_keys($filters))->count() != 0){
+                $forget = false;
             }
 
             if ($forget) {
