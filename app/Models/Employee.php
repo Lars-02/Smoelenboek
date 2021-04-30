@@ -27,7 +27,7 @@ class Employee extends Model
 
     public function department()
     {
-        return $this->belongsTo(Department::class, 'department', 'name');
+        return $this->belongsTo(Department::class, 'name', 'department');
     }
 
     public function lectorate()
@@ -63,5 +63,10 @@ class Employee extends Model
     public function workHours()
     {
         return $this->hasMany(WorkHour::class);
+    }
+
+    public function getFullNameAttribute($value)
+    {
+        return $this->firstname.' '.$this->lastname;
     }
 }
