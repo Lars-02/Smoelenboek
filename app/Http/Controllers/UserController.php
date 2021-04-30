@@ -34,11 +34,9 @@ class UserController extends Controller
         } else {
             $role = Role::where('name', 'Docent')->get(['id'])->first();
         }
-        // dd($role->id);
 
         $roleUser = new RoleUser;
         $roleUser->role_id = $role->id;
-
 
         DB::transaction(function () use ($user, $roleUser) {
             $user->save();
