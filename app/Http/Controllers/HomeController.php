@@ -13,6 +13,7 @@ use App\Models\LearningLine;
 use App\Models\Lectorate;
 use App\Models\Minor;
 use App\Models\WorkHour;
+use App\Models\Role;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Database\Query\Builder;
 use Illuminate\Http\RedirectResponse;
@@ -75,7 +76,22 @@ class HomeController extends Controller
                         }
                     }
                 }
+
+                $functions = Role::where('name', 'LIKE', '%' . $filter . '%')->get();
+                // dd($functions);
+                foreach($functions as $function) {
+                    $functionEmployees = $function->employee()->get();
+                    $functionEmployeeIds = $functionEmployees->pluck('id');
+                    // dd($functionEmployeeIds);
+                    foreach($functionEmployeeIds as $id) {
+                        if(!in_array($id, $arrayEmployeeIds)){
+                            array_push($arrayEmployeeIds, $id);
+                        }
+                    }
+                }
+
             }
+
             $employees = Employee::whereIn('id', $arrayEmployeeIds)->get();
         } else {
             $employees = Employee::all();
