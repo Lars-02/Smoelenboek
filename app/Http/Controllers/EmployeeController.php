@@ -137,11 +137,30 @@ class EmployeeController extends Controller
             'firstname' => 'required',
             'lastname' => 'required',
             'phoneNumber' => 'required',
-            'email' => 'required',
+            'email' => 'required|email',
+            'department' => 'required',
+            'linkedInUrl' => 'required',
+//            'expertises' => 'required',
+//            'minors' => 'required',
+//            'courses' => 'required',
+//            'learningLines' => 'required',
+//            'hobby' => 'required',
+
+//            'lectorate' => 'required',
         ]);
 
-        $employee->update($request->only(['firstname', 'lastname', 'phoneNumber']));
+
+        $employee->update($request->only(['firstname', 'lastname', 'phoneNumber', 'department', 'expertise', 'role', 'linkedInUrl']));
         $employee->user()->update($request->only(['email']));
+
+//        $employee->expertises()->update($request->only(['expertises']));
+//        $employee->minor()->update($request->only(['minors']));
+//        $employee->course()->update($request->only(['courses']));
+//        $employee->learningLine()->update($request->only(['learningLines']));
+//        $employee->hobby()->update($request->only(['hobby']));
+
+//        $employee->lectorate()->update($request->only(['lectorate']));
+
 
         return view('employee.profile', compact(["employee"]))->with('succes', 'Je gegevens zijn veranderd.');
     }

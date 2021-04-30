@@ -79,7 +79,7 @@
                                 <label class="mb-1.5 pl-1.5 py-0.5 float-left text-left text-white w-6/12 bg-red-700 rounded">Wijzig de afdeling:</label>
                                 <select class="px-2.5 py-2.5 w-full rounded" name="department" id="department">
                                     @foreach($departments as $department)
-                                        <option @if($employee->department === $department) selected @endif>{{$department}}</option>
+                                        <option name="department" @if($employee->department === $department) selected @endif>{{$department}}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -127,7 +127,7 @@
                                 </div>
                                 <div class="mb-5 md:pr-5">
                                     <label class="mb-1.5 pl-1.5 py-0.5 float-left text-left text-white w-6/12 bg-red-700 rounded">Hobby's:</label>
-                                    <select class="w-full" name="hobbies[]" multiple>
+                                    <select class="w-full" name="hobby[]" multiple>
                                         @foreach($hobbies as $hobby)
                                             <option @if($employee->hobby->contains($hobby)) selected @endif>{{$hobby->name}}</option>
                                         @endforeach
