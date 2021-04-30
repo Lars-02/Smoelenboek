@@ -29,6 +29,19 @@
                         @endif
                     @endforeach
                 </x-filterModal>
+                <x-filterModal title="Leerlijn">
+                    @foreach($learningLines as $learningLine)
+                        @if(isset($request->get("learningLines")[$learningLine->id]))
+                            <x-filterSelector name="learningLines[{{ $learningLine->id }}]" checked="true">
+                                {{ $learningLine->name }}
+                            </x-filterSelector>
+                        @else
+                            <x-filterSelector name="learningLines[{{ $learningLine->id }}]" checked="false">
+                                {{ $learningLine->name }}
+                            </x-filterSelector>
+                        @endif
+                    @endforeach
+                </x-filterModal>
             </div>
             <div class="flex-grow mb-4 overflow-x-hidden overflow-y-scroll scrollbar-hide rounded-md pb-4">
                 <div

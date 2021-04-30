@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Filters\CourseFilter;
+use App\Filters\LearningLineFilter;
 use App\Models\Course;
 use App\Models\DayOfWeek;
 use App\Models\Department;
@@ -52,6 +53,11 @@ class HomeController extends Controller
         if (isset($request['courses'])) {
             $courseFilter = new CourseFilter();
             $employees = $courseFilter->filter($employees, $request['courses']);
+        }
+
+        if (isset($request['learningLines'])) {
+            $courseFilter = new LearningLineFilter();
+            $employees = $courseFilter->filter($employees, $request['learningLines']);
         }
 
         $courses = Course::all();
