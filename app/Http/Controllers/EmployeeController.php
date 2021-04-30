@@ -41,16 +41,17 @@ class EmployeeController extends Controller
             $this->validateEmployee()
         );
 
-        return redirect('/home');
+        return redirect(route('home'));
     }
 
     protected function validateEmployee()
     {
         return request()->validate([
-            'user_id' => 'required',
-            'firstname' => 'required',
-            'lastname' => 'required',
-            'phoneNumber' => 'required',
+            'user_id' => 'required|integer|numeric|unique:employee',
+            'firstname' => 'required|alpha|min:2|max:60',
+            'lastname' => 'required|alpha|min:2|max:60',
+            'phoneNumber' => ['required|max:14'],
+            'email' => 'required|email:rfc,dns',
         ]);
     }
 

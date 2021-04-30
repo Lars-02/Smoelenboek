@@ -23,9 +23,10 @@ Auth::routes();
 
 Route::group(['middleware' => 'auth'], function () {
 
-    Route::resource('employee', EmployeeController::class)
-        ->only(['create', 'store'])
-        ->middleware(EnsureEmptyEmployee::class);
+    Route::group(['middleware' => 'employee.empty', 'prefix' => 'employee', 'name' => 'employee.'], function () {
+    Route::get('/create', [EmployeeController::class, 'create']);
+    Route::post('/', [EmployeeController::class, 'store']);
+    });
 
     Route::group(['middleware' => 'employee'], function () {
 
