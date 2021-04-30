@@ -2,9 +2,21 @@
 
 namespace App\Http\Controllers;
 
+use App\Filters\CourseFilter;
+use App\Models\Course;
+use App\Models\DayOfWeek;
+use App\Models\Department;
 use App\Models\Employee;
+use App\Models\Expertise;
+use App\Models\Hobby;
+use App\Models\LearningLine;
+use App\Models\Lectorate;
+use App\Models\Minor;
+use App\Models\WorkHour;
 use Illuminate\Contracts\Support\Renderable;
+use Illuminate\Database\Query\Builder;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
@@ -23,12 +35,23 @@ class HomeController extends Controller
      *
      * @return Renderable|RedirectResponse
      */
-    public function index()
+    public function index(Request $request)
     {
-        if (!isset(auth()->user()->employee))
-            return redirect()->route('employee.create');
-
         $employees = Employee::all();
-        return view('home', compact(["employees"]));
+
+        if (isset($request['courses'])) {
+            $courseFilter = new CourseFilter();
+            $employees = $courseFilter->filter($employees, $request['courses']);
+        }
+
+        $courses = Course::all();
+        $departments = Department::all();
+        $expertises = Expertise::all();
+        $hobbies = Hobby::all();
+        $learningLines = LearningLine::all();
+        $lectorates = Lectorate::all();
+        $minors = Minor::all();
+
+        return view('home', compact(["request", "employees", "courses", "departments", "expertises", "hobbies", "learningLines", "lectorates", "minors"]));
     }
 }
