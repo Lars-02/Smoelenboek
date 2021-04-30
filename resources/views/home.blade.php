@@ -29,6 +29,19 @@
                         @endif
                     @endforeach
                 </x-filterModal>
+                <x-filterModal title="Functie">
+                    @foreach($roles as $role)
+                        @if(isset($request->get("roles")[$role->id]))
+                            <x-filterSelector name="roles[{{ $role->id }}]" checked="true">
+                                {{ $role->name }}
+                            </x-filterSelector>
+                        @else
+                            <x-filterSelector name="roles[{{ $role->id }}]" checked="false">
+                                {{ $role->name }}
+                            </x-filterSelector>
+                        @endif
+                    @endforeach
+                </x-filterModal>
             </div>
             <div class="flex-grow mb-4 overflow-x-hidden overflow-y-scroll scrollbar-hide rounded-md pb-4">
                 <div

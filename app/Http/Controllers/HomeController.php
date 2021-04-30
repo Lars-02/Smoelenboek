@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Filters\CourseFilter;
+use App\Filters\FunctionFilter;
 use App\Models\Course;
 use App\Models\DayOfWeek;
 use App\Models\Department;
@@ -12,6 +13,7 @@ use App\Models\Hobby;
 use App\Models\LearningLine;
 use App\Models\Lectorate;
 use App\Models\Minor;
+use App\Models\Role;
 use App\Models\WorkHour;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Database\Query\Builder;
@@ -54,6 +56,11 @@ class HomeController extends Controller
             $employees = $courseFilter->filter($employees, $request['courses']);
         }
 
+        if (isset($request['roles'])) {
+            $functionFilter = new FunctionFilter();
+            $employees = $functionFilter->filter($employees, $request['roles']);
+        }
+
         $courses = Course::all();
         $departments = Department::all();
         $expertises = Expertise::all();
@@ -61,7 +68,8 @@ class HomeController extends Controller
         $learningLines = LearningLine::all();
         $lectorates = Lectorate::all();
         $minors = Minor::all();
+        $roles = Role::all();
 
-        return view('home', compact(["request", "employees", "courses", "departments", "expertises", "hobbies", "learningLines", "lectorates", "minors"]));
+        return view('home', compact(["request", "employees", "courses", "departments", "expertises", "hobbies", "learningLines", "lectorates", "minors", "roles"]));
     }
 }
