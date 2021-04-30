@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Filters\CourseFilter;
-use App\Filters\FunctionFilter;
+use App\Filters\RoleFilter;
 use App\Models\Course;
 use App\Models\DayOfWeek;
 use App\Models\Department;
@@ -57,7 +57,7 @@ class HomeController extends Controller
         }
 
         if (isset($request['roles'])) {
-            $functionFilter = new FunctionFilter();
+            $functionFilter = new RoleFilter();
             $employees = $functionFilter->filter($employees, $request['roles']);
         }
 

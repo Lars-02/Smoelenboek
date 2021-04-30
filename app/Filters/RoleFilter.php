@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Facade;
 use function PHPUnit\Framework\isEmpty;
 
-class FunctionFilter extends Facade implements Filter
+class RoleFilter extends Facade implements Filter
 {
     public function filter(Collection $employees, array $filters): Collection
     {
