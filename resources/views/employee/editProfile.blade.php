@@ -1,11 +1,11 @@
 <x-layout>
-    <div class="bg-white min-h-screen">
-        <div class="container w-full py-16 pr-36">
-            <div class="md:flex no-wrap md:-mx-2 " x-data="{ tab: 'account' }">
+    <div class="bg-white">
+        <div class="container w-full pt-16 pr-36">
+            <div class="min-h-screen md:flex no-wrap md:-mx-2" x-data="{ tab: 'account' }">
                 <!-- Left Side -->
                 <div class="w-full md:w-3/12">
                     <!-- Side navbar -->
-                    <ul class="text-gray-600 hover:text-gray-700">
+                    <ul class="h-full text-gray-600 hover:text-gray-700">
                         <li class="flex items-center justify-center pb-3">
                             <button class="text-xs sm:text-sm md:text-base lg:text-lg text-white font-bold py-2 px-3 sm:px-4 md:px-5 xl:px-6 bg-red-700 w-10/12 border-red-700 border-4 rounded hover:bg-white hover:text-black" @click="tab = 'account'">Account</button>
                         </li>
@@ -17,6 +17,12 @@
                         </li>
                         <li class="flex items-center justify-center py-3">
                             <button class="text-xs sm:text-sm md:text-base lg:text-lg text-white font-bold py-2 px-3 sm:px-4 md:px-5 xl:px-6 bg-red-700 w-10/12 border-red-700 border-4 rounded hover:bg-white hover:text-black" @click="tab = 'overig'">Overige</button>
+                        </li>
+                        <li class="flex items-center justify-center inset-x-0 bottom-0 py-3">
+                            <button class="text-xs sm:text-sm md:text-base lg:text-lg text-white font-bold py-2 px-3 sm:px-4 md:px-5 xl:px-6 bg-red-700 w-10/12 border-red-700 border-4 rounded hover:bg-white hover:text-black">Account verwijderen</button>
+                        </li>
+                        <li class="flex items-center justify-center inset-x-0 bottom-0 py-3">
+                            <button class="text-xs sm:text-sm md:text-base lg:text-lg text-white font-bold py-2 px-3 sm:px-4 md:px-5 xl:px-6 bg-red-700 w-10/12 border-red-700 border-4 rounded hover:bg-white hover:text-black">Admin dashboard</button>
                         </li>
                     </ul>
                     <!-- End of Side navbar -->
@@ -97,9 +103,9 @@
 
                             <h2 class="font-bold md:text-5xl mb-5">Werkdagen</h2>
                             <label class="mb-1.5 pl-1.5 py-0.5 text-left text-white w-6/12 bg-red-700 rounded block">Selecteer werkzame dagen:</label>
-                            <div class="w-full ">
+                            <div class="w-full">
                                 @foreach($days_of_week as $day_of_week)
-                                    <input type="checkbox" @if($employee->workHours->contains($day_of_week)) checked @endif/><label>{{$day_of_week->day}}</label>
+                                    <input type="checkbox" @if($employee->workHours->contains($day_of_week)) checked @endif/><label> {{$day_of_week->day}}</label>
                                     <br>
                                 @endforeach
                             </div>
@@ -117,9 +123,9 @@
 
                             <h2 class="font-bold md:text-5xl mb-5">Overige zaken</h2>
                             <div class="grid md:grid-cols-2">
-                                <div class="mb-5 md:pr-5" x-data="{ open: false }">
-                                    <label @click="open = !open" class="mb-1.5 pl-1.5 py-0.5 float-left text-left text-white w-6/12 bg-red-700 rounded">Lectoraten:</label>
-                                    <div class="mt-10" x-show.transition.duration.300ms="open">
+                                <div class="mb-5 md:pr-5">
+                                    <label class="mb-1.5 pl-1.5 py-0.5 float-left text-left text-white w-6/12 bg-red-700 rounded">Lectoraten:</label>
+                                    <div class="h-32 mt-10 overflow-scroll border-b-2">
                                         @foreach($lectorates as $lectorate)
                                             <div>
                                                 <input @if ($employee->lectorate->contains($lectorate->id)) checked @endif value="{{$lectorate->id}}" name="lectorates[]" type="checkbox">
@@ -128,9 +134,9 @@
                                         @endforeach
                                     </div>
                                 </div>
-                                <div class="mb-5 md:pr-5" x-data="{ open: false }">
-                                    <label @click="open = !open" class="mb-1.5 pl-1.5 py-0.5 float-left text-left text-white w-6/12 bg-red-700 rounded">Hobby's:</label>
-                                    <div class="mt-10" x-show.transition.duration.300ms="open">
+                                <div class="mb-5 md:pr-5">
+                                    <label class="mb-1.5 pl-1.5 py-0.5 float-left text-left text-white w-6/12 bg-red-700 rounded">Hobby's:</label>
+                                    <div class="h-32 mt-10 overflow-scroll border-b-2">
                                         @foreach($hobbies as $hobby)
                                             <div>
                                                 <input @if ($employee->hobby->contains($hobby->id)) checked @endif value="{{$hobby->id}}" name="hobbies[]" type="checkbox">
@@ -139,9 +145,9 @@
                                         @endforeach
                                     </div>
                                 </div>
-                                <div class="mb-5 md:pr-5" x-data="{ open: false }">
-                                    <label @click="open = !open" class="mb-1.5 pl-1.5 py-0.5 float-left text-left text-white w-6/12 bg-red-700 rounded">Cursussen:</label>
-                                    <div class="mt-10" x-show.transition.duration.300ms="open">
+                                <div class="mb-5 md:pr-5">
+                                    <label class="mb-1.5 pl-1.5 py-0.5 float-left text-left text-white w-6/12 bg-red-700 rounded">Cursussen:</label>
+                                    <div class="h-32 mt-10 overflow-scroll border-b-2">
                                         @foreach($courses as $course)
                                             <div>
                                                 <input @if ($employee->course->contains($course->id)) checked @endif value="{{$course->id}}" name="courses[]" type="checkbox">
@@ -150,9 +156,9 @@
                                         @endforeach
                                     </div>
                                 </div>
-                                <div class="mb-5 md:pr-5" x-data="{ open: false }">
-                                    <label @click="open = !open" class="mb-1.5 pl-1.5 py-0.5 float-left text-left text-white w-6/12 bg-red-700 rounded">Leerlijnen:</label>
-                                    <div class="mt-10" x-show.transition.duration.300ms="open">
+                                <div class="mb-5 md:pr-5">
+                                    <label class="mb-1.5 pl-1.5 py-0.5 float-left text-left text-white w-6/12 bg-red-700 rounded">Leerlijnen:</label>
+                                    <div class="h-32 mt-10 overflow-scroll border-b-2">
                                         @foreach($learningLines as $learningLine)
                                             <div>
                                                 <input @if ($employee->learningLine->contains($learningLine->id)) checked @endif value="{{$learningLine->id}}" name="learningLines[]" type="checkbox">
@@ -161,9 +167,9 @@
                                         @endforeach
                                     </div>
                                 </div>
-                                <div class="mb-5 md:pr-5" x-data="{ open: false }">
-                                    <label @click="open = !open" class="mb-1.5 pl-1.5 py-0.5 float-left text-left text-white w-6/12 bg-red-700 rounded">Expertises:</label>
-                                    <div class="mt-10" x-show.transition.duration.300ms="open">
+                                <div class="mb-5 md:pr-5">
+                                    <label class="mb-1.5 pl-1.5 py-0.5 float-left text-left text-white w-6/12 bg-red-700 rounded">Expertises:</label>
+                                    <div class="h-32 mt-10 overflow-scroll border-b-2">
                                         @foreach($expertises as $expertise)
                                             <div>
                                                 <input @if ($employee->expertises->contains($expertise->id)) checked @endif value="{{$expertise->id}}" name="expertises[]" type="checkbox">
@@ -172,9 +178,9 @@
                                         @endforeach
                                     </div>
                                 </div>
-                                <div class="mb-5 md:pr-5" x-data="{ open: false }">
-                                    <label @click="open = !open" class="mb-1.5 pl-1.5 py-0.5 float-left text-left text-white w-6/12 bg-red-700 rounded">Minoren:</label>
-                                    <div class="mt-10" x-show.transition.duration.300ms="open">
+                                <div class="mb-5 md:pr-5">
+                                    <label class="mb-1.5 pl-1.5 py-0.5 float-left text-left text-white w-6/12 bg-red-700 rounded">Minoren:</label>
+                                    <div class="h-32 mt-10 overflow-scroll border-b-2">
                                         @foreach($minors as $minor)
                                             <div>
                                                 <input @if ($employee->minor->contains($minor->id)) checked @endif value="{{$minor->id}}" name="minors[]" type="checkbox">

@@ -139,15 +139,7 @@ class EmployeeController extends Controller
             'phoneNumber' => 'required',
             'email' => 'required|email',
             'department' => 'required',
-            'linkedInUrl' => 'required',
-            'expertises' => 'required',
-            'minors' => 'required',
-            'courses' => 'required',
-            'learningLines' => 'required',
-            'hobbies' => 'required',
-            'lectorates' => 'required',
         ]);
-
 
         $employee->update($request->only(['firstname', 'lastname', 'phoneNumber', 'department', 'expertise', 'role', 'linkedInUrl']));
         $employee->user()->update($request->only(['email']));
@@ -159,7 +151,6 @@ class EmployeeController extends Controller
         $employee->minor()->sync(request('minors'));
         $employee->expertises()->sync(request('expertises'));
         $employee->save();
-
 
         return view('employee.profile', compact(["employee"]))->with('succes', 'Je gegevens zijn veranderd.');
     }
