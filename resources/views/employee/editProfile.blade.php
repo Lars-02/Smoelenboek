@@ -40,24 +40,24 @@
 
                             <div class="text-gray-700">
                                 <div class="grid md:grid-cols-2 text-sm">
-                                    <div class="md:pl-5">
-                                        <label class="mb-1.5 pl-1.5 py-0.5 float-left text-left text-white w-6/12 bg-red-700 rounded">Cursussen:</label>
+                                    <div class="mb-5 md:pr-5">
+                                        <label class="mb-1.5 pl-1.5 py-0.5 float-left text-left text-white w-6/12 bg-red-700 rounded">Voornaam:</label>
                                         <input class="text-xs sm:text-sm md:text-base lg:text-lg px-2.5 py-2.5 w-full rounded border-gray-400 focus:border-gray-400 text-gray-600 focus:ring-0" type="text" name="firstname" value="{{$employee->firstname}}">
                                     </div>
-                                    <div class="md:pl-5">
-                                        <label class="mb-1.5 pl-1.5 py-0.5 float-left text-left text-white w-6/12 bg-red-700 rounded">Cursussen:</label>
+                                    <div class="mb-5 md:pr-5">
+                                        <label class="mb-1.5 pl-1.5 py-0.5 float-left text-left text-white w-6/12 bg-red-700 rounded">Achternaam:</label>
                                         <input class="text-xs sm:text-sm md:text-base lg:text-lg px-2.5 py-2.5 w-full rounded border-gray-400 focus:border-gray-400 text-gray-600 focus:ring-0" type="text" name="lastname" value="{{$employee->lastname}}">
                                     </div>
-                                    <div class="md:pl-5">
-                                        <label class="mb-1.5 pl-1.5 py-0.5 float-left text-left text-white w-6/12 bg-red-700 rounded">Cursussen:</label>
+                                    <div class="mb-5 md:pr-5">
+                                        <label class="mb-1.5 pl-1.5 py-0.5 float-left text-left text-white w-6/12 bg-red-700 rounded">Email:</label>
                                         <input class="text-xs sm:text-sm md:text-base lg:text-lg px-2.5 py-2.5 w-full rounded border-gray-400 focus:border-gray-400 text-gray-600 focus:ring-0" type="email" name="email" value="{{$employee->user->email}}">
                                     </div>
-                                    <div class="md:pl-5">
-                                        <label class="mb-1.5 pl-1.5 py-0.5 float-left text-left text-white w-6/12 bg-red-700 rounded">Cursussen:</label>
+                                    <div class="mb-5 md:pr-5">
+                                        <label class="mb-1.5 pl-1.5 py-0.5 float-left text-left text-white w-6/12 bg-red-700 rounded">Telefoonnummer:</label>
                                         <input class="text-xs sm:text-sm md:text-base lg:text-lg px-2.5 py-2.5 w-full rounded border-gray-400 focus:border-gray-400 text-gray-600 focus:ring-0" type="tel" name="phoneNumber" value="{{$employee->phoneNumber}}">
                                     </div>
-                                    <div class="md:pl-5">
-                                        <label class="mb-1.5 pl-1.5 py-0.5 float-left text-left text-white w-6/12 bg-red-700 rounded">Cursussen:</label>
+                                    <div class="mb-5 md:pr-5">
+                                        <label class="mb-1.5 pl-1.5 py-0.5 float-left text-left text-white w-6/12 bg-red-700 rounded">LinkedIn url:</label>
                                         <input class="text-xs sm:text-sm md:text-base lg:text-lg px-2.5 py-2.5 w-full rounded border-gray-400 focus:border-gray-400 text-gray-600 focus:ring-0" type="text" name="linkedInUrl" value="{{$employee->linkedInUrl}}">
                                     </div>
                                 </div>
@@ -96,8 +96,8 @@
                             </div>
 
                             <h2 class="font-bold md:text-5xl mb-5">Werkdagen</h2>
-                            <label class="mb-1.5 pl-1.5 py-0.5 float-left text-left text-white w-6/12 bg-red-700 rounded">Selecteer werkzame dagen:</label>
-                            <div class="w-full">
+                            <label class="mb-1.5 pl-1.5 py-0.5 text-left text-white w-6/12 bg-red-700 rounded block">Selecteer werkzame dagen:</label>
+                            <div class="w-full ">
                                 @foreach($days_of_week as $day_of_week)
                                     <input type="checkbox" @if($employee->workHours->contains($day_of_week)) checked @endif/><label>{{$day_of_week->day}}</label>
                                     <br>
@@ -117,51 +117,51 @@
 
                             <h2 class="font-bold md:text-5xl mb-5">Overige zaken</h2>
                             <div class="grid md:grid-cols-2">
-                                <div class="mb-5 md:pl-5">
+                                <div class="mb-5 md:pr-5">
                                     <label class="mb-1.5 pl-1.5 py-0.5 float-left text-left text-white w-6/12 bg-red-700 rounded">Lectoraten:</label>
                                     <select class="w-full" name="lectorate" multiple>
                                         @foreach($lectorates as $lectorate)
-                                            <option @if($employee->lectorate === $department) selected @endif>{{$lectorate->name}}</option>
+                                            <option @if($employee->lectorate->contains($lectorate)) selected @endif>{{$lectorate->name}}</option>
                                         @endforeach
                                     </select>
                                 </div>
-                                <div class="md:pl-5">
+                                <div class="mb-5 md:pr-5">
                                     <label class="mb-1.5 pl-1.5 py-0.5 float-left text-left text-white w-6/12 bg-red-700 rounded">Hobby's:</label>
                                     <select class="w-full" name="hobbies[]" multiple>
                                         @foreach($hobbies as $hobby)
-                                            <option>{{$hobby->name}}</option>
+                                            <option @if($employee->hobby->contains($hobby)) selected @endif>{{$hobby->name}}</option>
                                         @endforeach
                                     </select>
                                 </div>
-                                <div class="md:pl-5">
+                                <div class="mb-5 md:pr-5">
                                     <label class="mb-1.5 pl-1.5 py-0.5 float-left text-left text-white w-6/12 bg-red-700 rounded">Cursussen:</label>
                                     <select class="w-full" name="courses[]" multiple>
                                         @foreach($courses as $course)
-                                            <option>{{$course->name}}</option>
+                                            <option @if($employee->course->contains($course)) selected @endif>{{$course->name}}</option>
                                         @endforeach
                                     </select>
                                 </div>
-                                <div class="md:pl-5">
+                                <div class="mb-5 md:pr-5">
                                     <label class="mb-1.5 pl-1.5 py-0.5 float-left text-left text-white w-6/12 bg-red-700 rounded">Leerlijnen:</label>
                                     <select class="w-full" name="learningLines[]" multiple>
                                         @foreach($learningLines as $learningLine)
-                                            <option>{{$learningLine->name}}</option>
+                                            <option @if($employee->learningLine->contains($learningLine)) selected @endif>{{$learningLine->name}}</option>
                                         @endforeach
                                     </select>
                                 </div>
-                                <div class="md:pl-5">
+                                <div class="mb-5 md:pr-5">
                                     <label class="mb-1.5 pl-1.5 py-0.5 float-left text-left text-white w-6/12 bg-red-700 rounded">Expertises:</label>
                                     <select class="w-full" name="expertises[]" multiple>
                                         @foreach($expertises as $expertise)
-                                            <option>{{$expertise->name}}</option>
+                                            <option @if($employee->expertises->contains($expertise)) selected @endif>{{$expertise->name}}</option>
                                         @endforeach
                                     </select>
                                 </div>
-                                <div class="md:pl-5">
+                                <div class="mb-5 md:pr-5">
                                     <label class="mb-1.5 pl-1.5 py-0.5 float-left text-left text-white w-6/12 bg-red-700 rounded">Minoren:</label>
                                     <select class="w-full" name="minors[]" multiple>
                                         @foreach($minors as $minor)
-                                            <option>{{$minor->name}}</option>
+                                            <option @if($employee->minor->contains($minor)) selected @endif>{{$minor->name}}</option>
                                         @endforeach
                                     </select>
                                 </div>
