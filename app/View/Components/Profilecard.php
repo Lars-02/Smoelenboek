@@ -13,23 +13,35 @@ class Profilecard extends Component
      *
      * @return void
      */
-    public $employee;
+    public $imageAssetPath;
+    public $username;
+    public $email;
+    public $telephoneNumber;
     public $expertises;
     public $workingDays;
+    public $department;
     public $function;
     public $allDays;
+    public $userHref;
 
-    public function __construct($employee)
+    public function __construct($employee, $userHref)
     {
-        $this->employee = $employee;
+        $this->userHref = $userHref;
+        $this->imageAssetPath = $employee->user->photoUrl;
+        $this->username = $employee->username;
+        $this->email = $employee->user->email;
+        $this->telephoneNumber = $employee->phoneNumber;
         $this->expertises = $employee->expertises->map(function ($item) {
             return $item->name;
         })->toArray();
         $this->workingDays = $employee->workHours->map(function ($item) {
             return $item->week->day;
         })->toArray();
+        
         if ($employee->user->roles->first() != null)  $this->function = $employee->user->roles->first()->name;
         else $this->function = 'Geen Functie';
+
+        $this->department = $employee->department;
         $this->allDays = DayOfWeek::all()->pluck('day');
     }
 

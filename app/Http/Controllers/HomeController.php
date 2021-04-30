@@ -15,6 +15,7 @@ use App\Models\Lectorate;
 use App\Models\Minor;
 use App\Models\Role;
 use App\Models\WorkHour;
+use App\Models\EmployeeLearningLine;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Database\Query\Builder;
 use Illuminate\Http\RedirectResponse;
@@ -48,7 +49,8 @@ class HomeController extends Controller
             || !isset($employee->department)) {
             return redirect()->route('employee.create');
         }
-
+        $learningLines = LearningLine::all();
+        $departments = Department::all();
         $employees = Employee::all();
 
         if (isset($request['courses'])) {
@@ -71,5 +73,29 @@ class HomeController extends Controller
         $roles = Role::all();
 
         return view('home', compact(["request", "employees", "courses", "departments", "expertises", "hobbies", "learningLines", "lectorates", "minors", "roles"]));
+    }
+    
+    public static function filterLearningLine($option)
+    {
+        $option = LearningLine::where('name', $option)->first();
+        $learningLines = EmployeeLearningLine::all();
+        $employees = [];
+
+        foreach($learningLines as $learningLine)
+        {
+            if($learningLine->learning_line_id == $option->id)
+            {
+                $employee = Employee::find($learningLine->employee_id);
+                array_push($employees, $employee);
+            }
+        }
+        return $employees;
+    }
+
+    public static function filterDepartment($option)
+    {
+        $department = Department::where('name', $option)->first();
+        $employees = Employee::where('department', $department->name)->get();
+        return $employees;
     }
 }
