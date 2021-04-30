@@ -26,13 +26,7 @@ class HomeController extends Controller
     public function index()
     {
         if (!isset(auth()->user()->employee))
-            abort(500);
-        $employee = auth()->user()->employee;
-        if (is_null($employee->firstname)
-            || is_null($employee->lastname)
-            || is_null($employee->phoneNumber)) {
             return redirect()->route('employee.create');
-        }
 
         $employees = Employee::all();
         return view('home', compact(["employees"]));
