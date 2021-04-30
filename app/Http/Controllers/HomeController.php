@@ -55,7 +55,6 @@ class HomeController extends Controller
         if(isset($request["searchbar"])){
             $stringToFilter = $request["searchbar"];
             $splitStringToFilter = explode(" ", $stringToFilter);
-            // dd($splitStringToFilter);
             foreach ($splitStringToFilter as $filter) {
                 $employees = Employee::select('id')->where('firstname', 'LIKE', '%' . $filter . '%')
                 ->orWhere('lastname', 'LIKE', '%' . $filter . '%')
@@ -78,11 +77,9 @@ class HomeController extends Controller
                 }
 
                 $functions = Role::where('name', 'LIKE', '%' . $filter . '%')->get();
-                // dd($functions);
                 foreach($functions as $function) {
                     $functionEmployees = $function->employee()->get();
                     $functionEmployeeIds = $functionEmployees->pluck('id');
-                    // dd($functionEmployeeIds);
                     foreach($functionEmployeeIds as $id) {
                         if(!in_array($id, $arrayEmployeeIds)){
                             array_push($arrayEmployeeIds, $id);
