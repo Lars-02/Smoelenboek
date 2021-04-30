@@ -23,9 +23,9 @@ Auth::routes();
 
 Route::group(['middleware' => 'auth'], function () {
 
-    Route::group(['middleware' => 'employee.empty', 'prefix' => 'employee', 'name' => 'employee.'], function () {
-    Route::get('/create', [EmployeeController::class, 'create']);
-    Route::post('/', [EmployeeController::class, 'store']);
+    Route::group(['middleware' => 'employee.empty', 'prefix' => 'employee', 'as' => 'employee.'], function () {
+    Route::get('/create', [EmployeeController::class, 'create'])->name('create');
+    Route::post('/', [EmployeeController::class, 'store'])->name('store');
     });
 
     Route::group(['middleware' => 'employee'], function () {

@@ -12,6 +12,7 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Auth;
 
 class EmployeeController extends Controller
 {
@@ -22,11 +23,12 @@ class EmployeeController extends Controller
      */
     public function create()
     {
+        $user = Auth::user();
         $departments = Department::all()->pluck('name');
         $roles = Role::all()->pluck('name', 'id');
         $expertises = Expertise::all()->pluck('name', 'id');
 
-        return view('employee.form', compact('departments', 'roles', 'expertises'));
+        return view('employee.create', compact(['user', 'departments', 'roles', 'expertises']));
     }
 
     /**
@@ -47,11 +49,10 @@ class EmployeeController extends Controller
     protected function validateEmployee()
     {
         return request()->validate([
-            'user_id' => 'required|integer|numeric|unique:employee',
-            'firstname' => 'required|alpha|min:2|max:60',
-            'lastname' => 'required|alpha|min:2|max:60',
-            'phoneNumber' => ['required|max:14'],
-            'email' => 'required|email:rfc,dns',
+            'user_id' => 'required|unique:employee',
+            'firstname' => 'required|alpha|min:2|max:40',
+            'lastname' => 'required|alpha|min:2|max:40',
+            'phoneNumber' => 'required|max:15',
         ]);
     }
 
