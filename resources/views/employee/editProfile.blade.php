@@ -18,12 +18,6 @@
                         <li class="flex items-center justify-center py-3">
                             <button class="text-xs sm:text-sm md:text-base lg:text-lg text-white font-bold py-2 px-3 sm:px-4 md:px-5 xl:px-6 bg-red-700 w-10/12 border-red-700 border-4 rounded hover:bg-white hover:text-black" @click="tab = 'overig'">Overige</button>
                         </li>
-                        <li class="flex items-center justify-center inset-x-0 bottom-0 py-3">
-                            <button class="text-xs sm:text-sm md:text-base lg:text-lg text-white font-bold py-2 px-3 sm:px-4 md:px-5 xl:px-6 bg-red-700 w-10/12 border-red-700 border-4 rounded hover:bg-white hover:text-black">Account verwijderen</button>
-                        </li>
-                        <li class="flex items-center justify-center inset-x-0 bottom-0 py-3">
-                            <button class="text-xs sm:text-sm md:text-base lg:text-lg text-white font-bold py-2 px-3 sm:px-4 md:px-5 xl:px-6 bg-red-700 w-10/12 border-red-700 border-4 rounded hover:bg-white hover:text-black">Admin dashboard</button>
-                        </li>
                     </ul>
                     <!-- End of Side navbar -->
                 </div>
@@ -191,14 +185,20 @@
                                 </div>
                             </div>
                         </div>
-
-                        <div class="flex justify-end pt-6 space-x-4">
-                            <x-button type="submit">
-                                Opslaan
-                            </x-button>
-                            <x-button>
-                                <a href="{{ route('employee.show', ['employee' => $employee]) }}">Annuleren</a>
-                            </x-button>
+                        <div class="pt-6">
+                            <div class="inline-block">
+                                <x-button>
+                                    Account verwijderen
+                                </x-button>
+                            </div>
+                            <div class="float-right">
+                                <x-button type="submit">
+                                    Opslaan
+                                </x-button>
+                                <x-button>
+                                    <a href="{{ route('employee.show', ['employee' => $employee]) }}">Annuleren</a>
+                                </x-button>
+                            </div>
                         </div>
                     </form>
                     <!-- End of profile tab -->
