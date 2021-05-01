@@ -15,7 +15,7 @@ use App\Models\Role;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
+// use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
 {
@@ -37,15 +37,15 @@ class HomeController extends Controller
     public function index(Request $request)
     {
         
-        if (!isset(auth()->user()->employee))
-            abort(500);
-        $employee = auth()->user()->employee;
-        if (!isset($employee->firstname)
-            || !isset($employee->lastname)
-            || !isset($employee->phoneNumber)
-            || !isset($employee->department)) {
-            return redirect()->route('employee.create');
-        }
+        // if (!isset(auth()->user()->employee))
+        //     abort(500);
+        // $employee = auth()->user()->employee;
+        // if (!isset($employee->firstname)
+        //     || !isset($employee->lastname)
+        //     || !isset($employee->phoneNumber)
+        //     || !isset($employee->department)) {
+        //     return redirect()->route('employee.create');
+        // }
 
         $arrayEmployeeIds = [];
         $employees;
