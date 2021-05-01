@@ -25,7 +25,7 @@ class EmployeeController extends Controller
     public function create()
     {
         $user = Auth::user();
-        $departments = Department::all()->pluck('name');
+        $departments = Department::all()->pluck('name', 'id');
         $roles = Role::all()->pluck('name', 'id');
         $expertises = Expertise::all()->pluck('name', 'id');
         $dayOfWeek = DayOfWeek::all()->take(5);
@@ -41,7 +41,7 @@ class EmployeeController extends Controller
      */
     public function store()
     {
-        Employee::create(
+        $employee = Employee::create(
             $this->validateEmployee()
         );
 
@@ -55,6 +55,10 @@ class EmployeeController extends Controller
             'firstname' => 'required|alpha|min:2|max:40',
             'lastname' => 'required|alpha|min:2|max:40',
             'phoneNumber' => 'required|max:15',
+            'departments' => 'exists:department,id',
+            'expertises' => 'exists:expertise,id',
+            'roles' => 'exists:role,id',
+            'workDays' => 'exists:day_of_week,id',
         ]);
     }
 
