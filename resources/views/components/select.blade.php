@@ -1,15 +1,16 @@
 <div class="mb-8">
-    @if(isset($slot))
-        <label class="mb-1.5 pl-1.5 py-0.5 float-left text-left text-white w-6/12 bg-red-700 rounded" for="{{$id}}">{{$slot}}</label><br/>
-    @endif
+    <x-input.label id="{{$id}}">{{$slot}}</x-input.label>
     <select
         id="{{$id}}"
-        name="{{ $id }}"
-        {{$attributes->class(['px-2.5 py-2.5 w-full rounded'])}}
+        name="{{$id}}[]"
+        multiple
+        {{$attributes->class(['text-xs sm:text-sm md:text-base lg:text-lg px-2.5 py-2.5 pl-4 w-full rounded border-gray-400 focus:border-gray-400 text-gray-600 focus:ring-0'])}}
     >
-        <option selected disabled>Kies een {{$slot}}</option>
-            @foreach($options as $option => $value)
-                <option value="{{ $option }}">{{ $value }}</option>
-            @endforeach
+        <option disabled>Kies uw {{$slot}}</option>
+        @foreach($options as $option => $value)
+            <option
+                value="{{ $option }}"
+            >{{ $value }}</option>
+        @endforeach
     </select>
 </div>
