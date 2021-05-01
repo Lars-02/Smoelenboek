@@ -7,14 +7,14 @@ use App\Models\Department;
 use App\Models\Employee;
 use App\Models\Expertise;
 use App\Models\Role;
-use App\Models\WorkHour;
-use Exception;
+use App\Models\WorkDay;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Auth;
 
 class EmployeeController extends Controller
 {
@@ -25,11 +25,13 @@ class EmployeeController extends Controller
      */
     public function create()
     {
-        $departments = Department::all()->pluck('name');
+        $user = Auth::user();
+        $departments = Department::all()->pluck('name', 'id');
         $roles = Role::all()->pluck('name', 'id');
         $expertises = Expertise::all()->pluck('name', 'id');
+        $workDays = WorkDay::all();
 
-        return view('employee.form', compact('departments', 'roles', 'expertises'));
+        return view('employee.create', compact(['user', 'departments', 'roles', 'expertises', 'workDays']));
     }
 
     /**
@@ -38,53 +40,35 @@ class EmployeeController extends Controller
      * @param Request $request
      * @return RedirectResponse
      */
-    public function store(Request $request)
+    public function store()
     {
-        request()->validate([
-            'firstname' => 'required',
-            'lastname' => 'required',
-            'department' => 'required',
-            'expertise' => 'required',
-            'phoneNumber' => 'required',
-            'role' => 'required',
+        $validated = $this->validateEmployee();
+
+        $employee = Employee::create($validated);
+
+        $employee->departments()->sync($validated['departments']);
+        $employee->expertises()->sync($validated['expertises']);
+        $employee->workDays()->sync($validated['workDays']);
+        $employee->save();
+
+        $employee->user->roles()->sync($validated['roles']);
+        $employee->user->save();
+
+        return redirect(route('home'));
+    }
+
+    protected function validateEmployee()
+    {
+        return request()->validate([
+            'user_id' => 'required|unique:employee',
+            'firstname' => 'required|alpha|min:2|max:40',
+            'lastname' => 'required|alpha|min:2|max:40',
+            'phoneNumber' => 'required|max:15',
+            'departments' => 'required|exists:department,id',
+            'expertises' => 'required|exists:expertise,id',
+            'roles' => 'required|exists:role,id',
+            'workDays' => 'required|exists:work_day,id',
         ]);
-
-        $user = auth()->user();
-
-        try {
-            //Loop to pick day from array
-            for ($i = 0; $i < 5; $i++) {
-                $days = array('monday', 'tuesday', 'wednesday', 'thursday', 'friday');
-                if (!empty(request($days[$i]))) {
-                    //Loop to add each work hour entry
-                    foreach (request($days[$i]) as $parent) {
-                        if (!empty($parent["start_time"]) && !empty($parent["end_time"])) {
-                            $workinghours = new WorkHour;
-                            $workinghours->day = DayOfWeek::where('day', $days[$i])->first()->id;
-                            $workinghours->employee_id = $user->employee->id;
-                            $workinghours->start_time = $parent["start_time"];
-                            $workinghours->end_time = $parent["end_time"];
-                            $workinghours->save();
-                        }
-                    }
-                }
-            }
-        } catch(Exception $error) {
-            $request->session()->flash('dbError', $error->getMessage());
-            return redirect()->route('employee.create');
-        }
-
-        $user->roles()->sync(request('role'));
-
-        $userName = explode('@', $user->email);
-        $user->employee->username = $userName[0];
-        $user->employee->update($request->only(['username','firstname', 'lastname', 'phoneNumber', 'department']));
-        $user->employee->expertises()->sync(request('expertise'));
-
-        $request->session()->flash('succes', 'Your data has been stored succesfully.');
-
-        //Redirect to dashboard maybe?
-        return redirect('/home');
     }
 
     /**

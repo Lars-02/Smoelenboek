@@ -11,7 +11,7 @@ class Expertise extends Model
 
     protected $table = 'expertise';
 
-    public function employee() {
+    public function employees() {
         return $this->belongsToMany(Employee::class);
     }
 }
