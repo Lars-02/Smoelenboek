@@ -14,7 +14,7 @@ class CourseFilter extends Facade implements Filter
 
             $forget = true;
 
-            if($employee->course->whereIn('id', array_keys($filters))->count() != 0){
+            if($employee->courses->whereIn('id', array_keys($filters))->count() != 0){
                 $forget = false;
             }
 
