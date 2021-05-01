@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Filters\CourseFilter;
 use App\Models\Course;
-use App\Models\DayOfWeek;
 use App\Models\Department;
 use App\Models\Employee;
 use App\Models\Expertise;
@@ -12,10 +11,8 @@ use App\Models\Hobby;
 use App\Models\LearningLine;
 use App\Models\Lectorate;
 use App\Models\Minor;
-use App\Models\WorkHour;
 use App\Models\Role;
 use Illuminate\Contracts\Support\Renderable;
-use Illuminate\Database\Query\Builder;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;

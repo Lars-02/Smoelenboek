@@ -12,10 +12,9 @@ class Employee extends Model
     protected $table = 'employee';
 
     protected $fillable = [
-        'username',
+        'user_id',
         'firstname',
         'lastname',
-        'department',
         'phoneNumber',
         'linkedInUrl',
     ];
@@ -25,32 +24,37 @@ class Employee extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function department()
+    public function roles()
     {
-        return $this->belongsTo(Department::class, 'name', 'department');
+        return $this->hasManyThrough(Role::class, User::class);
     }
 
-    public function lectorate()
+    public function departments()
+    {
+        return $this->belongsToMany(Department::class, "employee_department");
+    }
+
+    public function lectorates()
     {
         return $this->belongsToMany(Lectorate::class)->withTimestamps();
     }
 
-    public function hobby()
+    public function hobbies()
     {
         return $this->belongsToMany(Hobby::class)->withTimestamps();
     }
 
-    public function course()
+    public function courses()
     {
         return $this->belongsToMany(Course::class)->withTimestamps();
     }
 
-    public function minor()
+    public function minors()
     {
         return $this->belongsToMany(Minor::class)->withTimestamps();
     }
 
-    public function learningLine()
+    public function learningLines()
     {
         return $this->belongsToMany(LearningLine::class)->withTimestamps();
     }
@@ -60,13 +64,13 @@ class Employee extends Model
         return $this->belongsToMany(Expertise::class)->withTimestamps();
     }
 
-    public function workHours()
+    public function workDays()
     {
-        return $this->hasMany(WorkHour::class);
+        return $this->belongsToMany(WorkDay::class);
     }
 
     public function getFullNameAttribute($value)
     {
-        return $this->firstname.' '.$this->lastname;
+        return $this->firstname . ' ' . $this->lastname;
     }
 }
