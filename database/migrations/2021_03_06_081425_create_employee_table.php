@@ -20,13 +20,8 @@ class CreateEmployeeTable extends Migration
             $table->string('lastname')->nullable();
             $table->string('phoneNumber')->nullable();
             $table->string('linkedInUrl')->nullable();
-            $table->string('department')->nullable();
             $table->unsignedBigInteger('user_id')->unique();
             $table->timestamps();
-
-            $table->foreign('department')
-                ->references('name')
-                ->on('department');
 
             $table->foreign('user_id')
                 ->references('id')

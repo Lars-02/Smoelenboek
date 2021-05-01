@@ -5,7 +5,7 @@ namespace App\View\Components;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-class modal extends Component
+class Modal extends Component
 {
     public $icon;
     public $modalTitle;

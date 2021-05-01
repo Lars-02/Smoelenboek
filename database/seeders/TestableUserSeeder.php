@@ -21,18 +21,9 @@ class TestableUserSeeder extends Seeder
             'password' => bcrypt('password'),
         ]);
 
-        DB::table('employee')->insert([
-            'user_id' => 21,
-        ]);
-
-
         DB::table('user')->insert([
             'email' => 'testAdmin@avans.nl',
             'password' => bcrypt('password'),
-        ]);
-
-        DB::table('employee')->insert([
-            'user_id' => 22,
         ]);
 
         $admin = Role::where('name', 'Admin')->first();
@@ -41,10 +32,6 @@ class TestableUserSeeder extends Seeder
         DB::table('user')->insert([
             'email' => 'testDocent@avans.nl',
             'password' => bcrypt('password'),
-        ]);
-
-        DB::table('employee')->insert([
-            'user_id' => 23,
         ]);
 
         $teacher = Role::where('name', 'Docent')->first();

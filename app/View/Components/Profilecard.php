@@ -3,6 +3,7 @@
 namespace App\View\Components;
 
 use App\Models\DayOfWeek;
+use App\Models\WorkDay;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
@@ -17,6 +18,7 @@ class Profilecard extends Component
     public $expertises;
     public $workingDays;
     public $function;
+    public $department;
     public $allDays;
 
     public function __construct($employee)
@@ -25,12 +27,14 @@ class Profilecard extends Component
         $this->expertises = $employee->expertises->map(function ($item) {
             return $item->name;
         })->toArray();
-        $this->workingDays = $employee->workHours->map(function ($item) {
-            return $item->week->day;
+        $this->workingDays = $employee->workDays->map(function ($item) {
+            return $item->name;
         })->toArray();
+        if ($employee->departments->first() != null)  $this->department = $employee->departments->first()->name;
+        else $this->department = 'Geen Afdeling';
         if ($employee->user->roles->first() != null)  $this->function = $employee->user->roles->first()->name;
         else $this->function = 'Geen Functie';
-        $this->allDays = DayOfWeek::all()->pluck('day');
+        $this->allDays = WorkDay::all()->pluck('name');
     }
 
     /**
