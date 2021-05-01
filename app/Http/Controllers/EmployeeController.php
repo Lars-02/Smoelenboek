@@ -98,10 +98,9 @@ class EmployeeController extends Controller
      * @param Employee $employee
      * @return Response
      */
-    public function show(Employee $employee)
+    public function show(Employee $employee, $succes = null)
     {
-        $succes = null;
-        return view('employee.profile', compact(["employee"], 'succes'));
+        return view('employee.profile', compact(["employee"]))->with('succes', $succes);
     }
 
     /**
@@ -120,8 +119,9 @@ class EmployeeController extends Controller
         $expertises = Expertise::all();
         $learningLines = LearningLine::all();
         $minors =  Minor::all();
+        $roles = Role::all();
 
-        return view('employee.editProfile', compact(["employee"], 'departments', 'days_of_week', 'hobbies', 'courses', 'lectorates', 'expertises', 'learningLines', 'minors'));
+        return view('employee.editProfile', compact(["employee"], 'departments', 'days_of_week', 'hobbies', 'courses', 'lectorates', 'expertises', 'learningLines', 'minors', 'roles'));
     }
 
     /**
@@ -136,10 +136,12 @@ class EmployeeController extends Controller
         request()->validate([
             'firstname' => 'required|alpha|min:2|max:60',
             'lastname' => 'required|alpha|min:2|max:60',
-            'phoneNumber' => 'required|regex:/^+(9[976]\d|8[987530]\d|6[987]\d|5[90]\d|42\d|3[875]\d|2[98654321]\d|9[8543210]|8[6421]|6[6543210]|5[87654321]|4[987654310]|3[9643210]|2[70]|7|1)\d{1,14}$/i',
-            'email' => 'required|email:rfc,dns',
+            'phoneNumber' => 'required',
+            'email' => 'required|email',
             'department' => 'required',
         ]);
+
+        /*'regex:/^+(9[976]\d|8[987530]\d|6[987]\d|5[90]\d|42\d|3[875]\d|2[98654321]\d|9[8543210]|8[6421]|6[6543210]|5[87654321]|4[987654310]|3[9643210]|2[70]|7|1)\d{1,14}$/i'*/
 
         $employee->update($request->only(['firstname', 'lastname', 'phoneNumber', 'department', 'expertise', 'role', 'linkedInUrl']));
         $employee->user()->update($request->only(['email']));
@@ -152,7 +154,7 @@ class EmployeeController extends Controller
         $employee->expertises()->sync(request('expertises'));
         $employee->save();
 
-        return view('employee.profile', compact(["employee"]))->with('succes', 'Je gegevens zijn veranderd.');
+        return $this->show($employee, $succes = "Alle gegevens zijn succesvol opgeslagen");
     }
 
     /**
