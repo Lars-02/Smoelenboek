@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Filters\CourseFilter;
+use App\Filters\DepartmentFilter;
 use App\Models\Course;
 use App\Models\Department;
 use App\Models\Employee;
@@ -39,6 +40,11 @@ class HomeController extends Controller
         if (isset($request['courses'])) {
             $courseFilter = new CourseFilter();
             $employees = $courseFilter->filter($employees, $request['courses']);
+        }
+
+        if (isset($request['departments'])) {
+            $departmentFilter = new DepartmentFilter();
+            $employees = $departmentFilter->filter($employees, $request['departments']);
         }
 
         $courses = Course::all();

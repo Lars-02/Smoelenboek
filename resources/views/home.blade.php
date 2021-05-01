@@ -29,6 +29,19 @@
                         @endif
                     @endforeach
                 </x-filterModal>
+                <x-filterModal title="Afdeling">
+                    @foreach($departments as $department)
+                        @if(isset($request->get("departments")[$department->id]))
+                            <x-filterSelector name="departments[{{ $department->id }}]" checked="true">
+                                {{ $department->name }}
+                            </x-filterSelector>
+                        @else
+                            <x-filterSelector name="departments[{{ $department->id }}]" checked="false">
+                                {{ $department->name }}
+                            </x-filterSelector>
+                        @endif
+                    @endforeach
+                </x-filterModal>
             </div>
             <div class="flex-grow mb-4 overflow-x-hidden overflow-y-scroll scrollbar-hide rounded-md pb-4">
                 <div
