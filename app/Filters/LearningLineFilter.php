@@ -12,7 +12,15 @@ class LearningLineFilter extends Facade implements Filter
 {
     public function filter(Collection $employees, array $filters): Collection
     {
-        $learningLinePivot = EmployeeLearningLine::all();
+        foreach($employees as $employee)
+        {
+            $forget = true;
+
+            if($employee->learningLines->whereIn('id', array_keys($filters))->count() != 0) $forget = false;
+            if($forget) $employees->forget($employee->id - 1); 
+        }
+        return $employees;
+/*         $learningLinePivot = EmployeeLearningLine::all();
         $employeesNew = new Collection();
         foreach($employees as $employee)
         {
@@ -27,6 +35,6 @@ class LearningLineFilter extends Facade implements Filter
                 }
             }
         }
-        return $employeesNew;
+        return $employeesNew; */
     }
 }

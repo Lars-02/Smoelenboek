@@ -34,12 +34,12 @@ class FilterTest extends DuskTestCase
         $userAmount = 3;
 
         $employees = new Collection();
-        $learningLine = LearningLine::factory()->make();
+        $learningLine = LearningLine::factory()->create();
         for($i = 0; $i < $userAmount; $i++)
         {
-            $user = User::factory()->make();
-            $emp = Employee::factory()->make(['user_id' => $user->id]);
-            EmployeeLearningLine::factory()->make(['employee_id' => $emp->id, 'learning_line_id' => $learningLine->id]);
+            $user = User::factory()->create();
+            $emp = Employee::factory()->create(['user_id' => $user->id]);
+            EmployeeLearningLine::factory()->create(['employee_id' => $emp->id, 'learning_line_id' => $learningLine->id]);
             $employees->prepend($emp);
         }
         $courseFilter = new LearningLineFilter();
@@ -54,16 +54,17 @@ class FilterTest extends DuskTestCase
         $userAmount = 3;
 
         $employees = new Collection();
-        $learningLine = LearningLine::factory()->make();
+        $learningLine = LearningLine::factory()->create();
         for($i = 0; $i < $userAmount; $i++)
         {
-            $user = User::factory()->make();
-            $emp = Employee::factory()->make(['user_id' => $user->id]);
-            EmployeeLearningLine::factory()->make(['employee_id' => $emp->id, 'learning_line_id' => $learningLine->id]);
+            $user = User::factory()->create();
+            $emp = Employee::factory()->create(['user_id' => $user->id]);
+            EmployeeLearningLine::factory()->create(['employee_id' => $emp->id, 'learning_line_id' => $learningLine->id]);
             $employees->prepend($emp);
         }
         $courseFilter = new LearningLineFilter();
         $employeesFiltered = $courseFilter->filter($employees, [$learningLine->id + 1 => 'on']);
+
         if(sizeof($employeesFiltered) == 0) $this->assertTrue(true);
     }
 }
