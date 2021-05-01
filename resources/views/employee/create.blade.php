@@ -6,7 +6,7 @@
             <input type="hidden" name="user_id" value="{{ $user->id }}">
             <div class="grid gap-4 grid-cols-2 xl:grid-cols-3">
                 @if ($errors->any())
-                    <div class="alert alert-danger col-span-1 sm:col-span-2 md:col-span-3">
+                    <div class="alert alert-danger col-span-2 xl:col-span-3">
                         <ul>
                             @foreach ($errors->all() as $error)
                                 <li class="text-red-600">{{ $error }}</li>
@@ -20,6 +20,11 @@
                 <x-select id="departments" :options="$departments">Afdelingen</x-select>
                 <x-select id="expertises" :options="$expertises">Expertises</x-select>
                 <x-select id="functions" :options="$roles">Functies</x-select>
+                <div class="flex justify-between md:w-2/3 xl:w-1/2 mb-6 col-span-2 xl:col-span-3">
+                    @foreach($dayOfWeek as $day)
+                        <x-dayToggle>{{ $day->day }}</x-dayToggle>
+                    @endforeach
+                </div>
                 <x-button type="submit">Afronden</x-button>
             </div>
         </form>

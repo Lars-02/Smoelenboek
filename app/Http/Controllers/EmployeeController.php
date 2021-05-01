@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\DayOfWeek;
 use App\Models\Department;
 use App\Models\Employee;
 use App\Models\Expertise;
@@ -27,8 +28,9 @@ class EmployeeController extends Controller
         $departments = Department::all()->pluck('name');
         $roles = Role::all()->pluck('name', 'id');
         $expertises = Expertise::all()->pluck('name', 'id');
+        $dayOfWeek = DayOfWeek::all()->take(5);
 
-        return view('employee.create', compact(['user', 'departments', 'roles', 'expertises']));
+        return view('employee.create', compact(['user', 'departments', 'roles', 'expertises', 'dayOfWeek']));
     }
 
     /**
