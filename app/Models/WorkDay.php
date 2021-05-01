@@ -10,17 +10,10 @@ class WorkDay extends Model
     use HasFactory;
 
     protected $table = 'work_day';
+    public $timestamps = false;
 
-    protected $fillable = [
-        'employee_id',
-        'day_id',
-    ];
-
-    public function employee() {
-        return $this->belongsTo(Employee::class);
-    }
-
-    public function day() {
-        return $this->belongsTo(DayOfWeek::class);
+    public function employees()
+    {
+        return $this->hasMany(Employee::class);
     }
 }

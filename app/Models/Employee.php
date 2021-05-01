@@ -24,6 +24,11 @@ class Employee extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function roles()
+    {
+        return $this->hasManyThrough(Role::class, User::class);
+    }
+
     public function departments()
     {
         return $this->belongsToMany(Department::class, "employee_department");
@@ -61,11 +66,11 @@ class Employee extends Model
 
     public function workDays()
     {
-        return $this->hasMany(WorkDay::class);
+        return $this->belongsToMany(WorkDay::class);
     }
 
     public function getFullNameAttribute($value)
     {
-        return $this->firstname.' '.$this->lastname;
+        return $this->firstname . ' ' . $this->lastname;
     }
 }

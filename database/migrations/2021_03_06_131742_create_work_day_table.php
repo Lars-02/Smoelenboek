@@ -15,18 +15,50 @@ class CreateWorkDayTable extends Migration
     public function up()
     {
         Schema::create('work_day', function (Blueprint $table) {
-            $table->primary(['day_id', 'employee_id']);
+            $table->id();
+            $table->string('name');
+        });
+
+        Schema::create('employee_work_day', function (Blueprint $table) {
+            $table->primary(['work_day_id', 'employee_id']);
+            $table->unsignedBigInteger('work_day_id');
             $table->unsignedBigInteger('employee_id');
-            $table->unsignedBigInteger('day_id');
             $table->timestamps();
 
-            $table->foreign('day_id')
+
+            $table->foreign('work_day_id')
                 ->references('id')
-                ->on('day_of_week');
+                ->on('work_day')
+                ->cascadeOnDelete();
             $table->foreign('employee_id')
                 ->references('id')
-                ->on('employee');
+                ->on('employee')
+                ->cascadeOnDelete();
         });
+
+        DB::table('work_day')->insert([
+            [
+                'name' => 'Monday',
+            ],
+            [
+                'name' => 'Tuesday',
+            ],
+            [
+                'name' => 'Wednesday',
+            ],
+            [
+                'name' => 'Thursday',
+            ],
+            [
+                'name' => 'Friday',
+            ],
+            [
+                'name' => 'Saturday',
+            ],
+            [
+                'name' => 'Sunday',
+            ],
+        ]);
     }
 
     /**
@@ -37,5 +69,6 @@ class CreateWorkDayTable extends Migration
     public function down()
     {
         Schema::dropIfExists('work_day');
+        Schema::dropIfExists('employee_work_day');
     }
 }

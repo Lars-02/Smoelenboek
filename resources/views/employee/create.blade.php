@@ -19,9 +19,9 @@
                 <x-input type="tel" name="phoneNumber" id="phoneNumber" icon="fas fa-phone">Telefoonnummer</x-input>
                 <x-select id="departments" :options="$departments">Afdelingen</x-select>
                 <x-select id="expertises" :options="$expertises">Expertises</x-select>
-                <x-select id="functions" :options="$roles">Functies</x-select>
+                <x-select id="roles" :options="$roles">Functies</x-select>
                 <div class="flex justify-between md:w-2/3 xl:w-1/2 mb-6 col-span-2 xl:col-span-3">
-                    @foreach($dayOfWeek as $day)
+                    @foreach($workDays as $day)
                         <x-dayToggle :day="$day"></x-dayToggle>
                     @endforeach
                 </div>

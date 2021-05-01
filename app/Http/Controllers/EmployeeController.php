@@ -7,6 +7,7 @@ use App\Models\Department;
 use App\Models\Employee;
 use App\Models\Expertise;
 use App\Models\Role;
+use App\Models\WorkDay;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -28,9 +29,9 @@ class EmployeeController extends Controller
         $departments = Department::all()->pluck('name', 'id');
         $roles = Role::all()->pluck('name', 'id');
         $expertises = Expertise::all()->pluck('name', 'id');
-        $dayOfWeek = DayOfWeek::all()->take(5);
+        $workDays = WorkDay::all();
 
-        return view('employee.create', compact(['user', 'departments', 'roles', 'expertises', 'dayOfWeek']));
+        return view('employee.create', compact(['user', 'departments', 'roles', 'expertises', 'workDays']));
     }
 
     /**
@@ -41,9 +42,17 @@ class EmployeeController extends Controller
      */
     public function store()
     {
-        $employee = Employee::create(
-            $this->validateEmployee()
-        );
+        $validated = $this->validateEmployee();
+
+        $employee = Employee::create($validated);
+
+        $employee->departments()->sync($validated['departments']);
+        $employee->expertises()->sync($validated['expertises']);
+        $employee->workDays()->sync($validated['workDays']);
+        $employee->save();
+
+        $employee->user->roles()->sync($validated['roles']);
+        $employee->user->save();
 
         return redirect(route('home'));
     }
@@ -55,10 +64,10 @@ class EmployeeController extends Controller
             'firstname' => 'required|alpha|min:2|max:40',
             'lastname' => 'required|alpha|min:2|max:40',
             'phoneNumber' => 'required|max:15',
-            'departments' => 'exists:department,id',
-            'expertises' => 'exists:expertise,id',
-            'roles' => 'exists:role,id',
-            'workDays' => 'exists:day_of_week,id',
+            'departments' => 'required|exists:department,id',
+            'expertises' => 'required|exists:expertise,id',
+            'roles' => 'required|exists:role,id',
+            'workDays' => 'required|exists:work_day,id',
         ]);
     }
 
