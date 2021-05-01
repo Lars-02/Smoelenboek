@@ -2,18 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Filters\CourseFilter;
-use App\Models\Course;
-use App\Models\Department;
 use App\Models\Employee;
+use App\Models\EmployeeHobby;
 use App\Models\Expertise;
 use App\Models\Hobby;
-use App\Models\LearningLine;
 use App\Models\Lectorate;
 use App\Models\Minor;
+use App\Models\Role;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
@@ -32,23 +29,93 @@ class HomeController extends Controller
      *
      * @return Renderable|RedirectResponse
      */
-    public function index(Request $request)
+    public function index()
     {
-        $employees = Employee::all();
-
-        if (isset($request['courses'])) {
-            $courseFilter = new CourseFilter();
-            $employees = $courseFilter->filter($employees, $request['courses']);
+        if (!isset(auth()->user()->employee))
+            abort(500);
+        $employee = auth()->user()->employee;
+        if (is_null($employee->firstname)
+            || is_null($employee->lastname)
+            || is_null($employee->phoneNumber)
+            || is_null($employee->department)) {
+            return redirect()->route('employee.create');
         }
-
-        $courses = Course::all();
-        $departments = Department::all();
-        $expertises = Expertise::all();
+        $employees = Employee::all();
         $hobbies = Hobby::all();
-        $learningLines = LearningLine::all();
         $lectorates = Lectorate::all();
         $minors = Minor::all();
-
-        return view('home', compact(["request", "employees", "courses", "departments", "expertises", "hobbies", "learningLines", "lectorates", "minors"]));
+        $expertises = Expertise::all();
+        $roles = Role::all();
+        return view('home', compact(["employees", "hobbies", "lectorates", "minors", "expertises", "roles"]));
     }
+    public static function filterHobby($option)
+    {
+        $option = Hobby::where('name', $option)->first();
+        $hobbies = EmployeeHobby::all();
+        $employees = [];
+
+        foreach($hobbies as $hobby)
+        {
+            if($hobby->hobby_id == $option->id)
+            {
+                $employee = Employee::find($hobby->employee_id);
+                array_push($employees, $employee);
+            }
+        }
+        return $employees;
+    }
+    public static function filterLectorate($option)
+    {
+        $option = Lectorate::where('name', $option)->first();
+        $lectorates = EmployeeLectorate::all();
+        $employees = [];
+
+        foreach($lectorates as $lectorate)
+        {
+            if($lectorate->lectorate_id == $option->id)
+            {
+                $employee = Employee::find($lectorate->employee_id);
+                array_push($employees, $employee);
+            }
+        }
+        return $employees;
+    }
+    public static function filterMinor($option)
+    {
+        $option = Minor::where('name', $option)->first();
+        $minors = EmployeeMinor::all();
+        $employees = [];
+
+        foreach($minors as $minor)
+        {
+            if($minor->minor_id == $option->id)
+            {
+                $employee = Employee::find($minor->employee_id);
+                array_push($employees, $employee);
+            }
+        }
+        return $employees;
+    }
+    public static function filterExpertise($option)
+    {
+        $option = Expertise::where('name', $option)->first();
+        $expertises = EmployeeExpertise::all();
+        $employees = [];
+
+        foreach($expertises as $expertise)
+        {
+            if($expertise->minor_id == $option->id)
+            {
+                $employee = Employee::find($expertise->employee_id);
+                array_push($employees, $employee);
+            }
+        }
+        return $employees;
+    }
+   public static function filterRole($option)
+   {
+       $roles = Role::where('name', $option)->first();
+       $employees = Employee::where('role', $roles->name)->get();
+       return $employees;
+   }
 }
