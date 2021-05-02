@@ -13,7 +13,7 @@ class ExpertiseFilter extends Facade implements Filter
         foreach ($employees as $employee) {
 
             $forget = true;
-             if($employee->Expertises->whereIn('id', array_keys($filters))->count() != 0){
+             if($employee->expertises->whereIn('id', array_keys($filters))->count() != 0){
                 $forget = false;
             }
 
