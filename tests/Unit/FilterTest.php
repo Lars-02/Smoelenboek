@@ -3,7 +3,7 @@
 namespace Tests\Unit;
 
 use App\Filters\HobbyFilter;
-use App\Filters\LectoraatFilter;
+use App\Filters\LectorateFilter;
 use App\Filters\MinorFilter;
 use App\Filters\ExpertiseFilter;
 use App\Http\Controllers\HomeController;
@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\DB;
 use Tests\TestCase;
 use Tests\DuskTestCase;
 
-class FilterTest extends DuskTestCase
+class FilterTest extends TestCase
 {
     use RefreshDatabase;
 
@@ -67,8 +67,8 @@ class FilterTest extends DuskTestCase
 
         $lectorates = DB::table('employee')
             ->select('employee.id')
-            ->join('employee_lectorate', 'employee.id', '=', "employee_lecorate.employee_id")
-            ->join('hobby', 'employee_lectorate.lectorate_id', '=', 'lectorate.id')
+            ->join('employee_lectorate', 'employee.id', '=', "employee_lectorate.employee_id")
+            ->join('lectorate', 'employee_lectorate.lectorate_id', '=', 'lectorate.id')
             ->whereIn('lectorate.id', array_keys($lectorateId))
             ->get();
 
