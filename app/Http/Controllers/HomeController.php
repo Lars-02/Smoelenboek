@@ -43,8 +43,8 @@ class HomeController extends Controller
         }
 
         if (isset($request['learningLines'])) {
-            $courseFilter = new LearningLineFilter();
-            $employees = $courseFilter->filter($employees, $request['learningLines']);
+            $learningLineFilter = new LearningLineFilter();
+            $employees = $learningLineFilter->filter($employees, $request['learningLines']);
         }
 
         $courses = Course::all();
