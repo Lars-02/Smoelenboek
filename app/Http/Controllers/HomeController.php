@@ -38,7 +38,6 @@ class HomeController extends Controller
     {
         {
             $employees = Employee::all();
-
             if (isset($request['hobbies'])) {
                 $hobbyFilter = new HobbyFilter();
                 $employees = $hobbyFilter->filter($employees, $request['hobbies']);
@@ -58,12 +57,11 @@ class HomeController extends Controller
                 $minorFilter = new MinorFilter();
                 $employees = $minorFilter->filter($employees, $request['minors']);
             }
-
-            $employees = Employee::all();
             $hobbies = Hobby::all();
             $lectorates = Lectorate::all();
             $minors = Minor::all();
             $expertises = Expertise::all();
+
             return view('home', compact(["request", "employees", "hobbies", "lectorates", "minors", "expertises"]));
         }
     }
