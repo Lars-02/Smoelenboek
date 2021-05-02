@@ -29,6 +29,10 @@ class FilterTest extends DuskTestCase
 
     use RefreshDatabase;
 
+    /**
+     * A succeeding test to filter on learning lines. This test checks whether or not the correct employees 
+     * are found by using the filter.
+     */
     public function test_filter_employee_on_learning_line_success()
     {
         $userAmount = 3;
@@ -49,6 +53,10 @@ class FilterTest extends DuskTestCase
         $this->assertEquals(sizeof($learningLinesPivot), sizeof($employeesFiltered));
     }
 
+    /**
+     * A purposely failing test to filter on learning lines. This test checks wheter or not
+     * the test fails on a invalid learning line, which is given as input to the filter.
+     */
     public function test_filter_employee_on_learning_line_fail()
     {
         $userAmount = 3;
