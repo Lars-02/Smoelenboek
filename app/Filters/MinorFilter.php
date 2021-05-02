@@ -13,7 +13,7 @@ class MinorFilter extends Facade implements Filter
         foreach ($employees as $employee) {
 
             $forget = true;
-            if($employee->minor->whereIn('id', array_keys($filters))->count() != 0){
+            if($employee->minors->whereIn('id', array_keys($filters))->count() != 0){
                 $forget = false;
             }
 
