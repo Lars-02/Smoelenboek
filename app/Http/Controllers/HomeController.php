@@ -31,22 +31,12 @@ class HomeController extends Controller
      */
     public function index()
     {
-//        if (!isset(auth()->user()->employee))
-//            abort(500);
-//        $employee = auth()->user()->employee;
-//        if (is_null($employee->firstname)
-//            || is_null($employee->lastname)
-//            || is_null($employee->phoneNumber)
-//            || is_null($employee->department)) {
-//            return redirect()->route('employee.create');
-//        }
         $employees = Employee::all();
         $hobbies = Hobby::all();
         $lectorates = Lectorate::all();
         $minors = Minor::all();
         $expertises = Expertise::all();
-        $roles = Role::all();
-        return view('home', compact(["employees", "hobbies", "lectorates", "minors", "expertises", "roles"]));
+        return view('home', compact(["employees", "hobbies", "lectorates", "minors", "expertises"]));
     }
     public static function filterHobby($option)
     {
@@ -112,10 +102,4 @@ class HomeController extends Controller
         }
         return $employees;
     }
-   public static function filterRole($option)
-   {
-       $roles = Role::where('name', $option)->first();
-       $employees = Employee::where('role', $roles->name)->get();
-       return $employees;
-   }
 }
