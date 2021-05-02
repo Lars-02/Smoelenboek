@@ -6,7 +6,8 @@
                     <span class="absolute pl-3 pt-1 sm:pt-2 md:pt-1.5 lg:pt-2.5 xl:pt-3 text-gray-600">
                         <i class="fas fa-search"></i>
                     </span>
-                    <input type="text" name="searchbar" id="searchbar" placeholder="Zoeken..." class="text-xs sm:text-sm md:text-base lg:text-lg pl-8 rounded border-gray-400 focus:border-gray-400 text-gray-600 focus:ring-0"/>
+                    <input type="text" name="searchbar" id="searchbar" placeholder="Zoeken..."
+                           class="text-xs sm:text-sm md:text-base lg:text-lg pl-8 rounded border-gray-400 focus:border-gray-400 text-gray-600 focus:ring-0"/>
                 </div>
                 <x-button type="submit">Clear</x-button>
                 <x-button type="submit">Apply</x-button>
@@ -38,6 +39,19 @@
                         @else
                             <x-filterSelector name="roles[{{ $role->id }}]" checked="false">
                                 {{ $role->name }}
+                            </x-filterSelector>
+                        @endif
+                    @endforeach
+                </x-filterModal>
+                <x-filterModal title="Werkdagen">
+                    @foreach($workDays as $workDay)
+                        @if(isset($request->get("workDays")[$workDay->id]))
+                            <x-filterSelector name="workDays[{{ $workDay->id }}]" checked="true">
+                                {{ $workDay->name }}
+                            </x-filterSelector>
+                        @else
+                            <x-filterSelector name="workDays[{{ $workDay->id }}]" checked="false">
+                                {{ $workDay->name }}
                             </x-filterSelector>
                         @endif
                     @endforeach

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Filters\CourseFilter;
 use App\Filters\RoleFilter;
+use App\Filters\WorkDayFilter;
 use App\Models\Course;
 use App\Models\Department;
 use App\Models\Employee;
@@ -13,6 +14,7 @@ use App\Models\LearningLine;
 use App\Models\Lectorate;
 use App\Models\Minor;
 use App\Models\Role;
+use App\Models\WorkDay;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -48,6 +50,11 @@ class HomeController extends Controller
             $employees = $functionFilter->filter($employees, $request['roles']);
         }
 
+        if (isset($request['workDays'])) {
+            $workDayFilter = new WorkDayFilter();
+            $employees = $workDayFilter->filter($employees, $request['workDays']);
+        }
+
         $courses = Course::all();
         $departments = Department::all();
         $expertises = Expertise::all();
@@ -56,7 +63,8 @@ class HomeController extends Controller
         $lectorates = Lectorate::all();
         $minors = Minor::all();
         $roles = Role::all();
+        $workDays = WorkDay::all();
 
-        return view('home', compact(["request", "employees", "courses", "departments", "expertises", "hobbies", "learningLines", "lectorates", "minors", "roles"]));
+        return view('home', compact(["request", "employees", "courses", "departments", "expertises", "hobbies", "learningLines", "lectorates", "minors", "roles", "workDays"]));
     }
 }
