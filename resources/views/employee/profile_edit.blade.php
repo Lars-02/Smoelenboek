@@ -1,6 +1,6 @@
 <x-layout>
     <div class="bg-white">
-        <div class="container w-screen py-12 md:pr-36 px-10">
+        <div class="container w-screen py-5 md:py-12 md:pr-36 px-10">
             <div class="min-h-screen md:flex no-wrap md:-mx-2" x-data="{ tab: 'account' }">
                 <!-- Left Side -->
                 <div class="w-full md:w-3/12">
@@ -10,7 +10,7 @@
                             <button class="text-xs sm:text-sm md:text-base lg:text-lg text-white font-bold py-2 px-3 sm:px-4 md:px-5 xl:px-6 bg-red-700 w-10/12 border-red-700 border-4 rounded hover:bg-white hover:text-black" @click="tab = 'account'">Account</button>
                         </li>
                         <li class="flex items-center justify-center py-3">
-                            <button class="text-xs sm:text-sm md:text-base lg:text-lg text-white font-bold py-2 px-3 sm:px-4 md:px-5 xl:px-6 bg-red-700 w-10/12 border-red-700 border-4 rounded hover:bg-white hover:text-black" @click="tab = 'afdeling'">Afdeling</button>
+                            <button class="text-xs sm:text-sm md:text-base lg:text-lg text-white font-bold py-2 px-3 sm:px-4 md:px-5 xl:px-6 bg-red-700 w-10/12 border-red-700 border-4 rounded hover:bg-white hover:text-black" @click="tab = 'afdeling'">Afdeling/Rol</button>
                         </li>
                         <li class="flex items-center justify-center py-3">
                             <button class="text-xs sm:text-sm md:text-base lg:text-lg text-white font-bold py-2 px-3 sm:px-4 md:px-5 xl:px-6 bg-red-700 w-10/12 border-red-700 border-4 rounded hover:bg-white hover:text-black" @click="tab = 'werktijden'">Werktijden</button>
@@ -24,19 +24,21 @@
                 <!-- Right Side -->
 
                     <!-- Profile Tab -->
-                    <form class="w-full md:w-9/12 md:mx-2" method="POST" action="{{route('employee.update', $employee)}}">
+                    <form class="w-full overflow-y-auto md:w-9/12 md:mx-2" method="POST" action="{{route('employee.update', $employee)}}">
                         @csrf
                         <input name="_method" type="hidden" value="PUT">
 
+                        <div class="flex flex-col justify-center md:flex-row md:justify-start md:items-center md:space-x-2 font-semibold text-gray-900 leading-8 mb-12 md:flex-shrink-0">
+
+                            @if (empty($employee->user->photoUrl))
+                                <img src="https://www.shareicon.net/data/128x128/2016/07/26/801997_user_512x512.png" class="w-48 md:w-auto md:flex-shrink-0 min-h-full max-h-full m-auto md:m-0">
+                            @else
+                                <img src="{{$employee->user->photoUrl}}" class="md:flex-shrink-0 min-h-full max-h-full">
+                            @endif
+                            <p class="text-center md:text-left md:text-5xl sm:text-3xl ">{{$employee->firstname}} {{$employee->lastname}} </p>
+                        </div>
+
                         <div x-show="tab === 'account'">
-                            <div class="md:flex items-center space-x-2 font-semibold text-gray-900 leading-8 mb-12 md:h-1/2 md:flex-shrink-0">
-                                @if (empty($employee->user->photoUrl))
-                                    <img src="https://www.shareicon.net/data/128x128/2016/07/26/801997_user_512x512.png" class="md:flex-shrink-0 md:w-48 min-h-full max-h-full">
-                                @else
-                                    <img src="{{$employee->user->photoUrl}}" class="md:flex-shrink-0 min-h-full max-h-full">
-                                @endif {{--this probaply needs to become a local image sometime lol^^--}}
-                                <p class="md:text-5xl sm:text-3xl ">{{$employee->firstname}} {{$employee->lastname}} </p>
-                            </div>
 
                             <div class="text-gray-700">
                                 <div class="grid md:grid-cols-2 text-sm">
@@ -77,21 +79,13 @@
                                     </div>
                                 </div>
                             </div>
+
                         </div>
 
                         <div x-show="tab === 'afdeling'">
-                            <div class="md:flex items-center space-x-2 font-semibold text-gray-900 leading-8 mb-12 md:h-1/2 md:flex-shrink-0">
-                                @if (empty($employee->user->photoUrl))
-                                    <img src="https://www.shareicon.net/data/128x128/2016/07/26/801997_user_512x512.png" class="md:flex-shrink-0 md:w-48 min-h-full max-h-full">
-                                @else
-                                    <img src="{{$employee->user->photoUrl}}" class="md:flex-shrink-0 min-h-full max-h-full">
-                                @endif {{--this probaply needs to become a local image sometime lol^^--}}
-                                <p class="md:text-5xl sm:text-3xl ">{{$employee->firstname}} {{$employee->lastname}} </p>
-                            </div>
 
-                            <div class="w-6/12 pb-10">
-                                <h2 class="font-bold md:text-5xl mb-5">Afdeling</h2>
-
+                            <h2 class="font-bold md:text-5xl mb-5">Afdeling en rol</h2>
+                            <div class="md:w-6/12 pb-10">
                                 <label class="mb-1.5 pl-1.5 py-0.5 float-left text-left text-white w-6/12 bg-red-700 rounded">Wijzig de afdeling:</label>
                                 @error('department')
                                     <div class="error">{{ $message }}</div>
@@ -101,7 +95,6 @@
                                         <option name="department" @if($employee->department === $department) selected @endif>{{$department}}</option>
                                     @endforeach
                                 </select>
-
                                 <label class="mb-1.5 pl-1.5 py-0.5 float-left text-left text-white w-6/12 bg-red-700 rounded">Wijzig rol:</label>
                                 @error('roles')
                                     <div class="error">{{ $message }}</div>
@@ -112,37 +105,23 @@
                                     @endforeach
                                 </select>
                             </div>
+
                         </div>
 
                         <div x-show="tab === 'werktijden'">
-                            <div class="md:flex items-center space-x-2 font-semibold text-gray-900 leading-8 mb-12 md:h-1/2 md:flex-shrink-0">
-                                @if (empty($employee->user->photoUrl))
-                                    <img src="https://www.shareicon.net/data/128x128/2016/07/26/801997_user_512x512.png" class="md:flex-shrink-0 md:w-48 min-h-full max-h-full">
-                                @else
-                                    <img src="{{$employee->user->photoUrl}}" class="md:flex-shrink-0 min-h-full max-h-full">
-                                @endif {{--this probaply needs to become a local image sometime lol^^--}}
-                                <p class="md:text-5xl sm:text-3xl ">{{$employee->firstname}} {{$employee->lastname}} </p>
-                            </div>
 
                             <h2 class="font-bold md:text-5xl mb-5">Werkdagen</h2>
-                            <label class="mb-1.5 pl-1.5 py-0.5 text-left text-white w-6/12 bg-red-700 rounded block">Selecteer werkzame dagen:</label>
+                            <label class="mb-1.5 pl-1.5 py-0.5 text-left text-white md:w-6/12 bg-red-700 rounded block">Selecteer werkzame dagen:</label>
                             <div class="w-full">
                                 @foreach($days_of_week as $day_of_week)
                                     <input type="checkbox" @if($employee->workHours->contains($day_of_week)) checked @endif/><label> {{$day_of_week->day}}</label>
                                     <br>
                                 @endforeach
                             </div>
+
                         </div>
 
                         <div x-show="tab === 'overig'">
-                            <div class="md:flex items-center space-x-2 font-semibold text-gray-900 leading-8 mb-12 md:h-1/2 md:flex-shrink-0">
-                                @if (empty($employee->user->photoUrl))
-                                    <img src="https://www.shareicon.net/data/128x128/2016/07/26/801997_user_512x512.png" class="md:flex-shrink-0 md:w-48 min-h-full max-h-full">
-                                @else
-                                    <img src="{{$employee->user->photoUrl}}" class="md:flex-shrink-0 min-h-full max-h-full">
-                                @endif {{--this probaply needs to become a local image sometime lol^^--}}
-                                <p class="md:text-5xl sm:text-3xl ">{{$employee->firstname}} {{$employee->lastname}} </p>
-                            </div>
 
                             <h2 class="font-bold md:text-5xl mb-5">Overige zaken</h2>
                             <div class="grid md:grid-cols-2">
@@ -231,8 +210,10 @@
                                     </div>
                                 </div>
                             </div>
+
                         </div>
-                        <div class=" pt-6">
+
+                        <div class="pt-6">
                             @if($employee->user->isAdmin())
                             <div class="inline-block">
                                 <x-button>
@@ -240,7 +221,7 @@
                                 </x-button>
                             </div>
                             @endif
-                            <div class="block float-right">
+                            <div class="float-right">
                                 <x-button type="submit">
                                     Opslaan
                                 </x-button>
@@ -249,6 +230,7 @@
                                 </x-button>
                             </div>
                         </div>
+
                     </form>
                     <!-- End of profile tab -->
                 </div>
