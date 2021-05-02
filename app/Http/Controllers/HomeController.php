@@ -1,21 +1,17 @@
 <?php
 
+
 namespace App\Http\Controllers;
 
-use App\Filters\CourseFilter;
+use App\Filters\ExpertiseFilter;
+use App\Filters\HobbyFilter;
+use App\Filters\LectorateFilter;
 use App\Filters\MinorFilter;
-use App\Filters\RoleFilter;
-use App\Filters\WorkDayFilter;
-use App\Models\Course;
-use App\Models\Department;
 use App\Models\Employee;
 use App\Models\Expertise;
 use App\Models\Hobby;
-use App\Models\LearningLine;
 use App\Models\Lectorate;
 use App\Models\Minor;
-use App\Models\Role;
-use App\Models\WorkDay;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -35,37 +31,40 @@ class HomeController extends Controller
     /**
      * Show the application dashboard.
      *
+     * @param Request $request
      * @return Renderable|RedirectResponse
      */
     public function index(Request $request)
     {
-        $employees = Employee::all();
+        {
+            $employees = Employee::all();
 
-        if (isset($request['Hobbies'])) {
-            $courseFilter = new HobbyFilter();
-            $employees = $courseFilter->filter($employees, $request['Hobbies']);
+            if (isset($request['hobbies'])) {
+                $hobbyFilter = new HobbyFilter();
+                $employees = $hobbyFilter->filter($employees, $request['hobbies']);
+            }
+
+            if (isset($request['lectorates'])) {
+                $LectorateFilter = new LectorateFilter();
+                $employees = $LectorateFilter->filter($employees, $request['lectorates']);
+            }
+
+            if (isset($request['expertises'])) {
+                $expertiseFilter = new ExpertiseFilter();
+                $employees = $expertiseFilter->filter($employees, $request['expertises']);
+            }
+
+            if (isset($request['minors'])) {
+                $minorFilter = new MinorFilter();
+                $employees = $minorFilter->filter($employees, $request['minors']);
+            }
+
+            $employees = Employee::all();
+            $hobbies = Hobby::all();
+            $lectorates = Lectorate::all();
+            $minors = Minor::all();
+            $expertises = Expertise::all();
+            return view('home', compact(["request", "employees", "hobbies", "lectorates", "minors", "expertises"]));
         }
-
-        if (isset($request['Lectorates'])) {
-            $courseFilter = new LectorateFilter();
-            $employees = $courseFilter->filter($employees, $request['Lectorates']);
-        }
-
-        if (isset($request['expertises'])) {
-            $functionFilter = new ExpertiseFilter();
-            $employees = $functionFilter->filter($employees, $request['expertises']);
-        }
-
-        if (isset($request['Minors'])) {
-            $workDayFilter = new MinorFilter();
-            $employees = $workDayFilter->filter($employees, $request['Minors']);
-        }
-
-        $employees = Employee::all();
-        $hobbies = Hobby::all();
-        $lectorates = Lectorate::all();
-        $minors = Minor::all();
-        $expertises = Expertise::all();
-        return view('home', compact(["employees", "hobbies", "lectorates", "minors", "expertises"]));
     }
 }

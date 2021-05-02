@@ -4,38 +4,38 @@
         <div class="sm:w-1/3 xl:w-1/4 mr-0 sm:mr-3 sm:overflow-y-scroll scrollbar-hide">
             <x-filterModal title="Hobbies">
                 @foreach($hobbies as $hobby)
-                    @if(isset($request->get("Hobbies")[$hobby->id]))
-                        <x-filterSelector name="Hobbies[{{ $hobby->id }}]" checked="true">
+                    @if(isset($request->get("hobbies")[$hobby->id]))
+                        <x-filterSelector name="hobbies[{{ $hobby->id }}]" checked="true">
                             {{ $hobby->name }}
                         </x-filterSelector>
                     @else
-                        <x-filterSelector name="Hobbies[{{ $hobby->id }}]" checked="false">
+                        <x-filterSelector name="hobbies[{{ $hobby->id }}]" checked="false">
                             {{ $hobby->name }}
                         </x-filterSelector>
                     @endif
                 @endforeach
             </x-filterModal>
             <x-filterModal title="Lectorates">
-                @foreach($Lectorates as $Lectorate)
-                    @if(isset($request->get("Lectorates")[$Lectorate->id]))
-                        <x-filterSelector name="Lectorates[{{ $Lectorate->id }}]" checked="true">
-                            {{ $Lectorate->name }}
+                @foreach($lectorates as $lectorate)
+                    @if(isset($request->get("lectorates")[$lectorate->id]))
+                        <x-filterSelector name="lectorates[{{ $lectorate->id }}]" checked="true">
+                            {{ $lectorate->name }}
                         </x-filterSelector>
                     @else
-                        <x-filterSelector name="Lectorates[{{ $Lectorate->id }}]" checked="false">
-                            {{ $Lectorate->name }}
+                        <x-filterSelector name="lectorates[{{ $lectorate->id }}]" checked="false">
+                            {{ $lectorate->name }}
                         </x-filterSelector>
                     @endif
                 @endforeach
             </x-filterModal>
             <x-filterModal title="Minors">
                 @foreach($minors as $minor)
-                    @if(isset($request->get("expertises")[$minor->id]))
-                        <x-filterSelector name="Minors[{{ $minor->id }}]" checked="true">
+                    @if(isset($request->get("minors")[$minor->id]))
+                        <x-filterSelector name="minors[{{ $minor->id }}]" checked="true">
                             {{ $minor->name }}
                         </x-filterSelector>
                     @else
-                        <x-filterSelector name="Minors[{{ $minor->id }}]" checked="false">
+                        <x-filterSelector name="minors[{{ $minor->id }}]" checked="false">
                             {{ $minor->name }}
                         </x-filterSelector>
                     @endif
@@ -44,11 +44,11 @@
             <x-filterModal title="Expertises">
                 @foreach($expertises as $expertise)
                     @if(isset($request->get("expertises")[$expertise->id]))
-                        <x-filterSelector name="Expertises[{{ $expertise->id }}]" checked="true">
+                        <x-filterSelector name="expertises[{{ $expertise->id }}]" checked="true">
                             {{ $expertise->name }}
                         </x-filterSelector>
                     @else
-                        <x-filterSelector name="Expertises[{{ $expertise->id }}]" checked="false">
+                        <x-filterSelector name="expertises[{{ $expertise->id }}]" checked="false">
                             {{ $expertise->name }}
                         </x-filterSelector>
                     @endif
