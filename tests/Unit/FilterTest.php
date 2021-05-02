@@ -42,8 +42,8 @@ class FilterTest extends DuskTestCase
             EmployeeLearningLine::factory()->create(['employee_id' => $emp->id, 'learning_line_id' => $learningLine->id]);
             $employees->prepend($emp);
         }
-        $courseFilter = new LearningLineFilter();
-        $employeesFiltered = $courseFilter->filter($employees, [$learningLine->id => 'on']);
+        $learningLineFilter = new LearningLineFilter();
+        $employeesFiltered = $learningLineFilter->filter($employees, [$learningLine->id => 'on']);
 
         $learningLinesPivot = EmployeeLearningLine::where('learning_line_id', $learningLine->id)->get();
         $this->assertEquals(sizeof($learningLinesPivot), sizeof($employeesFiltered));
@@ -62,8 +62,8 @@ class FilterTest extends DuskTestCase
             EmployeeLearningLine::factory()->create(['employee_id' => $emp->id, 'learning_line_id' => $learningLine->id]);
             $employees->prepend($emp);
         }
-        $courseFilter = new LearningLineFilter();
-        $employeesFiltered = $courseFilter->filter($employees, [$learningLine->id + 1 => 'on']);
+        $learningLineFilter = new LearningLineFilter();
+        $employeesFiltered = $learningLineFilter->filter($employees, [$learningLine->id + 1 => 'on']);
 
         if(sizeof($employeesFiltered) == 0) $this->assertTrue(true);
     }
