@@ -20,6 +20,7 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Auth;
 
 class EmployeeController extends Controller
 {
@@ -118,11 +119,17 @@ class EmployeeController extends Controller
         $lectorates = Lectorate::all();
         $expertises = Expertise::all();
         $learningLines = LearningLine::all();
-        $minors =  Minor::all();
+        $minors = Minor::all();
         $roles = Role::all()->whereNotIn('id', 1);
 
-        return view('employee.profile_edit', compact(["employee"], 'departments', 'days_of_week', 'hobbies', 'courses', 'lectorates', 'expertises', 'learningLines', 'minors', 'roles'));
+        if ($employee->id == Auth::user()->id || Auth::user()->isAdmin()) {
+            return view('employee.profile_edit', compact(["employee"], 'departments', 'days_of_week', 'hobbies', 'courses', 'lectorates', 'expertises', 'learningLines', 'minors', 'roles'));
+        }
+        else {
+            return $this->show($employee, $succes = "U heeft geen toegang tot het bewerken van andermans profielen.");
+        }
     }
+
 
     /**
      * Update the specified resource in storage.
