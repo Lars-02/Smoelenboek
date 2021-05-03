@@ -14,15 +14,9 @@ class CourseFilter extends Facade implements Filter
 
             $forget = true;
 
-            if($employee->courses->whereIn('id', array_keys($filters))->count() != 0){
-                $forget = false;
-            }
-
-            if ($forget) {
-                $employees->forget($employee->id - 1);
-            }
+            if ($employee->courses->whereIn('id', array_keys($filters))->count() != 0) $forget = false;
+            if ($forget) $employees->forget($employee->id - 1);
         }
-
         return $employees;
     }
 }

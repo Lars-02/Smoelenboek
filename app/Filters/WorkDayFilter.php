@@ -14,15 +14,9 @@ class WorkDayFilter extends Facade implements Filter
 
             $forget = true;
 
-            if($employee->workDays->whereIn('id', array_keys($filters))->count() != 0){
-                $forget = false;
-            }
-
-            if ($forget) {
-                $employees->forget($employee->id - 1);
-            }
+            if($employee->workDays->whereIn('id', array_keys($filters))->count() != 0) $forget = false;
+            if ($forget) $employees->forget($employee->id - 1);
         }
-
         return $employees;
     }
 }
