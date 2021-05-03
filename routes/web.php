@@ -1,10 +1,11 @@
 <?php
 
+use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
+use App\Http\Middleware\EnsureEmptyEmployee;
 use Illuminate\Support\Facades\Auth;
-use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -20,17 +21,27 @@ use Illuminate\Support\Facades\Route;
 
 Auth::routes();
 
-Route::group(['middleware' => 'auth'], function(){
-    Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::group(['middleware' => 'auth'], function () {
 
-    Route::get('/register', 'App\Http\Controllers\Auth\RegisterController@index');
-    Route::post('/', [UserController::class, 'registerNewUser'])->name('registerNewUser');
-
-    Route::resource('employee', EmployeeController::class);
-
-    Route::fallback(function () {
-        return redirect()->route('home');
+    Route::group(['middleware' => 'employee.empty', 'prefix' => 'employee', 'as' => 'employee.'], function () {
+    Route::get('/create', [EmployeeController::class, 'create'])->name('create');
+    Route::post('/', [EmployeeController::class, 'store'])->name('store');
     });
 
+    Route::resource('employee', EmployeeController::class);
+    Route::group(['middleware' => 'employee'], function () {
 
+        Route::get('/', [HomeController::class, 'index'])->name('home');
+
+        // TODO: Simplify these routes.
+        Route::get('/register', [RegisterController::class, 'index']);
+        Route::post('/', [UserController::class, 'registerNewUser'])->name('registerNewUser');
+
+        Route::resource('employee', EmployeeController::class)
+            ->only(['show']);
+    });
+});
+
+Route::fallback(function () {
+    return redirect()->route('home');
 });

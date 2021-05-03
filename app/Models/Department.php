@@ -11,7 +11,7 @@ class Department extends Model
 
     protected $table = 'department';
 
-    public function employee() {
-        return $this->hasMany(Employee::class, 'department', 'department');
+    public function employees() {
+        return $this->belongsToMany(Employee::class, "employee_department");
     }
 }
