@@ -96,7 +96,7 @@ class EmployeeController extends Controller
     public function edit(Employee $employee)
     {
         $departments = Department::all()->pluck('name');
-        $days_of_week = DayOfWeek::all();
+//        $days_of_week = DayOfWeek::all();
         $hobbies = Hobby::all();
         $courses = Course::all();
         $lectorates = Lectorate::all();
@@ -106,7 +106,7 @@ class EmployeeController extends Controller
         $roles = Role::all()->whereNotIn('id', 1);
 
         if ($employee->id == Auth::user()->id || Auth::user()->isAdmin()) {
-            return view('employee.profile_edit', compact(["employee"], 'departments', 'days_of_week', 'hobbies', 'courses', 'lectorates', 'expertises', 'learningLines', 'minors', 'roles'));
+            return view('employee.profile_edit', compact(["employee"], 'departments', 'hobbies', 'courses', 'lectorates', 'expertises', 'learningLines', 'minors', 'roles'));
         }
         else {
             return $this->show($employee, $succes = "U heeft geen toegang tot het bewerken van andermans profielen.");
@@ -136,11 +136,11 @@ class EmployeeController extends Controller
 //            $employee->user()->roles()->sync(request('roles'));
             $employee->user()->update($request->only(['email']));
 
-            $employee->lectorate()->sync(request('lectorates'));
-            $employee->hobby()->sync(request('hobbies'));
-            $employee->learningLine()->sync(request('learningLines'));
-            $employee->course()->sync(request('courses'));
-            $employee->minor()->sync(request('minors'));
+            $employee->lectorates()->sync(request('lectorates'));
+            $employee->hobbies()->sync(request('hobbies'));
+            $employee->learningLines()->sync(request('learningLines'));
+            $employee->courses()->sync(request('courses'));
+            $employee->minors()->sync(request('minors'));
             $employee->expertises()->sync(request('expertises'));
             $employee->save();
 

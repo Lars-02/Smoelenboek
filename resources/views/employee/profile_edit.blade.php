@@ -113,10 +113,10 @@
                             <h2 class="font-bold md:text-5xl mb-5">Werkdagen</h2>
                             <label class="mb-1.5 pl-1.5 py-0.5 text-left text-white md:w-6/12 bg-red-700 rounded block">Selecteer werkzame dagen:</label>
                             <div class="w-full">
-                                @foreach($days_of_week as $day_of_week)
-                                    <input type="checkbox" @if($employee->workHours->contains($day_of_week)) checked @endif/><label> {{$day_of_week->day}}</label>
-                                    <br>
-                                @endforeach
+{{--                                @foreach($days_of_week as $day_of_week)--}}
+{{--                                    <input type="checkbox" @if($employee->workHours->contains($day_of_week)) checked @endif/><label> {{$day_of_week->day}}</label>--}}
+{{--                                    <br>--}}
+{{--                                @endforeach--}}
                             </div>
 
                         </div>
@@ -133,7 +133,7 @@
                                         @endforeach
                                         @foreach($lectorates as $lectorate)
                                             <div>
-                                                <input @if ($employee->lectorate->contains($lectorate->id)) checked @endif value="{{$lectorate->id}}" name="lectorates[]" type="checkbox">
+                                                <input @if ($employee->lectorates->contains($lectorate->id)) checked @endif value="{{$lectorate->id}}" name="lectorates[]" type="checkbox">
                                                 <label>{{$lectorate->name}}</label>
                                             </div>
                                         @endforeach
@@ -147,7 +147,7 @@
                                         @endforeach
                                         @foreach($hobbies as $hobby)
                                             <div>
-                                                <input @if ($employee->hobby->contains($hobby->id)) checked @endif value="{{$hobby->id}}" name="hobbies[]" type="checkbox">
+                                                <input @if ($employee->hobbies->contains($hobby->id)) checked @endif value="{{$hobby->id}}" name="hobbies[]" type="checkbox">
                                                 <label>{{$hobby->name}}</label>
                                             </div>
                                         @endforeach
@@ -161,7 +161,7 @@
                                         @endforeach
                                         @foreach($courses as $course)
                                             <div>
-                                                <input @if ($employee->course->contains($course->id)) checked @endif value="{{$course->id}}" name="courses[]" type="checkbox">
+                                                <input @if ($employee->courses->contains($course->id)) checked @endif value="{{$course->id}}" name="courses[]" type="checkbox">
                                                 <label>{{$course->name}}</label>
                                             </div>
                                         @endforeach
@@ -175,7 +175,7 @@
                                         @endforeach
                                         @foreach($learningLines as $learningLine)
                                             <div>
-                                                <input @if ($employee->learningLine->contains($learningLine->id)) checked @endif value="{{$learningLine->id}}" name="learningLines[]" type="checkbox">
+                                                <input @if ($employee->learningLines->contains($learningLine->id)) checked @endif value="{{$learningLine->id}}" name="learningLines[]" type="checkbox">
                                                 <label>{{$learningLine->name}}</label>
                                             </div>
                                         @endforeach
@@ -203,7 +203,7 @@
                                         @endforeach
                                         @foreach($minors as $minor)
                                             <div>
-                                                <input @if ($employee->minor->contains($minor->id)) checked @endif value="{{$minor->id}}" name="minors[]" type="checkbox">
+                                                <input @if ($employee->minors->contains($minor->id)) checked @endif value="{{$minor->id}}" name="minors[]" type="checkbox">
                                                 <label>{{$minor->name}}</label>
                                             </div>
                                         @endforeach
