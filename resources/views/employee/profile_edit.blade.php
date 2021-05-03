@@ -120,7 +120,11 @@
                             <div class="w-full">
                                 <div class="flex justify-between md:w-2/3 xl:w-1/2 mb-6 col-span-2 xl:col-span-3">
                                     @foreach($workDays as $day)
-                                        <x-dayToggle :day="$day"></x-dayToggle>
+                                        @if($employee->workDays->contains($day))
+                                            <x-dayToggle :day="$day" :selected="true"></x-dayToggle>
+                                        @else
+                                            <x-dayToggle :day="$day"></x-dayToggle>
+                                        @endif
                                     @endforeach
                                 </div>
                             </div>
