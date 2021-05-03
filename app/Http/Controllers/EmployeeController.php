@@ -140,6 +140,7 @@ class EmployeeController extends Controller
 //            $employee->user()->roles()->sync(request('roles'));
             $employee->user()->update($request->only(['email']));
 
+            $employee->workDays()->sync(request('workDays'));
             $employee->departments()->sync(request('departments'));
             $employee->lectorates()->sync(request('lectorates'));
             $employee->hobbies()->sync(request('hobbies'));
