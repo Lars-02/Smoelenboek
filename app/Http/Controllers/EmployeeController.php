@@ -67,7 +67,7 @@ class EmployeeController extends Controller
         return request()->validate([
             'user_id' => 'required|unique:employee',
             'firstname' => 'required|alpha|min:2|max:40',
-            'lastname' => 'required|alpha|min:2|max:40',
+            'lastname' => 'required|min:2|max:40',
             'phoneNumber' => 'required|max:15',
             'departments' => 'required|exists:department,id',
             'expertises' => 'required|exists:expertise,id',
