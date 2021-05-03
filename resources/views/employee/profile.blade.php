@@ -13,7 +13,7 @@
                             <x-button class="w-7/12 border-red-700 border-4 rounded focus:bg-white focus:text-black" @click="tab = 'afdeling'">Afdeling</x-button>
                         </li>
                         <li class="flex items-center justify-center py-3">
-                            <x-button class="w-7/12 border-red-700 border-4 rounded focus:bg-white focus:text-black" @click="tab = 'werktijden'">Werktijden</x-button>
+                            <x-button class="w-7/12 border-red-700 border-4 rounded focus:bg-white focus:text-black" @click="tab = 'Werkdagen'">Werkdagen</x-button>
                         </li>
                         <li class="flex items-center justify-center py-3">
                             <x-button class="w-7/12 border-red-700 border-4 rounded focus:bg-white focus:text-black" @click="tab = 'blokken'">Blokken</x-button>
@@ -69,10 +69,12 @@
                     @endforeach
                 </div>
 
-                <div x-show="tab === 'werktijden'" class="bg-white p-3 shadow-sm rounded-sm h-full ">
+                <div x-show="tab === 'Werkdagen'" class="bg-white p-3 shadow-sm rounded-sm h-full ">
                     <h2 class="font-bold md:text-5xl mb-5">Werkdagen</h2>
-                    @foreach($employee->workDays as $workDay)
-                        <p class="md:text-2xl">{{$workDay->day}}</p>
+                    @foreach($allDays as $day)
+                        <span class="ml-2 {{ in_array($day, $workingDays) ? "text-red-700 font-medium" : "" }}">
+                            {{ substr($day, 0, 2) }}
+                        </span>
                     @endforeach
                 </div>
 

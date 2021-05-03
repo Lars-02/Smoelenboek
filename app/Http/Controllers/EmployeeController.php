@@ -84,7 +84,11 @@ class EmployeeController extends Controller
      */
     public function show(Employee $employee, $succes = null)
     {
-        return view('employee.profile', compact(["employee"]))->with('succes', $succes);
+        $allDays = WorkDay::all()->pluck('name');
+        $workingDays = $employee->workDays->map(function ($item) {
+            return $item->name;
+        })->toArray();
+        return view('employee.profile', compact(["employee"], 'allDays', 'workingDays'))->with('succes', $succes);
     }
 
     /**
@@ -96,7 +100,7 @@ class EmployeeController extends Controller
     public function edit(Employee $employee)
     {
         $departments = Department::all()->pluck('name');
-//        $days_of_week = DayOfWeek::all();
+        $workDays = WorkDay::all();
         $hobbies = Hobby::all();
         $courses = Course::all();
         $lectorates = Lectorate::all();
@@ -106,7 +110,7 @@ class EmployeeController extends Controller
         $roles = Role::all()->whereNotIn('id', 1);
 
         if ($employee->id == Auth::user()->id || Auth::user()->isAdmin()) {
-            return view('employee.profile_edit', compact(["employee"], 'departments', 'hobbies', 'courses', 'lectorates', 'expertises', 'learningLines', 'minors', 'roles'));
+            return view('employee.profile_edit', compact(["employee"], 'departments', 'hobbies', 'courses', 'workDays', 'lectorates', 'expertises', 'learningLines', 'minors', 'roles'));
         }
         else {
             return $this->show($employee, $succes = "U heeft geen toegang tot het bewerken van andermans profielen.");

@@ -13,7 +13,7 @@
                             <button class="text-xs sm:text-sm md:text-base lg:text-lg text-white font-bold py-2 px-3 sm:px-4 md:px-5 xl:px-6 bg-red-700 w-10/12 border-red-700 border-4 rounded hover:bg-white hover:text-black" @click="tab = 'afdeling'">Afdeling/Rol</button>
                         </li>
                         <li class="flex items-center justify-center py-3">
-                            <button class="text-xs sm:text-sm md:text-base lg:text-lg text-white font-bold py-2 px-3 sm:px-4 md:px-5 xl:px-6 bg-red-700 w-10/12 border-red-700 border-4 rounded hover:bg-white hover:text-black" @click="tab = 'werktijden'">Werktijden</button>
+                            <button class="text-xs sm:text-sm md:text-base lg:text-lg text-white font-bold py-2 px-3 sm:px-4 md:px-5 xl:px-6 bg-red-700 w-10/12 border-red-700 border-4 rounded hover:bg-white hover:text-black" @click="tab = 'Werkdagen'">Werkdagen</button>
                         </li>
                         <li class="flex items-center justify-center py-3">
                             <button class="text-xs sm:text-sm md:text-base lg:text-lg text-white font-bold py-2 px-3 sm:px-4 md:px-5 xl:px-6 bg-red-700 w-10/12 border-red-700 border-4 rounded hover:bg-white hover:text-black" @click="tab = 'overig'">Overige</button>
@@ -108,15 +108,16 @@
 
                         </div>
 
-                        <div x-show="tab === 'werktijden'">
+                        <div x-show="tab === 'Werkdagen'">
 
                             <h2 class="font-bold md:text-5xl mb-5">Werkdagen</h2>
                             <label class="mb-1.5 pl-1.5 py-0.5 text-left text-white md:w-6/12 bg-red-700 rounded block">Selecteer werkzame dagen:</label>
                             <div class="w-full">
-{{--                                @foreach($days_of_week as $day_of_week)--}}
-{{--                                    <input type="checkbox" @if($employee->workHours->contains($day_of_week)) checked @endif/><label> {{$day_of_week->day}}</label>--}}
-{{--                                    <br>--}}
-{{--                                @endforeach--}}
+                                <div class="flex justify-between md:w-2/3 xl:w-1/2 mb-6 col-span-2 xl:col-span-3">
+                                    @foreach($workDays as $day)
+                                        <x-dayToggle :day="$day"></x-dayToggle>
+                                    @endforeach
+                                </div>
                             </div>
 
                         </div>
