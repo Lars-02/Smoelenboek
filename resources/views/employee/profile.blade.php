@@ -55,6 +55,9 @@
                                 <div class="break-words md:text-2xl font-semibold">Achternaam</div>
                                 <div class="break-words md:text-2xl">{{$employee->lastname}}</div>
                             </div>
+                            <div class="grid grid-cols-2">
+                                    <a href="{{$employee->linkedInUrl}}" class="break-words text-blue-500 md:text-2xl font-semibold">LinkedIn</a>
+                            </div>
                         </div>
                     </div>
                 </div>
