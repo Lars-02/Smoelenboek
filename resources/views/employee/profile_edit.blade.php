@@ -85,16 +85,21 @@
                         <div x-show="tab === 'afdeling'">
 
                             <h2 class="font-bold md:text-5xl mb-5">Afdeling en rol</h2>
-                            <div class="md:w-6/12 pb-10">
-                                <label class="mb-1.5 pl-1.5 py-0.5 float-left text-left text-white w-6/12 bg-red-700 rounded">Wijzig de afdeling:</label>
-                                @error('department')
-                                    <div class="error">{{ $message }}</div>
-                                @enderror
-                                <select class="mb-5 px-2.5 py-2.5 w-full rounded" name="department">
-                                    @foreach($departments as $department)
-                                        <option name="department" @if($employee->department === $department) selected @endif>{{$department}}</option>
-                                    @endforeach
-                                </select>
+                            <div class="grid md:grid-cols-1">
+                                <div class="mb-5 md:pr-5">
+                                    <label class="mb-1.5 pl-1.5 py-0.5 float-left text-left text-white w-6/12 bg-red-700 rounded">Wijzig de afdeling:</label>
+                                    <div class="h-32 mt-10 overflow-scroll border-b-2 max-w-md">
+                                        @foreach ($errors->get('departments.*') as $message)
+                                            <div class="error">{{ $message }}</div>
+                                        @endforeach
+                                        @foreach($departments as $department)
+                                            <div>
+                                                <input @if ($employee->departments->contains($department->id)) checked @endif value="{{$department->id}}" name="departments[]" type="checkbox">
+                                                <label>{{$department->name}}</label>
+                                            </div>
+                                        @endforeach
+                                    </div>
+                                </div>
                                 <label class="mb-1.5 pl-1.5 py-0.5 float-left text-left text-white w-6/12 bg-red-700 rounded">Wijzig rol:</label>
                                 @error('roles')
                                     <div class="error">{{ $message }}</div>

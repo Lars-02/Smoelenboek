@@ -99,7 +99,7 @@ class EmployeeController extends Controller
      */
     public function edit(Employee $employee)
     {
-        $departments = Department::all()->pluck('name');
+        $departments = Department::all();
         $workDays = WorkDay::all();
         $hobbies = Hobby::all();
         $courses = Course::all();
@@ -132,14 +132,15 @@ class EmployeeController extends Controller
             'lastname' => 'required|min:2|max:60',
             'phoneNumber' => ['required'],
             'email' => 'required|email',
-            'department' => 'required',
+            'departments' => 'required',
         ]);
 
         if ($employee->id == Auth::user()->id || Auth::user()->isAdmin()) {
-            $employee->update(request(['firstname', 'lastname', 'phoneNumber', 'department', 'expertise', 'linkedInUrl']));
+            $employee->update(request(['firstname', 'lastname', 'phoneNumber', 'expertise', 'linkedInUrl']));
 //            $employee->user()->roles()->sync(request('roles'));
             $employee->user()->update($request->only(['email']));
 
+            $employee->departments()->sync(request('departments'));
             $employee->lectorates()->sync(request('lectorates'));
             $employee->hobbies()->sync(request('hobbies'));
             $employee->learningLines()->sync(request('learningLines'));
