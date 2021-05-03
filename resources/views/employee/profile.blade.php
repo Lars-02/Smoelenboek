@@ -68,8 +68,9 @@
                     @foreach($employee->departments as $department)
                         <p class="md:text-2xl">{{$department->name}}</p>
                     @endforeach
+                    <p class="font-bold md:text-2xl">Rol(len):</p>
                     @foreach($employee->user->roles as $role)
-                        <p class="font-bold md:text-2xl">Rol:</p> <p class="md:text-2xl">{{$role->name}}</p>
+                        <p class="md:text-2xl">{{$role->name}}</p>
                     @endforeach
                 </div>
 

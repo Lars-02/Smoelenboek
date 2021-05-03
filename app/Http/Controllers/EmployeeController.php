@@ -137,8 +137,10 @@ class EmployeeController extends Controller
 
         if ($employee->id == Auth::user()->id || Auth::user()->isAdmin()) {
             $employee->update(request(['firstname', 'lastname', 'phoneNumber', 'expertise', 'linkedInUrl']));
-//            $employee->user()->roles()->sync(request('roles'));
             $employee->user()->update($request->only(['email']));
+
+//            $employee->user()->roles()->sync(request('roles'));
+            $employee->user->roles()->sync(request('roles'));
 
             $employee->workDays()->sync(request('workDays'));
             $employee->departments()->sync(request('departments'));

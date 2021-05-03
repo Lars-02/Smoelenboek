@@ -100,15 +100,21 @@
                                         @endforeach
                                     </div>
                                 </div>
-                                <label class="mb-1.5 pl-1.5 py-0.5 float-left text-left text-white w-6/12 bg-red-700 rounded">Wijzig rol:</label>
-                                @error('roles')
-                                    <div class="error">{{ $message }}</div>
-                                @enderror
-                                <select class="px-2.5 py-2.5 w-full rounded" name="roles">
-                                    @foreach($roles as $role)
-                                        <option name="department" @if($employee->user->roles->contains($role)) selected @endif>{{$role->name}}</option>
-                                    @endforeach
-                                </select>
+
+                                <div class="mb-5 md:pr-5">
+                                    <label class="mb-1.5 pl-1.5 py-0.5 float-left text-left text-white w-6/12 bg-red-700 rounded">Wijzig rol:</label>
+                                    <div class="h-32 mt-10 overflow-scroll border-b-2 max-w-md">
+                                        @foreach ($errors->get('roles.*') as $message)
+                                            <div class="error">{{ $message }}</div>
+                                        @endforeach
+                                        @foreach($roles as $role)
+                                            <div>
+                                                <input @if ($employee->user->roles->contains($role->id)) checked @endif value="{{$role->id}}" name="roles[]" type="checkbox">
+                                                <label>{{$role->name}}</label>
+                                            </div>
+                                        @endforeach
+                                    </div>
+                                </div>
                             </div>
 
                         </div>
