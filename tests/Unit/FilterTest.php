@@ -3,12 +3,15 @@
 namespace Tests\Unit;
 
 use App\Filters\CourseFilter;
+use App\Filters\LearningLineFilter;
 use App\Filters\RoleFilter;
 use App\Filters\WorkDayFilter;
 use App\Models\Course;
 use App\Models\CourseEmployee;
 use App\Models\Employee;
+use App\Models\EmployeeLearningLine;
 use App\Models\EmployeeWorkDay;
+use App\Models\LearningLine;
 use App\Models\Role;
 use App\Models\RoleUser;
 use App\Models\User;
@@ -80,15 +83,15 @@ class FilterTest extends DuskTestCase
      *
      * @return void
      */
-    public function test_filter_employee_on_work_day(){
+    public function test_filter_employee_on_work_day()
+    {
         $userAmount = 3;
 
         // Hardcode id as there is no factory. Should be fine unless Wednesday stops existing.
         $workDayId = 3;
 
         $employees = new Collection();
-        for($i = 0; $i < $userAmount; $i++)
-        {
+        for ($i = 0; $i < $userAmount; $i++) {
             $user = User::factory()->create();
             $emp = Employee::factory()->create(['user_id' => $user->id]);
             EmployeeWorkDay::factory()->create(['employee_id' => $user->id, 'work_day_id' => $workDayId]);
@@ -99,5 +102,49 @@ class FilterTest extends DuskTestCase
 
         $workDayPivot = EmployeeWorkDay::where('work_day_id', $workDayId)->get();
         $this->assertEquals(sizeof($workDayPivot), sizeof($employeesFiltered));
+    }
+
+
+    public function test_filter_employee_on_learning_line_success()
+    {
+        $userAmount = 3;
+
+        $employees = new Collection();
+        $learningLine = LearningLine::factory()->create();
+        for ($i = 0; $i < $userAmount; $i++) {
+            $user = User::factory()->create();
+            $emp = Employee::factory()->create(['user_id' => $user->id]);
+            EmployeeLearningLine::factory()->create(['employee_id' => $emp->id, 'learning_line_id' => $learningLine->id]);
+            $employees->prepend($emp);
+        }
+        $learningLineFilter = new LearningLineFilter();
+        $employeesFiltered = $learningLineFilter->filter($employees, [$learningLine->id => 'on']);
+
+        $learningLinesPivot = EmployeeLearningLine::where('learning_line_id', $learningLine->id)->get();
+        $this->assertEquals(sizeof($learningLinesPivot), sizeof($employeesFiltered));
+    }
+
+
+    /**
+     * A purposely failing test to filter on learning lines. This test checks wheter or not
+     * the test fails on a invalid learning line, which is given as input to the filter.
+     */
+    public function test_filter_employee_on_learning_line_fail()
+    {
+        $userAmount = 3;
+
+        $employees = new Collection();
+        $learningLine = LearningLine::factory()->create();
+        for($i = 0; $i < $userAmount; $i++)
+        {
+            $user = User::factory()->create();
+            $emp = Employee::factory()->create(['user_id' => $user->id]);
+            EmployeeLearningLine::factory()->create(['employee_id' => $emp->id, 'learning_line_id' => $learningLine->id]);
+            $employees->prepend($emp);
+        }
+        $learningLineFilter = new LearningLineFilter();
+        $employeesFiltered = $learningLineFilter->filter($employees, [$learningLine->id + 1 => 'on']);
+
+        if(sizeof($employeesFiltered) == 0) $this->assertTrue(true);
     }
 }

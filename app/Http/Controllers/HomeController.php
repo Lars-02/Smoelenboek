@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Filters\CourseFilter;
 use App\Filters\RoleFilter;
 use App\Filters\WorkDayFilter;
+use App\Filters\LearningLineFilter;
 use App\Models\Course;
 use App\Models\Department;
 use App\Models\Employee;
@@ -53,6 +54,11 @@ class HomeController extends Controller
         if (isset($request['workDays'])) {
             $workDayFilter = new WorkDayFilter();
             $employees = $workDayFilter->filter($employees, $request['workDays']);
+        }
+
+        if (isset($request['learningLines'])) {
+            $learningLineFilter = new LearningLineFilter();
+            $employees = $learningLineFilter->filter($employees, $request['learningLines']);
         }
 
         $courses = Course::all();
