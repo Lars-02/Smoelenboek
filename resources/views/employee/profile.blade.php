@@ -96,7 +96,7 @@
                 <!-- End of profile tab -->
 
                 <div class="flex justify-start pt-6">
-                    @if(auth()->user()->isAdmin() || $employee->user == auth()->user())
+                    @if(auth()->user()->isAdmin() || $employee->user->id == auth()->user()->id)
                     <x-button>
                         <a href="{{ route('employee.edit', ['employee' => $employee]) }}">Aanpassen</a>
                     </x-button>
