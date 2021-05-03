@@ -148,21 +148,24 @@ class EmployeeController extends Controller
             'department' => 'required',
         ]);
 
+        if ($employee->id == Auth::user()->id || Auth::user()->isAdmin()) {
+            $employee->update(request(['firstname', 'lastname', 'phoneNumber', 'department', 'expertise', 'role', 'linkedInUrl']));
+            $employee->user()->roles()->sync(request('roles'));
+            $employee->user()->update(request('email'));
 
+            $employee->lectorate()->sync(request('lectorates'));
+            $employee->hobby()->sync(request('hobbies'));
+            $employee->learningLine()->sync(request('learningLines'));
+            $employee->course()->sync(request('courses'));
+            $employee->minor()->sync(request('minors'));
+            $employee->expertises()->sync(request('expertises'));
+            $employee->save();
 
-        $employee->update(request(['firstname', 'lastname', 'phoneNumber', 'department', 'expertise', 'role', 'linkedInUrl']));
-        $employee->user()->roles()->sync(request('roles'));
-        $employee->user()->update(request('email'));
-
-        $employee->lectorate()->sync(request('lectorates'));
-        $employee->hobby()->sync(request('hobbies'));
-        $employee->learningLine()->sync(request('learningLines'));
-        $employee->course()->sync(request('courses'));
-        $employee->minor()->sync(request('minors'));
-        $employee->expertises()->sync(request('expertises'));
-        $employee->save();
-
-        return $this->show($employee, $succes = "Alle gegevens zijn succesvol opgeslagen");
+            return $this->show($employee, $succes = "Alle gegevens zijn succesvol opgeslagen");
+        }
+        else {
+            return $this->show($employee, $succes = "U heeft geen toegang tot het bewerken van andermans profielen.");
+        }
     }
 
     /**
