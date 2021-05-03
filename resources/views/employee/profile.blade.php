@@ -10,7 +10,7 @@
                             <x-button class="w-7/12 border-red-700 border-4 rounded focus:bg-white focus:text-black" @click="tab = 'account'">Account</x-button>
                         </li>
                         <li class="flex items-center justify-center py-3">
-                            <x-button class="w-7/12 border-red-700 border-4 rounded focus:bg-white focus:text-black" @click="tab = 'afdeling'">Afdeling</x-button>
+                            <x-button class="w-7/12 border-red-700 border-4 rounded focus:bg-white focus:text-black" @click="tab = 'afdeling'">Afdeling/Rol</x-button>
                         </li>
                         <li class="flex items-center justify-center py-3">
                             <x-button class="w-7/12 border-red-700 border-4 rounded focus:bg-white focus:text-black" @click="tab = 'Werkdagen'">Werkdagen</x-button>
@@ -63,9 +63,13 @@
                 </div>
 
                 <div x-show="tab === 'afdeling'" class="bg-white p-3 shadow-sm rounded-sm h-full ">
-                    <h2 class="font-bold md:text-5xl mb-5">Afdeling</h2>
+                    <h2 class="font-bold md:text-5xl mb-5">Afdeling/Rol</h2>
+                    <p class="font-bold md:text-2xl">Afdeling(en):</p>
                     @foreach($employee->departments as $department)
                         <p class="md:text-2xl">{{$department->name}}</p>
+                    @endforeach
+                    @foreach($employee->user->roles as $role)
+                        <p class="font-bold md:text-2xl">Rol:</p> <p class="md:text-2xl">{{$role->name}}</p>
                     @endforeach
                 </div>
 
