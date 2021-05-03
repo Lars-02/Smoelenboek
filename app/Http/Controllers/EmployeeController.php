@@ -142,7 +142,7 @@ class EmployeeController extends Controller
     {
         request()->validate([
             'firstname' => 'required|alpha|min:2|max:60',
-            'lastname' => 'required|alpha|min:2|max:60',
+            'lastname' => 'required|min:2|max:60',
             'phoneNumber' => ['required'],
             'email' => 'required|email',
             'department' => 'required',
