@@ -18,15 +18,15 @@
                         <li class="flex items-center justify-center py-3">
                             <x-button class="w-7/12 border-red-700 border-4 rounded focus:bg-white focus:text-black" @click="tab = 'blokken'">Blokken</x-button>
                         </li>
-                        <li class="flex items-center justify-center py-3">
-                            <x-button class="w-7/12 border-red-700 border-4 rounded focus:bg-white focus:text-black" @click="tab = 'socialmedia'">Sociale Media</x-button>
-                        </li>
                     </ul>
                 </div>
                 <!-- End of Side navbar -->
             </div>
             <!-- Right Side -->
             <div class="w-full md:w-9/12 mx-2 h-auto">
+                @if (!empty($succes))
+                    <h1 class="text-center p-2 text-white font-bold bg-red-700">{{$succes}}</h1>
+                @endif
                 <!-- Profile Tab -->
                 <div x-show="tab === 'account'" class="bg-white p-3 shadow-sm rounded-sm md:h-2/3">
                     <div class="md:flex items-center space-x-2 font-semibold text-gray-900 leading-8 mb-5 md:h-1/2 md:flex-shrink-0">
@@ -95,12 +95,15 @@
                     @endforeach
                 </div>
 
-                <div x-show="tab === 'socialmedia'" class="bg-white p-3 shadow-sm rounded-sm h-full ">
-                    <h2 class="font-bold md:text-5xl mb-5">Sociale Media</h2>
-                    <a class="md:text-2xl underline font-semibold text-red-700 hover:text-red-800 visited:text-red-600" href="{{$employee->linkedInUrl}}">Linked in</a>
-                </div>
-
                 <!-- End of profile tab -->
+
+                <div class="flex justify-start pt-6">
+                    @if(auth()->user()->isAdmin() || $employee->user == auth()->user())
+                    <x-button>
+                        <a href="{{ route('employee.edit', ['employee' => $employee]) }}">Aanpassen</a>
+                    </x-button>
+                    @endif
+                </div>
             </div>
         </div>
     </div>

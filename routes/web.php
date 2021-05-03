@@ -28,7 +28,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/', [EmployeeController::class, 'store'])->name('store');
     });
 
-    Route::group(['middleware' => 'employee'], function () {
+    Route::resource('employee', EmployeeController::class);
 
         Route::get('/', [HomeController::class, 'index'])->name('home');
 
