@@ -1,5 +1,12 @@
 <div class="mb-8">
     <x-input.label id="{{$id}}">{{$slot}}</x-input.label>
+
+    @if(isset($error))
+        <p class="relative mb-3 bg-red-200 relative text-red-500 py-3 px-3 rounded-lg clear-both">
+            {{$error}}
+        </p>
+    @endif
+
     <select
         id="{{$id}}"
         name="{{$id}}[]"
