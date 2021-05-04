@@ -22,7 +22,7 @@
             </div>
 
             <div class="flex-none self-center p-2 text-xl text-red-700 hover:text-red-800 font-bold hidden lg:block">
-                @if(auth()->user() != null)
+                @if(Auth::user()->employee != null)
                     <a href="{{ route('employee.show', ['employee' => Auth::user()->employee]) }}">{{ Auth::user()->email }}</a>
                 @endif
             </div>
