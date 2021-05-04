@@ -11,15 +11,15 @@
                 @enderror
 
                 @error('lastname')
-                    <x-input  error="{{$message}}" type="text" name="firstname" id="firstname" icon="fas fa-user-circle">Voornaam</x-input>
+                    <x-input  error="{{$message}}" type="text" name="lastname" id="lastname" icon="fas fa-user-circle">Achternaam</x-input>
                 @else
-                    <x-input type="text" name="firstname" id="firstname" icon="fas fa-user-circle">Voornaam</x-input>
+                    <x-input type="text" name="lastname" id="lastname" icon="fas fa-user-circle">Achternaam</x-input>
                 @enderror
 
                 @error('phoneNumber')
-                    <x-input  error="{{$message}}" type="text" name="firstname" id="firstname" icon="fas fa-user-circle">Voornaam</x-input>
+                    <x-input  error="{{$message}}" type="text" name="phoneNumber" id="phoneNumber" icon="fas fa-user-circle">Telefoonnummer</x-input>
                 @else
-                    <x-input type="text" name="firstname" id="firstname" icon="fas fa-user-circle">Voornaam</x-input>
+                    <x-input type="text" name="phoneNumber" id="phoneNumber" icon="fas fa-user-circle">Telefoonnummer</x-input>
                 @enderror
 
                 @error('departments')
