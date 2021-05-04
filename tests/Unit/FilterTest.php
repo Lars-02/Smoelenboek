@@ -54,6 +54,11 @@ class FilterTest extends DuskTestCase
         $hobbyPivot = EmployeeHobby::where('hobby_id', $hobby->id)->get();
         $this->assertEquals(sizeof($hobbyPivot), sizeof($employeesFiltered));
     }
+    /**
+     * A test to filter employees with a specific lectorate.
+     *
+     * @return void
+     */
     public function test_filter_employee_on_lectorate(){
         $userAmount = 3;
         $employees = new Collection();
@@ -70,6 +75,11 @@ class FilterTest extends DuskTestCase
         $lectoratePivot = EmployeeLectorate::where('lectorate_id', $lectorate->id)->get();
         $this->assertEquals(sizeof($lectoratePivot), sizeof($employeesFiltered));
     }
+    /**
+     * A test to filter employees with a specific minor.
+     *
+     * @return void
+     */
     public function test_filter_employee_on_minor(){
         $userAmount = 3;
         $employees = new Collection();
@@ -86,7 +96,11 @@ class FilterTest extends DuskTestCase
         $minorPivot = EmployeeMinor::where('minor_id', $minor->id)->get();
         $this->assertEquals(sizeof($minorPivot), sizeof($employeesFiltered));
     }
-
+    /**
+     * A test to filter employees with a specific expertise.
+     *
+     * @return void
+     */
     public function test_filter_employee_on_expertise(){
         $userAmount = 3;
         $employees = new Collection();
