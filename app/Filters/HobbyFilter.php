@@ -13,15 +13,10 @@ class HobbyFilter extends Facade implements Filter
         foreach ($employees as $employee) {
 
             $forget = true;
-            if($employee->hobbies->whereIn('id', array_keys($filters))->count() != 0){
-                $forget = false;
-            }
 
-            if ($forget) {
-                $employees->forget($employee->id - 1);
-            }
+            if($employee->hobbies->whereIn('id', array_keys($filters))->count() != 0) $forget = false;
+            if ($forget) $employees->forget($employee->id - 1);
         }
-
         return $employees;
     }
 }

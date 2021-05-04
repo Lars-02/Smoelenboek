@@ -13,15 +13,10 @@ class LectorateFilter extends Facade implements Filter
         foreach ($employees as $employee) {
 
             $forget = true;
-            if($employee->lectorates->whereIn('id', array_keys($filters))->count() != 0){
-                $forget = false;
-            }
 
-            if ($forget) {
-                $employees->forget($employee->id - 1);
-            }
+            if($employee->lectorates->whereIn('id', array_keys($filters))->count() != 0) $forget = false;
+            if ($forget) $employees->forget($employee->id - 1);
         }
-
         return $employees;
     }
 }
