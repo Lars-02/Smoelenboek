@@ -3,11 +3,13 @@
 namespace Tests\Unit;
 
 use App\Filters\CourseFilter;
+use App\Filters\DepartmentFilter;
 use App\Filters\LearningLineFilter;
 use App\Filters\RoleFilter;
 use App\Filters\WorkDayFilter;
 use App\Models\Course;
 use App\Models\CourseEmployee;
+use App\Models\Department;
 use App\Models\Employee;
 use App\Models\EmployeeLearningLine;
 use App\Models\EmployeeWorkDay;
@@ -17,6 +19,7 @@ use App\Models\RoleUser;
 use App\Models\User;
 use App\Models\WorkDay;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\DB;
 use Tests\DuskTestCase;
 use Illuminate\Database\Eloquent\Collection;
 
@@ -144,6 +147,53 @@ class FilterTest extends DuskTestCase
         }
         $learningLineFilter = new LearningLineFilter();
         $employeesFiltered = $learningLineFilter->filter($employees, [$learningLine->id + 1 => 'on']);
+
+        if(sizeof($employeesFiltered) == 0) $this->assertTrue(true);
+    }
+
+    /**
+     * A succeeding test to filter on departments. This test checks whether or not the correct employees
+     * are found by using the filter.
+     */
+    public function test_filter_employee_on_department_success()
+    {
+        $userAmount = 3;
+
+        $employees = new Collection();
+        $department = Department::factory()->create();
+        for($i = 0; $i < $userAmount; $i++)
+        {
+            $user = User::factory()->create();
+            $emp = Employee::factory()->create(['user_id' => $user->id]);
+            DB::table('employee_department')->insert(['employee_id' => $emp->id, 'department_id' => $department->id]);
+            $employees->prepend($emp);
+        }
+        $departmentFilter = new DepartmentFilter();
+        $employeesFiltered = $departmentFilter->filter($employees, [$department->id => 'on']);
+
+        $learningLinesPivot = DB::table('employee_department')->where('department_id', $department->id)->get();
+        $this->assertEquals(sizeof($learningLinesPivot), sizeof($employeesFiltered));
+    }
+
+    /**
+     * A purposely failing test to filter on departments. This test checks wheter or not
+     * the test fails on a invalid department, which is given as input to the filter.
+     */
+    public function test_filter_employee_on_department_fail()
+    {
+        $userAmount = 3;
+
+        $employees = new Collection();
+        $department = Department::factory()->create();
+        for($i = 0; $i < $userAmount; $i++)
+        {
+            $user = User::factory()->create();
+            $emp = Employee::factory()->create(['user_id' => $user->id]);
+            DB::table('employee_department')->insert(['employee_id' => $emp->id, 'department_id' => $department->id]);
+            $employees->prepend($emp);
+        }
+        $departmentFilter = new DepartmentFilter();
+        $employeesFiltered = $departmentFilter->filter($employees, [$department->id + 1 => 'on']);
 
         if(sizeof($employeesFiltered) == 0) $this->assertTrue(true);
     }
