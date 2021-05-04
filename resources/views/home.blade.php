@@ -9,7 +9,7 @@
                     <input type="text" name="searchbar" id="searchbar" placeholder="Zoeken..."
                            class="text-xs sm:text-sm md:text-base lg:text-lg pl-8 rounded border-gray-400 focus:border-gray-400 text-gray-600 focus:ring-0"/>
                 </div>
-                <a class="text-xs sm:text-sm md:text-base lg:text-lg py-2 px-3 sm:px-4 md:px-5 xl:px-6 bg-red-700 hover:bg-red-900 text-white font-bold rounded focus:outline-none" href="{{ route('home') }}">Clear</a>
+                <x-button><a href="{{ route('home') }}">Clear</a></x-button>
                 <x-button type="submit">Apply</x-button>
 
             </div>
