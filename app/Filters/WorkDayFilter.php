@@ -6,7 +6,7 @@ namespace App\Filters;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Facade;
 
-class CourseFilter extends Facade implements Filter
+class WorkDayFilter extends Facade implements Filter
 {
     public function filter(Collection $employees, array $filters): Collection
     {
@@ -14,7 +14,7 @@ class CourseFilter extends Facade implements Filter
 
             $forget = true;
 
-            if ($employee->courses->whereIn('id', array_keys($filters))->count() != 0) $forget = false;
+            if($employee->workDays->whereIn('id', array_keys($filters))->count() != 0) $forget = false;
             if ($forget) $employees->forget($employee->id - 1);
         }
         return $employees;
