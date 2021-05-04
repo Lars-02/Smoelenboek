@@ -43,39 +43,39 @@
                             <div class="text-gray-700">
                                 <div class="grid md:grid-cols-2 text-sm">
                                     <div class="mb-5 md:pr-5">
-                                        <label class="mb-1.5 pl-1.5 py-0.5 float-left text-left text-white w-6/12 bg-red-700 rounded">Voornaam:</label>
                                         @error('firstname')
-                                            <x-alert class="error">{{ $message }}</x-alert>
+                                        <x-input value="{{$employee->firstname}}" error="{{$message}}" type="text" name="firstname" id="firstname" icon="fas fa-user-circle">Voornaam:</x-input>
+                                        @else
+                                            <x-input value="{{$employee->firstname}}" type="text" name="firstname" id="firstname" icon="fas fa-user-circle" >Voornaam:</x-input>
                                         @enderror
-                                        <input class="text-xs sm:text-sm md:text-base lg:text-lg px-2.5 py-2.5 w-full rounded border-gray-400 focus:border-gray-400 text-gray-600 focus:ring-0" type="text" name="firstname" value="{{$employee->firstname}}">
                                     </div>
                                     <div class="mb-5 md:pr-5">
-                                        <label class="mb-1.5 pl-1.5 py-0.5 float-left text-left text-white w-6/12 bg-red-700 rounded">Achternaam:</label>
                                         @error('lastname')
-                                            <div class="error">{{ $message }}</div>
+                                            <x-input value="{{$employee->lastname}}" error="{{$message}}" type="text" name="lastname" id="lastname" icon="fas fa-user-circle">Achternaam:</x-input>
+                                        @else
+                                            <x-input value="{{$employee->lastname}}" type="text" name="lastname" id="lastname" icon="fas fa-user-circle" >Achternaam:</x-input>
                                         @enderror
-                                        <input class="text-xs sm:text-sm md:text-base lg:text-lg px-2.5 py-2.5 w-full rounded border-gray-400 focus:border-gray-400 text-gray-600 focus:ring-0" type="text" name="lastname" value="{{$employee->lastname}}">
                                     </div>
                                     <div class="mb-5 md:pr-5">
-                                        <label class="mb-1.5 pl-1.5 py-0.5 float-left text-left text-white w-6/12 bg-red-700 rounded">Email:</label>
                                         @error('email')
-                                            <x-alert class="error">{{ $message }}</x-alert>
+                                            <x-input value="{{$employee->user->email}}" error="{{$message}}" type="text" name="email" id="email" icon="fas fa-user-circle">Email:</x-input>
+                                        @else
+                                            <x-input value="{{$employee->user->email}}" type="text" name="email" id="email" icon="fas fa-user-circle" >Email:</x-input>
                                         @enderror
-                                        <input class="text-xs sm:text-sm md:text-base lg:text-lg px-2.5 py-2.5 w-full rounded border-gray-400 focus:border-gray-400 text-gray-600 focus:ring-0" type="email" name="email" value="{{$employee->user->email}}">
                                     </div>
                                     <div class="mb-5 md:pr-5">
-                                        <label class="mb-1.5 pl-1.5 py-0.5 float-left text-left text-white w-6/12 bg-red-700 rounded">Telefoonnummer:</label>
                                         @error('phoneNumber')
-                                            <div class="error">{{ $message }}</div>
+                                            <x-input value="{{$employee->phoneNumber}}" error="{{$message}}" type="text" name="phoneNumber" id="phoneNumber" icon="fas fa-user-circle">Telefoonnummer:</x-input>
+                                        @else
+                                            <x-input value="{{$employee->phoneNumber}}" type="text" name="phoneNumber" id="phoneNumber" icon="fas fa-user-circle" >Telefoonnummer:</x-input>
                                         @enderror
-                                        <input class="text-xs sm:text-sm md:text-base lg:text-lg px-2.5 py-2.5 w-full rounded border-gray-400 focus:border-gray-400 text-gray-600 focus:ring-0" type="tel" name="phoneNumber" value="{{$employee->phoneNumber}}">
                                     </div>
                                     <div class="mb-5 md:pr-5">
-                                        <label class="mb-1.5 pl-1.5 py-0.5 float-left text-left text-white w-6/12 bg-red-700 rounded">LinkedIn url:</label>
                                         @error('linkedInUrl')
-                                            <div class="error">{{ $message }}</div>
+                                        <x-input value="{{$employee->linkedInUrl}}" error="{{$message}}" type="text" name="linkedInUrl" id="linkedInUrl" icon="fas fa-user-circle">LinkedIn url:</x-input>
+                                        @else
+                                            <x-input value="{{$employee->linkedInUrl}}" type="text" name="linkedInUrl" id="linkedInUrl" icon="fas fa-user-circle" >LinkedIn url:</x-input>
                                         @enderror
-                                        <input class="text-xs sm:text-sm md:text-base lg:text-lg px-2.5 py-2.5 w-full rounded border-gray-400 focus:border-gray-400 text-gray-600 focus:ring-0" type="text" name="linkedInUrl" value="{{$employee->linkedInUrl}}">
                                     </div>
                                 </div>
                             </div>
