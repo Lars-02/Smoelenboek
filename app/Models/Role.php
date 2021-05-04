@@ -25,4 +25,8 @@ class Role extends Model
     {
         return $this->belongsToMany(Ability::class)->withTimestamps();
     }
+
+    public function employee() {
+        return $this->belongsToMany(Employee::class, "role_user", "role_id", "user_id");
+    }
 }

@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\DayOfWeek;
 use App\Models\Department;
 use App\Models\Employee;
 use App\Models\Expertise;
