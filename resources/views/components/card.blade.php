@@ -5,7 +5,7 @@
                 {{$title}}
             </div>
             <div class="h-2 w-full sm:w-6/12 bg-red-700 rounded-full"></div>
-            <div class="pt-5 ">
+            <div class="pt-5 px-4 sm:px-8 md:px-12 lg:px-16 xl:px-20">
                 {{ $slot }}
             </div>
         </div>
