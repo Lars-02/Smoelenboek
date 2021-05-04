@@ -6,6 +6,7 @@ use App\Filters\CourseFilter;
 use App\Filters\RoleFilter;
 use App\Filters\WorkDayFilter;
 use App\Filters\LearningLineFilter;
+use App\Filters\DepartmentFilter;
 use App\Models\Course;
 use App\Models\Department;
 use App\Models\Employee;
@@ -106,6 +107,11 @@ class HomeController extends Controller
         if (isset($request['learningLines'])) {
             $learningLineFilter = new LearningLineFilter();
             $employees = $learningLineFilter->filter($employees, $request['learningLines']);
+        }
+
+        if (isset($request['departments'])) {
+            $departmentFilter = new DepartmentFilter();
+            $employees = $departmentFilter->filter($employees, $request['departments']);
         }
 
         $courses = Course::all();
