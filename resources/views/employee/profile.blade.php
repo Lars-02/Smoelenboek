@@ -77,9 +77,11 @@
                 <div x-show="tab === 'Werkdagen'" class="bg-white p-3 shadow-sm rounded-sm h-full ">
                     <h2 class="font-bold md:text-5xl mb-5">Werkdagen</h2>
                     @foreach($allDays as $day)
-                        <span class="ml-2 {{ in_array($day, $workingDays) ? "text-red-700 font-medium" : "" }}">
-                            {{ substr($day, 0, 2) }}
-                        </span>
+                        @if(in_array($day, $workingDays))
+                            <span class="text-red-700 shadow-inner px-4 py-2 font-bold shadow rounded text-xs sm:text-sm md:text-base lg:text-lg">
+                                {{ substr($day, 0, 2) }}
+                            </span>
+                        @endif
                     @endforeach
                 </div>
 
