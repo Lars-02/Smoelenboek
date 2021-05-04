@@ -36,8 +36,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/register', [RegisterController::class, 'index']);
         Route::post('/', [UserController::class, 'registerNewUser'])->name('registerNewUser');
 
-        Route::resource('employee', EmployeeController::class)
-            ->only(['show']);
+        Route::resource('employee', EmployeeController::class);
     });
 });
 
