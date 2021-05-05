@@ -5,21 +5,42 @@
             @csrf
             <input type="hidden" name="user_id" value="{{ $user->id }}">
             <div class="grid gap-4 grid-cols-2 xl:grid-cols-3">
-                @if ($errors->any())
-                    <div class="alert alert-danger col-span-2 xl:col-span-3">
-                        <ul>
-                            @foreach ($errors->all() as $error)
-                                <li class="text-red-600">{{ $error }}</li>
-                            @endforeach
-                        </ul>
-                    </div>
-                @endif
-                <x-input type="text" name="firstname" id="firstname" icon="fas fa-user-circle">Voornaam</x-input>
-                <x-input type="text" name="lastname" id="lastname" icon="fas fa-user-circle">Achternaam</x-input>
-                <x-input type="tel" name="phoneNumber" id="phoneNumber" icon="fas fa-phone">Telefoonnummer</x-input>
-                <x-select id="departments" :options="$departments">Afdelingen</x-select>
-                <x-select id="expertises" :options="$expertises">Expertises</x-select>
-                <x-select id="roles" :options="$roles">Functies</x-select>
+                @error('firstname')
+                    <x-input  error="{{$message}}" type="text" name="firstname" id="firstname" icon="fas fa-user-circle">Voornaam</x-input>
+                @else
+                    <x-input type="text" name="firstname" id="firstname" icon="fas fa-user-circle">Voornaam</x-input>
+                @enderror
+
+                @error('lastname')
+                    <x-input  error="{{$message}}" type="text" name="lastname" id="lastname" icon="fas fa-user-circle">Achternaam</x-input>
+                @else
+                    <x-input type="text" name="lastname" id="lastname" icon="fas fa-user-circle">Achternaam</x-input>
+                @enderror
+
+                @error('phoneNumber')
+                    <x-input  error="{{$message}}" type="text" name="phoneNumber" id="phoneNumber" icon="fas fa-user-circle">Telefoonnummer</x-input>
+                @else
+                    <x-input type="text" name="phoneNumber" id="phoneNumber" icon="fas fa-user-circle">Telefoonnummer</x-input>
+                @enderror
+
+                @error('departments')
+                    <x-select error="{{$message}}" id="departments" :options="$departments">Afdelingen</x-select>
+                @else
+                    <x-select id="departments" :options="$departments">Afdelingen</x-select>
+                @enderror
+
+                @error('roles')
+                    <x-select error="{{$message}}" id="roles" :options="$roles">Functies</x-select>
+                @else
+                    <x-select id="roles" :options="$roles">Functies</x-select>
+                @enderror
+
+                @error('expertises')
+                    <x-select error="{{$message}}" id="expertises" :options="$expertises">Expertises</x-select>
+                @else
+                    <x-select id="expertises" :options="$expertises">Expertises</x-select>
+                @enderror
+
                 <div class="flex justify-between md:w-2/3 xl:w-1/2 mb-6 col-span-2 xl:col-span-3">
                     @foreach($workDays as $day)
                         <x-dayToggle :day="$day"></x-dayToggle>

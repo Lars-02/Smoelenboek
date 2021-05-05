@@ -43,11 +43,6 @@ class UserController extends Controller
             $roleUser->user_id = $user->id;
             $roleUser->save();
         });
-        try{
-            Employee::factory()->create(['user_id' => $user->id]);
-        }
-        catch(Exception $ex){
-        }
 
         Mail::to( $user->email)->send(new RegistrationMail($user , $randomPassword));
 

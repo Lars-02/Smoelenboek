@@ -4,9 +4,12 @@ namespace App\Filters;
 
 
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Facade;
+use function PHPUnit\Framework\isEmpty;
 
-class CourseFilter extends Facade implements Filter
+class RoleFilter extends Facade implements Filter
 {
     public function filter(Collection $employees, array $filters): Collection
     {
@@ -14,7 +17,7 @@ class CourseFilter extends Facade implements Filter
 
             $forget = true;
 
-            if ($employee->courses->whereIn('id', array_keys($filters))->count() != 0) $forget = false;
+            if($employee->user->roles->whereIn('id', array_keys($filters))->count() != 0) $forget = false;
             if ($forget) $employees->forget($employee->id - 1);
         }
         return $employees;
