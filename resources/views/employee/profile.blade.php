@@ -10,10 +10,10 @@
                             <x-button class="w-7/12 border-red-700 border-4 rounded focus:bg-white focus:text-black" @click="tab = 'account'">Account</x-button>
                         </li>
                         <li class="flex items-center justify-center py-3">
-                            <x-button class="w-7/12 border-red-700 border-4 rounded focus:bg-white focus:text-black" @click="tab = 'afdeling'">Afdeling</x-button>
+                            <x-button class="w-7/12 border-red-700 border-4 rounded focus:bg-white focus:text-black" @click="tab = 'afdeling'">Afdeling/Rol</x-button>
                         </li>
                         <li class="flex items-center justify-center py-3">
-                            <x-button class="w-7/12 border-red-700 border-4 rounded focus:bg-white focus:text-black" @click="tab = 'werktijden'">Werktijden</x-button>
+                            <x-button class="w-7/12 border-red-700 border-4 rounded focus:bg-white focus:text-black" @click="tab = 'Werkdagen'">Werkdagen</x-button>
                         </li>
                         <li class="flex items-center justify-center py-3">
                             <x-button class="w-7/12 border-red-700 border-4 rounded focus:bg-white focus:text-black" @click="tab = 'blokken'">Blokken</x-button>
@@ -55,21 +55,33 @@
                                 <div class="break-words md:text-2xl font-semibold">Achternaam</div>
                                 <div class="break-words md:text-2xl">{{$employee->lastname}}</div>
                             </div>
+                            <div class="grid grid-cols-2">
+                                    <a href="{{$employee->linkedInUrl}}" class="break-words text-blue-500 md:text-2xl font-semibold">LinkedIn</a>
+                            </div>
                         </div>
                     </div>
                 </div>
 
                 <div x-show="tab === 'afdeling'" class="bg-white p-3 shadow-sm rounded-sm h-full ">
-                    <h2 class="font-bold md:text-5xl mb-5">Afdeling</h2>
+                    <h2 class="font-bold md:text-5xl mb-5">Afdeling/Rol</h2>
+                    <p class="font-bold md:text-2xl">Afdeling(en):</p>
                     @foreach($employee->departments as $department)
                         <p class="md:text-2xl">{{$department->name}}</p>
                     @endforeach
+                    <p class="font-bold md:text-2xl">Rol(len):</p>
+                    @foreach($employee->user->roles as $role)
+                        <p class="md:text-2xl">{{$role->name}}</p>
+                    @endforeach
                 </div>
 
-                <div x-show="tab === 'werktijden'" class="bg-white p-3 shadow-sm rounded-sm h-full ">
+                <div x-show="tab === 'Werkdagen'" class="bg-white p-3 shadow-sm rounded-sm h-full ">
                     <h2 class="font-bold md:text-5xl mb-5">Werkdagen</h2>
-                    @foreach($employee->workDays as $workDay)
-                        <p class="md:text-2xl">{{$workDay->day}}</p>
+                    @foreach($allDays as $day)
+                        @if(in_array($day, $workingDays))
+                            <span class="text-red-700 shadow-inner px-4 py-2 font-bold shadow rounded text-xs sm:text-sm md:text-base lg:text-lg">
+                                {{ substr($day, 0, 2) }}
+                            </span>
+                        @endif
                     @endforeach
                 </div>
 
@@ -98,7 +110,7 @@
                 <!-- End of profile tab -->
 
                 <div class="flex justify-start pt-6">
-                    @if(auth()->user()->isAdmin() || $employee->user == auth()->user())
+                    @if(auth()->user()->isAdmin() || $employee->user->id == auth()->user()->id)
                     <x-button>
                         <a href="{{ route('employee.edit', ['employee' => $employee]) }}">Aanpassen</a>
                     </x-button>

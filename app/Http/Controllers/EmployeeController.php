@@ -2,9 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Course;
+use App\Models\DayOfWeek;
 use App\Models\Department;
 use App\Models\Employee;
 use App\Models\Expertise;
+use App\Models\Hobby;
+use App\Models\LearningLine;
+use App\Models\Lectorate;
+use App\Models\Minor;
 use App\Models\Role;
 use App\Models\WorkDay;
 use Illuminate\Contracts\Foundation\Application;
@@ -26,7 +32,7 @@ class EmployeeController extends Controller
     {
         $user = Auth::user();
         $departments = Department::all()->pluck('name', 'id');
-        $roles = Role::all()->pluck('name', 'id');
+        $roles = Role::all()->whereNotIn('id', 1)->pluck('name', 'id');
         $expertises = Expertise::all()->pluck('name', 'id');
         $workDays = WorkDay::all();
 
@@ -61,7 +67,7 @@ class EmployeeController extends Controller
         return request()->validate([
             'user_id' => 'required|unique:employee',
             'firstname' => 'required|alpha|min:2|max:40',
-            'lastname' => 'required|alpha|min:2|max:40',
+            'lastname' => 'required|min:2|max:40',
             'phoneNumber' => 'required|max:15',
             'departments' => 'required|exists:department,id',
             'expertises' => 'required|exists:expertise,id',
@@ -76,9 +82,13 @@ class EmployeeController extends Controller
      * @param Employee $employee
      * @return Response
      */
-    public function show(Employee $employee)
+    public function show(Employee $employee, $succes = null)
     {
-        return view('employee.profile', compact(["employee"]));
+        $allDays = WorkDay::all()->pluck('name');
+        $workingDays = $employee->workDays->map(function ($item) {
+            return $item->name;
+        })->toArray();
+        return view('employee.profile', compact(["employee"], 'allDays', 'workingDays'))->with('succes', $succes);
     }
 
     /**
@@ -89,8 +99,24 @@ class EmployeeController extends Controller
      */
     public function edit(Employee $employee)
     {
-        return abort(404);
+        $departments = Department::all();
+        $workDays = WorkDay::all();
+        $hobbies = Hobby::all();
+        $courses = Course::all();
+        $lectorates = Lectorate::all();
+        $expertises = Expertise::all();
+        $learningLines = LearningLine::all();
+        $minors = Minor::all();
+        $roles = Role::all()->whereNotIn('id', 1);
+
+        if ($employee->id == Auth::user()->id || Auth::user()->isAdmin()) {
+            return view('employee.profile_edit', compact(["employee"], 'departments', 'hobbies', 'courses', 'workDays', 'lectorates', 'expertises', 'learningLines', 'minors', 'roles'));
+        }
+        else {
+            return $this->show($employee, $succes = "U heeft geen toegang tot het bewerken van andermans profielen.");
+        }
     }
+
 
     /**
      * Update the specified resource in storage.
@@ -101,7 +127,36 @@ class EmployeeController extends Controller
      */
     public function update(Request $request, Employee $employee)
     {
-        return abort(404);
+        request()->validate([
+            'firstname' => 'required|alpha|min:2|max:60',
+            'lastname' => 'required|min:2|max:60',
+            'phoneNumber' => ['required'],
+            'email' => 'required|email',
+            'departments' => 'required',
+        ]);
+
+        if ($employee->id == Auth::user()->id || Auth::user()->isAdmin()) {
+            $employee->update(request(['firstname', 'lastname', 'phoneNumber', 'expertise', 'linkedInUrl']));
+            $employee->user()->update($request->only(['email']));
+
+//            $employee->user()->roles()->sync(request('roles'));
+            $employee->user->roles()->sync(request('roles'));
+
+            $employee->workDays()->sync(request('workDays'));
+            $employee->departments()->sync(request('departments'));
+            $employee->lectorates()->sync(request('lectorates'));
+            $employee->hobbies()->sync(request('hobbies'));
+            $employee->learningLines()->sync(request('learningLines'));
+            $employee->courses()->sync(request('courses'));
+            $employee->minors()->sync(request('minors'));
+            $employee->expertises()->sync(request('expertises'));
+            $employee->save();
+
+            return $this->show($employee, $succes = "Alle gegevens zijn succesvol opgeslagen");
+        }
+        else {
+            return $this->show($employee, $succes = "U heeft geen toegang tot het bewerken van andermans profielen.");
+        }
     }
 
     /**

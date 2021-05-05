@@ -29,6 +29,7 @@ Route::group(['middleware' => 'auth'], function () {
     });
 
     Route::resource('employee', EmployeeController::class);
+    Route::group(['middleware' => 'employee'], function () {
 
         Route::get('/', [HomeController::class, 'index'])->name('home');
 

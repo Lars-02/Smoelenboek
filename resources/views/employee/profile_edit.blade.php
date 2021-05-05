@@ -13,7 +13,7 @@
                             <button class="text-xs sm:text-sm md:text-base lg:text-lg text-white font-bold py-2 px-3 sm:px-4 md:px-5 xl:px-6 bg-red-700 w-10/12 border-red-700 border-4 rounded hover:bg-white hover:text-black" @click="tab = 'afdeling'">Afdeling/Rol</button>
                         </li>
                         <li class="flex items-center justify-center py-3">
-                            <button class="text-xs sm:text-sm md:text-base lg:text-lg text-white font-bold py-2 px-3 sm:px-4 md:px-5 xl:px-6 bg-red-700 w-10/12 border-red-700 border-4 rounded hover:bg-white hover:text-black" @click="tab = 'werktijden'">Werktijden</button>
+                            <button class="text-xs sm:text-sm md:text-base lg:text-lg text-white font-bold py-2 px-3 sm:px-4 md:px-5 xl:px-6 bg-red-700 w-10/12 border-red-700 border-4 rounded hover:bg-white hover:text-black" @click="tab = 'Werkdagen'">Werkdagen</button>
                         </li>
                         <li class="flex items-center justify-center py-3">
                             <button class="text-xs sm:text-sm md:text-base lg:text-lg text-white font-bold py-2 px-3 sm:px-4 md:px-5 xl:px-6 bg-red-700 w-10/12 border-red-700 border-4 rounded hover:bg-white hover:text-black" @click="tab = 'overig'">Overige</button>
@@ -36,6 +36,9 @@
                                 <img src="{{$employee->user->photoUrl}}" class="md:flex-shrink-0 min-h-full max-h-full">
                             @endif
                             <p class="text-center md:text-left md:text-5xl sm:text-3xl ">{{$employee->firstname}} {{$employee->lastname}} </p>
+{{--                            @error('*')--}}
+{{--                                <div>Er is iets fout gegaan.</div>--}}
+{{--                            @enderror--}}
                         </div>
 
                         <div x-show="tab === 'account'">
@@ -43,39 +46,39 @@
                             <div class="text-gray-700">
                                 <div class="grid md:grid-cols-2 text-sm">
                                     <div class="mb-5 md:pr-5">
-                                        <label class="mb-1.5 pl-1.5 py-0.5 float-left text-left text-white w-6/12 bg-red-700 rounded">Voornaam:</label>
                                         @error('firstname')
-                                            <x-alert class="error">{{ $message }}</x-alert>
+                                        <x-input value="{{$employee->firstname}}" error="{{$message}}" type="text" name="firstname" id="firstname" icon="fas fa-user-circle">Voornaam:</x-input>
+                                        @else
+                                            <x-input value="{{$employee->firstname}}" type="text" name="firstname" id="firstname" icon="fas fa-user-circle" >Voornaam:</x-input>
                                         @enderror
-                                        <input class="text-xs sm:text-sm md:text-base lg:text-lg px-2.5 py-2.5 w-full rounded border-gray-400 focus:border-gray-400 text-gray-600 focus:ring-0" type="text" name="firstname" value="{{$employee->firstname}}">
                                     </div>
                                     <div class="mb-5 md:pr-5">
-                                        <label class="mb-1.5 pl-1.5 py-0.5 float-left text-left text-white w-6/12 bg-red-700 rounded">Achternaam:</label>
                                         @error('lastname')
-                                            <div class="error">{{ $message }}</div>
+                                            <x-input value="{{$employee->lastname}}" error="{{$message}}" type="text" name="lastname" id="lastname" icon="fas fa-user-circle">Achternaam:</x-input>
+                                        @else
+                                            <x-input value="{{$employee->lastname}}" type="text" name="lastname" id="lastname" icon="fas fa-user-circle" >Achternaam:</x-input>
                                         @enderror
-                                        <input class="text-xs sm:text-sm md:text-base lg:text-lg px-2.5 py-2.5 w-full rounded border-gray-400 focus:border-gray-400 text-gray-600 focus:ring-0" type="text" name="lastname" value="{{$employee->lastname}}">
                                     </div>
                                     <div class="mb-5 md:pr-5">
-                                        <label class="mb-1.5 pl-1.5 py-0.5 float-left text-left text-white w-6/12 bg-red-700 rounded">Email:</label>
                                         @error('email')
-                                            <x-alert class="error">{{ $message }}</x-alert>
+                                            <x-input value="{{$employee->user->email}}" error="{{$message}}" type="text" name="email" id="email" icon="fas fa-user-circle">Email:</x-input>
+                                        @else
+                                            <x-input value="{{$employee->user->email}}" type="text" name="email" id="email" icon="fas fa-user-circle" >Email:</x-input>
                                         @enderror
-                                        <input class="text-xs sm:text-sm md:text-base lg:text-lg px-2.5 py-2.5 w-full rounded border-gray-400 focus:border-gray-400 text-gray-600 focus:ring-0" type="email" name="email" value="{{$employee->user->email}}">
                                     </div>
                                     <div class="mb-5 md:pr-5">
-                                        <label class="mb-1.5 pl-1.5 py-0.5 float-left text-left text-white w-6/12 bg-red-700 rounded">Telefoonnummer:</label>
                                         @error('phoneNumber')
-                                            <div class="error">{{ $message }}</div>
+                                            <x-input value="{{$employee->phoneNumber}}" error="{{$message}}" type="text" name="phoneNumber" id="phoneNumber" icon="fas fa-user-circle">Telefoonnummer:</x-input>
+                                        @else
+                                            <x-input value="{{$employee->phoneNumber}}" type="text" name="phoneNumber" id="phoneNumber" icon="fas fa-user-circle" >Telefoonnummer:</x-input>
                                         @enderror
-                                        <input class="text-xs sm:text-sm md:text-base lg:text-lg px-2.5 py-2.5 w-full rounded border-gray-400 focus:border-gray-400 text-gray-600 focus:ring-0" type="tel" name="phoneNumber" value="{{$employee->phoneNumber}}">
                                     </div>
                                     <div class="mb-5 md:pr-5">
-                                        <label class="mb-1.5 pl-1.5 py-0.5 float-left text-left text-white w-6/12 bg-red-700 rounded">LinkedIn url:</label>
                                         @error('linkedInUrl')
-                                            <div class="error">{{ $message }}</div>
+                                        <x-input value="{{$employee->linkedInUrl}}" error="{{$message}}" type="text" name="linkedInUrl" id="linkedInUrl" icon="fas fa-user-circle">LinkedIn url:</x-input>
+                                        @else
+                                            <x-input value="{{$employee->linkedInUrl}}" type="text" name="linkedInUrl" id="linkedInUrl" icon="fas fa-user-circle" >LinkedIn url:</x-input>
                                         @enderror
-                                        <input class="text-xs sm:text-sm md:text-base lg:text-lg px-2.5 py-2.5 w-full rounded border-gray-400 focus:border-gray-400 text-gray-600 focus:ring-0" type="text" name="linkedInUrl" value="{{$employee->linkedInUrl}}">
                                     </div>
                                 </div>
                             </div>
@@ -85,38 +88,54 @@
                         <div x-show="tab === 'afdeling'">
 
                             <h2 class="font-bold md:text-5xl mb-5">Afdeling en rol</h2>
-                            <div class="md:w-6/12 pb-10">
-                                <label class="mb-1.5 pl-1.5 py-0.5 float-left text-left text-white w-6/12 bg-red-700 rounded">Wijzig de afdeling:</label>
-                                @error('department')
-                                    <div class="error">{{ $message }}</div>
-                                @enderror
-                                <select class="mb-5 px-2.5 py-2.5 w-full rounded" name="department">
-                                    @foreach($departments as $department)
-                                        <option name="department" @if($employee->department === $department) selected @endif>{{$department}}</option>
-                                    @endforeach
-                                </select>
-                                <label class="mb-1.5 pl-1.5 py-0.5 float-left text-left text-white w-6/12 bg-red-700 rounded">Wijzig rol:</label>
-                                @error('roles')
-                                    <div class="error">{{ $message }}</div>
-                                @enderror
-                                <select class="px-2.5 py-2.5 w-full rounded" name="roles">
-                                    @foreach($roles as $role)
-                                        <option name="department" @if($employee->user->roles->contains($role)) selected @endif>{{$role->name}}</option>
-                                    @endforeach
-                                </select>
+                            <div class="grid md:grid-cols-1">
+                                <div class="mb-5 md:pr-5">
+                                    <label class="mb-1.5 pl-1.5 py-0.5 float-left text-left text-white w-6/12 bg-red-700 rounded">Wijzig de afdeling:</label>
+                                    <div class="h-32 mt-10 overflow-scroll border-b-2 max-w-md">
+                                        @error('departments')
+                                            <x-alert class="mt-16 pt-16"></x-alert>
+                                        @enderror
+                                        @foreach($departments as $department)
+                                            <div>
+                                                <input @if ($employee->departments->contains($department->id)) checked @endif value="{{$department->id}}" name="departments[]" type="checkbox">
+                                                <label>{{$department->name}}</label>
+                                            </div>
+                                        @endforeach
+                                    </div>
+                                </div>
+
+                                <div class="mb-5 md:pr-5">
+                                    <label class="mb-1.5 pl-1.5 py-0.5 float-left text-left text-white w-6/12 bg-red-700 rounded">Wijzig rol:</label>
+                                    <div class="h-32 mt-10 overflow-scroll border-b-2 max-w-md">
+                                        @error('roles')
+                                            <x-alert class="mt-16 pt-16"></x-alert>
+                                        @enderror
+                                        @foreach($roles as $role)
+                                            <div>
+                                                <input @if ($employee->user->roles->contains($role->id)) checked @endif value="{{$role->id}}" name="roles[]" type="checkbox">
+                                                <label>{{$role->name}}</label>
+                                            </div>
+                                        @endforeach
+                                    </div>
+                                </div>
                             </div>
 
                         </div>
 
-                        <div x-show="tab === 'werktijden'">
+                        <div x-show="tab === 'Werkdagen'">
 
                             <h2 class="font-bold md:text-5xl mb-5">Werkdagen</h2>
                             <label class="mb-1.5 pl-1.5 py-0.5 text-left text-white md:w-6/12 bg-red-700 rounded block">Selecteer werkzame dagen:</label>
                             <div class="w-full">
-                                @foreach($days_of_week as $day_of_week)
-                                    <input type="checkbox" @if($employee->workHours->contains($day_of_week)) checked @endif/><label> {{$day_of_week->day}}</label>
-                                    <br>
-                                @endforeach
+                                <div class="flex justify-between md:w-2/3 xl:w-1/2 mb-6 col-span-2 xl:col-span-3">
+                                    @foreach($workDays as $day)
+                                        @if($employee->workDays->contains($day))
+                                            <x-dayToggle :day="$day" :selected="true"></x-dayToggle>
+                                        @else
+                                            <x-dayToggle :day="$day"></x-dayToggle>
+                                        @endif
+                                    @endforeach
+                                </div>
                             </div>
 
                         </div>
@@ -133,7 +152,7 @@
                                         @endforeach
                                         @foreach($lectorates as $lectorate)
                                             <div>
-                                                <input @if ($employee->lectorate->contains($lectorate->id)) checked @endif value="{{$lectorate->id}}" name="lectorates[]" type="checkbox">
+                                                <input @if ($employee->lectorates->contains($lectorate->id)) checked @endif value="{{$lectorate->id}}" name="lectorates[]" type="checkbox">
                                                 <label>{{$lectorate->name}}</label>
                                             </div>
                                         @endforeach
@@ -147,7 +166,7 @@
                                         @endforeach
                                         @foreach($hobbies as $hobby)
                                             <div>
-                                                <input @if ($employee->hobby->contains($hobby->id)) checked @endif value="{{$hobby->id}}" name="hobbies[]" type="checkbox">
+                                                <input @if ($employee->hobbies->contains($hobby->id)) checked @endif value="{{$hobby->id}}" name="hobbies[]" type="checkbox">
                                                 <label>{{$hobby->name}}</label>
                                             </div>
                                         @endforeach
@@ -161,7 +180,7 @@
                                         @endforeach
                                         @foreach($courses as $course)
                                             <div>
-                                                <input @if ($employee->course->contains($course->id)) checked @endif value="{{$course->id}}" name="courses[]" type="checkbox">
+                                                <input @if ($employee->courses->contains($course->id)) checked @endif value="{{$course->id}}" name="courses[]" type="checkbox">
                                                 <label>{{$course->name}}</label>
                                             </div>
                                         @endforeach
@@ -175,7 +194,7 @@
                                         @endforeach
                                         @foreach($learningLines as $learningLine)
                                             <div>
-                                                <input @if ($employee->learningLine->contains($learningLine->id)) checked @endif value="{{$learningLine->id}}" name="learningLines[]" type="checkbox">
+                                                <input @if ($employee->learningLines->contains($learningLine->id)) checked @endif value="{{$learningLine->id}}" name="learningLines[]" type="checkbox">
                                                 <label>{{$learningLine->name}}</label>
                                             </div>
                                         @endforeach
@@ -203,7 +222,7 @@
                                         @endforeach
                                         @foreach($minors as $minor)
                                             <div>
-                                                <input @if ($employee->minor->contains($minor->id)) checked @endif value="{{$minor->id}}" name="minors[]" type="checkbox">
+                                                <input @if ($employee->minors->contains($minor->id)) checked @endif value="{{$minor->id}}" name="minors[]" type="checkbox">
                                                 <label>{{$minor->name}}</label>
                                             </div>
                                         @endforeach
@@ -216,9 +235,22 @@
                         <div class="pt-6">
                             @if($employee->user->isAdmin())
                             <div class="inline-block">
-                                <x-button>
-                                    Account verwijderen
-                                </x-button>
+                                <x-modal
+                                    modalTitle="Account Verwijderen"
+                                    submitLabel="Verwijderen"
+                                    cancelLabel="Annuleren"
+                                    route="{{ route('home') }}"
+                                    method="GET"
+                                    icon="fas fa-trash">
+                                    <x-slot name="trigger">
+                                        <x-button>
+                                            Account verwijderen
+                                        </x-button>
+                                    </x-slot>
+                                    <div>
+                                        Weet u zeker dat u het account van {{$employee->firstname}} {{$employee->lastname}} wil verwijderen?
+                                    </div>
+                                </x-modal>
                             </div>
                             @endif
                             <div class="float-right">
