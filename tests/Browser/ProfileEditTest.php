@@ -2,8 +2,10 @@
 
 namespace Tests\Browser;
 
+use App\Models\User;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\DB;
 use Laravel\Dusk\Browser;
 use Tests\DuskTestCase;
 
@@ -11,18 +13,49 @@ class ProfileEditTest extends DuskTestCase
 {
 
     use RefreshDatabase;
+
     /**
      * A standard user can view its own's profile edit page.
      *
      * @return void
      */
-    public function test_view_edit_page_of_own_profile_as_standard_user()
+    public function test_create_testable_user()
     {
         $this->browse(function (Browser $browser) {
             $browser->visit('/')
-                    ->assertSee('Laravel');
+            ->type('email', 'test@avans.nl')
+            ->type('password', 'password')
+            ->press('Inloggen')
+            ->value('#firstname', 'test')
+            ->value('#lastname', 'test')
+            ->value('#phoneNumber', '111111')
+            ->value('#departments', '1')
+            ->value('#expertises', '1')
+            ->value('#roles', '2')
+            ->press('Afronden')
+            ->check('#workDays[]', '1');
+            $url = $browser->driver->getCurrentURL();
+            $this->assertEquals('localhost', $url);
         });
+    }
 
+    /**
+     * A standard user can view its own's profile edit page.
+     *
+     * @return void
+     */
+    public function test_view_profile_edit_page()
+    {
+        $this->browse(function (Browser $browser) {
+            $browser->visit('/')
+            ->type('email', 'test@avans.nl')
+            ->type('password', 'password')
+            ->press('Inloggen')
+            ->visit('localhost/employee/21')
+            ->press('Aanpassen');
+            $url = $browser->driver->getCurrentURL();
+            $this->assertEquals('localhost/employee/21/edit', $url);
+        });
     }
 
     /**
@@ -31,7 +64,14 @@ class ProfileEditTest extends DuskTestCase
      */
     public function test_user_cannot_view_profile_edit_page()
     {
-
+        $this->browse(function (Browser $browser) {
+            $browser->visit('/')
+            ->type('email', 'test@avans.nl')
+            ->type('password', 'password')
+            ->press('Inloggen');
+            $url = $browser->driver->getCurrentURL();
+            $this->assertEquals('localhost/employee/1/edit', $url);
+        });
     }
 
     /**
@@ -40,7 +80,22 @@ class ProfileEditTest extends DuskTestCase
      */
     public function test_user_can_edit_own_profile()
     {
-
+        $this->browse(function (Browser $browser) {
+            $browser->visit('/')
+            ->type('email', 'test@avans.nl')
+            ->type('password', 'password')
+            ->press('Inloggen')
+            ->visit('http://localhost/employee/21')
+            ->press('Aanpassen')
+            ->value('#firstname', 'newFirstName')
+            ->value('#lastname', 'newLastName')
+            ->value('#email', 'newEmail@avans.nl')
+            ->value('#phoneNumber', 'newPhoneNumber')
+            ->value('#linkedInUrl', 'linkedInUrl.nl');
+            //TODO: add edit action of other tabs on profile
+            $url = $browser->driver->getCurrentURL();
+            $this->assertEquals('http://localhost/employee/21/edit', $url);
+        });
     }
 
     /**
@@ -49,7 +104,17 @@ class ProfileEditTest extends DuskTestCase
      */
     public function test_user_edit_profile_fail()
     {
-
+        $this->browse(function (Browser $browser) {
+            $browser->visit('/')
+            ->type('email', 'test@avans.nl')
+            ->type('password', 'password')
+            ->press('Inloggen')
+            ->visit('http://localhost/employee/21')
+            ->press('Aanpassen')
+            ->value('#firstname', );
+            $url = $browser->driver->getCurrentURL();
+            $this->assertEquals('http://localhost/employee/21/edit', $url);
+        });
     }
 
     /**
@@ -58,6 +123,6 @@ class ProfileEditTest extends DuskTestCase
      */
     public function test_admin_can_edit_profile_of_any_user()
     {
-
+        
     }
 }
