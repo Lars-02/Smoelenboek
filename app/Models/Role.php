@@ -11,6 +11,11 @@ class Role extends Model
 
     protected $table = 'role';
 
+    public function users()
+    {
+        return $this->hasMany(User::class);
+    }
+
     public function allowTo($ability)
     {
         $this->abilities()->save($ability);
@@ -19,5 +24,9 @@ class Role extends Model
     public function ability()
     {
         return $this->belongsToMany(Ability::class)->withTimestamps();
+    }
+
+    public function employee() {
+        return $this->belongsToMany(Employee::class, "role_user", "role_id", "user_id");
     }
 }

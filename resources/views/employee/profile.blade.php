@@ -61,48 +61,38 @@
 
                 <div x-show="tab === 'afdeling'" class="bg-white p-3 shadow-sm rounded-sm h-full ">
                     <h2 class="font-bold md:text-5xl mb-5">Afdeling</h2>
-                    <p class="md:text-2xl">{{$employee->department}}</p>
+                    @foreach($employee->departments as $department)
+                        <p class="md:text-2xl">{{$department->name}}</p>
+                    @endforeach
                 </div>
 
                 <div x-show="tab === 'werktijden'" class="bg-white p-3 shadow-sm rounded-sm h-full ">
                     <h2 class="font-bold md:text-5xl mb-5">Werkdagen</h2>
-                    @foreach($employee->workHours as $workHour)
-                        <p class="md:text-2xl">{{$workHour->day}}</p>
+                    @foreach($employee->workDays as $workDay)
+                        <p class="md:text-2xl">{{$workDay->day}}</p>
                     @endforeach
                 </div>
-
+                
                 <div x-show="tab === 'blokken'" class="bg-white p-3 shadow-sm rounded-sm h-full ">
                     <h2 class="font-bold md:text-5xl mb-5">Blokken</h2>
-                    @if(isset($employee->lectorate))
-                        @foreach($employee->lectorate as $lectorate)
-                            <p class="md:text-2xl">{{$lectorate->name}}</p>
-                        @endforeach
-                    @endif
-                    @if(isset($employee->hobby))
-                        @foreach($employee->hobby as $hobby)
-                            <p class="md:text-2xl">Hobby: {{$hobby->name}}</p>
-                        @endforeach
-                    @endif
-                    @if(isset($employee->course))
-                        @foreach($employee->course as $course)
-                            <p class="md:text-2xl">Course: {{$course->name}}</p>
-                        @endforeach
-                    @endif
-                    @if(isset($employee->minor))
-                        @foreach($employee->minor as $minor)
-                            <p class="md:text-2xl">Minor: {{$minor->name}}</p>
-                        @endforeach
-                    @endif
-                    @if(isset($employee->learningLine))
-                        @foreach($employee->learningLine as $learningLine)
-                            <p class="md:text-2xl">Leerlijn: {{$learningLine->name}}</p>
-                        @endforeach
-                    @endif
-                    @if(isset($employee->expertise))
-                        @foreach($employee->expertise as $expertise)
-                            <p class="md:text-2xl">Expertise: {{$expertise->name}}</p>
-                        @endforeach
-                    @endif
+                    @foreach($employee->lectorates as $lectorate)
+                        <p class="md:text-2xl">{{$lectorate->name}}</p>
+                    @endforeach
+                    @foreach($employee->hobbies as $hobby)
+                        <p class="md:text-2xl">Hobby: {{$hobby->name}}</p>
+                    @endforeach
+                    @foreach($employee->courses as $course)
+                        <p class="md:text-2xl">Course: {{$course->name}}</p>
+                    @endforeach
+                    @foreach($employee->minors as $minor)
+                        <p class="md:text-2xl">Minor: {{$minor->name}}</p>
+                    @endforeach
+                    @foreach($employee->learningLines as $learningLine)
+                        <p class="md:text-2xl">Leerlijn: {{$learningLine->name}}</p>
+                    @endforeach
+                    @foreach($employee->expertises as $expertise)
+                        <p class="md:text-2xl">Expertise: {{$expertise->name}}</p>
+                    @endforeach
                 </div>
 
                 <div x-show="tab === 'socialmedia'" class="bg-white p-3 shadow-sm rounded-sm h-full ">

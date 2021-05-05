@@ -1,9 +1,14 @@
 <div class="mb-8">
-    @if(isset($slot))
-        <label class="text-xs sm:text-sm md:text-base lg:text-lg mb-1.5 pl-1.5 py-0.5 float-left text-left text-white w-6/12 bg-red-700 rounded font-medium" for="{{$id}}">{{$slot}}</label><br/>
+    <x-input.label id="{{$id}}">{{$slot}}</x-input.label>
+
+    @if(isset($error))
+        <p class="relative mb-3 bg-red-200 relative text-red-500 py-3 px-3 rounded-lg clear-both">
+            {{$error}}
+        </p>
     @endif
-    <div>
-        <i class="absolute pl-3 pt-4 text-gray-600 {{ $icon }}"></i>
+
+    <div class="relative clear-both">
+        <i class="absolute pl-3 top-4 text-gray-600 {{ $icon }}"></i>
         <input
             id="{{$id}}"
             placeholder="{{$slot}}..."

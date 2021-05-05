@@ -27,7 +27,6 @@ class DatabaseSeeder extends Seeder
             LearningLineSeeder::class,
             ExpertiseSeeder::class,
             CourseSeeder::class,
-            WorkHourSeeder::class,
             RoleUserSeeder::class,
             EmployeeMinorSeeder::class,
             EmployeeLectorateSeeder::class,
@@ -38,6 +37,7 @@ class DatabaseSeeder extends Seeder
             AbilitySeeder::class,
             AbilityRoleSeeder::class,
             TestableUserSeeder::class,
+            EmployeeWorkDaySeeder::class,
         ]);
     }
 }

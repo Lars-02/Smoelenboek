@@ -34,22 +34,15 @@ class UserController extends Controller
         } else {
             $role = Role::where('name', 'Docent')->get(['id'])->first();
         }
-        // dd($role->id);
 
         $roleUser = new RoleUser;
         $roleUser->role_id = $role->id;
-
 
         DB::transaction(function () use ($user, $roleUser) {
             $user->save();
             $roleUser->user_id = $user->id;
             $roleUser->save();
         });
-        try{
-            Employee::factory()->create(['user_id' => $user->id]);
-        }
-        catch(Exception $ex){
-        }
 
         Mail::to( $user->email)->send(new RegistrationMail($user , $randomPassword));
 
