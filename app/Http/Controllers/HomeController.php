@@ -6,6 +6,7 @@ use App\Filters\CourseFilter;
 use App\Filters\RoleFilter;
 use App\Filters\WorkDayFilter;
 use App\Filters\LearningLineFilter;
+use App\Filters\DepartmentFilter;
 use App\Models\Course;
 use App\Models\Department;
 use App\Models\Employee;
@@ -39,7 +40,54 @@ class HomeController extends Controller
      */
     public function index(Request $request)
     {
-        $employees = Employee::all();
+        $arrayEmployeeIds = [];
+        if(isset($request["searchbar"])){
+            $stringToFilter = $request["searchbar"];
+            if (strlen($stringToFilter) > 0)
+            {
+                $splitStringToFilter = explode(" ", $stringToFilter);
+                foreach ($splitStringToFilter as $filter) {
+                    $employees = Employee::select('id')->where('firstname', 'LIKE', '%' . $filter . '%')
+                    ->orWhere('lastname', 'LIKE', '%' . $filter . '%')
+                    ->get();
+                    foreach($employees as $employee) {
+                        if(!in_array($employee->id, $arrayEmployeeIds)){
+                            array_push($arrayEmployeeIds, $employee->id);
+                        }
+                    }
+    
+                    $expertises = Expertise::where('name', 'LIKE', '%' . $filter . '%')->get();
+                    foreach($expertises as $expertise) {
+                        $expertiseEmployees = $expertise->employees()->get();
+                        $expertiseEmployeeIds = $expertiseEmployees->pluck('id');
+                        foreach($expertiseEmployeeIds as $id) {
+                            if(!in_array($id, $arrayEmployeeIds)){
+                                array_push($arrayEmployeeIds, $id);
+                            }
+                        }
+                    }
+    
+                    $functions = Role::where('name', 'LIKE', '%' . $filter . '%')->get();
+                    foreach($functions as $function) {
+                        $functionEmployees = $function->employee()->get();
+                        $functionEmployeeIds = $functionEmployees->pluck('id');
+                        foreach($functionEmployeeIds as $id) {
+                            if(!in_array($id, $arrayEmployeeIds)){
+                                array_push($arrayEmployeeIds, $id);
+                            }
+                        }
+                    }
+    
+                }
+    
+                $employees = Employee::whereIn('id', $arrayEmployeeIds)->get();
+            }
+            
+        } 
+        
+        if(!isset($employees)){
+            $employees = Employee::all();
+        }
 
         if (isset($request['courses'])) {
             $courseFilter = new CourseFilter();
@@ -59,6 +107,11 @@ class HomeController extends Controller
         if (isset($request['learningLines'])) {
             $learningLineFilter = new LearningLineFilter();
             $employees = $learningLineFilter->filter($employees, $request['learningLines']);
+        }
+
+        if (isset($request['departments'])) {
+            $departmentFilter = new DepartmentFilter();
+            $employees = $departmentFilter->filter($employees, $request['departments']);
         }
 
         $courses = Course::all();

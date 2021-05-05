@@ -6,8 +6,7 @@
                     <span class="absolute pl-3 pt-1 sm:pt-2 md:pt-1.5 lg:pt-2.5 xl:pt-3 text-gray-600">
                         <i class="fas fa-search"></i>
                     </span>
-                    <input type="text" name="searchbar" id="searchbar" placeholder="Zoeken..."
-                           class="text-xs sm:text-sm md:text-base lg:text-lg pl-8 rounded border-gray-400 focus:border-gray-400 text-gray-600 focus:ring-0"/>
+                    <input type="text"  value="{{$request["searchbar"]}}" name="searchbar" id="searchbar" placeholder="Zoeken..." class="text-xs sm:text-sm md:text-base lg:text-lg pl-8 rounded border-gray-400 focus:border-gray-400 text-gray-600 focus:ring-0"/>
                 </div>
                 <x-button type="submit">Clear</x-button>
                 <x-button type="submit">Apply</x-button>
@@ -65,6 +64,19 @@
                         @else
                             <x-filterSelector name="learningLines[{{ $learningLine->id }}]" checked="false">
                                 {{ $learningLine->name }}
+                            </x-filterSelector>
+                        @endif
+                    @endforeach
+                </x-filterModal>
+                <x-filterModal title="Afdeling">
+                    @foreach($departments as $department)
+                        @if(isset($request->get("departments")[$department->id]))
+                            <x-filterSelector name="departments[{{ $department->id }}]" checked="true">
+                                {{ $department->name }}
+                            </x-filterSelector>
+                        @else
+                            <x-filterSelector name="departments[{{ $department->id }}]" checked="false">
+                                {{ $department->name }}
                             </x-filterSelector>
                         @endif
                     @endforeach
