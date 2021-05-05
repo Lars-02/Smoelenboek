@@ -88,6 +88,7 @@ class EmployeeController extends Controller
         $workingDays = $employee->workDays->map(function ($item) {
             return $item->name;
         })->toArray();
+
         return view('employee.profile', compact(["employee"], 'allDays', 'workingDays'))->with('succes', $succes);
     }
 
@@ -152,10 +153,10 @@ class EmployeeController extends Controller
             $employee->expertises()->sync(request('expertises'));
             $employee->save();
 
-            return $this->show($employee, $succes = "Alle gegevens zijn succesvol opgeslagen");
+            return redirect()->action([EmployeeController::class, 'show'], ['employee' => $employee, 'succes' => "Alle gegevens zijn succesvol opgeslagen"]);
         }
         else {
-            return $this->show($employee, $succes = "U heeft geen toegang tot het bewerken van andermans profielen.");
+            return redirect()->action([EmployeeController::class, 'show'], ['employee' => $employee, 'succes' => "U heeft geen toegang tot het bewerken van andermans profielen."]);
         }
     }
 
