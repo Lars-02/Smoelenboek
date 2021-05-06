@@ -16,6 +16,6 @@ jobs:
     - name: Optimize files
       run: php artisan optimize
     - name: Migrate Database & Execute Tests
-      run: php artisan migrate:fresh --seed
+      run: php artisan migrate:fresh --seed --force
     - name: Run tests
       run: php artisan test
