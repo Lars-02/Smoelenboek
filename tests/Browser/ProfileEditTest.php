@@ -66,10 +66,10 @@ class ProfileEditTest extends DuskTestCase
     {
         $this->browse(function (Browser $browser) {
             $browser->visit('/')
-            ->type('email', 'test@avans.nl')
+            ->type('email', 'testableUser@avans.nl')
             ->type('password', 'password')
             ->press('Inloggen')
-            ->visit('http://localhost/employee/21')
+            ->visit('http://localhost/employee/22')
             ->press('Aanpassen')
             ->value('#firstname', 'newFirstName')
             ->value('#lastname', 'newLastName')
@@ -78,7 +78,7 @@ class ProfileEditTest extends DuskTestCase
             ->value('#linkedInUrl', 'linkedInUrl.nl');
             //TODO: add edit action of other tabs on profile
             $url = $browser->driver->getCurrentURL();
-            $this->assertEquals('http://localhost/employee/21/edit', $url);
+            $this->assertEquals('http://localhost/employee/22/edit', $url);
         });
     }
 
@@ -90,14 +90,14 @@ class ProfileEditTest extends DuskTestCase
     {
         $this->browse(function (Browser $browser) {
             $browser->visit('/')
-            ->type('email', 'test@avans.nl')
+            ->type('email', 'testableUser@avans.nl')
             ->type('password', 'password')
             ->press('Inloggen')
-            ->visit('http://localhost/employee/21')
+            ->visit('http://localhost/employee/22')
             ->press('Aanpassen')
             ->value('#firstname', );
             $url = $browser->driver->getCurrentURL();
-            $this->assertEquals('http://localhost/employee/21/edit', $url);
+            $this->assertEquals('http://localhost/employee/22/edit', $url);
         });
     }
 
@@ -107,6 +107,21 @@ class ProfileEditTest extends DuskTestCase
      */
     public function test_admin_can_edit_profile_of_any_user()
     {
-        
+        $this->browse(function (Browser $browser) {
+            $browser->visit('/')
+            ->type('email', 'testableAdmin@avans.nl')
+            ->type('password', 'password')
+            ->press('Inloggen')
+            ->visit('http://localhost/employee/1')
+            ->press('Aanpassen')
+            ->value('#firstname', 'newFirstName')
+            ->value('#lastname', 'newLastName')
+            ->value('#email', 'newEmail2@avans.nl')
+            ->value('#phoneNumber', 'newPhoneNumber')
+            ->value('#linkedInUrl', 'linkedInUrl.nl');
+            //TODO: add edit action of other tabs on profile
+            $url = $browser->driver->getCurrentURL();
+            $this->assertEquals('http://localhost/employee/1/edit', $url);
+        });
     }
 }
