@@ -13,30 +13,13 @@ class ProfileEditTest extends DuskTestCase
 {
 
     use RefreshDatabase;
-
-    /**
-     * A standard user can view its own's profile edit page.
-     *
-     * @return void
-     */
-    public function test_create_testable_user()
+    
+    public function setUp() :void 
     {
-        $this->browse(function (Browser $browser) {
-            $browser->visit('/')
-            ->type('email', 'test@avans.nl')
-            ->type('password', 'password')
-            ->press('Inloggen')
-            ->value('#firstname', 'test')
-            ->value('#lastname', 'test')
-            ->value('#phoneNumber', '111111')
-            ->value('#departments', '1')
-            ->value('#expertises', '1')
-            ->value('#roles', '2')
-            ->press('Afronden')
-            ->check('#workDays[]', '1');
-            $url = $browser->driver->getCurrentURL();
-            $this->assertEquals('localhost', $url);
-        });
+        parent::setUp();
+        foreach (static::$browsers as $browser) {
+            $browser->driver->manage()->deleteAllCookies();
+        }
     }
 
     /**
@@ -48,13 +31,13 @@ class ProfileEditTest extends DuskTestCase
     {
         $this->browse(function (Browser $browser) {
             $browser->visit('/')
-            ->type('email', 'test@avans.nl')
+            ->type('email', 'testableUser@avans.nl')
             ->type('password', 'password')
             ->press('Inloggen')
-            ->visit('localhost/employee/21')
+            ->visit('http://localhost/employee/22')
             ->press('Aanpassen');
             $url = $browser->driver->getCurrentURL();
-            $this->assertEquals('localhost/employee/21/edit', $url);
+            $this->assertEquals('http://localhost/employee/22/edit', $url);
         });
     }
 
@@ -66,11 +49,12 @@ class ProfileEditTest extends DuskTestCase
     {
         $this->browse(function (Browser $browser) {
             $browser->visit('/')
-            ->type('email', 'test@avans.nl')
+            ->type('email', 'testableUser@avans.nl')
             ->type('password', 'password')
-            ->press('Inloggen');
+            ->press('Inloggen')
+            ->visit('http://localhost/employee/1/edit');
             $url = $browser->driver->getCurrentURL();
-            $this->assertEquals('localhost/employee/1/edit', $url);
+            $this->assertEquals('http://localhost/employee/1/edit', $url);
         });
     }
 
