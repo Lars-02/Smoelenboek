@@ -38,25 +38,25 @@ class CreateWorkDayTable extends Migration
 
         DB::table('work_day')->insert([
             [
-                'name' => 'Monday',
+                'name' => 'Maandag',
             ],
             [
-                'name' => 'Tuesday',
+                'name' => 'Dinsdag',
             ],
             [
-                'name' => 'Wednesday',
+                'name' => 'Woensdag',
             ],
             [
-                'name' => 'Thursday',
+                'name' => 'Donderdag',
             ],
             [
-                'name' => 'Friday',
+                'name' => 'Vrijdag',
             ],
             [
-                'name' => 'Saturday',
+                'name' => 'Zaterdag',
             ],
             [
-                'name' => 'Sunday',
+                'name' => 'Zondag',
             ],
         ]);
     }
