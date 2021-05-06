@@ -10,7 +10,11 @@ jobs:
    steps:
     - uses: actions/checkout@v2
     - name: Install required files
-      run: composer install --no-scripts, composer require laravel/ui, php artisan optimize
+      run: composer install
+    - name: Install route package 
+      run: composer require laravel/ui
+    - name: Optimize files
+      run: php artisan optimize
     - name: Migrate Database & Execute Tests
       run: php artisan migrate:fresh --seed
     - name: Run tests
