@@ -30,4 +30,4 @@ jobs:
         DB_CONNECTION: sqlite
         DB_DATABASE: database/database.sqlite
         APP_URL: "http://127.0.0.1:8000"
-      run: vendor/bin/phpunit
+      run: php artisan serve, vendor/bin/phpunit
