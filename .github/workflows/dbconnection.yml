@@ -47,7 +47,9 @@ jobs:
           composer install --no-interaction --no-suggest
 
       - name: Prepare Laravel Application
-        run: cp .env.example .env
+        run: |
+         cp .env.example .env
+         php artisan key:generate
 
       - name: Run migration and schema dump
         run: |
