@@ -25,8 +25,3 @@ jobs:
       run: |
         mkdir -p database
         touch smoelenboek
-    - name: Setup DB Connection
-      env:
-        DB_CONNECTION: mysql
-        DB_DATABASE: smoelenboek
-        APP_URL: "http://127.0.0.1:8000"
