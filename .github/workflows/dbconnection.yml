@@ -63,6 +63,10 @@ jobs:
          composer require --dev laravel/dusk
          php artisan dusk:install
          php artisan dusk:chrome-driver
-      - name: Run Test
-        run: 
-         vendor/bin/phpunit
+      #- name: Run Test
+       # run: 
+       #  vendor/bin/phpunit
+      - name: PhpUnit for Laravel
+        uses: svikramjeet/git-action-laravel-phpunit@v1.0
+
+         
