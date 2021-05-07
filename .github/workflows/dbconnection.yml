@@ -52,10 +52,7 @@ jobs:
          php artisan key:generate
 
       - name: Run migration and schema dump
-        run: |
-          php artisan migrate --force
-          php artisan schema:dump --prune
-          php artisan db:seed
+        run: php artisan migrate:fresh --seed --force
         env:
           DB_HOST: 127.0.0.1
           DB_PORT: ${{ job.services.mysql.ports[3306] }}
