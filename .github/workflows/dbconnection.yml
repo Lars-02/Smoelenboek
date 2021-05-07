@@ -64,9 +64,6 @@ jobs:
          composer require --dev laravel/dusk
          php artisan dusk:install
          php artisan dusk:chrome-driver
-      - name: Start browser
-        run: 
-         php artisan serve --port 8000
       - name: Run Test
         run: 
          vendor/bin/phpunit
