@@ -25,3 +25,7 @@ jobs:
       run: |
         mkdir -p database
         touch smoelenboek
+    - name: Setup .env file
+      env:
+        DB_CONNECTION: mysql
+        DB_DATABASE: smoelenboek
