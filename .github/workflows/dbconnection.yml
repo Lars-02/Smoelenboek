@@ -57,3 +57,8 @@ jobs:
           DB_HOST: 127.0.0.1
           DB_PORT: ${{ job.services.mysql.ports[3306] }}
           DB_DATABASE: smoelenboek
+          APP_URL: http://127.0.0.1
+      - name: Run Test
+        run: |
+         php artisan serve --port 8000
+         php artisan test
