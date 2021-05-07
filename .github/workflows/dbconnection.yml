@@ -1,42 +1,57 @@
-name: Laravel CI
+name: "Database schema"
 
 on:
   [push]
 
 jobs:
-  laravel-tests:
+  test:
+
+    if: github.event.release.prerelease != true
 
     runs-on: ubuntu-latest
 
+    name: Schema Dump (${{ github.event.release.tag_name }})
+
     services:
       mysql:
-        image: mysql:5.7
+        image: mysql:8.0
         env:
-          MYSQL_DATABASE: smoelenboek
-          MYSQL_USER: root
-          MYSQL_PASSWORD: ''
-          MYSQL_ROOT_PASSWORD: ''
+          MYSQL_ALLOW_EMPTY_PASSWORD: yes
+          MYSQL_DATABASE: services_test
         ports:
           - 3306
-          
+        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
+
     steps:
-    - uses: actions/checkout@v2
-    - name: Init Database
-      run: |
-        mysql -uroot -h127.0.0.1 -proot -e 'CREATE DATABASE IF NOT EXISTS smoelenboek;'
-    - name: Verify MySQL connection
-      run: |
-        mysql --version
-        sudo apt-get install -y mysql-client
-        mysql --host 127.0.0.1 --port ${{ job.services.mysql.ports['3306'] }} -uuser -psecret -e "SHOW DATABASES"
-    - name: Copy .env
-      run: php -r "file_exists('.env') || copy('.env.github', '.env');"
+      - name: Checkout code
+        uses: actions/checkout@v2
 
-    - name: Install Dependencies
-      run: composer install -q --no-ansi --no-interaction --no-scripts --no-suggest --no-progress --prefer-dist
+      - name: Cache composer dependencies
+        uses: actions/cache@v1
+        with:
+          path: ~/.composer/cache/files
+          key: dependencies-php-7.4-composer-${{ hashFiles('composer.lock') }}
+          restore-keys: |
+            dependencies-php-7.4-composer-
 
-    - name: Generate key
-      run: php artisan key:generate
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 8.0
+          extensions: curl, dom, fileinfo, filter, iconv, json, libxml, mbstring, openssl, pcntl, pcre, pdo, simplexml, sqlite, pdo_sqlite, tokenizer, xml, xmlwriter, zip
 
-    - name: Directory Permissions
-      run: chmod -R 777 storage bootstrap/cache
+      - name: Install PHP dependencies (composer)
+        run: |
+          composer config "http-basic.nova.laravel.com" "${{ secrets.NOVA_USERNAME }}" "${{ secrets.NOVA_PASSWORD }}"
+          composer install --no-interaction --no-suggest
+
+      - name: Prepare Laravel Application
+        run: cp .env.example .env
+
+      - name: Run migration and schema dump
+        run: |
+          php artisan migrate --force
+          php artisan schema:dump --prune
+        env:
+          DB_HOST: 127.0.0.1
+          DB_PORT: ${{ job.services.mysql.ports[3306] }}
