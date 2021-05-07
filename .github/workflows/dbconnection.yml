@@ -21,9 +21,9 @@ jobs:
           
     steps:
     - uses: actions/checkout@v2
-    - name: Create test database
+    - name: Init Database
       run: |
-        **sudo systemctl start mysql** mysql -uroot -proot < databases/tracker/create_databases.sql
+        mysql -uroot -h127.0.0.1 -proot -e 'CREATE DATABASE IF NOT EXISTS smoelenboek;'
     - name: Verify MySQL connection
       run: |
         mysql --version
