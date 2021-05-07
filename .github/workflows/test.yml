@@ -27,12 +27,8 @@ jobs:
         touch database/database.sqlite
     - name: Setup DB Connection
       env:
-        DB_CONNECTION: sqlite
-        DB_DATABASE: database/database.sqlite
+        DB_CONNECTION: mysql
+        DB_DATABASE: smoelenboek
         APP_URL: "http://127.0.0.1:8000"
     - name: Upgrade Chrome Driver
       run: php artisan dusk:chrome-driver
-    - name: Start Chrome Driver
-      run: ./vendor/laravel/dusk/bin/chromedriver-linux > /dev/null 2>&1 &
-    - name: Run Laravel Server
-      run: php artisan serve > /dev/null 2>&1 &
