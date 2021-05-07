@@ -21,7 +21,9 @@ jobs:
           
     steps:
     - uses: actions/checkout@v2
-    
+    - name: Create test database
+      run: |
+        **sudo systemctl start mysql** mysql -uroot -proot < databases/tracker/create_databases.sql
     - name: Verify MySQL connection
       run: |
         mysql --version
