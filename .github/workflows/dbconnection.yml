@@ -17,7 +17,7 @@ jobs:
         image: mysql:8.0
         env:
           MYSQL_ALLOW_EMPTY_PASSWORD: yes
-          MYSQL_DATABASE: services_test
+          MYSQL_DATABASE: smoelenboek
         ports:
           - 3306
         options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
@@ -47,6 +47,8 @@ jobs:
 
       - name: Prepare Laravel Application
         run: cp .env.example .env
+        env:
+          DB_DATABASE: smoelenboek
 
       - name: Run migration and schema dump
         run: |
