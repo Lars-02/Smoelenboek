@@ -5,11 +5,12 @@ on:
 
 jobs:
   test:
-
+    
     if: github.event.release.prerelease != true
 
     runs-on: ubuntu-latest
-
+    timeout-minutes: 6
+    
     name: Schema Dump (${{ github.event.release.tag_name }})
 
     services:
@@ -58,6 +59,11 @@ jobs:
           DB_PORT: ${{ job.services.mysql.ports[3306] }}
           DB_DATABASE: smoelenboek
           APP_URL: http://127.0.0.1
+      - name: Install Dusk & Chrome Driver
+        run: |
+         composer require --dev laravel/dusk
+         php artisan dusk:install
+         php artisan dusk:chrome-driver
       - name: Run Test
         run: |
          php artisan serve --port 8000
