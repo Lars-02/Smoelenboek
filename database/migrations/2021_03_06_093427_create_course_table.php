@@ -13,12 +13,26 @@ class CreateCourseTable extends Migration
      */
     public function up()
     {
-        Schema::create('course', function (Blueprint $table) {
+        Schema::create('courses', function (Blueprint $table) {
             $table->id();
             $table->string('name');
             $table->unsignedInteger('term');
             $table->unique(['name', 'term']);
-            $table->timestamps();
+        });
+
+        Schema::create('course_employee', function (Blueprint $table) {
+            $table->primary(['course_id', 'employee_id']);
+            $table->unsignedBigInteger('employee_id');
+            $table->unsignedBigInteger('course_id');
+
+            $table->foreign('employee_id')
+                ->references('id')
+                ->on('employees')
+                ->cascadeOnDelete();
+            $table->foreign('course_id')
+                ->references('id')
+                ->on('courses')
+                ->cascadeOnDelete();
         });
     }
 
@@ -29,6 +43,7 @@ class CreateCourseTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('course');
+        Schema::dropIfExists('courses');
+        Schema::dropIfExists('course_employee');
     }
 }

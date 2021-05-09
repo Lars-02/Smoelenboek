@@ -9,7 +9,7 @@ class Department extends Model
 {
     use HasFactory;
 
-    protected $table = 'department';
+    public $timestamps = false;
 
     public function employees() {
         return $this->belongsToMany(Employee::class, "employee_department");
