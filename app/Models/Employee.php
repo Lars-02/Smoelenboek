@@ -8,9 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Employee extends Model
 {
     use HasFactory;
-
-    protected $table = 'employee';
-
+    
     protected $fillable = [
         'user_id',
         'firstname',
@@ -36,32 +34,32 @@ class Employee extends Model
 
     public function lectorates()
     {
-        return $this->belongsToMany(Lectorate::class)->withTimestamps();
+        return $this->belongsToMany(Lectorate::class);
     }
 
     public function hobbies()
     {
-        return $this->belongsToMany(Hobby::class)->withTimestamps();
+        return $this->belongsToMany(Hobby::class);
     }
 
     public function courses()
     {
-        return $this->belongsToMany(Course::class)->withTimestamps();
+        return $this->belongsToMany(Course::class);
     }
 
     public function minors()
     {
-        return $this->belongsToMany(Minor::class)->withTimestamps();
+        return $this->belongsToMany(Minor::class);
     }
 
     public function learningLines()
     {
-        return $this->belongsToMany(LearningLine::class)->withTimestamps();
+        return $this->belongsToMany(LearningLine::class);
     }
 
     public function expertises()
     {
-        return $this->belongsToMany(Expertise::class)->withTimestamps();
+        return $this->belongsToMany(Expertise::class);
     }
 
     public function workDays()

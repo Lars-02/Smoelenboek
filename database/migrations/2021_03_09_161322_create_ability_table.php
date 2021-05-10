@@ -13,11 +13,25 @@ class CreateAbilityTable extends Migration
      */
     public function up()
     {
-        Schema::create('ability', function (Blueprint $table) {
+        Schema::create('abilities', function (Blueprint $table) {
             $table->id();
             $table->string('name');
             $table->string('label')->nullable();
-            $table->timestamps();
+        });
+
+        Schema::create('ability_role', function (Blueprint $table) {
+            $table->primary(['role_id', 'ability_id']);
+            $table->unsignedBigInteger('ability_id');
+            $table->unsignedBigInteger('role_id');
+
+            $table->foreign('ability_id')
+                ->references('id')
+                ->on('abilities')
+                ->cascadeOnDelete();
+            $table->foreign('role_id')
+                ->references('id')
+                ->on('roles')
+                ->cascadeOnDelete();
         });
     }
 
@@ -28,6 +42,7 @@ class CreateAbilityTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('ability');
+        Schema::dropIfExists('abilities');
+        Schema::dropIfExists('ability_role');
     }
 }

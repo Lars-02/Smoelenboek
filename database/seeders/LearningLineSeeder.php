@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Employee;
 use App\Models\LearningLine;
 use Illuminate\Database\Seeder;
 
@@ -14,12 +15,18 @@ class LearningLineSeeder extends Seeder
      */
     public function run()
     {
-        LearningLine::factory()->create(['name' => 'Onderzoeksvaardigheden']);
-        LearningLine::factory()->create(['name' => 'Academische taalvaardigheid']);
-        LearningLine::factory()->create(['name' => 'Algemene Vaardigheden']);
-        LearningLine::factory()->create(['name' => 'Klinische leerlijn']);
-        LearningLine::factory()->create(['name' => 'Onderzoeksmethodologie']);
-        LearningLine::factory()->create(['name' => 'Programmeervaardigheden']);
-        LearningLine::factory()->create(['name' => 'Vaardigheden in lesgeven']);
+        $learningLines = LearningLine::factory()->createMany([
+            ['name' => 'Onderzoeksvaardigheden'],
+            ['name' => 'Academische taalvaardigheid'],
+            ['name' => 'Algemene Vaardigheden'],
+            ['name' => 'Klinische leerlijn'],
+            ['name' => 'Onderzoeksmethodologie'],
+            ['name' => 'Programmeervaardigheden'],
+            ['name' => 'Vaardigheden in lesgeven'],
+        ]);
+
+        Employee::all()->each(function ($employee) use ($learningLines) {
+            $employee->learningLines()->attach($learningLines->random(rand(1, 3)));
+        });
     }
 }
