@@ -8,7 +8,7 @@ use App\Models\Expertise;
 use App\Models\Role;
 use App\Models\RoleUser;
 use App\Models\User;
-use App\SearchBar\SearchBar;
+use App\Models\SearchBar;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\DuskTestCase;

@@ -17,10 +17,11 @@ use App\Models\Lectorate;
 use App\Models\Minor;
 use App\Models\Role;
 use App\Models\WorkDay;
-use App\SearchBar\SearchBar;
+use App\Models\SearchBar;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use function PHPUnit\Framework\isEmpty;
 
 class HomeController extends Controller
 {
@@ -45,10 +46,8 @@ class HomeController extends Controller
             $employees = Employee::all();
         }
 
-        if(isset($request["searchbar"])){
             $searchBar = new SearchBar();
             $employees = $searchBar->search($employees, $request['searchbar']);
-        }
 
         if (isset($request['courses'])) {
             $courseFilter = new CourseFilter();
