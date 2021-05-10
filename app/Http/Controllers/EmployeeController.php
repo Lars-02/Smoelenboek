@@ -111,7 +111,7 @@ class EmployeeController extends Controller
         $roles = Role::all()->whereNotIn('id', 1);
 
         if ($employee->id == Auth::user()->id || Auth::user()->isAdmin()) {
-            return view('employee.profile_edit', compact(["employee"], 'departments', 'hobbies', 'courses', 'workDays', 'lectorates', 'expertises', 'learningLines', 'minors', 'roles'));
+            return view('employee.profileEdit', compact(["employee"], 'departments', 'hobbies', 'courses', 'workDays', 'lectorates', 'expertises', 'learningLines', 'minors', 'roles'));
         }
         else {
             return $this->show($employee, $succes = "U heeft geen toegang tot het bewerken van andermans profielen.");
