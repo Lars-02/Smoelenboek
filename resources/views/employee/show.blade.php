@@ -21,19 +21,19 @@
                 @endif
                 <!-- Profile Tab -->
                 <div x-show="tab === 'account'" class="bg-white p-3 shadow-sm rounded-sm md:h-2/3">
-                    @include('employee.showAccount')
+                    @include('employee.show.account')
                 </div>
 
                 <div x-show="tab === 'department'" class="bg-white p-3 shadow-sm rounded-sm h-full ">
-                    @include('employee.showDepartment')
+                    @include('employee.show.department')
                 </div>
 
                 <div x-show="tab === 'workday'" class="bg-white p-3 shadow-sm rounded-sm h-full ">
-                    @include('employee.showWorkDay')
+                    @include('employee.show.workDay')
                 </div>
 
                 <div x-show="tab === 'term'" class="bg-white p-3 shadow-sm rounded-sm h-full ">
-                    @include('employee.showTerm')
+                    @include('employee.show.term')
                 </div>
 
                 <!-- End of profile tab -->
