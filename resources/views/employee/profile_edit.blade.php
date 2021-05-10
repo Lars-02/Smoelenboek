@@ -6,18 +6,10 @@
                 <div class="w-full md:w-3/12">
                     <!-- Side navbar -->
                     <ul class="h-full mb-12 text-gray-600 hover:text-gray-700">
-                        <li class="flex items-center justify-center pb-3">
-                            <button class="text-xs sm:text-sm md:text-base lg:text-lg text-white font-bold py-2 px-3 sm:px-4 md:px-5 xl:px-6 bg-red-700 w-10/12 border-red-700 border-4 rounded hover:bg-white hover:text-black" @click="tab = 'account'">Account</button>
-                        </li>
-                        <li class="flex items-center justify-center py-3">
-                            <button class="text-xs sm:text-sm md:text-base lg:text-lg text-white font-bold py-2 px-3 sm:px-4 md:px-5 xl:px-6 bg-red-700 w-10/12 border-red-700 border-4 rounded hover:bg-white hover:text-black" @click="tab = 'afdeling'">Afdeling/Rol</button>
-                        </li>
-                        <li class="flex items-center justify-center py-3">
-                            <button class="text-xs sm:text-sm md:text-base lg:text-lg text-white font-bold py-2 px-3 sm:px-4 md:px-5 xl:px-6 bg-red-700 w-10/12 border-red-700 border-4 rounded hover:bg-white hover:text-black" @click="tab = 'Werkdagen'">Werkdagen</button>
-                        </li>
-                        <li class="flex items-center justify-center py-3">
-                            <button class="text-xs sm:text-sm md:text-base lg:text-lg text-white font-bold py-2 px-3 sm:px-4 md:px-5 xl:px-6 bg-red-700 w-10/12 border-red-700 border-4 rounded hover:bg-white hover:text-black" @click="tab = 'overig'">Overige</button>
-                        </li>
+                        <x-sidenavlink tab="account">Account</x-sidenavlink>
+                        <x-sidenavlink tab="afdeling">Afdeling</x-sidenavlink>
+                        <x-sidenavlink tab="werkdagen">Werkdagen</x-sidenavlink>
+                        <x-sidenavlink tab="blokken">Blokken</x-sidenavlink>
                     </ul>
                     <!-- End of Side navbar -->
                 </div>

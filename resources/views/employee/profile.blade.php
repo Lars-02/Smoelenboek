@@ -6,18 +6,10 @@
                 <!-- Side navbar -->
                 <div class="bg-white p-3 border-t-4 border-red-700">
                     <ul class="bg-gray-100 text-gray-600 hover:text-gray-700 hover:shadow py-2 px-3 mt-3 divide-y rounded shadow-sm">
-                        <li class="flex items-center justify-center py-3">
-                            <x-button class="w-7/12 border-red-700 border-4 rounded focus:bg-white focus:text-black" @click="tab = 'account'">Account</x-button>
-                        </li>
-                        <li class="flex items-center justify-center py-3">
-                            <x-button class="w-7/12 border-red-700 border-4 rounded focus:bg-white focus:text-black" @click="tab = 'afdeling'">Afdeling/Rol</x-button>
-                        </li>
-                        <li class="flex items-center justify-center py-3">
-                            <x-button class="w-7/12 border-red-700 border-4 rounded focus:bg-white focus:text-black" @click="tab = 'Werkdagen'">Werkdagen</x-button>
-                        </li>
-                        <li class="flex items-center justify-center py-3">
-                            <x-button class="w-7/12 border-red-700 border-4 rounded focus:bg-white focus:text-black" @click="tab = 'blokken'">Blokken</x-button>
-                        </li>
+                        <x-sidenavlink tab="account">Account</x-sidenavlink>
+                        <x-sidenavlink tab="afdeling">Afdeling</x-sidenavlink>
+                        <x-sidenavlink tab="werkdagen">Werkdagen</x-sidenavlink>
+                        <x-sidenavlink tab="blokken">Blokken</x-sidenavlink>
                     </ul>
                 </div>
                 <!-- End of Side navbar -->
