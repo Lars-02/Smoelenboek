@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Employee;
 use App\Models\Hobby;
 use Illuminate\Database\Seeder;
 
@@ -14,40 +15,46 @@ class HobbySeeder extends Seeder
      */
     public function run()
     {
-        Hobby::factory()->create(['name' => 'Voetbal']);
-        Hobby::factory()->create(['name' => 'Handbal']);
-        Hobby::factory()->create(['name' => 'Volleybal']);
-        Hobby::factory()->create(['name' => 'Gymnastiek']);
-        Hobby::factory()->create(['name' => 'Turnen']);
-        Hobby::factory()->create(['name' => 'Hardlopen']);
-        Hobby::factory()->create(['name' => 'Zwemmen']);
-        Hobby::factory()->create(['name' => 'Tennis']);
-        Hobby::factory()->create(['name' => 'Badminton']);
-        Hobby::factory()->create(['name' => 'Hengelsport']);
-        Hobby::factory()->create(['name' => 'Hockey']);
-        Hobby::factory()->create(['name' => 'Roeien']);
-        Hobby::factory()->create(['name' => 'Zeilen']);
-        Hobby::factory()->create(['name' => 'Watersport']);
-        Hobby::factory()->create(['name' => 'Golf']);
-        Hobby::factory()->create(['name' => 'Judo']);
-        Hobby::factory()->create(['name' => 'Boksen']);
-        Hobby::factory()->create(['name' => 'Wandelsport']);
-        Hobby::factory()->create(['name' => 'Biljarten']);
-        Hobby::factory()->create(['name' => 'Tafeltennis']);
-        Hobby::factory()->create(['name' => 'Dammen']);
-        Hobby::factory()->create(['name' => 'Bridgen']);
-        Hobby::factory()->create(['name' => 'SjoelbakkenHonkbal']);
-        Hobby::factory()->create(['name' => 'Basketbal']);
-        Hobby::factory()->create(['name' => 'Korfbal']);
-        Hobby::factory()->create(['name' => 'Kegelen']);
-        Hobby::factory()->create(['name' => 'Rugby']);
-        Hobby::factory()->create(['name' => 'Paardrijden']);
-        Hobby::factory()->create(['name' => 'Schaatsen']);
-        Hobby::factory()->create(['name' => 'Ijshockey']);
-        Hobby::factory()->create(['name' => 'Skeeleren']);
-        Hobby::factory()->create(['name' => 'Joggen']);
-        Hobby::factory()->create(['name' => 'Fitness']);
-        Hobby::factory()->create(['name' => 'Mediteren']);
-        Hobby::factory()->create(['name' => 'Yoga']);
+        $hobbies = Hobby::factory()->createMany([
+            ['name' => 'Voetbal'],
+            ['name' => 'Handbal'],
+            ['name' => 'Volleybal'],
+            ['name' => 'Gymnastiek'],
+            ['name' => 'Turnen'],
+            ['name' => 'Hardlopen'],
+            ['name' => 'Zwemmen'],
+            ['name' => 'Tennis'],
+            ['name' => 'Badminton'],
+            ['name' => 'Hengelsport'],
+            ['name' => 'Hockey'],
+            ['name' => 'Roeien'],
+            ['name' => 'Zeilen'],
+            ['name' => 'Watersport'],
+            ['name' => 'Golf'],
+            ['name' => 'Judo'],
+            ['name' => 'Boksen'],
+            ['name' => 'Wandelsport'],
+            ['name' => 'Biljarten'],
+            ['name' => 'Tafeltennis'],
+            ['name' => 'Dammen'],
+            ['name' => 'Bridgen'],
+            ['name' => 'SjoelbakkenHonkbal'],
+            ['name' => 'Basketbal'],
+            ['name' => 'Korfbal'],
+            ['name' => 'Kegelen'],
+            ['name' => 'Rugby'],
+            ['name' => 'Paardrijden'],
+            ['name' => 'Schaatsen'],
+            ['name' => 'Ijshockey'],
+            ['name' => 'Skeeleren'],
+            ['name' => 'Joggen'],
+            ['name' => 'Fitness'],
+            ['name' => 'Mediteren'],
+            ['name' => 'Yoga'],
+        ]);
+
+        Employee::all()->each(function ($employee) use ($hobbies) {
+            $employee->hobbies()->attach($hobbies->random(rand(1, 3)));
+        });
     }
 }

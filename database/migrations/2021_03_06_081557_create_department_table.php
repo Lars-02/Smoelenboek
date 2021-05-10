@@ -13,10 +13,25 @@ class CreateDepartmentTable extends Migration
      */
     public function up()
     {
-        Schema::create('department', function (Blueprint $table) {
+        Schema::create('departments', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->timestamps();
+        });
+
+        Schema::create('employee_department', function (Blueprint $table) {
+            $table->primary(['employee_id', 'department_id']);
+            $table->unsignedBigInteger('employee_id');
+            $table->unsignedBigInteger('department_id');
+
+
+            $table->foreign('employee_id')
+                ->references('id')
+                ->on('employees')
+                ->cascadeOnDelete();
+            $table->foreign('department_id')
+                ->references('id')
+                ->on('departments')
+                ->cascadeOnDelete();
         });
     }
 
@@ -27,6 +42,7 @@ class CreateDepartmentTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('department');
+        Schema::dropIfExists('departments');
+        Schema::dropIfExists('employee_department');
     }
 }

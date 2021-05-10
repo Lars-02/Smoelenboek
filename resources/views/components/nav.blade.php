@@ -22,7 +22,9 @@
             </div>
 
             <div class="flex-none self-center p-2 text-xl text-red-700 hover:text-red-800 font-bold hidden lg:block">
-                <a href="#">{{ Auth::user()->email }}</a>
+                @if(Auth::user()->employee != null)
+                    <a href="{{ route('employee.show', ['employee' => Auth::user()->employee]) }}">{{ Auth::user()->email }}</a>
+                @endif
             </div>
 
             <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">

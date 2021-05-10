@@ -9,7 +9,6 @@ class WorkDay extends Model
 {
     use HasFactory;
 
-    protected $table = 'work_day';
     public $timestamps = false;
 
     public function employees()
