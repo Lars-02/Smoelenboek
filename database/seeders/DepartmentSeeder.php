@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Department;
+use App\Models\Employee;
 use Illuminate\Database\Seeder;
 
 class DepartmentSeeder extends Seeder
@@ -14,14 +15,20 @@ class DepartmentSeeder extends Seeder
      */
     public function run()
     {
-        Department::factory()->create(['name' => 'AI&I']);
-        Department::factory()->create(['name' => 'ASIS']);
-        Department::factory()->create(['name' => 'AKV']);
-        Department::factory()->create(['name' => 'AB&I']);
-        Department::factory()->create(['name' => 'AGZ']);
-        Department::factory()->create(['name' => 'PABO']);
-        Department::factory()->create(['name' => 'AOC']);
-        Department::factory()->create(['name' => 'LIC']);
-        Department::factory()->create(['name' => 'AFM']);
+        $departments = Department::factory()->createMany([
+            ['name' => 'AI&I'],
+            ['name' => 'ASIS'],
+            ['name' => 'AKV'],
+            ['name' => 'AB&I'],
+            ['name' => 'AGZ'],
+            ['name' => 'PABO'],
+            ['name' => 'AOC'],
+            ['name' => 'LIC'],
+            ['name' => 'AFM'],
+            ]);
+
+        Employee::all()->each(function ($employee) use ($departments) {
+            $employee->departments()->attach($departments->random(rand(1, 3)));
+        });
     }
 }

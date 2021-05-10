@@ -13,10 +13,24 @@ class CreateLearningLineTable extends Migration
      */
     public function up()
     {
-        Schema::create('learning_line', function (Blueprint $table) {
+        Schema::create('learning_lines', function (Blueprint $table) {
             $table->id();
             $table->string('name')->unique();
-            $table->timestamps();
+        });
+
+        Schema::create('employee_learning_line', function (Blueprint $table) {
+            $table->primary(['employee_id', 'learning_line_id']);
+            $table->unsignedBigInteger('employee_id');
+            $table->unsignedBigInteger('learning_line_id');
+
+            $table->foreign('employee_id')
+                ->references('id')
+                ->on('employees')
+                ->cascadeOnDelete();
+            $table->foreign('learning_line_id')
+                ->references('id')
+                ->on('learning_lines')
+                ->cascadeOnDelete();
         });
     }
 
@@ -27,6 +41,7 @@ class CreateLearningLineTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('learning_line');
+        Schema::dropIfExists('learning_lines');
+        Schema::dropIfExists('employee_learning_line');
     }
 }
