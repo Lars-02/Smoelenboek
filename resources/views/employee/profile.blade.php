@@ -72,7 +72,7 @@
                         <p class="md:text-2xl">{{$workDay->day}}</p>
                     @endforeach
                 </div>
-
+                
                 <div x-show="tab === 'blokken'" class="bg-white p-3 shadow-sm rounded-sm h-full ">
                     <h2 class="font-bold md:text-5xl mb-5">Blokken</h2>
                     @foreach($employee->lectorates as $lectorate)
