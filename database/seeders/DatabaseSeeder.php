@@ -2,8 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\Department;
-use App\Models\EmployeeLearningLine;
+use App\Models\LearningLine;
 use App\Models\Lectorate;
 use Illuminate\Database\Seeder;
 
@@ -17,26 +16,18 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         $this->call([
-            HobbySeeder::class,
-            DepartmentSeeder::class,
+            AbilitySeeder::class,
+            RoleSeeder::class,
             UserSeeder::class,
             EmployeeSeeder::class,
-            RoleSeeder::class,
-            MinorSeeder::class,
-            LectorateSeeder::class,
-            LearningLineSeeder::class,
-            ExpertiseSeeder::class,
             CourseSeeder::class,
-            RoleUserSeeder::class,
-            EmployeeMinorSeeder::class,
-            EmployeeLectorateSeeder::class,
-            EmployeeLearningLineSeeder::class,
-            EmployeeHobbySeeder::class,
-            EmployeeExpertiseSeeder::class,
-            CourseEmployeeSeeder::class,
-            AbilitySeeder::class,
-            AbilityRoleSeeder::class,
-            TestableUserSeeder::class,
+            DepartmentSeeder::class,
+            ExpertiseSeeder::class,
+            HobbySeeder::class,
+            LearningLineSeeder::class,
+            LectorateSeeder::class,
+            MinorSeeder::class,
+            WorkDaySeeder::class,
         ]);
     }
 }

@@ -8,8 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Ability extends Model
 {
     use HasFactory;
-    
-    protected $table = 'ability';
+
+    public $timestamps = false;
 
     public function role() {
         return $this->belongsToMany(Role::class);
