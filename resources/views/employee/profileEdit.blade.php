@@ -7,9 +7,9 @@
                     <!-- Side navbar -->
                     <ul class="h-full mb-12 text-gray-600 hover:text-gray-700">
                         <x-sidenavlink tab="account">Account</x-sidenavlink>
-                        <x-sidenavlink tab="afdeling">Afdeling</x-sidenavlink>
-                        <x-sidenavlink tab="werkdagen">Werkdagen</x-sidenavlink>
-                        <x-sidenavlink tab="blokken">Blokken</x-sidenavlink>
+                        <x-sidenavlink tab="department">Afdeling</x-sidenavlink>
+                        <x-sidenavlink tab="workday">Werkdagen</x-sidenavlink>
+                        <x-sidenavlink tab="term">Blokken</x-sidenavlink>
                     </ul>
                     <!-- End of Side navbar -->
                 </div>

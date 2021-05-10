@@ -89,7 +89,7 @@ class EmployeeController extends Controller
             return $item->name;
         })->toArray();
 
-        return view('employee.profile', compact(["employee"], 'allDays', 'workingDays'))->with('succes', $succes);
+        return view('employee.show', compact(["employee"], 'allDays', 'workingDays'))->with('succes', $succes);
     }
 
     /**
