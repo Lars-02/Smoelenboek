@@ -3,6 +3,7 @@
 namespace Tests\Browser;
 
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\DB;
@@ -47,15 +48,15 @@ class ProfileEditTest extends DuskTestCase
      */
     public function test_user_cannot_view_profile_edit_page()
     {
-        /* $this->browse(function (Browser $browser) {
-            $browser->visit('/')
-            ->type('email', 'testableUser@avans.nl')
+        $this->browse(function (Browser $browser) {
+            $browser->visit('http://127.0.0.1:8000/')
+            ->type('email', 'test@avans.nl')
             ->type('password', 'password')
             ->press('Inloggen')
-            ->visit('http://localhost/employee/1/edit');
+            ->visit('http://127.0.0.1:8000/employee/1/edit');
             $url = $browser->driver->getCurrentURL();
-            $this->assertEquals('http://localhost/employee/1/edit', $url);
-        }); */
+            $this->assertEquals('http://127.0.0.1:8000/employee/1', $url);
+        });
     }
 
     /**
@@ -64,23 +65,48 @@ class ProfileEditTest extends DuskTestCase
      */
     public function test_user_can_edit_own_profile()
     {
-        /* $this->browse(function (Browser $browser) {
-            $browser->visit('/')
-            ->type('email', 'testableUser@avans.nl')
+        $this->browse(function (Browser $browser) {
+            $browser->visit('http://127.0.0.1:8000/')
+            ->type('email', 'test@avans.nl')
             ->type('password', 'password')
             ->press('Inloggen')
-            ->visit('http://localhost/employee/22')
+            ->visit('http://127.0.0.1:8000/employee/102')
             ->press('Aanpassen')
             ->value('#firstname', 'newFirstName')
             ->value('#lastname', 'newLastName')
-            ->value('#email', 'newEmail@avans.nl')
+            ->value('#email', Carbon::now().'newEmail@avans.nl')
             ->value('#phoneNumber', 'newPhoneNumber')
-            ->value('#linkedInUrl', 'linkedInUrl.nl');
-            //TODO: add edit action of other tabs on profile
+            ->value('#linkedInUrl', 'linkedInUrl.nl')
+            ->press('Account')
+            ->press('Afdeling')
+            ->press('Werkdagen')
+            ->press('Blokken')
+            ->press('Opslaan');
             $url = $browser->driver->getCurrentURL();
-            $this->assertEquals('http://localhost/employee/22/edit', $url);
-        }); */
+            $this->assertEquals('http://127.0.0.1:8000/employee/102/edit', $url);
+        });
     }
+    
+    /**
+     * A standard user can cancel editing information on its own profile.
+     * @return void
+     */
+    public function test_user_can_cancel_an_edit()
+    {
+        $this->browse(function (Browser $browser) {
+            $browser->visit('http://127.0.0.1:8000/')
+            ->type('email', 'test@avans.nl')
+            ->type('password', 'password')
+            ->press('Inloggen')
+            ->visit('http://127.0.0.1:8000/employee/102')
+            ->press('Aanpassen')
+            ->pause(500)
+            ->press('Annuleren');
+            $url = $browser->driver->getCurrentURL();
+            $this->assertEquals('http://127.0.0.1:8000/employee/102', $url);
+        });
+    }
+
 
     /**
      * When a user leaves an input field empty/blank, then, the editing of the profile fails.
@@ -88,17 +114,18 @@ class ProfileEditTest extends DuskTestCase
      */
     public function test_user_edit_profile_fail()
     {
-       /*  $this->browse(function (Browser $browser) {
-            $browser->visit('/')
-            ->type('email', 'testableUser@avans.nl')
+        $this->browse(function (Browser $browser) {
+            $browser->visit('http://127.0.0.1:8000/')
+            ->type('email', 'test@avans.nl')
             ->type('password', 'password')
             ->press('Inloggen')
-            ->visit('http://localhost/employee/22')
+            ->visit('http://127.0.0.1:8000/employee/102')
             ->press('Aanpassen')
-            ->value('#firstname', );
+            ->value('#firstname', '')
+            ->press('Opslaan');
             $url = $browser->driver->getCurrentURL();
-            $this->assertEquals('http://localhost/employee/22/edit', $url);
-        }); */
+            $this->assertEquals('http://127.0.0.1:8000/employee/102/edit', $url);
+        });
     }
 
     /**
@@ -107,21 +134,21 @@ class ProfileEditTest extends DuskTestCase
      */
     public function test_admin_can_edit_profile_of_any_user()
     {
-        /* $this->browse(function (Browser $browser) {
-            $browser->visit('/')
-            ->type('email', 'testableAdmin@avans.nl')
+        $this->browse(function (Browser $browser) {
+            $browser->visit('http://127.0.0.1:8000/')
+            ->type('email', 'admin@avans.nl')
             ->type('password', 'password')
             ->press('Inloggen')
-            ->visit('http://localhost/employee/1')
+            ->visit('http://127.0.0.1:8000/employee/1')
             ->press('Aanpassen')
             ->value('#firstname', 'newFirstName')
             ->value('#lastname', 'newLastName')
-            ->value('#email', 'newEmail2@avans.nl')
+            ->value('#email', Carbon::now().'newEmail@avans.nl')
             ->value('#phoneNumber', 'newPhoneNumber')
-            ->value('#linkedInUrl', 'linkedInUrl.nl');
-            //TODO: add edit action of other tabs on profile
+            ->value('#linkedInUrl', 'linkedInUrl.nl')
+            ->press('Opslaan');
             $url = $browser->driver->getCurrentURL();
-            $this->assertEquals('http://localhost/employee/1/edit', $url);
-        }); */
+            $this->assertEquals('http://127.0.0.1:8000/employee/1/edit', $url);
+        });
     }
 }
