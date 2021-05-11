@@ -7,6 +7,10 @@ use App\Filters\RoleFilter;
 use App\Filters\WorkDayFilter;
 use App\Filters\LearningLineFilter;
 use App\Filters\DepartmentFilter;
+use App\Filters\ExpertiseFilter;
+use App\Filters\HobbyFilter;
+use App\Filters\LectorateFilter;
+use App\Filters\MinorFilter;
 use App\Models\Course;
 use App\Models\Department;
 use App\Models\Employee;
@@ -112,6 +116,26 @@ class HomeController extends Controller
         if (isset($request['departments'])) {
             $departmentFilter = new DepartmentFilter();
             $employees = $departmentFilter->filter($employees, $request['departments']);
+        }
+
+        if (isset($request['hobbies'])) {
+            $hobbyFilter = new HobbyFilter();
+            $employees = $hobbyFilter->filter($employees, $request['hobbies']);
+        }
+
+        if (isset($request['lectorates'])) {
+            $LectorateFilter = new LectorateFilter();
+            $employees = $LectorateFilter->filter($employees, $request['lectorates']);
+        }
+
+        if (isset($request['expertises'])) {
+            $expertiseFilter = new ExpertiseFilter();
+            $employees = $expertiseFilter->filter($employees, $request['expertises']);
+        }
+
+        if (isset($request['minors'])) {
+            $minorFilter = new MinorFilter();
+            $employees = $minorFilter->filter($employees, $request['minors']);
         }
 
         $courses = Course::all();
