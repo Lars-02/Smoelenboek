@@ -53,6 +53,7 @@ class ProfileEditTest extends DuskTestCase
             ->type('email', 'test@avans.nl')
             ->type('password', 'password')
             ->press('Inloggen')
+            ->visit('http://127.0.0.1:8000/employee/1')
             ->visit('http://127.0.0.1:8000/employee/1/edit');
             $url = $browser->driver->getCurrentURL();
             $this->assertEquals('http://127.0.0.1:8000/employee/1', $url);
