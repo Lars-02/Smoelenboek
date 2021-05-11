@@ -14,9 +14,11 @@
             </div>
             <!-- Right Side -->
             <div class="w-full md:w-9/12 mx-2 h-auto">
-                @if (!empty($succes))
-                    <h1 class="text-center p-2 text-white font-bold bg-red-700">{{$succes}}</h1>
-            @endif
+                @if(session()->has('error'))
+                    <div class="alert alert-danger">
+                        <h1 class="text-center p-2 text-white font-bold bg-red-700">{{ session()->get('error') }}</h1>
+                    </div>
+                @endif
             <!-- Profile Tab -->
                 <div x-show="tab === 'account'">
                     @include('employee.show.account')
