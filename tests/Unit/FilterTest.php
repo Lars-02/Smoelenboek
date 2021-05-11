@@ -47,13 +47,13 @@ class FilterTest extends DuskTestCase
         {
             $user = User::factory()->create();
             $emp = Employee::factory()->create(['user_id' => $user->id]);
-            RoleUser::factory()->create(['user_id' => $user->id, 'role_id' => $role->id]);
+            DB::table('role_user')->insert(['user_id' => $user->id, 'role_id' => $role->id]);
             $employees->prepend($emp);
         }
         $roleFilter = new RoleFilter();
         $employeesFiltered = $roleFilter->filter($employees, [$role->id => 'on']);
 
-        $rolePivot = RoleUser::where('role_id', $role->id)->get();
+        $rolePivot = DB::table('role_user')->where('role_id', $role->id)->get();
         $this->assertEquals(sizeof($rolePivot), sizeof($employeesFiltered));
     }
 
@@ -66,18 +66,18 @@ class FilterTest extends DuskTestCase
         $userAmount = 3;
 
         $employees = new Collection();
-        $course = Course::factory()->create();
+        $course = Course::factory()->create(['name' => 'ICT']);
         for($i = 0; $i < $userAmount; $i++)
         {
             $user = User::factory()->create();
             $emp = Employee::factory()->create(['user_id' => $user->id]);
-            CourseEmployee::factory()->create(['employee_id' => $user->id, 'course_id' => $course->id]);
+            DB::table('course_employee')->insert(['employee_id' => $emp->id, 'course_id' => $course->id]);
             $employees->prepend($emp);
         }
         $courseFilter = new CourseFilter();
         $employeesFiltered = $courseFilter->filter($employees, [$course->id => 'on']);
 
-        $coursePivot = CourseEmployee::where('course_id', $course->id)->get();
+        $coursePivot = DB::table('course_employee')->where('course_id', $course->id)->get();
         $this->assertEquals(sizeof($coursePivot), sizeof($employeesFiltered));
     }
 
@@ -90,20 +90,18 @@ class FilterTest extends DuskTestCase
     {
         $userAmount = 3;
 
-        // Hardcode id as there is no factory. Should be fine unless Wednesday stops existing.
-        $workDayId = 3;
-
         $employees = new Collection();
         for ($i = 0; $i < $userAmount; $i++) {
+            $workDay = WorkDay::factory()->create(['name' => 'Thursday']);
             $user = User::factory()->create();
             $emp = Employee::factory()->create(['user_id' => $user->id]);
-            EmployeeWorkDay::factory()->create(['employee_id' => $user->id, 'work_day_id' => $workDayId]);
+            DB::table('employee_work_day')->insert(['work_day_id' => $workDay->id, 'employee_id' => $emp->id]);
             $employees->prepend($emp);
         }
         $workDayFilter = new WorkDayFilter();
-        $employeesFiltered = $workDayFilter->filter($employees, [$workDayId => 'on']);
+        $employeesFiltered = $workDayFilter->filter($employees, [$workDay->id => 'on']);
 
-        $workDayPivot = EmployeeWorkDay::where('work_day_id', $workDayId)->get();
+        $workDayPivot = DB::table('employee_work_day')->where('work_day_id', $workDay->id)->get();
         $this->assertEquals(sizeof($workDayPivot), sizeof($employeesFiltered));
     }
 
@@ -117,13 +115,13 @@ class FilterTest extends DuskTestCase
         for ($i = 0; $i < $userAmount; $i++) {
             $user = User::factory()->create();
             $emp = Employee::factory()->create(['user_id' => $user->id]);
-            EmployeeLearningLine::factory()->create(['employee_id' => $emp->id, 'learning_line_id' => $learningLine->id]);
+            DB::table('employee_learning_line')->insert(['employee_id' => $emp->id, 'learning_line_id' => $learningLine->id]);
             $employees->prepend($emp);
         }
         $learningLineFilter = new LearningLineFilter();
         $employeesFiltered = $learningLineFilter->filter($employees, [$learningLine->id => 'on']);
 
-        $learningLinesPivot = EmployeeLearningLine::where('learning_line_id', $learningLine->id)->get();
+        $learningLinesPivot = DB::table('employee_learning_line')->where('learning_line_id', $learningLine->id)->get();
         $this->assertEquals(sizeof($learningLinesPivot), sizeof($employeesFiltered));
     }
 
@@ -142,7 +140,7 @@ class FilterTest extends DuskTestCase
         {
             $user = User::factory()->create();
             $emp = Employee::factory()->create(['user_id' => $user->id]);
-            EmployeeLearningLine::factory()->create(['employee_id' => $emp->id, 'learning_line_id' => $learningLine->id]);
+            DB::table('employee_learning_line')->insert(['employee_id' => $emp->id, 'learning_line_id' => $learningLine->id]);
             $employees->prepend($emp);
         }
         $learningLineFilter = new LearningLineFilter();
@@ -160,7 +158,7 @@ class FilterTest extends DuskTestCase
         $userAmount = 3;
 
         $employees = new Collection();
-        $department = Department::factory()->create();
+        $department = Department::factory()->create(['name' => 'KKL']);
         for($i = 0; $i < $userAmount; $i++)
         {
             $user = User::factory()->create();
@@ -184,7 +182,7 @@ class FilterTest extends DuskTestCase
         $userAmount = 3;
 
         $employees = new Collection();
-        $department = Department::factory()->create();
+        $department = Department::factory()->create(['name' => 'KKL']);
         for($i = 0; $i < $userAmount; $i++)
         {
             $user = User::factory()->create();
