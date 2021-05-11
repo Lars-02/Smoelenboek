@@ -21,9 +21,11 @@ use App\Models\Lectorate;
 use App\Models\Minor;
 use App\Models\Role;
 use App\Models\WorkDay;
+use App\Models\SearchBar;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use function PHPUnit\Framework\isEmpty;
 
 class HomeController extends Controller
 {
@@ -44,54 +46,12 @@ class HomeController extends Controller
      */
     public function index(Request $request)
     {
-        $arrayEmployeeIds = [];
-        if(isset($request["searchbar"])){
-            $stringToFilter = $request["searchbar"];
-            if (strlen($stringToFilter) > 0)
-            {
-                $splitStringToFilter = explode(" ", $stringToFilter);
-                foreach ($splitStringToFilter as $filter) {
-                    $employees = Employee::select('id')->where('firstname', 'LIKE', '%' . $filter . '%')
-                    ->orWhere('lastname', 'LIKE', '%' . $filter . '%')
-                    ->get();
-                    foreach($employees as $employee) {
-                        if(!in_array($employee->id, $arrayEmployeeIds)){
-                            array_push($arrayEmployeeIds, $employee->id);
-                        }
-                    }
-    
-                    $expertises = Expertise::where('name', 'LIKE', '%' . $filter . '%')->get();
-                    foreach($expertises as $expertise) {
-                        $expertiseEmployees = $expertise->employees()->get();
-                        $expertiseEmployeeIds = $expertiseEmployees->pluck('id');
-                        foreach($expertiseEmployeeIds as $id) {
-                            if(!in_array($id, $arrayEmployeeIds)){
-                                array_push($arrayEmployeeIds, $id);
-                            }
-                        }
-                    }
-    
-                    $functions = Role::where('name', 'LIKE', '%' . $filter . '%')->get();
-                    foreach($functions as $function) {
-                        $functionEmployees = $function->employee()->get();
-                        $functionEmployeeIds = $functionEmployees->pluck('id');
-                        foreach($functionEmployeeIds as $id) {
-                            if(!in_array($id, $arrayEmployeeIds)){
-                                array_push($arrayEmployeeIds, $id);
-                            }
-                        }
-                    }
-    
-                }
-    
-                $employees = Employee::whereIn('id', $arrayEmployeeIds)->get();
-            }
-            
-        } 
-        
         if(!isset($employees)){
             $employees = Employee::all();
         }
+
+            $searchBar = new SearchBar();
+            $employees = $searchBar->search($employees, $request['searchbar']);
 
         if (isset($request['courses'])) {
             $courseFilter = new CourseFilter();
