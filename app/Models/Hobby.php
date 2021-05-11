@@ -9,7 +9,7 @@ class Hobby extends Model
 {
     use HasFactory;
 
-    protected $table = 'hobby';
+    public $timestamps = false;
 
     public function employee() {
         return $this->belongsToMany(Employee::class);

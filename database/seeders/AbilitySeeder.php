@@ -14,9 +14,13 @@ class AbilitySeeder extends Seeder
      */
     public function run()
     {
-        Ability::factory()->create(['name' => 'Create', 'label' => 'User can create a user']);
-        Ability::factory()->create(['name' => 'Update', 'label' => 'User can update a user']);
-        Ability::factory()->create(['name' => 'Delete', 'label' => 'User can delete users']);
-        Ability::factory()->create(['name' => 'View', 'label' => 'User can view content']);
+        Ability::factory()->createMany([
+            ['name' => 'CreateEmployee', 'label' => 'User can create a new employee'],
+            ['name' => 'CreateAdmin', 'label' => 'User can create a new admin'],
+            ['name' => 'UpdateEmployee', 'label' => 'User can update employee'],
+            ['name' => 'UpdateAdmin', 'label' => 'User can update admin'],
+            ['name' => 'DeleteEmployee', 'label' => 'User can delete employee'],
+            ['name' => 'ViewAdmin', 'label' => 'User can view admin'],
+        ]);
     }
 }

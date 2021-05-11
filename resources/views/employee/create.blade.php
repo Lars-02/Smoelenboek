@@ -1,4 +1,5 @@
 <x-layout>
+
     <x-card title="Gegevens invullen" size="large">
         <form action="{{ route('employee.store') }}" method="POST">
             @csrf
