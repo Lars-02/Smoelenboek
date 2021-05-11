@@ -2,16 +2,14 @@
     <div class="container mx-auto my-5 p-5">
         <div class="md:flex no-wrap md:-mx-2 " x-data="{ tab: 'account' }">
             <!-- Left Side -->
-            <div class="w-full md:w-5/12 md:mx-2">
+            <div class="w-full md:w-3/12">
                 <!-- Side navbar -->
-                <div class="bg-white p-3 border-t-4 border-red-700">
-                    <ul class="bg-gray-100 text-gray-600 hover:text-gray-700 hover:shadow py-2 px-3 mt-3 divide-y rounded shadow-sm">
-                        <x-sidenavlink tab="account">Account</x-sidenavlink>
-                        <x-sidenavlink tab="department">Afdeling</x-sidenavlink>
-                        <x-sidenavlink tab="workday">Werkdagen</x-sidenavlink>
-                        <x-sidenavlink tab="other">Other</x-sidenavlink>
-                    </ul>
-                </div>
+                <ul class="h-full mb-12 text-gray-600 hover:text-gray-700">
+                    <x-sidenavlink tab="account">Account</x-sidenavlink>
+                    <x-sidenavlink tab="department">Afdeling</x-sidenavlink>
+                    <x-sidenavlink tab="workday">Werkdagen</x-sidenavlink>
+                    <x-sidenavlink tab="other">Blokken</x-sidenavlink>
+                </ul>
                 <!-- End of Side navbar -->
             </div>
             <!-- Right Side -->
