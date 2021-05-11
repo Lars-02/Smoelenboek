@@ -1,4 +1,4 @@
-name: "Database schema"
+name: "Testing"
 
 on:
   [push]
@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 6
     
-    name: Schema Dump (${{ github.event.release.tag_name }})
+    name: Tests (${{ github.event.release.tag_name }})
 
     services:
       mysql:
