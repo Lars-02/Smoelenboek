@@ -46,12 +46,12 @@ class FilterTest extends DuskTestCase
         {
             $user = User::factory()->create();
             $emp = Employee::factory()->create(['user_id' => $user->id]);
-            EmployeeHobby::factory()->create(['employee_id' => $user->id, 'hobby_id' => $hobby->id]);
+            DB::table('employee_hobby')->insert(['employee_id' => $user->id, 'hobby_id' => $hobby->id]);
             $employees->prepend($emp);
         }
         $hobbyFilter = new HobbyFilter();
         $employeesFiltered = $hobbyFilter->filter($employees, [$hobby->id => 'on']);
-        $hobbyPivot = EmployeeHobby::where('hobby_id', $hobby->id)->get();
+        $hobbyPivot = DB::table('employee_hobby')->where('hobby_id', $hobby->id)->get();
         $this->assertEquals(sizeof($hobbyPivot), sizeof($employeesFiltered));
     }
     /**
@@ -67,12 +67,12 @@ class FilterTest extends DuskTestCase
         {
             $user = User::factory()->create();
             $emp = Employee::factory()->create(['user_id' => $user->id]);
-            EmployeeLectorate::factory()->create(['employee_id' => $user->id, 'lectorate_id' => $lectorate->id]);
+            DB::table('employee_lectorate')->insert(['employee_id' => $user->id, 'lectorate_id' => $lectorate->id]);
             $employees->prepend($emp);
         }
         $lectorateFilter = new lectorateFilter();
         $employeesFiltered = $lectorateFilter->filter($employees, [$lectorate->id => 'on']);
-        $lectoratePivot = EmployeeLectorate::where('lectorate_id', $lectorate->id)->get();
+        $lectoratePivot = DB::table('employee_lectorate')->where('lectorate_id', $lectorate->id)->get();
         $this->assertEquals(sizeof($lectoratePivot), sizeof($employeesFiltered));
     }
     /**
@@ -88,12 +88,12 @@ class FilterTest extends DuskTestCase
         {
             $user = User::factory()->create();
             $emp = Employee::factory()->create(['user_id' => $user->id]);
-            EmployeeMinor::factory()->create(['employee_id' => $user->id, 'minor_id' => $minor->id]);
+            DB::table('employee_minor')->insert(['employee_id' => $user->id, 'minor_id' => $minor->id]);
             $employees->prepend($emp);
         }
         $minorFilter = new minorFilter();
         $employeesFiltered = $minorFilter->filter($employees, [$minor->id => 'on']);
-        $minorPivot = EmployeeMinor::where('minor_id', $minor->id)->get();
+        $minorPivot = DB::table('employee_minor')->where('minor_id', $minor->id)->get();
         $this->assertEquals(sizeof($minorPivot), sizeof($employeesFiltered));
     }
     /**
@@ -109,12 +109,12 @@ class FilterTest extends DuskTestCase
         {
             $user = User::factory()->create();
             $emp = Employee::factory()->create(['user_id' => $user->id]);
-            EmployeeExpertise::factory()->create(['employee_id' => $user->id, 'expertise_id' => $expertise->id]);
+            DB::table('employee_expertise')->insert(['employee_id' => $user->id, 'expertise_id' => $expertise->id]);
             $employees->prepend($emp);
         }
         $expertiseFilter = new expertiseFilter();
         $employeesFiltered = $expertiseFilter->filter($employees, [$expertise->id => 'on']);
-        $expertisePivot = EmployeeExpertise::where('expertise_id', $expertise->id)->get();
+        $expertisePivot = DB::table('employee_expertise')->where('expertise_id', $expertise->id)->get();
         $this->assertEquals(sizeof($expertisePivot), sizeof($employeesFiltered));
     }
 }
