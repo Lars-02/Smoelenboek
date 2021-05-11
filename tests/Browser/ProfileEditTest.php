@@ -31,14 +31,14 @@ class ProfileEditTest extends DuskTestCase
     public function test_view_profile_edit_page()
     {
         $this->browse(function (Browser $browser) {
-            $browser->visit('http://127.0.0.1:8000/')
+            $browser->visit(env('APP_URL').'/')
             ->type('email', 'test@avans.nl')
             ->type('password', 'password')
             ->press('Inloggen')
-            ->visit('http://127.0.0.1:8000/employee/102')
+            ->visit(env('APP_URL').'/employee/102')
             ->press('Aanpassen');
             $url = $browser->driver->getCurrentURL();
-            $this->assertEquals('http://127.0.0.1:8000/employee/102/edit', $url);
+            $this->assertEquals(env('APP_URL').'/employee/102/edit', $url);
         });
     }
 
@@ -49,14 +49,14 @@ class ProfileEditTest extends DuskTestCase
     public function test_user_cannot_view_profile_edit_page()
     {
         $this->browse(function (Browser $browser) {
-            $browser->visit('http://127.0.0.1:8000/')
+            $browser->visit(env('APP_URL').'/')
             ->type('email', 'test@avans.nl')
             ->type('password', 'password')
             ->press('Inloggen')
-            ->visit('http://127.0.0.1:8000/employee/1')
-            ->visit('http://127.0.0.1:8000/employee/1/edit');
+            ->visit(env('APP_URL').'/employee/1')
+            ->visit(env('APP_URL').'/employee/1/edit');
             $url = $browser->driver->getCurrentURL();
-            $this->assertEquals('http://127.0.0.1:8000/employee/1', $url);
+            $this->assertEquals(env('APP_URL').'/employee/1', $url);
         });
     }
 
@@ -67,11 +67,11 @@ class ProfileEditTest extends DuskTestCase
     public function test_user_can_edit_own_profile()
     {
         $this->browse(function (Browser $browser) {
-            $browser->visit('http://127.0.0.1:8000/')
+            $browser->visit(env('APP_URL').'/')
             ->type('email', 'test@avans.nl')
             ->type('password', 'password')
             ->press('Inloggen')
-            ->visit('http://127.0.0.1:8000/employee/102')
+            ->visit(env('APP_URL').'/employee/102')
             ->press('Aanpassen')
             ->value('#firstname', 'newFirstName')
             ->value('#lastname', 'newLastName')
@@ -84,7 +84,7 @@ class ProfileEditTest extends DuskTestCase
             ->press('Blokken')
             ->press('Opslaan');
             $url = $browser->driver->getCurrentURL();
-            $this->assertEquals('http://127.0.0.1:8000/employee/102/edit', $url);
+            $this->assertEquals(env('APP_URL').'/employee/102/edit', $url);
         });
     }
     
@@ -95,16 +95,16 @@ class ProfileEditTest extends DuskTestCase
     public function test_user_can_cancel_an_edit()
     {
         $this->browse(function (Browser $browser) {
-            $browser->visit('http://127.0.0.1:8000/')
+            $browser->visit(env('APP_URL').'/')
             ->type('email', 'test@avans.nl')
             ->type('password', 'password')
             ->press('Inloggen')
-            ->visit('http://127.0.0.1:8000/employee/102')
+            ->visit(env('APP_URL').'/employee/102')
             ->press('Aanpassen')
             ->pause(500)
             ->press('Annuleren');
             $url = $browser->driver->getCurrentURL();
-            $this->assertEquals('http://127.0.0.1:8000/employee/102', $url);
+            $this->assertEquals(env('APP_URL').'/employee/102', $url);
         });
     }
 
@@ -116,16 +116,16 @@ class ProfileEditTest extends DuskTestCase
     public function test_user_edit_profile_fail()
     {
         $this->browse(function (Browser $browser) {
-            $browser->visit('http://127.0.0.1:8000/')
+            $browser->visit(env('APP_URL').'/')
             ->type('email', 'test@avans.nl')
             ->type('password', 'password')
             ->press('Inloggen')
-            ->visit('http://127.0.0.1:8000/employee/102')
+            ->visit(env('APP_URL').'/employee/102')
             ->press('Aanpassen')
             ->value('#firstname', '')
             ->press('Opslaan');
             $url = $browser->driver->getCurrentURL();
-            $this->assertEquals('http://127.0.0.1:8000/employee/102/edit', $url);
+            $this->assertEquals(env('APP_URL').'/employee/102/edit', $url);
         });
     }
 
@@ -136,11 +136,11 @@ class ProfileEditTest extends DuskTestCase
     public function test_admin_can_edit_profile_of_any_user()
     {
         $this->browse(function (Browser $browser) {
-            $browser->visit('http://127.0.0.1:8000/')
+            $browser->visit(env('APP_URL').'/')
             ->type('email', 'admin@avans.nl')
             ->type('password', 'password')
             ->press('Inloggen')
-            ->visit('http://127.0.0.1:8000/employee/1')
+            ->visit(env('APP_URL').'/employee/1')
             ->press('Aanpassen')
             ->value('#firstname', 'newFirstName')
             ->value('#lastname', 'newLastName')
@@ -149,7 +149,7 @@ class ProfileEditTest extends DuskTestCase
             ->value('#linkedInUrl', 'linkedInUrl.nl')
             ->press('Opslaan');
             $url = $browser->driver->getCurrentURL();
-            $this->assertEquals('http://127.0.0.1:8000/employee/1/edit', $url);
+            $this->assertEquals(env('APP_URL').'/employee/1/edit', $url);
         });
     }
 }
