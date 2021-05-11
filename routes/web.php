@@ -4,7 +4,6 @@ use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
-use App\Http\Middleware\EnsureEmptyEmployee;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -24,8 +23,8 @@ Auth::routes();
 Route::group(['middleware' => 'auth'], function () {
 
     Route::group(['middleware' => 'employee.empty', 'prefix' => 'employee', 'as' => 'employee.'], function () {
-    Route::get('/create', [EmployeeController::class, 'create'])->name('create');
-    Route::post('/', [EmployeeController::class, 'store'])->name('store');
+        Route::get('/create', [EmployeeController::class, 'create'])->name('create');
+        Route::post('/', [EmployeeController::class, 'store'])->name('store');
     });
 
     Route::group(['middleware' => 'employee'], function () {

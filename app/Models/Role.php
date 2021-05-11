@@ -9,7 +9,7 @@ class Role extends Model
 {
     use HasFactory;
 
-    protected $table = 'role';
+    public $timestamps = false;
 
     public function users()
     {
@@ -21,9 +21,9 @@ class Role extends Model
         $this->abilities()->save($ability);
     }
 
-    public function ability()
+    public function abilities()
     {
-        return $this->belongsToMany(Ability::class)->withTimestamps();
+        return $this->belongsToMany(Ability::class);
     }
 
     public function employee() {

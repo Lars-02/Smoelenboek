@@ -9,11 +9,10 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Password;
-use Tests\DuskTestCase;
+use Tests\TestCase;
 
 
-class EmailTest extends DuskTestCase
-{
+class EmailTest extends TestCase{
     /**
      * A Dusk test example.
      *
