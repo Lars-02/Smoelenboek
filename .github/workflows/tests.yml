@@ -1,0 +1,67 @@
+name: "Unit Tests"
+
+on:
+  pull_request:
+    branches: 
+     - dev
+     - main
+
+jobs:
+  test:
+    
+    if: github.event.release.prerelease != true
+
+    runs-on: ubuntu-latest
+    timeout-minutes: 6
+    
+    name: Tests (${{ github.event.release.tag_name }})
+
+    services:
+      mysql:
+        image: mysql:8.0
+        env:
+          MYSQL_ALLOW_EMPTY_PASSWORD: yes
+          MYSQL_DATABASE: smoelenboek
+        ports:
+          - 3306
+        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Cache composer dependencies
+        uses: actions/cache@v1
+        with:
+          path: ~/.composer/cache/files
+          key: dependencies-php-7.4-composer-${{ hashFiles('composer.lock') }}
+          restore-keys: |
+            dependencies-php-7.4-composer-
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 8.0
+          extensions: curl, dom, fileinfo, filter, iconv, json, libxml, mbstring, openssl, pcntl, pcre, pdo, simplexml, sqlite, pdo_sqlite, tokenizer, xml, xmlwriter, zip
+
+      - name: Install PHP dependencies (composer)
+        run: |
+          composer config "http-basic.nova.laravel.com" "${{ secrets.NOVA_USERNAME }}" "${{ secrets.NOVA_PASSWORD }}"
+          composer install --no-interaction --no-suggest
+
+      - name: Prepare Laravel Application
+        run: |
+         cp .env.example .env
+         php artisan key:generate
+
+      - name: Run migration and schema dump
+        run: php artisan migrate:fresh --seed --force
+        env:
+          DB_PORT: ${{ job.services.mysql.ports[3306] }}
+          DB_DATABASE: smoelenboek
+      - name: Run Tests
+        run: |
+         php artisan test tests/Unit
+         php artisan test tests/Feature
+
+         
