@@ -129,7 +129,9 @@
         <x-button type="submit">
             Opslaan
         </x-button>
-        <x-button>
-            <a href="{{ route('employee.show', ['employee' => $employee]) }}">Annuleren</a>
-        </x-button>
+        <a href="{{ route('employee.show', ['employee' => $employee]) }}">
+            <x-button>
+                Annuleren
+            </x-button>
+        </a>
     </div>

@@ -4,7 +4,7 @@
              class="md:flex-shrink-0 md:w-48 min-h-full max-h-full">
     @else
         <img src="{{$employee->user->photoUrl}}" class="md:flex-shrink-0 min-h-full max-h-full">
-    @endif {{--this probaply needs to become a local image sometime lol^^--}}
+    @endif
     <p class="md:text-5xl sm:text-3xl ">{{$employee->firstname}} {{$employee->lastname}} </p>
 </div>
 <div class="text-gray-700">
