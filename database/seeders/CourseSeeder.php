@@ -3,6 +3,9 @@
 namespace Database\Seeders;
 
 use App\Models\Course;
+use App\Models\Employee;
+use App\Models\Role;
+use App\Models\User;
 use Illuminate\Database\Seeder;
 
 class CourseSeeder extends Seeder
@@ -14,16 +17,22 @@ class CourseSeeder extends Seeder
      */
     public function run()
     {
-        Course::factory()->create(['name' => 'Businessmarketing']);
-        Course::factory()->create(['name' => 'Organisatiekunde']);
-        Course::factory()->create(['name' => 'Projectmanagement']);
-        Course::factory()->create(['name' => 'Wachtrij theorie']);
-        Course::factory()->create(['name' => 'Statistiek']);
-        Course::factory()->create(['name' => 'ICT']);
-        Course::factory()->create(['name' => 'Productiebesturing']);
-        Course::factory()->create(['name' => 'Kwaliteitsbeheersing']);
-        Course::factory()->create(['name' => 'Productie en magazijn logistiek']);
-        Course::factory()->create(['name' => 'Discrete simulatie']);
-        Course::factory()->create(['name' => 'Bedrijfseconomie en recht']);
+        $courses = Course::factory()->createMany([
+            ['name' => 'Businessmarketing'],
+            ['name' => 'Organisatiekunde'],
+            ['name' => 'Projectmanagement'],
+            ['name' => 'Wachtrij theorie'],
+            ['name' => 'Statistiek'],
+            ['name' => 'ICT'],
+            ['name' => 'Productiebesturing'],
+            ['name' => 'Kwaliteitsbeheersing'],
+            ['name' => 'Productie en magazijn logistiek'],
+            ['name' => 'Discrete simulatie'],
+            ['name' => 'Bedrijfseconomie en recht'],
+        ]);
+
+        Employee::all()->each(function ($employee) use ($courses) {
+            $employee->courses()->attach($courses->random(rand(1, 3)));
+        });
     }
 }

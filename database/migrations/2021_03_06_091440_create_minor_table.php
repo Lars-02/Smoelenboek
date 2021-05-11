@@ -13,12 +13,26 @@ class CreateMinorTable extends Migration
      */
     public function up()
     {
-        Schema::create('minor', function (Blueprint $table) {
+        Schema::create('minors', function (Blueprint $table) {
             $table->id();
             $table->string('name')->unique();
-            $table->timestamps();
         });
 
+        Schema::create('employee_minor', function (Blueprint $table) {
+            $table->primary(['employee_id', 'minor_id']);
+            $table->unsignedBigInteger('employee_id');
+            $table->unsignedBigInteger('minor_id');
+
+
+            $table->foreign('employee_id')
+                ->references('id')
+                ->on('employees')
+                ->cascadeOnDelete();
+            $table->foreign('minor_id')
+                ->references('id')
+                ->on('minors')
+                ->cascadeOnDelete();
+        });
     }
 
     /**
@@ -28,6 +42,7 @@ class CreateMinorTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('minor');
+        Schema::dropIfExists('minors');
+        Schema::dropIfExists('employee_minor');
     }
 }
