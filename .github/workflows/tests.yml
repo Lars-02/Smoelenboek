@@ -65,8 +65,8 @@ jobs:
          php artisan dusk:chrome-driver
       - name: Run Tests
         run: |
-         php artisan test .\tests\Unit
-         php artisan test .\tests\Feature
+         php artisan test tests/Unit
+         php artisan test tests/Feature
         # php artisan test .\tests\Browser
      # - name: Run Test
       #  run: vendor/bin/phpunit --verbose
