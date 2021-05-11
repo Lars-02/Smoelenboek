@@ -11,6 +11,7 @@ use App\Models\User;
 use App\Models\SearchBar;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\DB;
 use Tests\DuskTestCase;
 
 class SearchBarTest extends DuskTestCase
@@ -36,13 +37,13 @@ class SearchBarTest extends DuskTestCase
         {
             $user = User::factory()->create();
             $emp = Employee::factory()->create(['user_id' => $user->id]);
-            RoleUser::factory()->create(['user_id' => $user->id, 'role_id' => $role->id]);
+            DB::table('role_user')->insert(['user_id' => $user->id, 'role_id' => $role->id]);
             $employees->prepend($emp);
         }
         $searchBar = new SearchBar();
         $employeesSearched = $searchBar->search($employees, $role->name);
 
-        $rolePivot = RoleUser::where('role_id', $role->id)->get();
+        $rolePivot = DB::table('role_user')->where('role_id', $role->id)->get();
         $this->assertEquals(sizeof($rolePivot), sizeof($employeesSearched));
     }
 
@@ -60,13 +61,13 @@ class SearchBarTest extends DuskTestCase
         {
             $user = User::factory()->create();
             $emp = Employee::factory()->create(['user_id' => $user->id]);
-            EmployeeExpertise::factory()->create(['employee_id' => $user->id, 'expertise_id' => $expertise->id]);
+            DB::table('employee_expertise')->insert(['employee_id' => $user->id, 'expertise_id' => $expertise->id]);
             $employees->prepend($emp);
         }
         $searchBar = new SearchBar();
         $employeesSearched = $searchBar->search($employees, $expertise->name);
 
-        $expertisePivot = EmployeeExpertise::where('expertise_id', $expertise->id)->get();
+        $expertisePivot = DB::table('employee_expertise')->where('expertise_id', $expertise->id)->get();
         $this->assertEquals(sizeof($expertisePivot), sizeof($employeesSearched));
     }
 
