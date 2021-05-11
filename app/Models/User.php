@@ -55,4 +55,8 @@ class User extends Authenticatable
     public function employee() {
         return $this->hasOne(Employee::class);
     }
+
+    public function isAdmin() {
+        return $this->roles()->where('role_id', 1)->first();
+    }
 }
