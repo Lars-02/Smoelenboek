@@ -114,7 +114,7 @@ class EmployeeController extends Controller
             return view('employee.edit', compact(["employee"], 'departments', 'hobbies', 'courses', 'workDays', 'lectorates', 'expertises', 'learningLines', 'minors', 'roles'));
         }
         else {
-            return $this->show($employee, $succes = "U heeft geen toegang tot het bewerken van andermans profielen.");
+            return redirect()->action([EmployeeController::class, 'show'], ['employee' => $employee]);
         }
     }
 
