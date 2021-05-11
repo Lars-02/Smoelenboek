@@ -114,7 +114,7 @@ class EmployeeController extends Controller
             return view('employee.edit', compact(["employee"], 'departments', 'hobbies', 'courses', 'workDays', 'lectorates', 'expertises', 'learningLines', 'minors', 'roles'));
         }
         else {
-            return redirect()->action([EmployeeController::class, 'show'], ['employee' => $employee]);
+            return back()->with('error', 'U heeft geen toegang tot het bewerken van andermans profielen.');
         }
     }
 
@@ -139,8 +139,6 @@ class EmployeeController extends Controller
         if ($employee->id == Auth::user()->id || Auth::user()->isAdmin()) {
             $employee->update(request(['firstname', 'lastname', 'phoneNumber', 'expertise', 'linkedInUrl']));
             $employee->user()->update($request->only(['email']));
-
-//            $employee->user()->roles()->sync(request('roles'));
             $employee->user->roles()->sync(request('roles'));
 
             $employee->workDays()->sync(request('workDays'));

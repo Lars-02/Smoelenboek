@@ -42,7 +42,12 @@ class ProfileTest extends TestCase
             array_push($workHour, DB::table('employee_work_day')->insert(['employee_id' => $employee->id, 'work_day_id' => $day->id]));
         }
 
-        $view = $this->view('employee/profile', ['employee'=> $employee, 'user' => $user, 'workHour' => $workHour]);
+        $this->actingAs($user);
+        $allDays = WorkDay::all()->pluck('name');
+        $workingDays = $employee->workDays->map(function ($item) {
+            return $item->name;
+        })->toArray();
+        $view = $this->view('employee/show', ["employee" => $employee, 'user' => $user, 'workHour' => $workHour, 'allDays' => $allDays, 'workingDays' => $workingDays]);
 
         $view->assertSee($employee->firstname);
         $view->assertSee($employee->lastname);
