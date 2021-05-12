@@ -68,7 +68,7 @@ class EmployeeController extends Controller
             'user_id' => 'required|unique:employee',
             'firstname' => 'required|alpha|min:2|max:40',
             'lastname' => 'required|min:2|max:40',
-            'phoneNumber' => 'required|max:15',
+            'phoneNumber' => 'regex:/^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/',
             'departments' => 'required|exists:department,id',
             'expertises' => 'required|exists:expertise,id',
             'roles' => 'required|exists:role,id',
@@ -131,7 +131,7 @@ class EmployeeController extends Controller
         request()->validate([
             'firstname' => 'required|alpha|min:2|max:60',
             'lastname' => 'required|min:2|max:60',
-            'phoneNumber' => ['required'],
+            'phoneNumber' => 'regex:/^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/',
             'email' => 'required|email',
             'departments' => 'required',
         ]);
