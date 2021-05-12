@@ -1,5 +1,5 @@
 <x-layout>
-    <div class="bg-white">
+    <div class="bg-white select-none">
         <div class="container w-screen py-5 md:py-12 md:pr-36 px-10">
             <div class="min-h-screen md:flex no-wrap md:-mx-2" x-data="{ tab: 'account' }">
                 <!-- Left Side -->
@@ -30,7 +30,7 @@
                         @else
                             <img src="{{$employee->user->photoUrl}}" class="md:flex-shrink-0 min-h-full max-h-full">
                         @endif
-                        <p class="text-center md:text-left md:text-5xl sm:text-3xl ">{{$employee->firstname}} {{$employee->lastname}} </p>
+                        <p class="text-center md:text-left md:text-5xl sm:text-3xl select-all">{{$employee->firstname}} {{$employee->lastname}} </p>
                     </div>
 
                     <div x-show="tab === 'account'">
