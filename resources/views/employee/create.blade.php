@@ -24,21 +24,21 @@
                 @enderror
 
                 @error('departments')
-                    <x-select error="{{$message}}" id="departments" :options="$departments">Afdelingen</x-select>
+                    <x-checkbox error="{{$message}}" id="departments" :options="$departments">Afdelingen</x-checkbox>
                 @else
-                    <x-select id="departments" :options="$departments">Afdelingen</x-select>
+                    <x-checkbox id="departments" :options="$departments">Afdelingen</x-checkbox>
                 @enderror
 
                 @error('roles')
-                    <x-select error="{{$message}}" id="roles" :options="$roles">Functies</x-select>
+                    <x-checkbox error="{{$message}}" id="roles" :options="$roles">Rollen</x-checkbox>
                 @else
-                    <x-select id="roles" :options="$roles">Functies</x-select>
+                    <x-checkbox id="roles" :options="$roles">Rollen</x-checkbox>
                 @enderror
 
                 @error('expertises')
-                    <x-select error="{{$message}}" id="expertises" :options="$expertises">Expertises</x-select>
+                    <x-checkbox error="{{$message}}" id="expertises" :options="$expertises">Expertises</x-checkbox>
                 @else
-                    <x-select id="expertises" :options="$expertises">Expertises</x-select>
+                    <x-checkbox id="expertises" :options="$expertises">Expertises</x-checkbox>
                 @enderror
 
                 <div class="flex justify-between md:w-2/3 xl:w-1/2 mb-6 col-span-2 xl:col-span-3">
