@@ -65,14 +65,14 @@ class EmployeeController extends Controller
     protected function validateEmployee()
     {
         return request()->validate([
-            'user_id' => 'required|unique:employee',
+            'user_id' => 'required|unique:employees',
             'firstname' => 'required|alpha|min:2|max:40',
             'lastname' => 'required|min:2|max:40',
             'phoneNumber' => 'required|max:15',
-            'departments' => 'required|exists:department,id',
-            'expertises' => 'required|exists:expertise,id',
-            'roles' => 'required|exists:role,id',
-            'workDays' => 'required|exists:work_day,id',
+            'departments' => 'required|exists:departments,id',
+            'expertises' => 'required|exists:expertises,id',
+            'roles' => 'required|exists:roles,id',
+            'workDays' => 'required|exists:work_days,id',
         ]);
     }
 
