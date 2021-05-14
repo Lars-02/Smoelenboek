@@ -1,5 +1,5 @@
 <x-layout>
-    <x-card title="Login">
+    <x-card class="select-none" title="Login">
         <form method="POST" action="{{ route('login') }}">
             @csrf
             <x-input
@@ -28,7 +28,7 @@
                     </x-button>
                 </div>
                 <div class="self-end">
-                    <a href="{{ route('password.request') }}" class="text-xs sm:text-sm md:text-base lg:text-lg text-blue-500 underline">
+                    <a href="{{ route('password.request') }}" class="select-none text-xs sm:text-sm md:text-base lg:text-lg text-blue-500 underline">
                         {{ __('Wachtwoord vergeten?') }}
                     </a>
                 </div>

@@ -4,9 +4,9 @@
         <form action="{{ route('employee.store') }}" method="POST">
             @csrf
             <input type="hidden" name="user_id" value="{{ $user->id }}">
-            <div class="grid gap-4 grid-cols-2 xl:grid-cols-3">
+            <div class="select-none grid gap-4 grid-cols-2 xl:grid-cols-3">
                 @error('firstname')
-                    <x-input  error="{{$message}}" type="text" name="firstname" id="firstname" icon="fas fa-user-circle">Voornaam</x-input>
+                    <x-input error="{{$message}}" type="text" name="firstname" id="firstname" icon="fas fa-user-circle">Voornaam</x-input>
                 @else
                     <x-input type="text" name="firstname" id="firstname" icon="fas fa-user-circle">Voornaam</x-input>
                 @enderror
@@ -46,7 +46,7 @@
                         <x-dayToggle :day="$day"></x-dayToggle>
                     @endforeach
                 </div>
-                <x-button type="submit">Afronden</x-button>
+                <x-button class="select-none" type="submit">Afronden</x-button>
             </div>
         </form>
     </x-card>

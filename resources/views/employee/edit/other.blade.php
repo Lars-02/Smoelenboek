@@ -3,7 +3,7 @@
     <div class="mb-5 md:pr-5">
         <label
             class="mb-1.5 pl-1.5 py-0.5 float-left text-left text-white w-6/12 bg-red-700 rounded">Lectoraten:</label>
-        <div class="h-32 mt-10 overflow-scroll border-b-2">
+        <div class="h-32 mt-10 overflow-y-scroll overflow-x-hidden border-b-2">
             @foreach ($errors->get('lectorates.*') as $message)
                 <div class="error">{{ $message }}</div>
             @endforeach
@@ -20,7 +20,7 @@
     <div class="mb-5 md:pr-5">
         <label
             class="mb-1.5 pl-1.5 py-0.5 float-left text-left text-white w-6/12 bg-red-700 rounded">Hobby's:</label>
-        <div class="h-32 mt-10 overflow-scroll border-b-2">
+        <div class="h-32 mt-10 overflow-y-scroll overflow-x-hidden border-b-2">
             @foreach ($errors->get('hobbies.*') as $message)
                 <div class="error">{{ $message }}</div>
             @endforeach
@@ -36,7 +36,7 @@
     <div class="mb-5 md:pr-5">
         <label
             class="mb-1.5 pl-1.5 py-0.5 float-left text-left text-white w-6/12 bg-red-700 rounded">Cursussen:</label>
-        <div class="h-32 mt-10 overflow-scroll border-b-2">
+        <div class="h-32 mt-10 overflow-y-scroll overflow-x-hidden border-b-2">
             @foreach ($errors->get('courses.*') as $message)
                 <div class="error">{{ $message }}</div>
             @endforeach
@@ -52,7 +52,7 @@
     <div class="mb-5 md:pr-5">
         <label
             class="mb-1.5 pl-1.5 py-0.5 float-left text-left text-white w-6/12 bg-red-700 rounded">Leerlijnen:</label>
-        <div class="h-32 mt-10 overflow-scroll border-b-2">
+        <div class="h-32 mt-10 overflow-y-scroll overflow-x-hidden border-b-2">
             @foreach ($errors->get('learningLines.*') as $message)
                 <div class="error">{{ $message }}</div>
             @endforeach
@@ -69,7 +69,7 @@
     <div class="mb-5 md:pr-5">
         <label
             class="mb-1.5 pl-1.5 py-0.5 float-left text-left text-white w-6/12 bg-red-700 rounded">Expertises:</label>
-        <div class="h-32 mt-10 overflow-scroll border-b-2">
+        <div class="h-32 mt-10 overflow-y-scroll overflow-x-hidden border-b-2">
             @foreach ($errors->get('expertises.*') as $message)
                 <div class="error">{{ $message }}</div>
             @endforeach
@@ -86,7 +86,7 @@
     <div class="mb-5 md:pr-5">
         <label
             class="mb-1.5 pl-1.5 py-0.5 float-left text-left text-white w-6/12 bg-red-700 rounded">Minoren:</label>
-        <div class="h-32 mt-10 overflow-scroll border-b-2">
+        <div class="h-32 mt-10 overflow-y-scroll overflow-x-hidden border-b-2">
             @foreach ($errors->get('minors.*') as $message)
                 <div class="error">{{ $message }}</div>
             @endforeach

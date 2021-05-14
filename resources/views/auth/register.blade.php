@@ -13,13 +13,13 @@
                 Email
             </x-input>
             @error('email')
-            <span class="text-red-500 font-medium">{{ $message }}</span>
+            <span class="select-none text-red-500 font-medium">{{ $message }}</span>
             @enderror
 
-            <x-toggle name="isAdmin">Admin</x-toggle>
+            <x-toggle class="select-none" name="isAdmin">Admin</x-toggle>
 
             <div class="flex">
-                <div class="mr-4">
+                <div class="select-none mr-4">
                     <x-button type="submit">
                         {{ __('Aanmaken') }}
                     </x-button>

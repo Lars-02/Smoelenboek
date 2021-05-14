@@ -1,7 +1,7 @@
 <div class="grid justify-items-center py-5">
     <div class="{{ $sizeClass }} shadow rounded-md bg-white ">
         <div class="py-4 px-6 items-center">
-            <div class="text-lg sm:text-xl md:text-2xl mb-2 font-medium text-center sm:text-left">
+            <div class="select-none text-lg sm:text-xl md:text-2xl mb-2 font-medium text-center sm:text-left">
                 {{$title}}
             </div>
             <div class="h-2 w-full sm:w-6/12 bg-red-700 rounded-full"></div>
