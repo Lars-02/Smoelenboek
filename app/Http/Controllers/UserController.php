@@ -20,28 +20,23 @@ class UserController extends Controller
     {
         $this->validate($request,
         [
-            'email' => 'required|email|unique:user,email'
+            'email' => 'required|email|unique:users,email'
         ]);
 
-        $randomPassword = $password = Str::random(20);
+        $randomPassword = Str::random(20);
         $user = new User;
         $user->email = $request->email;
         $user->password = Hash::make($randomPassword);
 
-        $role = null;
         if ($request->isAdmin) {
-            $role = Role::where('name', 'Admin')->get(['id'])->first();
+            $this->role = Role::where('name', 'Admin')->get(['id'])->first();
         } else {
-            $role = Role::where('name', 'Docent')->get(['id'])->first();
+            $this->role = Role::where('name', 'Docent')->get(['id'])->first();
         }
 
-        $roleUser = new RoleUser;
-        $roleUser->role_id = $role->id;
-
-        DB::transaction(function () use ($user, $roleUser) {
+        DB::transaction(function () use ($user) {
             $user->save();
-            $roleUser->user_id = $user->id;
-            $roleUser->save();
+            DB::table('role_user')->insert(['user_id' => $user->id, 'role_id' => $this->role->id]);
         });
 
         Mail::to( $user->email)->send(new RegistrationMail($user , $randomPassword));

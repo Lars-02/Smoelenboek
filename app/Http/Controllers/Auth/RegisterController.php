@@ -8,6 +8,7 @@ use App\Models\RoleUser;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
@@ -47,7 +48,7 @@ class RegisterController extends Controller
         $user = auth()->user();
         if($user != null){
             $admin = Role::where('name', 'Admin')->first();
-            $roleUsers = RoleUser::all();
+            $roleUsers = DB::table('role_user')->get();
             foreach($roleUsers as $roleUser)
             {
                 if($roleUser->role_id == $admin->id && $user->id == $roleUser->user_id)
