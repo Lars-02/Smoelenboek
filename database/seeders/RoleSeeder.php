@@ -18,7 +18,6 @@ class RoleSeeder extends Seeder
         Role::factory()->create(['name' => 'Admin'])->abilities()->attach(Ability::all());
 
         Role::factory()->createMany([
-            ['name' => 'Admin'],
             ['name' => 'Docent'],
             ['name' => 'Medewerker Administratie & Organisatie'],
             ['name' => 'Docent Management in de Zorg'],
