@@ -116,21 +116,21 @@ class EmployeeController extends Controller
      */
     public function update(EditEmployeeRequest $request, Employee $employee)
     {
-        $request->validated();
-
+        $validated = $request->validated();
+        
         if ($employee->id == Auth::user()->id || Auth::user()->isAdmin()) {
             $employee->update(request(['firstname', 'lastname', 'phoneNumber', 'expertise', 'linkedInUrl']));
-            $employee->user()->update($request->only(['email']));
-            $employee->user->roles()->sync(request('roles'));
+            $employee->user()->update($validated['email']);
+            $employee->user->roles()->sync($validated['roles']);
 
-            $employee->workDays()->sync(request('workDays'));
-            $employee->departments()->sync(request('departments'));
-            $employee->lectorates()->sync(request('lectorates'));
-            $employee->hobbies()->sync(request('hobbies'));
-            $employee->learningLines()->sync(request('learningLines'));
-            $employee->courses()->sync(request('courses'));
-            $employee->minors()->sync(request('minors'));
-            $employee->expertises()->sync(request('expertises'));
+            $employee->workDays()->sync($validated['workDays']);
+            $employee->departments()->sync($validated['departments']);
+            $employee->lectorates()->sync($validated['lectorates']);
+            $employee->hobbies()->sync($validated['hobbies']);
+            $employee->learningLines()->sync($validated['learningLines']);
+            $employee->courses()->sync($validated['courses']);
+            $employee->minors()->sync($validated['minors']);
+            $employee->expertises()->sync($validated['expertises']);
             $employee->save();
 
             return redirect()->action([EmployeeController::class, 'show'], ['employee' => $employee, 'succes' => "Alle gegevens zijn succesvol opgeslagen"]);

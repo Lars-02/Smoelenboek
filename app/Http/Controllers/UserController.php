@@ -27,7 +27,7 @@ class UserController extends Controller
 
         $randomPassword = $password = Str::random(20);
         $users = new User;
-        $users->email = $request->email;
+        $users->email = $validated['email'];
         $users->password = Hash::make($randomPassword);
 
         DB::transaction(function () use ($users, $roles) {

@@ -4,9 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Filters\CourseFilter;
 use App\Filters\DepartmentFilter;
+use App\Filters\ExpertiseFilter;
+use App\Filters\HobbyFilter;
 use App\Filters\LearningLineFilter;
+use App\Filters\LectorateFilter;
+use App\Filters\MinorFilter;
 use App\Filters\RoleFilter;
 use App\Filters\WorkDayFilter;
+use App\Http\Requests\HomeRequests\IndexHomeRequest;
 use App\Models\Course;
 use App\Models\Department;
 use App\Models\Employee;

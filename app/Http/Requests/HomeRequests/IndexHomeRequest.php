@@ -24,12 +24,16 @@ class IndexHomeRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required',
-            'streetName' => 'required',
-            'houseNumber' => 'required',
-            'zipCode' => 'required',
-            'city' => 'required',
-            'roomAmount' => 'required'
+            'searchbar' => 'nullable',
+            'courses' => 'nullable',
+            'roles' => 'nullable',
+            'workDays' => 'nullable',
+            'learningLines' => 'nullable',
+            'departments' => 'nullable',
+            'hobbies' => 'nullable',
+            'lectorates' => 'nullable',
+            'expertises' => 'nullable',
+            'minors' => 'nullable',
         ];
     }
 
