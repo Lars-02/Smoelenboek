@@ -24,14 +24,14 @@ class CreateEmployeeRequest extends FormRequest
     public function rules()
     {
         return [
-            'user_id' => 'required|unique:employee',
+            'user_id' => 'required|unique:employees',
             'firstname' => 'required|alpha|min:2|max:40',
             'lastname' => 'required|min:2|max:40',
             'phoneNumber' => array('required', 'regex:/^((\+31)|(0031)|0)(\(0\)|)(\d{1,3})(\s|\-|)(\d{8}|\d{4}\s\d{4}|\d{2}\s\d{2}\s\d{2}\s\d{2})$/'),
-            'departments' => 'required|exists:department,id',
-            'expertises' => 'required|exists:expertise,id',
-            'roles' => 'required|exists:role,id',
-            'workDays' => 'required|exists:work_day,id',
+            'departments' => 'required|exists:departments,id',
+            'expertises' => 'required|exists:expertises,id',
+            'roles' => 'required|exists:roles,id',
+            'workDays' => 'required|exists:work_days,id',
         ];
     }
 
