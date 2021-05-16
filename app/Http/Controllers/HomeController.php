@@ -3,15 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Filters\CourseFilter;
+use App\Filters\DepartmentFilter;
+use App\Filters\LearningLineFilter;
 use App\Filters\RoleFilter;
 use App\Filters\WorkDayFilter;
-use App\Filters\LearningLineFilter;
-use App\Filters\DepartmentFilter;
-use App\Filters\ExpertiseFilter;
-use App\Filters\HobbyFilter;
-use App\Filters\LectorateFilter;
-use App\Filters\MinorFilter;
-use App\Http\Requests\HomeRequests\IndexHomeRequest;
 use App\Models\Course;
 use App\Models\Department;
 use App\Models\Employee;
@@ -21,25 +16,14 @@ use App\Models\LearningLine;
 use App\Models\Lectorate;
 use App\Models\Minor;
 use App\Models\Role;
-use App\Models\WorkDay;
 use App\Models\SearchBar;
+use App\Models\WorkDay;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use function PHPUnit\Framework\isEmpty;
 
 class HomeController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-
-    }
-
     /**
      * Show the application dashboard.
      *
@@ -49,12 +33,14 @@ class HomeController extends Controller
     {
         $validated = $request->validated();
 
-        if(!isset($employees)){
+        if (!isset($employees)) {
             $employees = Employee::all();
         }
 
+        if (!is_null($request['searchbar'])) {
             $searchBar = new SearchBar();
             $employees = $searchBar->search($employees, $validated['searchbar']);
+        }
 
         if (isset($validated['courses'])) {
             $courseFilter = new CourseFilter();

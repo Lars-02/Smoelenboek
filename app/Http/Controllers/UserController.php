@@ -8,7 +8,6 @@ use App\Models\User;
 use App\Models\Role;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
-use App\Models\RoleUser;
 use Illuminate\Support\Facades\DB;
 use App\Mail\RegistrationMail;
 use App\Models\Employee;
@@ -21,28 +20,23 @@ class UserController extends Controller
     {
         $validated = $request->validated();
 
+        if ($request->isAdmin)
+            $roles = Role::where('name', 'Admin')->get(['id'])->first();
+        else
+            $roles = Role::where('name', 'Docent')->get(['id'])->first();
+
         $randomPassword = $password = Str::random(20);
-        $user = new User;
-        $user->email = $validated['email'];
-        $user->password = Hash::make($randomPassword);
+        $users = new User;
+        $users->email = $request->email;
+        $users->password = Hash::make($randomPassword);
 
-        $role = null;
-        if ($validated['isAdmin']) {
-            $role = Role::where('name', 'Admin')->get(['id'])->first();
-        } else {
-            $role = Role::where('name', 'Docent')->get(['id'])->first();
-        }
-
-        $roleUser = new RoleUser;
-        $roleUser->role_id = $role->id;
-
-        DB::transaction(function () use ($user, $roleUser) {
-            $user->save();
-            $roleUser->user_id = $user->id;
-            $roleUser->save();
+        DB::transaction(function () use ($users, $roles) {
+            $users->save();
+            $users->roles()->attach($roles);
+            $roles->save();
         });
 
-        Mail::to( $user->email)->send(new RegistrationMail($user , $randomPassword));
+        Mail::to( $users->email)->send(new RegistrationMail($users , $randomPassword));
 
         return redirect()->route('home');
     }
