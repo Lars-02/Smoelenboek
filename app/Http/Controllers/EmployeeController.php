@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Cinemas\CreateEmployeeRequest;
+use App\Http\Requests\Cinemas\EditEmployeeRequest;
 use App\Models\Course;
 use App\Models\DayOfWeek;
 use App\Models\Department;
@@ -47,7 +49,7 @@ class EmployeeController extends Controller
      */
     public function store(CreateEmployeeRequest $request)
     {
-        $validated = $request->validate();
+        $validated = $request->validated();
 
         $employee = Employee::create($validated);
 
@@ -114,7 +116,7 @@ class EmployeeController extends Controller
      */
     public function update(EditEmployeeRequest $request, Employee $employee)
     {
-        $validate = $request->validate();
+        $request->validated();
 
         if ($employee->id == Auth::user()->id || Auth::user()->isAdmin()) {
             $employee->update(request(['firstname', 'lastname', 'phoneNumber', 'expertise', 'linkedInUrl']));

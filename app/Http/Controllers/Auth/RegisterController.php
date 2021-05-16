@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Cinemas\RegisterUserRequest;
 use App\Models\Role;
 use App\Models\RoleUser;
 use App\Providers\RouteServiceProvider;
@@ -72,7 +73,7 @@ class RegisterController extends Controller
      */
     protected function create(RegisterUserRequest $request, array $data)
     {
-        $validated = $request->validate($data);
+        $validated = $request->validated($data);
 
         return User::create([
             'name' => $validated['name'],

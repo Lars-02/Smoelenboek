@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Cinemas\CreateUserRequest;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Role;
@@ -18,7 +19,7 @@ class UserController extends Controller
 {
     public function registerNewUser(CreateUserRequest $request)
     {
-        $validated = $request->validate();
+        $validated = $request->validated();
 
         $randomPassword = $password = Str::random(20);
         $user = new User;

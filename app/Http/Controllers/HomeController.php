@@ -11,6 +11,7 @@ use App\Filters\ExpertiseFilter;
 use App\Filters\HobbyFilter;
 use App\Filters\LectorateFilter;
 use App\Filters\MinorFilter;
+use App\Http\Requests\Cinemas\IndexHomeRequest;
 use App\Models\Course;
 use App\Models\Department;
 use App\Models\Employee;
@@ -46,7 +47,7 @@ class HomeController extends Controller
      */
     public function index(IndexHomeRequest $request)
     {
-        $validated = $request->validate();
+        $validated = $request->validated();
 
         if(!isset($employees)){
             $employees = Employee::all();
