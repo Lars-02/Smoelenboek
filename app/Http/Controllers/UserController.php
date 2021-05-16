@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\Cinemas\CreateUserRequest;
+use App\Http\Requests\UserRequests\CreateUserRequest;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Role;

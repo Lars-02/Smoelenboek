@@ -11,7 +11,7 @@ use App\Filters\ExpertiseFilter;
 use App\Filters\HobbyFilter;
 use App\Filters\LectorateFilter;
 use App\Filters\MinorFilter;
-use App\Http\Requests\Cinemas\IndexHomeRequest;
+use App\Http\Requests\HomeRequests\IndexHomeRequest;
 use App\Models\Course;
 use App\Models\Department;
 use App\Models\Employee;

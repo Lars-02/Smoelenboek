@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Cinemas\RegisterUserRequest;
+use App\Http\Requests\RegisterRequests\RegisterUserRequest;
 use App\Models\Role;
 use App\Models\RoleUser;
 use App\Providers\RouteServiceProvider;

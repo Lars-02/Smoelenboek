@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\Cinemas;
+namespace App\Http\Requests\HomeRequests;
 
 use Illuminate\Foundation\Http\FormRequest;
 

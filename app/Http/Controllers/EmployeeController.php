@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\Cinemas\CreateEmployeeRequest;
-use App\Http\Requests\Cinemas\EditEmployeeRequest;
+use App\Http\Requests\EmployeeRequests\CreateEmployeeRequest;
+use App\Http\Requests\EmployeeRequests\EditEmployeeRequest;
 use App\Models\Course;
 use App\Models\DayOfWeek;
 use App\Models\Department;
