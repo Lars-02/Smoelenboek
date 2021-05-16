@@ -16,20 +16,17 @@ use Illuminate\Support\Facades\Mail;
 
 class UserController extends Controller
 {
-    public function registerNewUser(Request $request)
+    public function registerNewUser(CreateUserRequest $request)
     {
-        $this->validate($request,
-        [
-            'email' => 'required|email|unique:user,email'
-        ]);
+        $validated = $request->validate();
 
         $randomPassword = $password = Str::random(20);
         $user = new User;
-        $user->email = $request->email;
+        $user->email = $validated['email'];
         $user->password = Hash::make($randomPassword);
 
         $role = null;
-        if ($request->isAdmin) {
+        if ($validated['isAdmin']) {
             $role = Role::where('name', 'Admin')->get(['id'])->first();
         } else {
             $role = Role::where('name', 'Docent')->get(['id'])->first();

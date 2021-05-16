@@ -45,9 +45,9 @@ class EmployeeController extends Controller
      * @param Request $request
      * @return RedirectResponse
      */
-    public function store()
+    public function store(CreateEmployeeRequest $request)
     {
-        $validated = $this->validateEmployee();
+        $validated = $request->validate();
 
         $employee = Employee::create($validated);
 
@@ -60,20 +60,6 @@ class EmployeeController extends Controller
         $employee->user->save();
 
         return redirect(route('home'));
-    }
-
-    protected function validateEmployee()
-    {
-        return request()->validate([
-            'user_id' => 'required|unique:employee',
-            'firstname' => 'required|alpha|min:2|max:40',
-            'lastname' => 'required|min:2|max:40',
-            'phoneNumber' => array('required', 'regex:/^((\+31)|(0031)|0)(\(0\)|)(\d{1,3})(\s|\-|)(\d{8}|\d{4}\s\d{4}|\d{2}\s\d{2}\s\d{2}\s\d{2})$/'),
-            'departments' => 'required|exists:department,id',
-            'expertises' => 'required|exists:expertise,id',
-            'roles' => 'required|exists:role,id',
-            'workDays' => 'required|exists:work_day,id',
-        ]);
     }
 
     /**
@@ -126,15 +112,9 @@ class EmployeeController extends Controller
      * @param Employee $employee
      * @return Response
      */
-    public function update(Request $request, Employee $employee)
+    public function update(EditEmployeeRequest $request, Employee $employee)
     {
-        request()->validate([
-            'firstname' => 'required|alpha|min:2|max:60',
-            'lastname' => 'required|min:2|max:60',
-            'phoneNumber' => array('required', 'regex:/^((\+31)|(0031)|0)(\(0\)|)(\d{1,3})(\s|\-|)(\d{8}|\d{4}\s\d{4}|\d{2}\s\d{2}\s\d{2}\s\d{2})$/'),
-            'email' => 'required|email',
-            'departments' => 'required',
-        ]);
+        $validate = $request->validate();
 
         if ($employee->id == Auth::user()->id || Auth::user()->isAdmin()) {
             $employee->update(request(['firstname', 'lastname', 'phoneNumber', 'expertise', 'linkedInUrl']));
