@@ -7,7 +7,6 @@ use App\Models\User;
 use App\Models\Role;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
-use App\Models\RoleUser;
 use Illuminate\Support\Facades\DB;
 use App\Mail\RegistrationMail;
 use App\Models\Employee;
@@ -39,7 +38,7 @@ class UserController extends Controller
             DB::table('role_user')->insert(['user_id' => $user->id, 'role_id' => $this->role->id]);
         });
 
-        Mail::to( $user->email)->send(new RegistrationMail($user , $randomPassword));
+        Mail::to( $users->email)->send(new RegistrationMail($users , $randomPassword));
 
         return redirect()->route('home');
     }
