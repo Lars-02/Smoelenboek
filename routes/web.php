@@ -33,7 +33,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/', [HomeController::class, 'index'])->name('home');
 
         // TODO: Simplify these routes.
-        Route::get('/register', [RegisterController::class, 'index']);
+        Route::get('/register', [RegisterController::class, 'index'])->name('register');
         Route::post('/', [UserController::class, 'registerNewUser'])->name('registerNewUser');
 
         Route::resource('employee', EmployeeController::class)
