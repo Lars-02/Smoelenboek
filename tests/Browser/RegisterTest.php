@@ -2,10 +2,6 @@
 
 namespace Tests\Unit;
 
-use App\Models\Employee;
-use App\Models\Role;
-use App\Models\User;
-use Illuminate\Support\Facades\DB;
 use Tests\DuskTestCase;
 
 class RegisterTest extends DuskTestCase
@@ -27,10 +23,9 @@ class RegisterTest extends DuskTestCase
     public function test_user_cannot_view_register_page_when_not_authenticated() 
     {
         $this->browse(function ($browser) {
-            $browser->visit(env('APP_URL').'/register');
-
+            $browser->visit('http://127.0.0.1:8000/register');
             $url = $browser->driver->getCurrentURL();
-            $this->assertEquals(env('APP_URL').'/login', $url);
+            $this->assertEquals('http://127.0.0.1:8000/login', $url);
         });
     }
 
@@ -42,15 +37,13 @@ class RegisterTest extends DuskTestCase
     public function test_user_can_view_register_page_when_authenticated()
     {
         $this->browse(function ($browser) {        
-            $browser->visit(env('APP_URL').'/login')
-            ->type('email', 'admin@avans.nl')
+            $browser->visit('http://127.0.0.1:8000/login')
+            ->type('email', 'testAdmin@avans.nl')
             ->type('password', 'password')
             ->press('Inloggen')
-            ->visit(env('APP_URL').'/register');
-
+            ->visit('http://127.0.0.1:8000/register');
             $url = $browser->driver->getCurrentURL();
-
-            $this->assertEquals(env('APP_URL').'/register', $url);
+            $this->assertEquals('http://127.0.0.1:8000/register', $url);
         });
     }
 
@@ -61,16 +54,15 @@ class RegisterTest extends DuskTestCase
      */
     public function test_user_cannot_view_register_page_when_authenticated()
     {
+
         $this->browse(function ($browser) {        
-            $browser->visit(env('APP_URL').'/login')
-            ->type('email', 'test@avans.nl')
+            $browser->visit('http://127.0.0.1:8000/login')
+            ->type('email', 'testDocent@avans.nl')
             ->type('password', 'password')
             ->press('Inloggen')
-            ->visit(env('APP_URL').'/register');
-
+            ->visit('http://127.0.0.1:8000/register');
             $url = $browser->driver->getCurrentURL();
-
-            $this->assertEquals(env('APP_URL').'/', $url);
+            $this->assertEquals('http://127.0.0.1:8000/employee/create', $url);
         });
     }
 
@@ -81,24 +73,16 @@ class RegisterTest extends DuskTestCase
      */
     public function test_user_can_be_registered_with_teacher_role() 
     {
-        $this->browse(function ($browser) {     
-            while(true)
-            {
-                $randomEmail = mt_rand().'admin@avans.nl';
-                if(User::where('email', $randomEmail)->first() == null) break;
-            }  
-    
-            $browser->visit(env('APP_URL').'/login')
-            ->type('email', 'admin@avans.nl')
+        $this->browse(function ($browser) {        
+            $browser->visit('http://127.0.0.1:8000/login')
+            ->type('email', 'testAdmin@avans.nl')
             ->type('password', 'password')
             ->press('Inloggen')
-            ->visit(env('APP_URL').'/register')
-            ->type('email', $randomEmail)
+            ->visit('http://127.0.0.1:8000/register')
+            ->type('email', 'newUser@avans.nl')
             ->press('Aanmaken');
-
             $url = $browser->driver->getCurrentURL();
-            
-            $this->assertEquals(env('APP_URL').'/', $url);
+            $this->assertEquals('http://127.0.0.1:8000/employee/create', $url);
         });
     }
 
@@ -109,25 +93,17 @@ class RegisterTest extends DuskTestCase
      */
     public function test_user_can_be_registered_with_admin_role() 
     {
-        $this->browse(function ($browser) {
-            while(true)
-            {
-                $randomEmail = mt_rand().'admin@avans.nl';
-                if(User::where('email', $randomEmail)->first() == null) break;
-            }        
-
-            $browser->visit(env('APP_URL').'/login')
-            ->type('email', 'admin@avans.nl')
+        $this->browse(function ($browser) {        
+            $browser->visit('http://127.0.0.1:8000/login')
+            ->type('email', 'testAdmin@avans.nl')
             ->type('password', 'password')
             ->press('Inloggen')
-            ->visit(env('APP_URL').'/register')
-            ->type('email', $randomEmail)
+            ->visit('http://127.0.0.1:8000/register')
+            ->type('email', 'newUser2@avans.nl')
             ->click('@select-admin')
             ->press('Aanmaken');
-
             $url = $browser->driver->getCurrentURL();
-
-            $this->assertEquals(env('APP_URL').'/', $url);
+            $this->assertEquals('http://127.0.0.1:8000/employee/create', $url);
         });
     }
 
@@ -138,28 +114,20 @@ class RegisterTest extends DuskTestCase
      */
     public function test_user_cannot_be_registered_when_existing_in_database() 
     {
-        $this->browse(function ($browser) {      
-            while(true)
-            {
-                $randomEmail = mt_rand().'test@avans.nl';
-                if(User::where('email', $randomEmail)->first() == null) break;
-            }   
-
-            $browser->visit(env('APP_URL').'/login')
-            ->type('email', 'admin@avans.nl')
+        $this->browse(function ($browser) {        
+            $browser->visit('http://127.0.0.1:8000/login')
+            ->type('email', 'testAdmin@avans.nl')
             ->type('password', 'password')
             ->press('Inloggen')
-            ->visit(env('APP_URL').'/register')
-            ->type('email', $randomEmail)
+            ->visit('http://127.0.0.1:8000/register')
+            ->type('email', 'newUser3@avans.nl')
             ->press('Aanmaken')
             //Trying to create an account the second time with the same email.
-            ->visit(env('APP_URL').'/register')
-            ->type('email', $randomEmail)
+            ->visit('http://127.0.0.1:8000/register')
+            ->type('email', 'newUser3@avans.nl')
             ->press('Aanmaken');
-
             $url = $browser->driver->getCurrentURL();
-            
-            $this->assertEquals(env('APP_URL').'/register', $url);
+            $this->assertEquals('http://127.0.0.1:8000/register', $url);
         });
     }
 }
