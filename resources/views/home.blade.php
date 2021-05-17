@@ -11,9 +11,6 @@
                     </span>
                     <input type="text"  value="{{$request["searchbar"]}}" name="searchbar" id="searchbar" placeholder="Zoeken..." class="text-xs sm:text-sm md:text-base lg:text-lg pl-8 rounded border-gray-400 focus:border-gray-400 text-gray-600 focus:ring-0"/>
                 </div>
-                <x-button><a href="{{ route('home') }}">Clear</a></x-button>
-                <x-button type="submit">Apply</x-button>
-
             </div>
         </div>
         <div class="mx-3 space-x-4 top-28 flex-grow mb-4 overflow-x-hidden overflow-y-scroll scrollbar-hide rounded-md pb-4">
@@ -169,6 +166,10 @@
                                     @endif
                                 @endforeach
                             </x-filterModal>
+                            <div class="flex flex-wrap content-center justify-center w-full">
+                                <x-button class="mx-4"><a href="{{ route('home') }}">Clear</a></x-button>
+                                <x-button class="mx-4" type="submit">Apply</x-button>
+                            </div>
                         </nav>
                     </aside>
                     <!-- Sidebars button -->
