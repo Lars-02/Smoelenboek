@@ -33,6 +33,7 @@
                     <div class="text-gray-500 select-none">Expertise</div>
                     @foreach(array_slice($expertises, 0, 2) as $expertise)
                         <div class="ml-2 text-red-700 select-all" title="{{ $expertise }}">{{ $expertise }}</div>
+                        @break
                     @endforeach
                 @else
                     <span class="mr-1 select-none">Niet ingesteld</span>

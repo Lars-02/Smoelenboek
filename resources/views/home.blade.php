@@ -219,7 +219,7 @@
             </script>
 
 
-            <div class="space-x-4 top-28 flex-grow mb-4 overflow-x-hidden overflow-y-scroll scrollbar-hide rounded-md pb-4">
+            <div class="mx-3 space-x-4 top-28 flex-grow mb-4 overflow-x-hidden overflow-y-scroll scrollbar-hide rounded-md pb-4">
                 <div class="grid gap-4 md:gap-6 xl:gap-8 grid-cols-2 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
                     @foreach($employees as $employee)
                         <x-profilecard :employee="$employee"></x-profilecard>
