@@ -6,6 +6,6 @@
             placeholder="{{$slot}}..."
             {{$attributes->class(['select-text relative text-xs sm:text-sm md:text-base lg:text-lg px-2.5 py-2.5 pl-8 w-full rounded border-gray-400 focus:border-gray-400 text-gray-600 focus:ring-0'])}}
         />
-        <i class="select-none absolute left-3 bottom-4 text-gray-600 {{ $icon }}"></i>
+        <i class="select-none absolute left-3 bottom-3 sm:bottom-4 text-gray-600 {{ $icon }}"></i>
     </div>
 </div>
