@@ -15,55 +15,12 @@ use App\Models\Lectorate;
 use App\Models\Minor;
 use App\Models\Role;
 use App\Models\WorkDay;
-use Illuminate\Contracts\Foundation\Application;
-use Illuminate\Contracts\View\Factory;
-use Illuminate\Contracts\View\View;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 
 class EmployeeController extends Controller
 {
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return Application|Factory|View|Response
-     */
-    public function create()
-    {
-        $user = Auth::user();
-        $departments = Department::all()->pluck('name', 'id');
-        $roles = Role::all()->whereNotIn('id', 1)->pluck('name', 'id');
-        $expertises = Expertise::all()->pluck('name', 'id');
-        $workDays = WorkDay::all();
-
-        return view('employee.create', compact(['user', 'departments', 'roles', 'expertises', 'workDays']));
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param Request $request
-     * @return RedirectResponse
-     */
-    public function store(CreateEmployeeRequest $request)
-    {
-        $validated = $request->validated();
-
-        $employee = Employee::create($validated);
-
-        $employee->departments()->sync($validated['departments']);
-        $employee->expertises()->sync($validated['expertises']);
-        $employee->workDays()->sync($validated['workDays']);
-        $employee->save();
-
-        $employee->user->roles()->sync($validated['roles']);
-        $employee->user->save();
-
-        return redirect(route('home'));
-    }
-
     /**
      * Display the specified resource.
      *
