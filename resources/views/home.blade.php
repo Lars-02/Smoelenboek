@@ -16,7 +16,7 @@
 
             </div>
         </div>
-        <div class="sm:flex sm:h-screen sm:overflow-hidden mb-2 mx-3 sm:mx-4 md:mx-5">
+        <div class="sm:flex sm:h-screen sm:overflow-hidden mb-2  ml-0 sm:mx-4 md:mx-5">
             <div class="max-w-xs sm:w-1/2 xl:w-1/3 mr-0 sm:mr-3 sm:overflow-y-scroll scrollbar-hide">
                 @csrf
                 <div
@@ -42,7 +42,7 @@
                         x-transition:leave-end="-translate-x-full opacity-0"
                         x-ref="sidebar"
                         tabindex="-1"
-                        class="z-40 fixed inset-y-0 z-10 flex flex-shrink-0 overflow-hidden bg-gray-100 border-r lg:static focus:outline-none ">
+                        class="z-40 fixed inset-y-0 flex flex-shrink-0 overflow-hidden bg-gray-100 border-r lg:static focus:outline-none ">
                         <!-- Sidebar links -->
                         <nav aria-label="Main" class="h-3/4 flex-1 px-2 w-80 bg-gray-100 py-4 space-y-2 overflow-y-scroll hover:overflow-y-auto">
                             <x-filterModal title="Cursus">
