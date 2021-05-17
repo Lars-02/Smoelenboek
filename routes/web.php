@@ -34,7 +34,7 @@ Route::group(['middleware' => 'auth'], function () {
 
         // TODO: Simplify these routes.
         Route::get('/register', [RegisterController::class, 'index'])->name('register');
-        Route::post('/', [UserController::class, 'registerNewUser'])->name('registerNewUser');
+        Route::post('/', [RegisterController::class, 'registerNewUser'])->name('registerNewUser');
 
         Route::resource('employee', EmployeeController::class)
             ->only(['show']);

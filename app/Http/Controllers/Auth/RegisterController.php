@@ -3,13 +3,18 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Mail\RegistrationMail;
 use App\Models\Role;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
 
 class RegisterController extends Controller
 {
@@ -56,32 +61,36 @@ class RegisterController extends Controller
     }
 
     /**
-     * Get a validator for an incoming registration request.
-     *
-     * @param  array  $data
-     * @return \Illuminate\Contracts\Validation\Validator
-     */
-    protected function validator(array $data)
-    {
-        return Validator::make($data, [
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
-        ]);
-    }
-
-    /**
      * Create a new user instance after a valid registration.
      *
      * @param  array  $data
      * @return User
      */
-    protected function create(array $data)
+    public function registerNewUser(Request $request)
     {
-        return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
-        ]);
+        $this->validate($request,
+            [
+                'email' => 'required|email|unique:users,email'
+            ]);
+
+        if ($request->isAdmin)
+            $roles = Role::where('name', 'Admin')->get(['id'])->first();
+        else
+            $roles = Role::where('name', 'Docent')->get(['id'])->first();
+
+        $randomPassword = Str::random(20);
+        $users = new User;
+        $users->email = $request->email;
+        $users->password = Hash::make($randomPassword);
+
+        DB::transaction(function () use ($users, $roles) {
+            $users->save();
+            $users->roles()->attach($roles);
+            $roles->save();
+        });
+
+        Mail::to( $users->email)->send(new RegistrationMail($users , $randomPassword));
+
+        return redirect()->route('home');
     }
 }
