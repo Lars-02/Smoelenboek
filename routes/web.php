@@ -23,10 +23,11 @@ Auth::routes();
 Route::group(['middleware' => 'auth'], function () {
 
     Route::group(['middleware' => 'employee.empty', 'prefix' => 'employee', 'as' => 'employee.'], function () {
-        Route::get('/create', [RegisterController::class, 'create'])->name('create');
-        Route::post('/', [RegisterController::class, 'store'])->name('store');
+        Route::get('/create', [EmployeeController::class, 'create'])->name('create');
+        Route::post('/', [EmployeeController::class, 'store'])->name('store');
     });
 
+    Route::resource('employee', EmployeeController::class);
     Route::group(['middleware' => 'employee'], function () {
 
         Route::get('/', [HomeController::class, 'index'])->name('home');
@@ -36,7 +37,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::post('/', [UserController::class, 'registerNewUser'])->name('registerNewUser');
 
         Route::resource('employee', EmployeeController::class)
-            ->only(['show', 'edit', 'update']);
+            ->only(['show']);
     });
 });
 
