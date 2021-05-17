@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\RegisterRequests\RegisterUserRequest;
 use App\Models\Department;
 use App\Models\Employee;
 use App\Models\Expertise;
@@ -79,7 +80,7 @@ class RegisterController extends Controller
      */
     public function store(RegisterUserRequest $request)
     {
-        $validated = $this->validateEmployee();
+        $validated = $request->validated();
 
         $employee = Employee::create($validated);
 
