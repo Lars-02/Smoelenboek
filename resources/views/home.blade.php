@@ -24,12 +24,12 @@
                     x-init="$refs.loading.classList.add('hidden');"
                     @resize.window="watchScreen()"
                 >
-                <div class="fixed z-40 flex h-screen antialiased text-gray-900 bg-gray-100">
-                    <div x-ref="loading" class="fixed inset-0 z-50 flex items-center justify-center text-2xl font-semibold text-white bg-red-700">Loading..... </div>
+                <div class="fixed z-30 flex h-screen antialiased text-gray-900 bg-gray-100">
+                    <div x-ref="loading" class="inset-0 z-50 flex items-center justify-center text-2xl font-semibold text-white bg-red-700">Loading..... </div>
 
                     <div x-show="isSidebarOpen"
                         @click="isSidebarOpen = false"
-                        class="fixed inset-0 z-10 bg-gray-500 lg:hidden"
+                        class="inset-0 z-10 bg-gray-500 lg:hidden"
                         style="opacity: 0.5"
                         aria-hidden="true" ></div>
                     <aside
@@ -42,7 +42,7 @@
                         x-transition:leave-end="-translate-x-full opacity-0"
                         x-ref="sidebar"
                         tabindex="-1"
-                        class="z-40 fixed inset-y-0 flex flex-shrink-0 overflow-hidden bg-gray-100 border-r lg:static focus:outline-none ">
+                        class="z-30 inset-y-0 flex flex-shrink-0 overflow-hidden bg-gray-100 border-r lg:static focus:outline-none ">
                         <!-- Sidebar links -->
                         <nav aria-label="Main" class="h-3/4 flex-1 px-2 w-80 bg-gray-100 py-4 space-y-2 overflow-y-scroll hover:overflow-y-auto">
                             <x-filterModal title="Cursus">
