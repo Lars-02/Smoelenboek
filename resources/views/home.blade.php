@@ -5,12 +5,6 @@
                 @if(Auth::user()->isAdmin())
                     <x-button class="absolute right-5 "><a href="{{route('register')}}">Nieuwe gebruiker</a></x-button>
                 @endif
-                <div>
-                    <span class="absolute pl-3 pt-1 sm:pt-2 md:pt-1.5 lg:pt-2.5 xl:pt-3 text-gray-600">
-                        <i class="fas fa-search"></i>
-                    </span>
-                    <input type="text"  value="{{$request["searchbar"]}}" name="searchbar" id="searchbar" placeholder="Zoeken..." class="text-xs sm:text-sm md:text-base lg:text-lg pl-8 rounded border-gray-400 focus:border-gray-400 text-gray-600 focus:ring-0"/>
-                </div>
             </div>
         </div>
         <div class="mx-3 space-x-4 top-28 flex-grow mb-4 overflow-x-hidden overflow-y-scroll scrollbar-hide rounded-md pb-4">
@@ -26,7 +20,6 @@
                 <div
                     x-data="setup()"
                     x-init="$refs.loading.classList.add('hidden');"
-                    @resize.window="watchScreen()"
                 >
                 <div class="fixed z-40 flex h-screen antialiased text-gray-900 bg-gray-100">
                     <div x-ref="loading" class="fixed inset-0 z-50 flex items-center justify-center text-2xl font-semibold text-white bg-red-700">Loading..... </div>
@@ -48,7 +41,13 @@
                         tabindex="-1"
                         class="z-40 fixed inset-y-0 flex flex-shrink-0 overflow-hidden bg-gray-100 border-r focus:outline-none ">
                         <!-- Sidebar links -->
-                        <nav aria-label="Main" class="h-3/4 flex-1 px-2 w-80 bg-gray-100 py-4 space-y-2 overflow-y-scroll hover:overflow-y-auto">
+                        <nav aria-label="Main" class="h-screen flex-1 px-2 w-80 bg-gray-100 py-4 space-y-2 overflow-y-scroll hover:overflow-y-auto">
+                            <div>
+                                <span class="absolute pl-3 pt-1 sm:pt-2 md:pt-1.5 lg:pt-2.5 xl:pt-3 text-gray-600">
+                                    <i class="fas fa-search"></i>
+                                </span>
+                                <input type="text"  value="{{$request["searchbar"]}}" name="searchbar" id="searchbar" placeholder="Zoeken..." class="text-xs sm:text-sm md:text-base lg:text-lg pl-8 rounded border-gray-400 focus:border-gray-400 text-gray-600 focus:ring-0"/>
+                            </div>
                             <x-filterModal title="Cursus">
                                 @foreach($courses as $course)
                                     @if(isset($request->get("courses")[$course->id]))
@@ -166,7 +165,7 @@
                                     @endif
                                 @endforeach
                             </x-filterModal>
-                            <div class="flex flex-wrap content-center justify-center w-full">
+                            <div class="pb-4 flex flex-wrap content-center justify-center w-full">
                                 <x-button class="mx-4"><a href="{{ route('home') }}">Clear</a></x-button>
                                 <x-button class="mx-4" type="submit">Apply</x-button>
                             </div>
@@ -211,13 +210,6 @@
                 const setup = () => {
                     return {
                         loading: true,
-                        watchScreen() {
-                            if (window.innerWidth <= 50000) {
-                                this.isSidebarOpen = false
-                            } else if (window.innerWidth >= 50000) {
-                                this.isSidebarOpen = true
-                            }
-                        },
                         isSidebarOpen: window.innerWidth >= 50000 ? true : false,
                         toggleSidebarMenu() {
                             this.isSidebarOpen = !this.isSidebarOpen
