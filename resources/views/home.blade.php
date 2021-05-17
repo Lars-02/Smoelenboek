@@ -16,6 +16,13 @@
 
             </div>
         </div>
+        <div class="mx-3 space-x-4 top-28 flex-grow mb-4 overflow-x-hidden overflow-y-scroll scrollbar-hide rounded-md pb-4">
+            <div class="grid gap-4 md:gap-6 xl:gap-8 grid-cols-2 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+                @foreach($employees as $employee)
+                    <x-profilecard :employee="$employee"></x-profilecard>
+                @endforeach
+            </div>
+        </div>
         <div class="sm:flex sm:h-screen sm:overflow-hidden mb-2  ml-0 sm:mx-4 md:mx-5">
             <div class="max-w-xs sm:w-1/2 xl:w-1/3 mr-0 sm:mr-3 sm:overflow-y-scroll scrollbar-hide">
                 @csrf
@@ -29,7 +36,7 @@
 
                     <div x-show="isSidebarOpen"
                         @click="isSidebarOpen = false"
-                        class="fixed inset-0 z-10 bg-gray-500 lg:hidden"
+                        class="fixed inset-0 z-10 bg-gray-500"
                         style="opacity: 0.5"
                         aria-hidden="true" ></div>
                     <aside
@@ -42,7 +49,7 @@
                         x-transition:leave-end="-translate-x-full opacity-0"
                         x-ref="sidebar"
                         tabindex="-1"
-                        class="z-40 fixed inset-y-0 flex flex-shrink-0 overflow-hidden bg-gray-100 border-r lg:static focus:outline-none ">
+                        class="z-40 fixed inset-y-0 flex flex-shrink-0 overflow-hidden bg-gray-100 border-r focus:outline-none ">
                         <!-- Sidebar links -->
                         <nav aria-label="Main" class="h-3/4 flex-1 px-2 w-80 bg-gray-100 py-4 space-y-2 overflow-y-scroll hover:overflow-y-auto">
                             <x-filterModal title="Cursus">
@@ -165,7 +172,7 @@
                         </nav>
                     </aside>
                     <!-- Sidebars button -->
-                    <div class="z-30 fixed flex items-center space-x-4 top-5 right-10 lg:hidden">
+                    <div class="z-30 fixed flex items-center space-x-4 top-5 right-10">
                         <div
                             @click="isSidebarOpen = true; $nextTick(() => { $refs.sidebar.focus() })"
                             class="focus:outline-none cursor-pointer p-1 text-white transition-colors duration-200 rounded-md bg-red-700 hover:bg-red-500 focus:outline-none focus:ring"
@@ -204,28 +211,19 @@
                     return {
                         loading: true,
                         watchScreen() {
-                            if (window.innerWidth <= 1024) {
+                            if (window.innerWidth <= 50000) {
                                 this.isSidebarOpen = false
-                            } else if (window.innerWidth >= 1024) {
+                            } else if (window.innerWidth >= 50000) {
                                 this.isSidebarOpen = true
                             }
                         },
-                        isSidebarOpen: window.innerWidth >= 1024 ? true : false,
+                        isSidebarOpen: window.innerWidth >= 50000 ? true : false,
                         toggleSidebarMenu() {
                             this.isSidebarOpen = !this.isSidebarOpen
                         },
                     }
                 }
             </script>
-
-
-            <div class="mx-3 space-x-4 top-28 flex-grow mb-4 overflow-x-hidden overflow-y-scroll scrollbar-hide rounded-md pb-4">
-                <div class="grid gap-4 md:gap-6 xl:gap-8 grid-cols-2 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-                    @foreach($employees as $employee)
-                        <x-profilecard :employee="$employee"></x-profilecard>
-                    @endforeach
-                </div>
-            </div>
         </div>
     </form>
 </x-layout>
