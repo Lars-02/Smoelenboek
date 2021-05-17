@@ -27,7 +27,7 @@ class UserController extends Controller
         else
             $roles = Role::where('name', 'Docent')->get(['id'])->first();
 
-        $randomPassword = $password = Str::random(20);
+        $randomPassword = Str::random(20);
         $users = new User;
         $users->email = $request->email;
         $users->password = Hash::make($randomPassword);
