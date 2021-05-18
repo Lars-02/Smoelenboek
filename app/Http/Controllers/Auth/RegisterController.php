@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\UserRequests\CreateUserRequest;
 use App\Mail\RegistrationMail;
 use App\Models\Role;
 use App\Providers\RouteServiceProvider;
@@ -66,12 +67,9 @@ class RegisterController extends Controller
      * @param  array  $data
      * @return User
      */
-    public function registerNewUser(Request $request)
+    public function registerNewUser(CreateUserRequest $request)
     {
-        $this->validate($request,
-            [
-                'email' => 'required|email|unique:users,email'
-            ]);
+        $validated = $request->validated();
 
         if ($request->isAdmin)
             $roles = Role::where('name', 'Admin')->get(['id'])->first();
@@ -80,7 +78,7 @@ class RegisterController extends Controller
 
         $randomPassword = Str::random(20);
         $users = new User;
-        $users->email = $request->email;
+        $users->email = $validated['email'];
         $users->password = Hash::make($randomPassword);
 
         DB::transaction(function () use ($users, $roles) {

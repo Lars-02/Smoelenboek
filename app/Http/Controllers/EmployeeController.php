@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\EmployeeRequests\CreateEmployeeRequest;
 use App\Http\Requests\EmployeeRequests\EditEmployeeRequest;
+use App\Http\Requests\EmployeeRequests\StoreEmployeeRequest;
+use App\Http\Requests\RegisterRequests\RegisterUserRequest;
 use App\Models\Course;
 use App\Models\DayOfWeek;
 use App\Models\Department;
@@ -47,9 +49,9 @@ class EmployeeController extends Controller
      * @param Request $request
      * @return RedirectResponse
      */
-    public function store()
+    public function store(StoreEmployeeRequest $request)
     {
-        $validated = $this->validateEmployee();
+        $validated = $request->validated();
 
         $employee = Employee::create($validated);
 
@@ -62,20 +64,6 @@ class EmployeeController extends Controller
         $employee->user->save();
 
         return redirect(route('home'));
-    }
-
-    protected function validateEmployee()
-    {
-        return request()->validate([
-            'user_id' => 'required|unique:employees',
-            'firstname' => 'required|alpha|min:2|max:40',
-            'lastname' => 'required|min:2|max:40',
-            'phoneNumber' => array('required', 'regex:/^((\+31)|(0031)|0)(\(0\)|)(\d{1,3})(\s|\-|)(\d{8}|\d{4}\s\d{4}|\d{2}\s\d{2}\s\d{2}\s\d{2})$/'),
-            'departments' => 'required|exists:departments,id',
-            'expertises' => 'required|exists:expertises,id',
-            'roles' => 'required|exists:roles,id',
-            'workDays' => 'required|exists:work_days,id',
-        ]);
     }
 
     /**

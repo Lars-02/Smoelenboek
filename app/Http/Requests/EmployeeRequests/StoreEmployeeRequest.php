@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\RegisterRequests;
+namespace App\Http\Requests\EmployeeRequests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class RegisterUserRequest extends FormRequest
+class StoreEmployeeRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
