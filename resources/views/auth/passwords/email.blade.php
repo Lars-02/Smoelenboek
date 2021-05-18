@@ -2,11 +2,10 @@
     <x-card title="Wachtwoord Vergeten">
         <form method="POST" action="{{ route('password.email') }}">
             @csrf
-            <x-input id="email" type="email" name="email" icon="fas fa-user">Email</x-input>
             @error('email')
-            <span class="select-none text-red-700" role="alert">
-                <strong>{{ $message }}</strong>
-            </span>
+                    <x-input error="{{$message}}" id="email" type="email" name="email" icon="fas fa-user">{{ __('Email') }}</x-input>
+                @else
+                    <x-input id="email" type="email" name="email" icon="fas fa-user">{{ __('Email') }}</x-input>
             @enderror
             <div class="flex">
                 <div class="mr-4">

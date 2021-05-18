@@ -34,8 +34,8 @@ class EditEmployeeRequest extends FormRequest
             'minors' => 'nullable',
             'lectorates' => 'nullable',
             'courses' => 'nullable',
-            'roles' => 'nullable',
-            'workDays' => 'nullable',
+            'roles' => 'required',
+            'workDays' => 'required',
             'learningLines' => 'nullable',
             'hobbies' => 'nullable',
         ];

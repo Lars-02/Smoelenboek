@@ -2,16 +2,31 @@
     <x-card class="select-none" title="Login">
         <form method="POST" action="{{ route('login') }}">
             @csrf
-            <x-input
-                icon="fas fa-user"
-                type="email"
-                id="email"
-                name="email"
-                value="{{ old('email') }}"
-                autocomplete="email"
-                required autofocus
-            >{{ __('Email') }}
-            </x-input>
+            @error('email')
+                    <x-input
+                        error="{{$message}}"
+                        icon="fas fa-user"
+                        type="email"
+                        id="email"
+                        name="email"
+                        value="{{ old('email') }}"
+                        autocomplete="email"
+                        required autofocus
+                        >{{ __('Email') }}
+                    </x-input>
+                @else
+                    <x-input
+                        icon="fas fa-user"
+                        type="email"
+                        id="email"
+                        name="email"
+                        value="{{ old('email') }}"
+                        autocomplete="email"
+                        required autofocus
+                        >{{ __('Email') }}
+                    </x-input>
+            @enderror
+
             <x-input
                 icon="fas fa-lock"
                 type="password"
@@ -21,6 +36,7 @@
                 required
             >{{ __('Wachtwoord') }}
             </x-input>
+
             <div class="flex">
                 <div class="mr-4">
                     <x-button type="submit">

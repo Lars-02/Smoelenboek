@@ -2,18 +2,29 @@
     <x-card title="Nieuwe medewerker">
         <form method="POST" action="{{ route('registerNewUser') }}">
             @csrf
-            <x-input
-                icon="fas fa-user"
-                type="email"
-                name="email"
-                id="email"
-                value="{{ old('email') }}"
-                autocomplete="email"
-                required autofocus>
-                Email
-            </x-input>
-            @error('email')
-            <span class="select-none text-red-500 font-medium">{{ $message }}</span>
+            @error(('email'))
+                <x-input
+                    error="{{$message}}"
+                    icon="fas fa-user"
+                    type="email"
+                    name="email"
+                    id="email"
+                    value="{{ old('email') }}"
+                    autocomplete="email"
+                    required autofocus
+                >{{ __('Email') }}
+                </x-input>
+            @else
+                <x-input
+                    icon="fas fa-user"
+                    type="email"
+                    name="email"
+                    id="email"
+                    value="{{ old('email') }}"
+                    autocomplete="email"
+                    required autofocus
+                >{{ __('Email') }}
+                </x-input>
             @enderror
 
             <x-toggle class="select-none" name="isAdmin">Admin</x-toggle>

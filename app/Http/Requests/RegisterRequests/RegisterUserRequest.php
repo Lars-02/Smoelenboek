@@ -24,9 +24,14 @@ class RegisterUserRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'user_id' => 'required|unique:employees',
+            'firstname' => 'required|alpha|min:2|max:40',
+            'lastname' => 'required|min:2|max:40',
+            'phoneNumber' => array('required', 'regex:/^((\+31)|(0031)|0)(\(0\)|)(\d{1,3})(\s|\-|)(\d{8}|\d{4}\s\d{4}|\d{2}\s\d{2}\s\d{2}\s\d{2})$/'),
+            'departments' => 'required|exists:departments,id',
+            'expertises' => 'required|exists:expertises,id',
+            'roles' => 'required|exists:roles,id',
+            'workDays' => 'required|exists:work_days,id',
         ];
     }
 
@@ -38,7 +43,6 @@ class RegisterUserRequest extends FormRequest
     public function messages()
     {
         return [
-            
         ];
     }
 }
