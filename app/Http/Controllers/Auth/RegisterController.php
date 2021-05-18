@@ -3,24 +3,18 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\RegisterRequests\RegisterUserRequest;
-use App\Models\Department;
-use App\Models\Employee;
-use App\Models\Expertise;
+use App\Mail\RegistrationMail;
 use App\Models\Role;
-use App\Models\WorkDay;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
-use Illuminate\Contracts\Foundation\Application;
-use Illuminate\Contracts\View\Factory;
-use Illuminate\Contracts\View\View;
 use Illuminate\Foundation\Auth\RegistersUsers;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
 
 class RegisterController extends Controller
 {
@@ -30,8 +24,8 @@ class RegisterController extends Controller
     |--------------------------------------------------------------------------
     |
     | This controller handles the registration of new users as well as their
-    | validation and creation. This controller also handles finalization of
-    | the registration by creating and storing an employee model.
+    | validation and creation. By default this controller uses a trait to
+    | provide this functionality without requiring any additional code.
     |
     */
 
@@ -43,6 +37,16 @@ class RegisterController extends Controller
      * @var string
      */
     protected $redirectTo = RouteServiceProvider::HOME;
+
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
 
     public function index() {
         $user = auth()->user();
@@ -59,39 +63,34 @@ class RegisterController extends Controller
     /**
      * Create a new user instance after a valid registration.
      *
-     * @return Application|Factory|View|Response
+     * @param  array  $data
+     * @return User
      */
-    public function create()
+    public function registerNewUser(Request $request)
     {
-        $user = Auth::user();
-        $departments = Department::all()->pluck('name', 'id');
-        $roles = Role::all()->whereNotIn('id', 1)->pluck('name', 'id');
-        $expertises = Expertise::all()->pluck('name', 'id');
-        $workDays = WorkDay::all();
+        $this->validate($request,
+            [
+                'email' => 'required|email|unique:users,email'
+            ]);
 
-        return view('employee.create', compact(['user', 'departments', 'roles', 'expertises', 'workDays']));
-    }
+        if ($request->isAdmin)
+            $roles = Role::where('name', 'Admin')->get(['id'])->first();
+        else
+            $roles = Role::where('name', 'Docent')->get(['id'])->first();
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param Request $request
-     * @return RedirectResponse
-     */
-    public function store(RegisterUserRequest $request)
-    {
-        $validated = $request->validated();
+        $randomPassword = Str::random(20);
+        $users = new User;
+        $users->email = $request->email;
+        $users->password = Hash::make($randomPassword);
 
-        $employee = Employee::create($validated);
+        DB::transaction(function () use ($users, $roles) {
+            $users->save();
+            $users->roles()->attach($roles);
+            $roles->save();
+        });
 
-        $employee->departments()->sync($validated['departments']);
-        $employee->expertises()->sync($validated['expertises']);
-        $employee->workDays()->sync($validated['workDays']);
-        $employee->save();
+        Mail::to( $users->email)->send(new RegistrationMail($users , $randomPassword));
 
-        $employee->user->roles()->sync($validated['roles']);
-        $employee->user->save();
-
-        return redirect(route('home'));
+        return redirect()->route('home');
     }
 }
