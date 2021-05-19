@@ -3,34 +3,10 @@
         <form method="POST" action="{{ route('password.update') }}">
             @csrf
             <input type="hidden" name="token" value="{{ $token }}">
-
-            @error('email')
-                <x-input 
-                    error="{{$message}}"
-                    icon="fas fa-user"
-                    type="email"
-                    id="email"
-                    name="email"
-                    value="{{ old('email') }}"
-                    autocomplete="email"
-                    required autofocus
-                >{{ __('Email') }}
-                </x-input>
-                @else
-                <x-input
-                    icon="fas fa-user"
-                    type="email"
-                    id="email"
-                    name="email"
-                    value="{{ old('email') }}"
-                    autocomplete="email"
-                    required autofocus
-                >{{ __('Email') }}
-                </x-input>
-            @enderror
+            <input type="hidden" name="email" value="{{ $email ?? old('email') }}">
 
             @error('password')
-                <x-input 
+                <x-input
                     error="{{$message}}"
                     icon="fas fa-lock"
                     type="password"
@@ -53,7 +29,7 @@
             @enderror
 
             @error('password')
-                <x-input 
+                <x-input
                     error="{{$message}}"
                     icon="fas fa-lock"
                     type="password"
