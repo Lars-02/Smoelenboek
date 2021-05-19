@@ -14,8 +14,10 @@
                 @endforeach
             </div>
         </div>
-        <div class="sm:flex sm:h-screen sm:overflow-hidden mb-2  ml-0">
-            <div class="max-w-xs sm:w-1/2 xl:w-1/3 mr-0 sm:mr-3 sm:overflow-y-scroll scrollbar-hide">
+
+
+        <div class="sm:flex sm:overflow-hidden mb-2 h-0 ml-0">
+            <div class="max-w-xs sm:w-1/2 xl:w-1/3 mr-0 sm:mr-3 h-0 sm:overflow-y-scroll scrollbar-hide">
                 @csrf
                 <div
                     x-data="setup()"
@@ -172,7 +174,7 @@
                         </nav>
                     </aside>
                     <!-- Sidebars button -->
-                    <div class="z-30 fixed flex items-center right-10 space-x-4 top-5 content-center">
+                    <div class="z-30 fixed flex items-center right-10 space-x-4 top-3.5 content-center">
                         <div
                             @click="isSidebarOpen = true; $nextTick(() => { $refs.sidebar.focus() })"
                             class="focus:outline-none cursor-pointer p-1 text-white transition-colors duration-200 rounded-md bg-red-700 hover:bg-red-500 focus:outline-none focus:ring"
@@ -205,17 +207,17 @@
                 </div>
             </div>
             </div>
-            <script>
-                const setup = () => {
-                    return {
-                        loading: true,
-                        isSidebarOpen: window.innerWidth >= 50000 ? true : false,
-                        toggleSidebarMenu() {
-                            this.isSidebarOpen = !this.isSidebarOpen
-                        },
-                    }
-                }
-            </script>
         </div>
     </form>
+    <script>
+        const setup = () => {
+            return {
+                loading: true,
+                isSidebarOpen: window.innerWidth >= 50000 ? true : false,
+                toggleSidebarMenu() {
+                    this.isSidebarOpen = !this.isSidebarOpen
+                },
+            }
+        }
+    </script>
 </x-layout>
