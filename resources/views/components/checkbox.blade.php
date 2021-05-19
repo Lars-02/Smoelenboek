@@ -11,7 +11,7 @@
         @endforeach
     </div>
     @if(isset($error))
-        <p class="relative mb-3 bg-red-200 relative text-red-500 py-3 px-3 rounded-lg clear-both">
+        <p class="relative mb-3 bg-red-200 text-red-500 py-3 px-3 rounded-lg clear-both">
             {{$error}}
         </p>
     @endif

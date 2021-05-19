@@ -15,4 +15,5 @@ return [
 
     'failed' => 'De combinatie van inloggegevens bestaat niet in ons systeem.',
     'password' => 'Het ingevoerde wachtwoord is onjuist.',
+    'throttle' => 'U heeft te vaak een poging gemaakt om in te loggen. Probeer het over :seconds seconden nogmaals.',
 ];

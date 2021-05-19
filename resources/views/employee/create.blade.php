@@ -6,21 +6,21 @@
             <input type="hidden" name="user_id" value="{{ $user->id }}">
             <div class="select-none grid gap-4 grid-cols-2 xl:grid-cols-3">
                 @error('firstname')
-                    <x-input error="{{$message}}" type="text" name="firstname" id="firstname" icon="fas fa-user-circle">Voornaam</x-input>
+                    <x-input error="{{$message}}" type="text" name="firstname" id="firstname" icon="fas fa-user-circle" value="{{ old('firstname') }}">Voornaam</x-input>
                 @else
-                    <x-input type="text" name="firstname" id="firstname" icon="fas fa-user-circle">Voornaam</x-input>
+                    <x-input type="text" name="firstname" id="firstname" icon="fas fa-user-circle" value="{{ old('firstname') }}">Voornaam</x-input>
                 @enderror
 
                 @error('lastname')
-                    <x-input error="{{$message}}" type="text" name="lastname" id="lastname" icon="fas fa-user-circle">Achternaam</x-input>
+                    <x-input error="{{$message}}" type="text" name="lastname" id="lastname" icon="fas fa-user-circle" value="{{ old('lastname') }}">Achternaam</x-input>
                 @else
-                    <x-input type="text" name="lastname" id="lastname" icon="fas fa-user-circle">Achternaam</x-input>
+                    <x-input type="text" name="lastname" id="lastname" icon="fas fa-user-circle" value="{{ old('lastname') }}">Achternaam</x-input>
                 @enderror
 
                 @error('phoneNumber')
-                    <x-input error="{{$message}}" type="text" name="phoneNumber" id="phoneNumber" icon="fas fa-user-circle">Telefoonnummer</x-input>
+                    <x-input error="{{$message}}" type="text" name="phoneNumber" id="phoneNumber" icon="fas fa-user-circle" value="{{ old('phoneNumber') }}">Telefoonnummer</x-input>
                 @else
-                    <x-input type="text" name="phoneNumber" id="phoneNumber" icon="fas fa-user-circle">Telefoonnummer</x-input>
+                    <x-input type="text" name="phoneNumber" id="phoneNumber" icon="fas fa-user-circle" value="{{ old('phoneNumber') }}">Telefoonnummer</x-input>
                 @enderror
 
                 @error('departments')
