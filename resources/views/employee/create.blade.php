@@ -46,7 +46,15 @@
                         <div class="flex justify-between md:w-2/3 xl:w-1/2 mb-6 col-span-2 xl:col-span-3 flex-wrap">
                             <div class="flex flex-row justify-between">
                                 @foreach($workDays as $day)
-                                    <x-dayToggle :day="$day"></x-dayToggle>
+                                    @if (old('workDays') !== null)
+                                        @if(in_array($day->id, old('workDays')))
+                                            <x-dayToggle :day="$day" :selected="true"></x-dayToggle>
+                                            @else
+                                                <x-dayToggle :day="$day"></x-dayToggle>
+                                        @endif
+                                        @else
+                                        <x-dayToggle :day="$day"></x-dayToggle>
+                                    @endif
                                 @endforeach
                             </div>
                         </div>
