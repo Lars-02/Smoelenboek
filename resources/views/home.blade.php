@@ -14,7 +14,7 @@
                 @endforeach
             </div>
         </div>
-        <div class="sm:flex sm:h-screen sm:overflow-hidden mb-2  ml-0 sm:mx-4 md:mx-5">
+        <div class="sm:flex sm:h-screen sm:overflow-hidden mb-2  ml-0">
             <div class="max-w-xs sm:w-1/2 xl:w-1/3 mr-0 sm:mr-3 sm:overflow-y-scroll scrollbar-hide">
                 @csrf
                 <div
@@ -172,12 +172,11 @@
                         </nav>
                     </aside>
                     <!-- Sidebars button -->
-                    <div class="z-30 fixed flex items-center space-x-4 top-5 right-10">
+                    <div class="z-30 fixed flex items-center right-10 space-x-4 top-5 content-center">
                         <div
                             @click="isSidebarOpen = true; $nextTick(() => { $refs.sidebar.focus() })"
                             class="focus:outline-none cursor-pointer p-1 text-white transition-colors duration-200 rounded-md bg-red-700 hover:bg-red-500 focus:outline-none focus:ring"
                         >
-                            <span class="sr-only">Toggle main menu</span>
                             <span aria-hidden="true">
                                   <svg
                                       x-show="!isSidebarOpen"
