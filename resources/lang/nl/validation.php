@@ -114,7 +114,7 @@ return [
     'starts_with'          => ':Attribute moet beginnen met één van het volgende: :values',
     'string'               => ':Attribute moet een string zijn.',
     'timezone'             => ':Attribute moet een geldige tijdszone zijn.',
-    'unique'               => ':Attribute is al bezet.',
+    'unique'               => ':Attribute is al in gebruik.',
     'uploaded'             => 'Het uploaden van :attribute is mislukt.',
     'url'                  => ':Attribute formaat is ongeldig.',
     'uuid'                 => ':Attribute moet een valide UUID zijn.',

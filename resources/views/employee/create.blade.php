@@ -12,13 +12,13 @@
                 @enderror
 
                 @error('lastname')
-                    <x-input  error="{{$message}}" type="text" name="lastname" id="lastname" icon="fas fa-user-circle">Achternaam</x-input>
+                    <x-input error="{{$message}}" type="text" name="lastname" id="lastname" icon="fas fa-user-circle">Achternaam</x-input>
                 @else
                     <x-input type="text" name="lastname" id="lastname" icon="fas fa-user-circle">Achternaam</x-input>
                 @enderror
 
                 @error('phoneNumber')
-                    <x-input  error="{{$message}}" type="text" name="phoneNumber" id="phoneNumber" icon="fas fa-user-circle">Telefoonnummer</x-input>
+                    <x-input error="{{$message}}" type="text" name="phoneNumber" id="phoneNumber" icon="fas fa-user-circle">Telefoonnummer</x-input>
                 @else
                     <x-input type="text" name="phoneNumber" id="phoneNumber" icon="fas fa-user-circle">Telefoonnummer</x-input>
                 @enderror
@@ -41,12 +41,32 @@
                     <x-checkbox id="expertises" :options="$expertises">Expertises</x-checkbox>
                 @enderror
 
-                <div class="flex justify-between md:w-2/3 xl:w-1/2 mb-6 col-span-2 xl:col-span-3">
-                    @foreach($workDays as $day)
-                        <x-dayToggle :day="$day"></x-dayToggle>
-                    @endforeach
+                <div class="flex flex-wrap overflow-hidden">
+                    <div class="w-full overflow-hidden">
+                        <div class="flex justify-between md:w-2/3 xl:w-1/2 mb-6 col-span-2 xl:col-span-3 flex-wrap">
+                            <div class="flex flex-row justify-between">
+                                @foreach($workDays as $day)
+                                    <x-dayToggle :day="$day"></x-dayToggle>
+                                @endforeach
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="w-full overflow-hidden">
+                        <div class="w-full overflow-hidden">
+                            @error(('workDays'))
+                                <p class="relative mb-3 bg-red-200 text-red-500 py-3 px-3 rounded-lg clear-both">{{ $message }}</p>
+                            @enderror
+                        </div>
+                    </div>
+                    
+                    <div class="w-full overflow-hidden">
+                        <div>
+                            <x-button class="select-none" type="submit">Afronden</x-button>
+                        </div>
+                    </div>
                 </div>
-                <x-button class="select-none" type="submit">Afronden</x-button>
+                </div>
             </div>
         </form>
     </x-card>

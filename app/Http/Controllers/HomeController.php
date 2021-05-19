@@ -11,6 +11,7 @@ use App\Filters\LectorateFilter;
 use App\Filters\MinorFilter;
 use App\Filters\RoleFilter;
 use App\Filters\WorkDayFilter;
+use App\Http\Requests\HomeRequests\IndexHomeRequest;
 use App\Models\Course;
 use App\Models\Department;
 use App\Models\Employee;
@@ -33,60 +34,62 @@ class HomeController extends Controller
      *
      * @return Renderable|RedirectResponse
      */
-    public function index(Request $request)
+    public function index(IndexHomeRequest $request)
     {
+        $validated = $request->validated();
+
         if (!isset($employees)) {
             $employees = Employee::all();
         }
 
         if (!is_null($request['searchbar'])) {
             $searchBar = new SearchBar();
-            $employees = $searchBar->search($employees, $request['searchbar']);
+            $employees = $searchBar->search($employees, $validated['searchbar']);
         }
 
-        if (isset($request['courses'])) {
+        if (isset($validated['courses'])) {
             $courseFilter = new CourseFilter();
-            $employees = $courseFilter->filter($employees, $request['courses']);
+            $employees = $courseFilter->filter($employees, $validated['courses']);
         }
 
-        if (isset($request['roles'])) {
+        if (isset($validated['roles'])) {
             $functionFilter = new RoleFilter();
-            $employees = $functionFilter->filter($employees, $request['roles']);
+            $employees = $functionFilter->filter($employees, $validated['roles']);
         }
 
-        if (isset($request['workDays'])) {
+        if (isset($validated['workDays'])) {
             $workDayFilter = new WorkDayFilter();
-            $employees = $workDayFilter->filter($employees, $request['workDays']);
+            $employees = $workDayFilter->filter($employees, $validated['workDays']);
         }
 
-        if (isset($request['learningLines'])) {
+        if (isset($validated['learningLines'])) {
             $learningLineFilter = new LearningLineFilter();
-            $employees = $learningLineFilter->filter($employees, $request['learningLines']);
+            $employees = $learningLineFilter->filter($employees, $validated['learningLines']);
         }
 
-        if (isset($request['departments'])) {
+        if (isset($validated['departments'])) {
             $departmentFilter = new DepartmentFilter();
-            $employees = $departmentFilter->filter($employees, $request['departments']);
+            $employees = $departmentFilter->filter($employees, $validated['departments']);
         }
 
-        if (isset($request['hobbies'])) {
+        if (isset($validated['hobbies'])) {
             $hobbyFilter = new HobbyFilter();
-            $employees = $hobbyFilter->filter($employees, $request['hobbies']);
+            $employees = $hobbyFilter->filter($employees, $validated['hobbies']);
         }
 
-        if (isset($request['lectorates'])) {
+        if (isset($validated['lectorates'])) {
             $LectorateFilter = new LectorateFilter();
-            $employees = $LectorateFilter->filter($employees, $request['lectorates']);
+            $employees = $LectorateFilter->filter($employees, $validated['lectorates']);
         }
 
-        if (isset($request['expertises'])) {
+        if (isset($validated['expertises'])) {
             $expertiseFilter = new ExpertiseFilter();
-            $employees = $expertiseFilter->filter($employees, $request['expertises']);
+            $employees = $expertiseFilter->filter($employees, $validated['expertises']);
         }
 
-        if (isset($request['minors'])) {
+        if (isset($validated['minors'])) {
             $minorFilter = new MinorFilter();
-            $employees = $minorFilter->filter($employees, $request['minors']);
+            $employees = $minorFilter->filter($employees, $validated['minors']);
         }
 
         $courses = Course::all();
