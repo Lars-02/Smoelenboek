@@ -8,11 +8,12 @@ jobs:
       mysql:
         image: mysql:8.0
         env:
-          MYSQL_ROOT_PASSWORD: ""
+          MYSQL_ALLOW_EMPTY_PASSWORD: yes
           MYSQL_DATABASE: smoelenboek_test
           MYSQL_USERNAME: root
+          MYSQL_ROOT_PASSWORD: ""
         ports:
-            - '3306'
+            - '3306:3306'
     steps:
       - uses: actions/checkout@v1
       - run: mysql -h 127.0.0.1 --port 3306 -u root -ppassword -e 'CREATE DATABASE IF NOT EXISTS test;'
