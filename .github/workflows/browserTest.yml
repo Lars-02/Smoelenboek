@@ -5,27 +5,36 @@ jobs:
   browser-test:
     runs-on: ubuntu-latest
     
+#     services:
+#       mysql:
+#         image: mysql:8.0
+#         env:
+#           MYSQL_ALLOW_EMPTY_PASSWORD: yes
+#           MYSQL_DATABASE: smoelenboek_test
+#         ports:
+#           - 3306
+#         options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
     services:
       mysql:
         image: mysql:8.0
         env:
           MYSQL_ALLOW_EMPTY_PASSWORD: yes
-          MYSQL_DATABASE: smoelenboek_test
+          MYSQL_DATABASE: smoelenboek
         ports:
           - 3306
         options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
         
     steps:
       - uses: actions/checkout@v1
-#       - run: mysql -h 127.0.0.1 --port 3306 -u root -ppassword -e 'CREATE DATABASE IF NOT EXISTS test;'
-      - name: Prepare The Environment
-        run: cp .env.example .env
-        env:
-          DB_DATABASE: smoelenboek
-          DB_CONNECTION: mysql
-          APP_URL: http://127.0.0.1:8000/
-          APP_KEY: base64:Oha2ioWkelO/j3cEo+2ujaBJCRw2RBBl/I40+1ggI0A=
-#       - name: Prepare Test Environment
+#       - 2run: mysql -h 127.0.0.1 --port 3306 -u root -ppassword -e 'CREATE DATABASE IF NOT EXISTS test;'
+#       - name: Prepare The Environment
+#         run: cp .env.example .env
+#         env:
+#           DB_DATABASE: smoelenboek
+#           DB_CONNECTION: mysql
+#           APP_URL: http://127.0.0.1:8000/
+#           APP_KEY: base64:Oha2ioWkelO/j3cEo+2ujaBJCRw2RBBl/I40+1ggI0A=
+#       - 2name: Prepare Test Environment
 #         run: cp .env .env.dusk.local
 #         env:
 #           DB_DATABASE: smoelenboek_test
@@ -34,8 +43,36 @@ jobs:
 #         run: |
 #           sudo systemctl start mysql
 #           mysql --user="root" --password=" " -e "CREATE DATABASE 'smoelenboek_test' character set UTF8mb4 collate utf8mb4_bin;"
+      - name: Cache composer dependencies
+        uses: actions/cache@v1
+        with:
+          path: ~/.composer/cache/files
+          key: dependencies-php-7.4-composer-${{ hashFiles('composer.lock') }}
+          restore-keys: |
+            dependencies-php-7.4-composer-
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 8.0
+          extensions: curl, dom, fileinfo, filter, iconv, json, libxml, mbstring, openssl, pcntl, pcre, pdo, simplexml, sqlite, pdo_sqlite, tokenizer, xml, xmlwriter, zip
+
+      - name: Install PHP dependencies (composer)
+        run: |
+          composer config "http-basic.nova.laravel.com" "${{ secrets.NOVA_USERNAME }}" "${{ secrets.NOVA_PASSWORD }}"
+          composer install --no-interaction --no-suggest
+
+      - name: Prepare Laravel Application
+        run: |
+         cp .env.example .env
+         php artisan key:generate
       - name: Install Composer Dependencies
         run: composer install --no-progress --no-suggest --prefer-dist --optimize-autoloader
+      - name: Run migration and schema dump
+        run: php artisan migrate:fresh --seed --force
+        env:
+          DB_PORT: ${{ job.services.mysql.ports[3306] }}
+          DB_DATABASE: smoelenboek
       - name: Generate Application Key
         run: php artisan key:generate
       - name: Upgrade Chrome Driver
@@ -44,10 +81,11 @@ jobs:
         run: ./vendor/laravel/dusk/bin/chromedriver-linux &
       - name: Run Laravel Server
         run: php artisan serve --port 8000 --no-reload &
-      - name: Run Dusk Tests
-        env:
-          APP_URL: "http://127.0.0.1:8000/"
-        run: php artisan dusk
+        
+#       - name: Run Dusk Tests
+#         env:
+#           APP_URL: "http://127.0.0.1:8000/"
+#         run: php artisan dusk
       - name: Upload Screenshots
         if: failure()
         uses: actions/upload-artifact@v2
