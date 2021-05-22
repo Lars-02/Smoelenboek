@@ -17,10 +17,11 @@ jobs:
         
     steps:
       - uses: actions/checkout@v1
-      - run: php artisan migrate:fresh --seed
 #       - run: mysql -h 127.0.0.1 --port 3306 -u root -ppassword -e 'CREATE DATABASE IF NOT EXISTS test;'
       - name: Prepare The Environment
         run: cp .env.example .env
+        env:
+          DB_DATABASE: smoelenboek_test
 #       - name: Create Database
 #         run: |
 #           sudo systemctl start mysql
