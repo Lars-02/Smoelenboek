@@ -20,11 +20,11 @@ jobs:
       - uses: actions/checkout@v2
       - name: Configure Application
         run: |
-          git update-index --chmod=+x ./bin/ci.sh
+          git update-index --chmod=+x bin/ci.sh
           bin/ci.sh
       - name: Configure Laravel Dusk
         run: |
-          git update-index --chmod=+x ./bin/ci-dusk.sh
+          git update-index --chmod=+x bin/ci-dusk.sh
           /bin/ci-dusk
       - name: Execute Dusk tests via PHPUnit
         run: php artisan dusk
