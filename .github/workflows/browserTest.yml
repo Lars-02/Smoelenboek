@@ -2,22 +2,23 @@ name: Browser Test
 on: [push]
 jobs:
 
-  dusk-php:
+  browser-test:
     runs-on: ubuntu-latest
+    
     services:
       mysql:
         image: mysql:8.0
         env:
           MYSQL_ALLOW_EMPTY_PASSWORD: yes
           MYSQL_DATABASE: smoelenboek_test
-          MYSQL_USERNAME: root
-          MYSQL_ROOT_PASSWORD: ""
         ports:
-            - '3351:3306'
+          - 3306
         options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
+        
     steps:
       - uses: actions/checkout@v1
-      - run: mysql -h 127.0.0.1 --port 3306 -u root -ppassword -e 'CREATE DATABASE IF NOT EXISTS test;'
+      - run: php artisan migrate:fresh --seed
+#       - run: mysql -h 127.0.0.1 --port 3306 -u root -ppassword -e 'CREATE DATABASE IF NOT EXISTS test;'
       - name: Prepare The Environment
         run: cp .env.example .env
 #       - name: Create Database
