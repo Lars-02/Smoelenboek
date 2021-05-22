@@ -21,13 +21,15 @@ jobs:
       - name: Prepare The Environment
         run: cp .env.example .env
         env:
-          DB_DATABASE: smoelenboek
-          DB_CONNECTION: mysql
-      - name: Prepare Test Environment
-        run: cp .env .env.dusk.local
-        env:
           DB_DATABASE: smoelenboek_test
           DB_CONNECTION: smoelenboek_test
+          APP_URL: http://127.0.0.1:8000/
+          APP_KEY: base64:Oha2ioWkelO/j3cEo+2ujaBJCRw2RBBl/I40+1ggI0A=
+#       - name: Prepare Test Environment
+#         run: cp .env .env.dusk.local
+#         env:
+#           DB_DATABASE: smoelenboek_test
+#           DB_CONNECTION: smoelenboek_test
 #       - name: Create Database
 #         run: |
 #           sudo systemctl start mysql
@@ -41,7 +43,7 @@ jobs:
       - name: Start Chrome Driver
         run: ./vendor/laravel/dusk/bin/chromedriver-linux &
       - name: Run Laravel Server
-        run: php artisan serve --no-reload &
+        run: php artisan serve --port 8000 --no-reload &
       - name: Run Dusk Tests
         env:
           APP_URL: "http://127.0.0.1:8000/"
