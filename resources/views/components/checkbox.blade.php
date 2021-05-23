@@ -3,15 +3,22 @@
     <div class="h-32 mt-10 overflow-y-scroll overflow-x-hidden border-b-2">
         @foreach($options as $option => $value)
             <div>
-            <input @isset($employee) @if ($employee->$options->contains($value->id)) checked
-                    @endif @endisset
-                value="{{ $option }}" type="checkbox" name="{{$id}}[]">
+            <input @isset($employee) @if ($employee->$options->contains($value->id)) checked @endif @endisset
+                value="{{ $option }}" 
+                @if (old($id) !== null)
+                    @foreach(old($id) as $val)
+                        @if($val == $option)
+                            checked
+                        @endif
+                    @endforeach
+                @endif            
+                type="checkbox" name="{{$id}}[]">
                 <label>{{$value}}</label>
             </div>
         @endforeach
     </div>
     @if(isset($error))
-        <p class="relative mb-3 bg-red-200 relative text-red-500 py-3 px-3 rounded-lg clear-both">
+        <p class="relative mb-3 bg-red-200 text-red-500 py-3 px-3 rounded-lg clear-both">
             {{$error}}
         </p>
     @endif
