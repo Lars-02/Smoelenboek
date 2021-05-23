@@ -1,4 +1,7 @@
 <x-layout>
+    @if(session()->has('message'))
+        <x-flash title="Success" type="success">{{ session()->get('message') }}</x-flash>
+    @endif
     <x-card class="select-none" title="Login">
         <form method="POST" action="{{ route('login') }}">
             @csrf
