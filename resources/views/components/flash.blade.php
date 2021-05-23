@@ -13,7 +13,7 @@
 @endphp
 
 
-<section {{ $attributes->class([$colors[$type], 'rounded-lg p-4 border']) }} x-data="{ open: true }" x-show="open">
+<section {{ $attributes->class([$colors[$type], 'rounded-lg p-4 border m-8 mb-2']) }} x-data="{ open: true }" x-show="open">
     <div class="flex justify-between">
         <div>
             <span class="font-bold mr-2">{{ $title }}</span>
