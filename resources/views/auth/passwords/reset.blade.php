@@ -5,51 +5,25 @@
             <input type="hidden" name="token" value="{{ $token }}">
             <input type="hidden" name="email" value="{{ $email ?? old('email') }}">
 
-            @error('password')
-                <x-input
-                    error="{{$message}}"
-                    icon="fas fa-lock"
-                    type="password"
-                    id="password"
-                    name="password"
-                    autocomplete="password"
-                    required
-                >{{ __('Wachtwoord') }}
-                </x-input>
-                @else
-                <x-input
-                    icon="fas fa-lock"
-                    type="password"
-                    id="password"
-                    name="password"
-                    autocomplete="password"
-                    required
-                >{{ __('Wachtwoord') }}
-                </x-input>
-            @enderror
+            <x-input
+                icon="fas fa-lock"
+                type="password"
+                id="password"
+                name="password"
+                autocomplete="password"
+                required
+            >{{ __('Wachtwoord') }}
+            </x-input>
 
-            @error('password')
-                <x-input
-                    error="{{$message}}"
-                    icon="fas fa-lock"
-                    type="password"
-                    id="password_confirmation"
-                    name="password_confirmation"
-                    autocomplete="password_confirmation"
-                    required
-                >{{ __('Wachtwoord herhalen') }}
-                </x-input>
-                @else
-                <x-input
-                    icon="fas fa-lock"
-                    type="password"
-                    id="password_confirmation"
-                    name="password_confirmation"
-                    autocomplete="password_confirmation"
-                    required
-                >{{ __('Wachtwoord herhalen') }}
-                </x-input>
-            @enderror
+            <x-input
+                icon="fas fa-lock"
+                type="password"
+                id="password_confirmation"
+                name="password_confirmation"
+                autocomplete="password_confirmation"
+                required
+            >{{ __('Wachtwoord herhalen') }}
+            </x-input>
 
             <div class="flex">
                 <div class="mr-4">

@@ -8,9 +8,7 @@
         />
         <i class="select-none absolute left-3 bottom-3 sm:bottom-4 text-gray-600 {{ $icon }}"></i>
     </div>
-    @if(isset($error))
-        <p class="relative mb-3 bg-red-200 text-red-500 py-3 px-3 rounded-lg clear-both">
-            {{$error}}
-        </p>
-    @endif
+    @error($name)
+    <span class="text-red-600">{{ $message }}</span>
+    @enderror
 </div>
