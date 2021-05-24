@@ -34,20 +34,17 @@ class UserDataTest extends TestCase
 
         $response = $this->actingAs($user)->get('/employee/create');
 
-        $response->assertViewIs('employee.form');
+        $response->assertViewIs('employee.create');
     }
 
     // test 3 : pagina niet zichtbaar wanneer niet 1e keer inloggen
     public function test_user_cant_view_form_when_not_first_logged_in()
     {
-        $user = User::factory(User::class)->create();
-        $employee = new Employee;
-        $employee->user_id = $user->id;
-        $employee->save();
-
-        $response = $this->actingAs($user)->get('/employee/create');
-
-        $response->assertRedirect('/');
+        $employee = Employee::factory(Employee::class)->make();
+        $response = $this->actingAs($employee->user)->get('/employee/create');
+        $response->assertRedirect('/home');
     }
+
+
 
 }
