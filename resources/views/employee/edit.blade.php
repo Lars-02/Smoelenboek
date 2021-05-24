@@ -27,9 +27,11 @@
                         @if (empty($employee->user->photoUrl))
                             <img src="https://www.shareicon.net/data/128x128/2016/07/26/801997_user_512x512.png"
                                  class="w-48 md:w-auto md:flex-shrink-0 min-h-full max-h-full m-auto md:m-0">
+
                         @else
                             <img src="{{$employee->user->photoUrl}}" class="md:flex-shrink-0 min-h-full max-h-full">
                         @endif
+                            <input class="form-control-file" name="picturePath" type="file">
                         <p class="text-center md:text-left md:text-5xl sm:text-3xl select-all">{{$employee->firstname}} {{$employee->lastname}} </p>
                     </div>
 
