@@ -2,7 +2,17 @@
 
 namespace Database\Seeders;
 
+use App\Models\Course;
+use App\Models\Department;
 use App\Models\Employee;
+use App\Models\Expertise;
+use App\Models\Hobby;
+use App\Models\LearningLine;
+use App\Models\Lectorate;
+use App\Models\Minor;
+use App\Models\Role;
+use App\Models\User;
+use App\Models\WorkDay;
 use Illuminate\Database\Seeder;
 
 class EmployeeSeeder extends Seeder
@@ -14,9 +24,10 @@ class EmployeeSeeder extends Seeder
      */
     public function run()
     {
-        $amountOfUsers = 20;
-        for ($i = 1; $i <= $amountOfUsers; $i++){
-             Employee::factory()->create(['user_id' => $i, 'department' => 'AI&I']);
-        }
+        User::all()->each(function ($user) {
+           Employee::factory()->create([
+               'user_id' => $user,
+           ]);
+        });
     }
 }

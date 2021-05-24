@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\Employee;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class EmployeeFactory extends Factory
@@ -22,10 +23,11 @@ class EmployeeFactory extends Factory
     public function definition()
     {
         return [
-            'username' => $this->faker->userName,
             'firstname' => $this->faker->firstName,
             'lastname' => $this->faker->lastName,
             'phoneNumber' => $this->faker->phoneNumber,
+            'linkedInUrl' => $this->faker->url,
+            'user_id' => User::factory(),
         ];
     }
 }

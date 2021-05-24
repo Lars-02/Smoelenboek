@@ -9,9 +9,9 @@ class Expertise extends Model
 {
     use HasFactory;
 
-    protected $table = 'expertise';
+    public $timestamps = false;
 
-    public function employee() {
+    public function employees() {
         return $this->belongsToMany(Employee::class);
     }
 }

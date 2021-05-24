@@ -2,127 +2,151 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\EmployeeRequests\CreateEmployeeRequest;
+use App\Http\Requests\EmployeeRequests\EditEmployeeRequest;
+use App\Http\Requests\EmployeeRequests\StoreEmployeeRequest;
+use App\Http\Requests\RegisterRequests\RegisterUserRequest;
+use App\Models\Course;
 use App\Models\DayOfWeek;
 use App\Models\Department;
 use App\Models\Employee;
 use App\Models\Expertise;
+use App\Models\Hobby;
+use App\Models\LearningLine;
+use App\Models\Lectorate;
+use App\Models\Minor;
 use App\Models\Role;
-use App\Models\User;
-use App\Models\WorkHour;
+use App\Models\WorkDay;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-Use Exception;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Auth;
 
 class EmployeeController extends Controller
 {
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Application|Factory|View|Response
      */
     public function create()
     {
-        $departments = Department::all()->pluck('name');
-        $roles = Role::all()->pluck('name', 'id');
-        $expertises = Expertise::all()->pluck('name', 'id');;
+        $user = Auth::user();
+        $departments = Department::all()->pluck('name', 'id');
+        $roles = Role::all()->whereNotIn('id', 1)->pluck('name', 'id');
+        $expertises = Expertise::all()->pluck('name', 'id');
+        $workDays = WorkDay::all();
 
-        return view('employee.form', compact('departments', 'roles', 'expertises'));
+        return view('employee.create', compact(['user', 'departments', 'roles', 'expertises', 'workDays']));
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return RedirectResponse
      */
-    public function store(Request $request)
+    public function store(StoreEmployeeRequest $request)
     {
-        request()->validate([
-            'firstname' => 'required',
-            'lastname' => 'required',
-            'department' => 'required',
-            'expertise' => 'required',
-            'phoneNumber' => 'required',
-            'role' => 'required',
-        ]);
+        $validated = $request->validated();
 
-        $user = auth()->user();
+        $employee = Employee::create($validated);
 
-        try {
-            //Loop to pick day from array
-            for ($i = 0; $i < 5; $i++) {
-                $days = array('monday', 'tuesday', 'wednesday', 'thursday', 'friday');
-                if (!empty(request($days[$i]))) {
-                    //Loop to add each work hour entry
-                    foreach (request($days[$i]) as $parent) {
-                        if (!empty($parent["start_time"]) && !empty($parent["end_time"])) {
-                            $workinghours = new WorkHour;
-                            $workinghours->day = DayOfWeek::where('day', $days[$i])->first()->id;
-                            $workinghours->employee_id = $user->employee->id;
-                            $workinghours->start_time = $parent["start_time"];
-                            $workinghours->end_time = $parent["end_time"];
-                            $workinghours->save();
-                        }
-                    }
-                }
-            }
-        } catch(Exception $error) {
-            $request->session()->flash('dbError', $error->getMessage());
-            return redirect()->route('employee.create');
-        }
+        $employee->departments()->sync($validated['departments']);
+        $employee->expertises()->sync($validated['expertises']);
+        $employee->workDays()->sync($validated['workDays']);
+        $employee->save();
 
-        $user->roles()->sync(request('role'));
+        $employee->user->roles()->sync($validated['roles']);
+        $employee->user->save();
 
-        $userName = explode('@', $user->email);
-        $user->employee->username = $userName[0];
-        $user->employee->update($request->only(['username','firstname', 'lastname', 'phoneNumber', 'department']));
-        $user->employee->expertises()->sync(request('expertise'));
-
-        $request->session()->flash('succes', 'Your data has been stored succesfully.');
-
-        //Redirect to dashboard maybe?
-        return redirect('/home');
+        return redirect(route('home'));
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Employee  $employee
-     * @return \Illuminate\Http\Response
+     * @param Employee $employee
+     * @return Response
      */
-    public function show(Employee $employee)
+    public function show(Employee $employee, $succes = null)
     {
-        return dump($employee);
+        $allDays = WorkDay::all()->pluck('name');
+        $workingDays = $employee->workDays->map(function ($item) {
+            return $item->name;
+        })->toArray();
+
+        return view('employee.show', compact(["employee"], 'allDays', 'workingDays'))->with('succes', $succes);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Employee  $employee
-     * @return \Illuminate\Http\Response
+     * @param Employee $employee
+     * @return Response
      */
     public function edit(Employee $employee)
     {
-        return abort(404);
+        $departments = Department::all();
+        $workDays = WorkDay::all();
+        $hobbies = Hobby::all();
+        $courses = Course::all();
+        $lectorates = Lectorate::all();
+        $expertises = Expertise::all();
+        $learningLines = LearningLine::all();
+        $minors = Minor::all();
+        $roles = Role::all()->whereNotIn('id', 1);
+
+        if ($employee->id == Auth::user()->id || Auth::user()->isAdmin()) {
+            return view('employee.edit', compact(["employee"], 'departments', 'hobbies', 'courses', 'workDays', 'lectorates', 'expertises', 'learningLines', 'minors', 'roles'));
+        }
+        else {
+            return back()->with('error', 'U heeft geen toegang tot het bewerken van andermans profielen.');
+        }
     }
+
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Employee  $employee
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @param Employee $employee
+     * @return Response
      */
-    public function update(Request $request, Employee $employee)
+    public function update(EditEmployeeRequest $request, Employee $employee)
     {
-        return abort(404);
+        $validated = $request->validated();
+        
+        if ($employee->id == Auth::user()->id || Auth::user()->isAdmin()) {
+            $employee->update(request(['firstname', 'lastname', 'phoneNumber', 'expertise', 'linkedInUrl']));
+            $employee->user()->update($validated['email']);
+            $employee->user->roles()->sync($validated['roles']);
+
+            $employee->workDays()->sync($validated['workDays']);
+            $employee->departments()->sync($validated['departments']);
+            $employee->lectorates()->sync($validated['lectorates']);
+            $employee->hobbies()->sync($validated['hobbies']);
+            $employee->learningLines()->sync($validated['learningLines']);
+            $employee->courses()->sync($validated['courses']);
+            $employee->minors()->sync($validated['minors']);
+            $employee->expertises()->sync($validated['expertises']);
+            $employee->save();
+
+            return redirect()->action([EmployeeController::class, 'show'], ['employee' => $employee, 'succes' => "Alle gegevens zijn succesvol opgeslagen"]);
+        }
+        else {
+            return redirect()->action([EmployeeController::class, 'show'], ['employee' => $employee, 'succes' => "U heeft geen toegang tot het bewerken van andermans profielen."]);
+        }
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Employee  $employee
-     * @return \Illuminate\Http\Response
+     * @param Employee $employee
+     * @return Response
      */
     public function destroy(Employee $employee)
     {

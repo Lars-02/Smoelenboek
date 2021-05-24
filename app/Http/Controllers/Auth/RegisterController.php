@@ -3,13 +3,19 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\UserRequests\CreateUserRequest;
+use App\Mail\RegistrationMail;
 use App\Models\Role;
-use App\Models\RoleUser;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
 
 class RegisterController extends Controller
 {
@@ -45,52 +51,44 @@ class RegisterController extends Controller
 
     public function index() {
         $user = auth()->user();
-        if($user != null){
-            $admin = Role::where('name', 'Admin')->first();
-            $roleUsers = RoleUser::all();
-            foreach($roleUsers as $roleUser)
-            {
-                if($roleUser->role_id == $admin->id && $user->id == $roleUser->user_id)
-                {
-                    return view('auth.register');
-                }
-                else
-                {
-                    continue;
-                }
-            }
-            return redirect()->route('home');
-        }
-        return redirect()->route('auth.login');
-    }
 
-    /**
-     * Get a validator for an incoming registration request.
-     *
-     * @param  array  $data
-     * @return \Illuminate\Contracts\Validation\Validator
-     */
-    protected function validator(array $data)
-    {
-        return Validator::make($data, [
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
-        ]);
+        if($user != null && $user->isAdmin() != null)
+            return view('auth.register');
+
+        else if($user != null)
+            return redirect()->route('home');
+
+        return redirect()->route('auth.login');
     }
 
     /**
      * Create a new user instance after a valid registration.
      *
      * @param  array  $data
-     * @return \App\Models\User
+     * @return User
      */
-    protected function create(array $data)
+    public function registerNewUser(CreateUserRequest $request)
     {
-        return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
-        ]);
+        $validated = $request->validated();
+
+        if ($request->isAdmin)
+            $roles = Role::where('name', 'Admin')->get(['id'])->first();
+        else
+            $roles = Role::where('name', 'Docent')->get(['id'])->first();
+
+        $randomPassword = Str::random(20);
+        $users = new User;
+        $users->email = $validated['email'];
+        $users->password = Hash::make($randomPassword);
+
+        DB::transaction(function () use ($users, $roles) {
+            $users->save();
+            $users->roles()->attach($roles);
+            $roles->save();
+        });
+
+        Mail::to( $users->email)->send(new RegistrationMail($users , $randomPassword));
+
+        return redirect()->route('home');
     }
 }

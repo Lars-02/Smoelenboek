@@ -11,8 +11,6 @@ class User extends Authenticatable
 {
     use HasFactory, Notifiable;
 
-    protected $table = 'user';
-
     /**
      * The attributes that are mass assignable.
      *
@@ -43,7 +41,7 @@ class User extends Authenticatable
     ];
 
     public function roles() {
-        return $this->belongsToMany(Role::class)->withTimestamps();
+        return $this->belongsToMany(Role::class);
     }
 
     public function assignRole($role) {
@@ -56,5 +54,9 @@ class User extends Authenticatable
 
     public function employee() {
         return $this->hasOne(Employee::class);
+    }
+
+    public function isAdmin() {
+        return $this->roles()->where('role_id', 1)->first();
     }
 }

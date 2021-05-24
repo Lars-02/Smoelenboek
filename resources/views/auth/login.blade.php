@@ -1,17 +1,32 @@
 <x-layout>
-    <x-card title="Login">
+    <x-card class="select-none" title="Login">
         <form method="POST" action="{{ route('login') }}">
             @csrf
-            <x-input
-                icon="fas fa-user"
-                type="email"
-                id="email"
-                name="email"
-                value="{{ old('email') }}"
-                autocomplete="email"
-                required autofocus
-            >{{ __('Email') }}
-            </x-input>
+            @error('email')
+                    <x-input
+                        error="{{$message}}"
+                        icon="fas fa-user"
+                        type="email"
+                        id="email"
+                        name="email"
+                        value="{{ old('email') }}"
+                        autocomplete="email"
+                        required autofocus
+                        >{{ __('Email') }}
+                    </x-input>
+                @else
+                    <x-input
+                        icon="fas fa-user"
+                        type="email"
+                        id="email"
+                        name="email"
+                        value="{{ old('email') }}"
+                        autocomplete="email"
+                        required autofocus
+                        >{{ __('Email') }}
+                    </x-input>
+            @enderror
+
             <x-input
                 icon="fas fa-lock"
                 type="password"
@@ -21,15 +36,15 @@
                 required
             >{{ __('Wachtwoord') }}
             </x-input>
+
             <div class="flex">
                 <div class="mr-4">
-                    <x-button type="submit"
-                              class="px-10 rounded-lg font-medium">
+                    <x-button type="submit">
                         {{ __('Inloggen') }}
                     </x-button>
                 </div>
                 <div class="self-end">
-                    <a href="{{ route('password.request') }}" class="text-blue-500 underline">
+                    <a href="{{ route('password.request') }}" class="select-none text-xs sm:text-sm md:text-base lg:text-lg text-blue-500 underline">
                         {{ __('Wachtwoord vergeten?') }}
                     </a>
                 </div>

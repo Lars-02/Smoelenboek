@@ -8,14 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class Employee extends Model
 {
     use HasFactory;
-
-    protected $table = 'employee';
-
+    
     protected $fillable = [
-        'username',
+        'user_id',
         'firstname',
         'lastname',
-        'department',
         'phoneNumber',
         'linkedInUrl',
     ];
@@ -25,43 +22,53 @@ class Employee extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function department()
+    public function roles()
     {
-        return $this->belongsTo(Department::class, 'department', 'name');
+        return $this->hasManyThrough(Role::class, User::class);
     }
 
-    public function lectorate()
+    public function departments()
     {
-        return $this->belongsToMany(Lectorate::class)->withTimestamps();
+        return $this->belongsToMany(Department::class, "employee_department");
     }
 
-    public function hobby()
+    public function lectorates()
     {
-        return $this->belongsToMany(Hobby::class)->withTimestamps();
+        return $this->belongsToMany(Lectorate::class);
     }
 
-    public function course()
+    public function hobbies()
     {
-        return $this->belongsToMany(Course::class)->withTimestamps();
+        return $this->belongsToMany(Hobby::class);
     }
 
-    public function minor()
+    public function courses()
     {
-        return $this->belongsToMany(Minor::class)->withTimestamps();
+        return $this->belongsToMany(Course::class);
     }
 
-    public function learningLine()
+    public function minors()
     {
-        return $this->belongsToMany(LearningLine::class)->withTimestamps();
+        return $this->belongsToMany(Minor::class);
+    }
+
+    public function learningLines()
+    {
+        return $this->belongsToMany(LearningLine::class);
     }
 
     public function expertises()
     {
-        return $this->belongsToMany(Expertise::class)->withTimestamps();
+        return $this->belongsToMany(Expertise::class);
     }
 
-    public function workHours()
+    public function workDays()
     {
-        return $this->hasMany(WorkHour::class);
+        return $this->belongsToMany(WorkDay::class);
+    }
+
+    public function getFullNameAttribute($value)
+    {
+        return $this->firstname . ' ' . $this->lastname;
     }
 }
