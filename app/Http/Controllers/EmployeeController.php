@@ -122,9 +122,8 @@ class EmployeeController extends Controller
 
         if ($employee->id == Auth::user()->id || Auth::user()->isAdmin()) {
             $employee->update(request(['firstname', 'lastname', 'phoneNumber', 'expertise', 'linkedInUrl']));
-            $employee->user()->update($validated['email']);
-            dd($validated['picturePath']);
             $employee->user()->update($validated['picturePath'] = $request->file('photoUrl')->store('ticketPhoto'));
+            $employee->user->update(['email' => $validated['email']]);
             $employee->user->roles()->sync($validated['roles']);
 
             $employee->workDays()->sync($validated['workDays']);
