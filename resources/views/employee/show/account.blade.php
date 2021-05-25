@@ -19,10 +19,10 @@
         <div class="text-sm">
             <div class="mb-5">
                 <h4 class="font-bold text-lg md:text-2xl mb-5 select-none">Werkdagen</h4>
-                <div class="grid grid-cols-5">
+                <div class="grid grid-cols-5 lg:grid-cols-4 xl:grid-cols-5">
                     @foreach($allDays as $day)
                         @if(in_array($day, $workingDays))
-                            <span class="grid-cols-1 select-all text-red-700 text-center shadow-inner px-4 py-2 font-bold shadow rounded text-xs sm:text-sm md:text-base lg:text-lg">
+                            <span class="grid-cols-1 select-all text-red-700 text-center shadow-inner py-2 font-bold shadow rounded text-xs sm:text-sm md:text-base lg:text-lg">
                             {{ substr($day, 0, 2) }}
                             </span>
                         @endif
