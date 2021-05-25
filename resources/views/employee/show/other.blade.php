@@ -1,6 +1,6 @@
-<div class="bg-white rounded lg:p-10 col-span-2 lg:shadow bg-opacity-0 lg:bg-opacity-100">
-    <ul class="block mx-auto">
-        <li class="bg-white shadow-md p-5 mb-5">
+<div class="bg-white rounded lg:p-10 col-span-1 lg:col-span-2 lg:shadow bg-opacity-0 lg:bg-opacity-100">
+    <ul class=" block mx-auto">
+        <li class="bg-white rounded shadow-md p-5 mb-5">
             <h4 class="md:text-2xl lg:text-3xl font-bold inline-block border-b border-red-700 mb-2">Lectoraten</h4>
             <div>
                 @foreach($employee->lectorates as $lectorate)
@@ -8,7 +8,7 @@
                 @endforeach
             </div>
         </li>
-        <li class="bg-white shadow-md p-5 mb-5">
+        <li class="bg-white rounded shadow-md p-5 mb-5">
             <h4 class="md:text-2xl lg:text-3xl font-bold inline-block border-b border-red-500 mb-2">Hobby's</h4>
             <div>
                 @foreach($employee->hobbies as $hobby)
@@ -16,7 +16,7 @@
                 @endforeach
             </div>
         </li>
-        <li class="bg-white shadow-md p-5 mb-5">
+        <li class="bg-white rounded shadow-md p-5 mb-5">
             <h4 class="md:text-2xl lg:text-3xl font-bold inline-block border-b border-red-500 mb-2">Cursussen</h4>
             <div>
                 @foreach($employee->courses as $course)
@@ -24,7 +24,7 @@
                 @endforeach
             </div>
         </li>
-        <li class="bg-white shadow-md p-5 mb-5">
+        <li class="bg-white rounded shadow-md p-5 mb-5">
             <h4 class="md:text-2xl lg:text-3xl font-bold inline-block border-b border-red-500 mb-2">Expertises</h4>
             <div>
                 @foreach($employee->expertises as $expertise)
@@ -32,7 +32,7 @@
                 @endforeach
             </div>
         </li>
-        <li class="bg-white shadow-md p-5 mb-5">
+        <li class="bg-white rounded shadow-md p-5 mb-5">
             <h4 class="md:text-2xl lg:text-3xl font-bold inline-block border-b border-red-500 mb-2">Leerlijnen</h4>
             <div>
                 @foreach($employee->learningLines as $learningLine)
@@ -40,7 +40,7 @@
                 @endforeach
             </div>
         </li>
-        <li class="bg-white shadow-md p-5">
+        <li class="bg-white rounded shadow-md p-5">
             <h4 class="md:text-2xl lg:text-3xl font-bold inline-block border-b border-red-500 mb-2">Minoren</h4>
             <div>
                 @foreach($employee->minors as $minor)
