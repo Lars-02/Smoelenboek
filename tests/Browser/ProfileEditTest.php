@@ -56,15 +56,14 @@ class ProfileEditTest extends DuskTestCase
     public function test_user_cannot_view_profile_edit_page()
     {
         $this->browse(function (Browser $browser) {
-            $randomUser = User::inRandomOrder()->first();
             $browser->visit(env('APP_URL'))
             ->type('email', 'test@avans.nl')
             ->type('password', 'password')
             ->press('Inloggen')
-            ->visit(env('APP_URL').'employee/'.$randomUser->id)
-            ->visit(env('APP_URL').'employee/'.$randomUser->id.'/edit');
+            ->visit(env('APP_URL').'employee/1/edit');
             $url = $browser->driver->getCurrentURL();
-            $this->assertEquals(env('APP_URL').'employee/'.$randomUser->id, $url);
+            // $this->assertEquals(env('APP_URL').'employee/1', $url);
+            $this->assertEquals(env('APP_URL'), $url);
         });
     }
 
