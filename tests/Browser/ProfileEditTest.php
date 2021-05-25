@@ -62,7 +62,6 @@ class ProfileEditTest extends DuskTestCase
             ->press('Inloggen')
             ->visit(env('APP_URL').'employee/1/edit');
             $url = $browser->driver->getCurrentURL();
-            // $this->assertEquals(env('APP_URL').'employee/1', $url);
             $this->assertEquals(env('APP_URL'), $url);
         });
     }
