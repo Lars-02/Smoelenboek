@@ -36,7 +36,7 @@ class EmployeeController extends Controller
     {
         $user = Auth::user();
         $departments = Department::all()->pluck('name', 'id');
-        $roles = Role::all()->whereNotIn('id', 1)->pluck('name', 'id');
+        $roles = Role::where('self_assignable', true)->get();
         $expertises = Expertise::all()->pluck('name', 'id');
         $workDays = WorkDay::all();
 
@@ -119,7 +119,7 @@ class EmployeeController extends Controller
     public function update(EditEmployeeRequest $request, Employee $employee)
     {
         $validated = $request->validated();
-        
+
         if ($employee->id == Auth::user()->id || Auth::user()->isAdmin()) {
             $employee->update(request(['firstname', 'lastname', 'phoneNumber', 'expertise', 'linkedInUrl']));
             $employee->user()->update($validated['email']);

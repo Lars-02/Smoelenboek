@@ -99,7 +99,7 @@ class HomeController extends Controller
         $learningLines = LearningLine::all();
         $lectorates = Lectorate::all();
         $minors = Minor::all();
-        $roles = Role::where('self_assignable', true)->get();
+        $roles = Role::all();
         $workDays = WorkDay::all();
 
         return view('home', compact(["request", "employees", "courses", "departments", "expertises", "hobbies", "learningLines", "lectorates", "minors", "roles", "workDays"]));
