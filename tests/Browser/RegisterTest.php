@@ -135,8 +135,14 @@ class RegisterTest extends DuskTestCase
             // ->type('isAdmin', 'true')
             // ->type('isAdmin', "on")
             // ->click('isAdmin')
-            ->select('@select-admin', 'selected')
-            ->click('@select-admin', 'selected')
+            // ->toggle('#admin', 'on')
+            // ->check('isAdmin') 2
+            // ->check('#admin') 2
+            // ->check('admin') 2
+            // ->select('isAdmin')
+            ->value('@select-admin', 'selected')
+            // ->select('@select-admin', 'selected')
+            // ->click('@select-admin', 'selected')
             ->press('Aanmaken');
 
             $url = $browser->driver->getCurrentURL();
