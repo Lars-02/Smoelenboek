@@ -1,11 +1,9 @@
 <?php
 
-namespace Tests\Unit;
+namespace Tests\Browser;
 
-use App\Models\Employee;
-use App\Models\Role;
 use App\Models\User;
-use Illuminate\Support\Facades\DB;
+use Tests\Browser\TestPreparations\DatabasePreparer;
 use Tests\DuskTestCase;
 
 class RegisterTest extends DuskTestCase
@@ -20,6 +18,18 @@ class RegisterTest extends DuskTestCase
     }
 
     /**
+     * Test to prepare the database a single time. This preparation includes migrating and seeding te test database.
+     *
+     * @return void
+     */
+    public function test_setup_database()
+    {
+        DatabasePreparer::migrate_seed_database();
+        $this->assertTrue(true);
+    }
+
+
+    /**
      * A user cannot view the register page without being authenticated. 
      *
      * @return void
@@ -27,10 +37,10 @@ class RegisterTest extends DuskTestCase
     public function test_user_cannot_view_register_page_when_not_authenticated() 
     {
         $this->browse(function ($browser) {
-            $browser->visit(env('APP_URL').'/register');
+            $browser->visit(env('APP_URL').'register');
 
             $url = $browser->driver->getCurrentURL();
-            $this->assertEquals(env('APP_URL').'/login', $url);
+            $this->assertEquals(env('APP_URL').'login', $url);
         });
     }
 
@@ -42,15 +52,15 @@ class RegisterTest extends DuskTestCase
     public function test_user_can_view_register_page_when_authenticated()
     {
         $this->browse(function ($browser) {        
-            $browser->visit(env('APP_URL').'/login')
+            $browser->visit(env('APP_URL').'login')
             ->type('email', 'admin@avans.nl')
             ->type('password', 'password')
             ->press('Inloggen')
-            ->visit(env('APP_URL').'/register');
+            ->visit(env('APP_URL').'register');
 
             $url = $browser->driver->getCurrentURL();
 
-            $this->assertEquals(env('APP_URL').'/register', $url);
+            $this->assertEquals(env('APP_URL').'register', $url);
         });
     }
 
@@ -62,15 +72,15 @@ class RegisterTest extends DuskTestCase
     public function test_user_cannot_view_register_page_when_authenticated()
     {
         $this->browse(function ($browser) {        
-            $browser->visit(env('APP_URL').'/login')
+            $browser->visit(env('APP_URL').'login')
             ->type('email', 'test@avans.nl')
             ->type('password', 'password')
             ->press('Inloggen')
-            ->visit(env('APP_URL').'/register');
+            ->visit(env('APP_URL').'register');
 
             $url = $browser->driver->getCurrentURL();
 
-            $this->assertEquals(env('APP_URL').'/', $url);
+            $this->assertEquals(env('APP_URL'), $url);
         });
     }
 
@@ -88,17 +98,17 @@ class RegisterTest extends DuskTestCase
                 if(User::where('email', $randomEmail)->first() == null) break;
             }  
     
-            $browser->visit(env('APP_URL').'/login')
+            $browser->visit(env('APP_URL').'login')
             ->type('email', 'admin@avans.nl')
             ->type('password', 'password')
             ->press('Inloggen')
-            ->visit(env('APP_URL').'/register')
+            ->visit(env('APP_URL').'register')
             ->type('email', $randomEmail)
             ->press('Aanmaken');
 
             $url = $browser->driver->getCurrentURL();
             
-            $this->assertEquals(env('APP_URL').'/', $url);
+            $this->assertEquals(env('APP_URL'), $url);
         });
     }
 
@@ -116,18 +126,18 @@ class RegisterTest extends DuskTestCase
                 if(User::where('email', $randomEmail)->first() == null) break;
             }        
 
-            $browser->visit(env('APP_URL').'/login')
+            $browser->visit(env('APP_URL').'login')
             ->type('email', 'admin@avans.nl')
             ->type('password', 'password')
             ->press('Inloggen')
-            ->visit(env('APP_URL').'/register')
+            ->visit(env('APP_URL').'register')
             ->type('email', $randomEmail)
             ->click('@select-admin')
             ->press('Aanmaken');
 
             $url = $browser->driver->getCurrentURL();
 
-            $this->assertEquals(env('APP_URL').'/', $url);
+            $this->assertEquals(env('APP_URL'), $url);
         });
     }
 
@@ -145,21 +155,21 @@ class RegisterTest extends DuskTestCase
                 if(User::where('email', $randomEmail)->first() == null) break;
             }   
 
-            $browser->visit(env('APP_URL').'/login')
+            $browser->visit(env('APP_URL').'login')
             ->type('email', 'admin@avans.nl')
             ->type('password', 'password')
             ->press('Inloggen')
-            ->visit(env('APP_URL').'/register')
+            ->visit(env('APP_URL').'register')
             ->type('email', $randomEmail)
             ->press('Aanmaken')
             //Trying to create an account the second time with the same email.
-            ->visit(env('APP_URL').'/register')
+            ->visit(env('APP_URL').'register')
             ->type('email', $randomEmail)
             ->press('Aanmaken');
 
             $url = $browser->driver->getCurrentURL();
             
-            $this->assertEquals(env('APP_URL').'/register', $url);
+            $this->assertEquals(env('APP_URL').'register', $url);
         });
     }
 }
