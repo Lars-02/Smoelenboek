@@ -11,6 +11,10 @@ use Illuminate\Support\Facades\DB;
 use Laravel\Dusk\Browser;
 use Tests\DuskTestCase;
 
+use Illuminate\Foundation\Testing\WithoutMiddleware;
+use Tests\TestCase;
+use Illuminate\Support\Facades\Log;
+
 class UserDataTest extends DuskTestCase
 {
 
