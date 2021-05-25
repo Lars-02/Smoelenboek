@@ -17,7 +17,9 @@ jobs:
         options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: |
+          actions/checkout@v2
+          shinnn/actions-npm-alpine@1.0.0
       - name: Configure Application
         run: |
           cp .env.example .env
@@ -35,7 +37,6 @@ jobs:
       - name: Start Chrome Driver
         run: ./vendor/laravel/dusk/bin/chromedriver-linux &
       - name: Run Laravel Server
-        uses: shinnn/actions-npm-alpine@1.0.0
         run: php artisan serve --port 8000 --no-reload &
       - name: Run Dusk Tests
         env:
