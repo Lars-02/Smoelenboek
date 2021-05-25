@@ -132,9 +132,7 @@ class RegisterTest extends DuskTestCase
             ->press('Inloggen')
             ->visit(env('APP_URL').'register')
             ->type('email', $randomEmail)
-            ->press('@select-admin')
-            // ->check('@select-admin', 'selected')
-            // ->value('@select-admin', 'selected')
+            ->click('@select-admin')
             ->press('Aanmaken');
 
             $url = $browser->driver->getCurrentURL();
