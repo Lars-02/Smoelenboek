@@ -35,7 +35,8 @@ abstract class DuskTestCase extends BaseTestCase
             '--window-size=1920,1080',
         ])->unless($this->hasHeadlessDisabled(), function ($items) {
             return $items->merge([
-                 '--headless',
+                //  '--headless',
+                '--no-sandbox',
             ]);
         })->all());
 
