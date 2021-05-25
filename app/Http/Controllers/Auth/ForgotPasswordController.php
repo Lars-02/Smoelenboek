@@ -22,6 +22,6 @@ class ForgotPasswordController extends Controller
 
     protected function sendResetLinkResponse($response)
     {
-        return redirect()->route('login')->with('message', 'Email has been sent');
+        return redirect()->route('login')->with('message', 'Email is verstuurd');
     }
 }
