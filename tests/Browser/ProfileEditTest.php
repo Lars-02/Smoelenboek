@@ -2,18 +2,13 @@
 
 namespace Tests\Browser;
 
-use App\Models\User;
 use Carbon\Carbon;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Support\Facades\DB;
 use Laravel\Dusk\Browser;
+use Tests\Browser\TestPreparations\DatabasePreparer;
 use Tests\DuskTestCase;
 
 class ProfileEditTest extends DuskTestCase
 {
-
-    use RefreshDatabase;
     
     public function setUp() :void 
     {
@@ -24,6 +19,17 @@ class ProfileEditTest extends DuskTestCase
     }
 
     /**
+     * Test to prepare the database a single time. This preparation includes migrating and seeding te test database.
+     *
+     * @return void
+     */
+    public function test_setup_database()
+    {
+        DatabasePreparer::migrate_seed_database();
+        $this->assertTrue(true);
+    }
+
+    /**
      * A standard user can view its own's profile edit page.
      *
      * @return void
@@ -31,14 +37,14 @@ class ProfileEditTest extends DuskTestCase
     public function test_view_profile_edit_page()
     {
         $this->browse(function (Browser $browser) {
-            $browser->visit(env('APP_URL').'/')
+            $browser->visit(env('APP_URL'))
             ->type('email', 'test@avans.nl')
             ->type('password', 'password')
             ->press('Inloggen')
-            ->visit(env('APP_URL').'/employee/102')
+            ->visit(env('APP_URL').'employee/102')
             ->press('Aanpassen');
             $url = $browser->driver->getCurrentURL();
-            $this->assertEquals(env('APP_URL').'/employee/102/edit', $url);
+            $this->assertEquals(env('APP_URL').'employee/102/edit', $url);
         });
     }
 
@@ -49,14 +55,14 @@ class ProfileEditTest extends DuskTestCase
     public function test_user_cannot_view_profile_edit_page()
     {
         $this->browse(function (Browser $browser) {
-            $browser->visit(env('APP_URL').'/')
+            $browser->visit(env('APP_URL'))
             ->type('email', 'test@avans.nl')
             ->type('password', 'password')
             ->press('Inloggen')
-            ->visit(env('APP_URL').'/employee/1')
-            ->visit(env('APP_URL').'/employee/1/edit');
+            ->visit(env('APP_URL').'employee/1')
+            ->visit(env('APP_URL').'employee/1/edit');
             $url = $browser->driver->getCurrentURL();
-            $this->assertEquals(env('APP_URL').'/employee/1', $url);
+            $this->assertEquals(env('APP_URL').'employee/1', $url);
         });
     }
 
@@ -67,11 +73,11 @@ class ProfileEditTest extends DuskTestCase
     public function test_user_can_edit_own_profile()
     {
         $this->browse(function (Browser $browser) {
-            $browser->visit(env('APP_URL').'/')
+            $browser->visit(env('APP_URL'))
             ->type('email', 'test@avans.nl')
             ->type('password', 'password')
             ->press('Inloggen')
-            ->visit(env('APP_URL').'/employee/102')
+            ->visit(env('APP_URL').'employee/102')
             ->press('Aanpassen')
             ->value('#firstname', 'newFirstName')
             ->value('#lastname', 'newLastName')
@@ -84,7 +90,7 @@ class ProfileEditTest extends DuskTestCase
             ->press('Blokken')
             ->press('Opslaan');
             $url = $browser->driver->getCurrentURL();
-            $this->assertEquals(env('APP_URL').'/employee/102/edit', $url);
+            $this->assertEquals(env('APP_URL').'employee/102/edit', $url);
         });
     }
     
@@ -95,16 +101,16 @@ class ProfileEditTest extends DuskTestCase
     public function test_user_can_cancel_an_edit()
     {
         $this->browse(function (Browser $browser) {
-            $browser->visit(env('APP_URL').'/')
+            $browser->visit(env('APP_URL'))
             ->type('email', 'test@avans.nl')
             ->type('password', 'password')
             ->press('Inloggen')
-            ->visit(env('APP_URL').'/employee/102')
+            ->visit(env('APP_URL').'employee/102')
             ->press('Aanpassen')
             ->pause(500)
             ->press('Annuleren');
             $url = $browser->driver->getCurrentURL();
-            $this->assertEquals(env('APP_URL').'/employee/102', $url);
+            $this->assertEquals(env('APP_URL').'employee/102', $url);
         });
     }
 
@@ -116,16 +122,16 @@ class ProfileEditTest extends DuskTestCase
     public function test_user_edit_profile_fail()
     {
         $this->browse(function (Browser $browser) {
-            $browser->visit(env('APP_URL').'/')
+            $browser->visit(env('APP_URL'))
             ->type('email', 'test@avans.nl')
             ->type('password', 'password')
             ->press('Inloggen')
-            ->visit(env('APP_URL').'/employee/102')
+            ->visit(env('APP_URL').'employee/102')
             ->press('Aanpassen')
             ->value('#firstname', '')
             ->press('Opslaan');
             $url = $browser->driver->getCurrentURL();
-            $this->assertEquals(env('APP_URL').'/employee/102/edit', $url);
+            $this->assertEquals(env('APP_URL').'employee/102/edit', $url);
         });
     }
 
@@ -136,11 +142,11 @@ class ProfileEditTest extends DuskTestCase
     public function test_admin_can_edit_profile_of_any_user()
     {
         $this->browse(function (Browser $browser) {
-            $browser->visit(env('APP_URL').'/')
+            $browser->visit(env('APP_URL'))
             ->type('email', 'admin@avans.nl')
             ->type('password', 'password')
             ->press('Inloggen')
-            ->visit(env('APP_URL').'/employee/1')
+            ->visit(env('APP_URL').'employee/1')
             ->press('Aanpassen')
             ->value('#firstname', 'newFirstName')
             ->value('#lastname', 'newLastName')
@@ -149,7 +155,7 @@ class ProfileEditTest extends DuskTestCase
             ->value('#linkedInUrl', 'linkedInUrl.nl')
             ->press('Opslaan');
             $url = $browser->driver->getCurrentURL();
-            $this->assertEquals(env('APP_URL').'/employee/1/edit', $url);
+            $this->assertEquals(env('APP_URL').'employee/1/edit', $url);
         });
     }
 }

@@ -2,12 +2,23 @@
 
 namespace Tests\Browser;
 
-use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Laravel\Dusk\Browser;
+use Tests\Browser\TestPreparations\DatabasePreparer;
 use Tests\DuskTestCase;
 
 class HomeDuskTest extends DuskTestCase
 {
+
+    /**
+     * Test to prepare the database a single time. This preparation includes migrating and seeding te test database.
+     *
+     * @return void
+     */
+    public function test_setup_database()
+    {
+        DatabasePreparer::migrate_seed_database();
+        $this->assertTrue(true);
+    }
+
     /**
      * A user cannot view the profile overview page without being authenticated.
      */
