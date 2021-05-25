@@ -119,10 +119,10 @@ class EmployeeController extends Controller
     public function update(EditEmployeeRequest $request, Employee $employee)
     {
         $validated = $request->validated();
-        
+
         if ($employee->id == Auth::user()->id || Auth::user()->isAdmin()) {
             $employee->update(request(['firstname', 'lastname', 'phoneNumber', 'expertise', 'linkedInUrl']));
-            $employee->user()->update($validated['email']);
+            $employee->user->update(['email' => $validated['email']]);
             $employee->user->roles()->sync($validated['roles']);
 
             $employee->workDays()->sync($validated['workDays']);
