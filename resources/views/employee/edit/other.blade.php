@@ -9,10 +9,12 @@
             @endforeach
             @foreach($lectorates as $lectorate)
                 <div>
-                    <input @if ($employee->lectorates->contains($lectorate->id)) checked
-                           @endif value="{{$lectorate->id}}" name="lectorates[]"
-                           type="checkbox">
-                    <label>{{$lectorate->name}}</label>
+                    <label>
+                        <input @if ($employee->lectorates->contains($lectorate->id)) checked
+                               @endif value="{{$lectorate->id}}" name="lectorates[]"
+                               type="checkbox">
+                        {{$lectorate->name}}
+                    </label>
                 </div>
             @endforeach
         </div>
@@ -26,9 +28,11 @@
             @endforeach
             @foreach($hobbies as $hobby)
                 <div>
-                    <input @if ($employee->hobbies->contains($hobby->id)) checked
-                           @endif value="{{$hobby->id}}" name="hobbies[]" type="checkbox">
-                    <label>{{$hobby->name}}</label>
+                    <label>
+                        <input @if ($employee->hobbies->contains($hobby->id)) checked
+                               @endif value="{{$hobby->id}}" name="hobbies[]" type="checkbox">
+                        {{$hobby->name}}
+                    </label>
                 </div>
             @endforeach
         </div>
@@ -42,9 +46,11 @@
             @endforeach
             @foreach($courses as $course)
                 <div>
-                    <input @if ($employee->courses->contains($course->id)) checked
-                           @endif value="{{$course->id}}" name="courses[]" type="checkbox">
-                    <label>{{$course->name}}</label>
+                    <label>
+                        <input @if ($employee->courses->contains($course->id)) checked
+                               @endif value="{{$course->id}}" name="courses[]" type="checkbox">
+                        {{$course->name}}
+                    </label>
                 </div>
             @endforeach
         </div>
@@ -58,10 +64,12 @@
             @endforeach
             @foreach($learningLines as $learningLine)
                 <div>
-                    <input @if ($employee->learningLines->contains($learningLine->id)) checked
-                           @endif value="{{$learningLine->id}}" name="learningLines[]"
-                           type="checkbox">
-                    <label>{{$learningLine->name}}</label>
+                    <label>
+                        <input @if ($employee->learningLines->contains($learningLine->id)) checked
+                               @endif value="{{$learningLine->id}}" name="learningLines[]"
+                               type="checkbox">
+                        {{$learningLine->name}}
+                    </label>
                 </div>
             @endforeach
         </div>
@@ -75,10 +83,12 @@
             @endforeach
             @foreach($expertises as $expertise)
                 <div>
-                    <input @if ($employee->expertises->contains($expertise->id)) checked
-                           @endif value="{{$expertise->id}}" name="expertises[]"
-                           type="checkbox">
-                    <label>{{$expertise->name}}</label>
+                    <label>
+                        <input @if ($employee->expertises->contains($expertise->id)) checked
+                               @endif value="{{$expertise->id}}" name="expertises[]"
+                               type="checkbox">
+                        {{$expertise->name}}
+                    </label>
                 </div>
             @endforeach
         </div>
@@ -92,9 +102,11 @@
             @endforeach
             @foreach($minors as $minor)
                 <div>
-                    <input @if ($employee->minors->contains($minor->id)) checked
-                           @endif value="{{$minor->id}}" name="minors[]" type="checkbox">
-                    <label>{{$minor->name}}</label>
+                    <label>
+                        <input @if ($employee->minors->contains($minor->id)) checked
+                               @endif value="{{$minor->id}}" name="minors[]" type="checkbox">
+                        {{$minor->name}}
+                    </label>
                 </div>
             @endforeach
         </div>

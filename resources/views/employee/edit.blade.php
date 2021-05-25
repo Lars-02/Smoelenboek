@@ -9,7 +9,7 @@
                         <x-sidenavlink tab="account">Account</x-sidenavlink>
                         <x-sidenavlink tab="department">Afdeling</x-sidenavlink>
                         <x-sidenavlink tab="workDay">Werkdagen</x-sidenavlink>
-                        <x-sidenavlink tab="other">Blokken</x-sidenavlink>
+                        <x-sidenavlink tab="other">Overig</x-sidenavlink>
                     </ul>
                     <!-- End of Side navbar -->
                 </div>

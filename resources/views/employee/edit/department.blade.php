@@ -10,10 +10,12 @@
             @enderror
             @foreach($departments as $department)
                 <div>
-                    <input @if ($employee->departments->contains($department->id)) checked
-                           @endif value="{{$department->id}}" name="departments[]"
-                           type="checkbox">
-                    <label>{{$department->name}}</label>
+                    <label>
+                        <input @if ($employee->departments->contains($department->id)) checked
+                               @endif value="{{$department->id}}" name="departments[]"
+                               type="checkbox">
+                        {{$department->name}}
+                    </label>
                 </div>
             @endforeach
         </div>
@@ -29,9 +31,11 @@
             @enderror
             @foreach($roles as $role)
                 <div>
-                    <input @if ($employee->user->roles->contains($role->id)) checked
-                           @endif value="{{$role->id}}" name="roles[]" type="checkbox">
-                    <label>{{$role->name}}</label>
+                    <label>
+                        <input @if ($employee->user->roles->contains($role->id)) checked
+                               @endif value="{{$role->id}}" name="roles[]" type="checkbox">
+                        {{$role->name}}
+                    </label>
                 </div>
             @endforeach
         </div>
