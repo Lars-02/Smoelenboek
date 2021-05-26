@@ -49,7 +49,7 @@ class RegisterController extends Controller
         $this->middleware('auth');
     }
 
-    public function index() {
+    public function create() {
         $user = auth()->user();
 
         if($user != null && $user->isAdmin() != null)
@@ -65,9 +65,9 @@ class RegisterController extends Controller
      * Create a new user instance after a valid registration.
      *
      * @param  array  $data
-     * @return User
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function registerNewUser(CreateUserRequest $request)
+    public function store(CreateUserRequest $request)
     {
         $validated = $request->validated();
 
