@@ -36,7 +36,7 @@ class EmployeeController extends Controller
     {
         $user = Auth::user();
         $departments = Department::all()->pluck('name', 'id');
-        $roles = Role::where('self_assignable', true)->get();
+        $roles = Role::where('self_assignable', true)->pluck('name', 'id');
         $expertises = Expertise::all()->pluck('name', 'id');
         $workDays = WorkDay::all();
 
