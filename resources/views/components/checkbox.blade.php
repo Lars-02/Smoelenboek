@@ -18,7 +18,7 @@
             </div>
         @endforeach
     </div>
-    @error($name)
+    @error($id)
     <span class="text-red-600">{{ $message }}</span>
     @enderror
 </div>
