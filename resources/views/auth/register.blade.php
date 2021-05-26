@@ -9,12 +9,9 @@
                 id="email"
                 value="{{ old('email') }}"
                 autocomplete="email"
-                required autofocus>
-                Email
+                required autofocus
+            >{{ __('Email') }}
             </x-input>
-            @error('email')
-            <span class="select-none text-red-500 font-medium">{{ $message }}</span>
-            @enderror
 
             <x-toggle class="select-none" name="isAdmin">Admin</x-toggle>
 

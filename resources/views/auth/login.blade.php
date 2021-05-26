@@ -12,6 +12,7 @@
                 required autofocus
             >{{ __('Email') }}
             </x-input>
+
             <x-input
                 icon="fas fa-lock"
                 type="password"
@@ -21,6 +22,7 @@
                 required
             >{{ __('Wachtwoord') }}
             </x-input>
+
             <div class="flex">
                 <div class="mr-4">
                     <x-button type="submit">
@@ -28,7 +30,8 @@
                     </x-button>
                 </div>
                 <div class="self-end">
-                    <a href="{{ route('password.request') }}" class="select-none text-xs sm:text-sm md:text-base lg:text-lg text-blue-500 underline">
+                    <a href="{{ route('password.request') }}"
+                       class="select-none text-xs sm:text-sm md:text-base lg:text-lg text-blue-500 underline">
                         {{ __('Wachtwoord vergeten?') }}
                     </a>
                 </div>

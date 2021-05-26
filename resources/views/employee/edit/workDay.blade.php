@@ -11,4 +11,13 @@
             @endif
         @endforeach
     </div>
+    <div class="flex flex-wrap overflow-hidden w-1/2">
+        <div class="w-full overflow-hidden">
+            <div class="w-full overflow-hidden">
+                @error(('workDays'))
+                    <p class="relative mb-3 bg-red-200 text-red-500 py-3 px-3 rounded-lg clear-both">{{ $message }}</p>
+                @enderror
+            </div>
+        </div>
+    </div>
 </div>

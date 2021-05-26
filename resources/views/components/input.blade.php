@@ -8,4 +8,7 @@
         />
         <i class="select-none absolute left-3 bottom-3 sm:bottom-4 text-gray-600 {{ $icon }}"></i>
     </div>
+    @error($name)
+    <span class="text-red-600">{{ $message }}</span>
+    @enderror
 </div>

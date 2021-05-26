@@ -2,26 +2,9 @@
     <x-card title="Nieuw wachtwoord">
         <form method="POST" action="{{ route('password.update') }}">
             @csrf
-            @if ($errors->any())
-                <div class="alert alert-danger">
-                    <ul>
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-            @endif
             <input type="hidden" name="token" value="{{ $token }}">
-            <x-input
-                icon="fas fa-user"
-                type="email"
-                id="email"
-                name="email"
-                value="{{ old('email') }}"
-                autocomplete="email"
-                required autofocus
-            >{{ __('Email') }}
-            </x-input>
+            <input type="hidden" name="email" value="{{ $email ?? old('email') }}">
+
             <x-input
                 icon="fas fa-lock"
                 type="password"
@@ -31,6 +14,7 @@
                 required
             >{{ __('Wachtwoord') }}
             </x-input>
+
             <x-input
                 icon="fas fa-lock"
                 type="password"
@@ -40,6 +24,7 @@
                 required
             >{{ __('Wachtwoord herhalen') }}
             </x-input>
+
             <div class="flex">
                 <div class="mr-4">
                     <x-button type="submit">
