@@ -44,6 +44,10 @@
                         class="z-40 fixed inset-y-0 flex flex-shrink-0 overflow-hidden bg-gray-100 border-r focus:outline-none ">
                         <!-- Sidebar links -->
                         <nav aria-label="Main" class="h-screen flex-1 px-2 w-80 bg-gray-100 py-4 space-y-2 overflow-y-scroll hover:overflow-y-auto">
+                            <div class="grid grid-cols-2 place-items-center pb-2 content-center justify-center w-full">
+                                <x-button class="w-32 h-12"><a href="{{ route('home') }}">Clear</a></x-button>
+                                <x-button class="w-32 h-12" type="submit">Apply</x-button>
+                            </div>
                             <div>
                                 <span class="absolute pl-3 pt-1 sm:pt-2 md:pt-1.5 lg:pt-2.5 xl:pt-3 text-gray-600">
                                     <i class="fas fa-search"></i>
@@ -167,10 +171,6 @@
                                     @endif
                                 @endforeach
                             </x-filterModal>
-                            <div class="pb-4 flex flex-wrap content-center justify-center w-full">
-                                <x-button class="mx-4"><a href="{{ route('home') }}">Clear</a></x-button>
-                                <x-button class="mx-4" type="submit">Apply</x-button>
-                            </div>
                         </nav>
                     </aside>
                     <!-- Sidebars button -->
