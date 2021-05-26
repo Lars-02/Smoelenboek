@@ -14,6 +14,6 @@ jobs:
     - name: Checkout Repository
       uses: actions/checkout@master
     - name: Install routres package
-      run: composer require laravel/ui 
+      run: composer require laravel/ui -W
     - name: Install Packages
-      run: composer install --no-dev
+      run: composer install --no-dev -W
