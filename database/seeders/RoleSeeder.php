@@ -18,12 +18,12 @@ class RoleSeeder extends Seeder
         Role::factory()->create(['name' => 'Admin'])->abilities()->attach(Ability::all());
 
         Role::factory()->createMany([
-            ['name' => 'Docent'],
-            ['name' => 'Medewerker Administratie & Organisatie'],
-            ['name' => 'Docent Management in de Zorg'],
-            ['name' => 'Software Tester'],
-            ['name' => 'Medewerker Multimedia Support'],
-            ['name' => 'Senior Scrum Master'],
+            ['name' => 'Docent', 'self_assignable' => true],
+            ['name' => 'Medewerker Administratie & Organisatie', 'self_assignable' => true],
+            ['name' => 'Docent Management in de Zorg', 'self_assignable' => true],
+            ['name' => 'Software Tester', 'self_assignable' => true],
+            ['name' => 'Medewerker Multimedia Support', 'self_assignable' => true],
+            ['name' => 'Senior Scrum Master', 'self_assignable' => true],
         ]);
     }
 }
