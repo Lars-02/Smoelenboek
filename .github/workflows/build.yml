@@ -16,8 +16,9 @@ jobs:
     # - name: Install routres package
       # run: composer require laravel/ui -W
     - name: Install Packages
-      composer dump-autoload
-      compsoser
-      composer update --ignore-platform-reqs
+      run: |
+        composer dump-autoload
+        compsoser
+        composer update --ignore-platform-reqs
       # run: composer install --ignore-platform-reqs
       # run: composer install --no-dev -W
