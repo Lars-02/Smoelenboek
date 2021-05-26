@@ -35,7 +35,7 @@ Route::group(['middleware' => 'auth'], function () {
             ->only(['create', 'store']);
 
         Route::resource('employee', EmployeeController::class)
-            ->only(['show', 'update']);
+            ->only(['show', 'update', 'edit']);
     });
 });
 
