@@ -122,10 +122,9 @@ class EmployeeController extends Controller
 
         if ($employee->id == Auth::user()->id || Auth::user()->isAdmin()) {
             $employee->update(request(['firstname', 'lastname', 'phoneNumber', 'expertise', 'linkedInUrl']));
-            $employee->user()->update($validated['picturePath'] = $request->file('photoUrl')->store('ticketPhoto'));
             $employee->user->update(['email' => $validated['email']]);
+                $employee->user->update(['photoUrl' => $validated['photoUrl'] = $request->file('photoUrl')->store('photoUrl')]);
             $employee->user->roles()->sync($validated['roles']);
-
             $employee->workDays()->sync($validated['workDays']);
             $employee->departments()->sync($validated['departments']);
             $employee->lectorates()->sync($validated['lectorates']);
@@ -135,8 +134,6 @@ class EmployeeController extends Controller
             $employee->minors()->sync($validated['minors']);
             $employee->expertises()->sync($validated['expertises']);
             $employee->save();
-
-            $validated['picture_path'] = $request->file('picture_path')->store('ticketPhoto');
 
             return redirect()->action([EmployeeController::class, 'show'], ['employee' => $employee, 'succes' => "Alle gegevens zijn succesvol opgeslagen"]);
         }
