@@ -5,41 +5,23 @@
             @csrf
             <input type="hidden" name="user_id" value="{{ $user->id }}">
             <div class="select-none grid gap-4 grid-cols-2 xl:grid-cols-3">
-                @error('firstname')
-                    <x-input error="{{$message}}" type="text" name="firstname" id="firstname" icon="fas fa-user-circle" value="{{ old('firstname') }}">Voornaam</x-input>
-                @else
-                    <x-input type="text" name="firstname" id="firstname" icon="fas fa-user-circle" value="{{ old('firstname') }}">Voornaam</x-input>
-                @enderror
+                <x-input type="text" name="firstname" id="firstname" icon="fas fa-user-circle"
+                         value="{{ old('firstname') }}">Voornaam
+                </x-input>
 
-                @error('lastname')
-                    <x-input error="{{$message}}" type="text" name="lastname" id="lastname" icon="fas fa-user-circle" value="{{ old('lastname') }}">Achternaam</x-input>
-                @else
-                    <x-input type="text" name="lastname" id="lastname" icon="fas fa-user-circle" value="{{ old('lastname') }}">Achternaam</x-input>
-                @enderror
+                <x-input type="text" name="lastname" id="lastname" icon="fas fa-user-circle"
+                         value="{{ old('lastname') }}">Achternaam
+                </x-input>
 
-                @error('phoneNumber')
-                    <x-input error="{{$message}}" type="text" name="phoneNumber" id="phoneNumber" icon="fas fa-user-circle" value="{{ old('phoneNumber') }}">Telefoonnummer</x-input>
-                @else
-                    <x-input type="text" name="phoneNumber" id="phoneNumber" icon="fas fa-user-circle" value="{{ old('phoneNumber') }}">Telefoonnummer</x-input>
-                @enderror
+                <x-input type="text" name="phoneNumber" id="phoneNumber" icon="fas fa-user-circle"
+                         value="{{ old('phoneNumber') }}">Telefoonnummer
+                </x-input>
 
-                @error('departments')
-                    <x-checkbox error="{{$message}}" id="departments" :options="$departments">Afdelingen</x-checkbox>
-                @else
-                    <x-checkbox id="departments" :options="$departments">Afdelingen</x-checkbox>
-                @enderror
+                <x-checkbox id="departments" :options="$departments">Afdelingen</x-checkbox>
 
-                @error('roles')
-                    <x-checkbox error="{{$message}}" id="roles" :options="$roles">Rollen</x-checkbox>
-                @else
-                    <x-checkbox id="roles" :options="$roles">Rollen</x-checkbox>
-                @enderror
+                <x-checkbox id="roles" :options="$roles">Rollen</x-checkbox>
 
-                @error('expertises')
-                    <x-checkbox error="{{$message}}" id="expertises" :options="$expertises">Expertises</x-checkbox>
-                @else
-                    <x-checkbox id="expertises" :options="$expertises">Expertises</x-checkbox>
-                @enderror
+                <x-checkbox id="expertises" :options="$expertises">Expertises</x-checkbox>
 
                 <div class="flex flex-wrap overflow-hidden">
                     <div class="w-full overflow-hidden">
@@ -49,10 +31,10 @@
                                     @if (old('workDays') !== null)
                                         @if(in_array($day->id, old('workDays')))
                                             <x-dayToggle :day="$day" :selected="true"></x-dayToggle>
-                                            @else
-                                                <x-dayToggle :day="$day"></x-dayToggle>
-                                        @endif
                                         @else
+                                            <x-dayToggle :day="$day"></x-dayToggle>
+                                        @endif
+                                    @else
                                         <x-dayToggle :day="$day"></x-dayToggle>
                                     @endif
                                 @endforeach
@@ -63,18 +45,18 @@
                     <div class="w-full overflow-hidden">
                         <div class="w-full overflow-hidden">
                             @error(('workDays'))
-                                <p class="relative mb-3 bg-red-200 text-red-500 py-3 px-3 rounded-lg clear-both">{{ $message }}</p>
+                            <p class="relative mb-3 bg-red-200 text-red-500 py-3 px-3 rounded-lg clear-both">{{ $message }}</p>
                             @enderror
                         </div>
                     </div>
-                    
+
                     <div class="w-full overflow-hidden">
                         <div>
                             <x-button class="select-none" type="submit">Afronden</x-button>
                         </div>
                     </div>
                 </div>
-                </div>
+            </div>
             </div>
         </form>
     </x-card>
