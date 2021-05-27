@@ -28,9 +28,6 @@ jobs:
           chmod -R 777 storage bootstrap/cache
           php artisan key:generate
           php artisan config:clear
-        env:
-          APP_URL: http://127.0.0.1:8000/
-          DB_DATABASE: smoelenboek
       - name: Upgrade Chrome Driver
         run: |
           php artisan dusk:chrome-driver `/opt/google/chrome/chrome --version | cut -d " " -f3 | cut -d "." -f1`
@@ -40,6 +37,4 @@ jobs:
       - name: Run Laravel Server
         run: php artisan serve --port 8000 --no-reload &
       - name: Run Dusk Tests
-        env:
-          APP_URL: "http://127.0.0.1:8000/"
         run: php artisan dusk
