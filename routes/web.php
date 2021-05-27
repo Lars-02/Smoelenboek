@@ -31,8 +31,8 @@ Route::group(['middleware' => 'auth'], function () {
 
         Route::get('/', [HomeController::class, 'index'])->name('home');
 
-        Route::resource('user', RegisterController::class)
-            ->only(['create', 'store']);
+        Route::get('register', [RegisterController::class, 'create'])->name('register.create');
+        Route::post('register', [RegisterController::class, 'store'])->name('register.store');
 
         Route::resource('employee', EmployeeController::class)
             ->only(['show', 'update', 'edit']);

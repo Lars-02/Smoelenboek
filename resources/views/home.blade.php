@@ -3,7 +3,7 @@
         <div class="mx-3 sm:mx-4 md:mx-5 my-4">
             <div class="space-y-5">
                 @if(Auth::user()->isAdmin())
-                    <x-button class="absolute right-5 "><a href="{{route('user.create')}}">Nieuwe gebruiker</a></x-button>
+                    <x-button class="absolute right-5 "><a href="{{route('register.create')}}">Nieuwe gebruiker</a></x-button>
                 @endif
                 <div>
                     <span class="absolute pl-3 pt-1 sm:pt-2 md:pt-1.5 lg:pt-2.5 xl:pt-3 text-gray-600">
