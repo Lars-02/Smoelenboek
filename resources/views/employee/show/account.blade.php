@@ -1,4 +1,4 @@
-<div class="bg-white rounded p-10 mb-5 col-span-1 shadow h-full">
+<div class="bg-white rounded p-10 col-span-1 shadow h-full">
 
     <div class="items-center space-x-2 font-semibold text-gray-900 leading-8 mb-5 md:flex-shrink-0">
         <div>
