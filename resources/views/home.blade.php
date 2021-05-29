@@ -138,6 +138,58 @@
                 </x-filterModal>
             </div>
             <div class="flex-grow mb-4 overflow-x-hidden overflow-y-scroll scrollbar-hide rounded-md pb-4">
+                @if($request->has('courses') || $request->has('roles') || $request->has('workDays') || $request->has('learningLines') || $request->has('departments') || $request->has('hobbies') || $request->has('lectorates') || $request->has('minors') || $request->has('expertises'))
+                <div class="mb-4 bg-gray-200 pt-3 pb-1 px-3 rounded-md">
+                    <h3 class="inline-block">
+                        Gekozen filters:
+                    </h3>
+                    @foreach($courses as $course)
+                        @if(isset($request->get("courses")[$course->id]))
+                            <h4 class="mb-2 inline-block bg-red-700 text-white p-2 rounded"> {{ $course->name }} </h4>
+                        @endif
+                    @endforeach
+                    @foreach($roles as $role)
+                        @if(isset($request->get("roles")[$role->id]))
+                            <h4 class="mb-2 inline-block bg-red-700 text-white p-2 rounded"> {{ $role->name }} </h4>
+                        @endif
+                    @endforeach
+                    @foreach($workDays as $workDay)
+                        @if(isset($request->get("workDays")[$workDay->id]))
+                            <h4 class="mb-2 inline-block bg-red-700 text-white p-2 rounded"> {{ $workDay->name }} </h4>
+                        @endif
+                    @endforeach
+                    @foreach($learningLines as $learningLine)
+                        @if(isset($request->get("expertises")[$learningLine->id]))
+                            <h4 class="mb-2 inline-block bg-red-700 text-white p-2 rounded"> {{ $learningLine->name }} </h4>
+                        @endif
+                    @endforeach
+                    @foreach($departments as $department)
+                        @if(isset($request->get("departments")[$department->id]))
+                            <h4 class="mb-2 inline-block bg-red-700 text-white p-2 rounded"> {{ $department->name }} </h4>
+                        @endif
+                    @endforeach
+                    @foreach($hobbies as $hobby)
+                        @if(isset($request->get("hobbies")[$hobby->id]))
+                            <h4 class="mb-2 inline-block bg-red-700 text-white p-2 rounded"> {{ $hobby->name }} </h4>
+                        @endif
+                    @endforeach
+                    @foreach($lectorates as $lectorate)
+                        @if(isset($request->get("lecorates")[$lectorate->id]))
+                            <h4 class="mb-2 inline-block bg-red-700 text-white p-2 rounded"> {{ $lectorate->name }} </h4>
+                        @endif
+                    @endforeach
+                    @foreach($minors as $minor)
+                        @if(isset($request->get("minors")[$minor->id]))
+                            <h4 class="mb-2 inline-block bg-red-700 text-white p-2 rounded"> {{ $minor->name }} </h4>
+                        @endif
+                    @endforeach
+                    @foreach($expertises as $expertise)
+                        @if(isset($request->get("expertises")[$expertise->id]))
+                            <h4 class="mb-2 inline-block bg-red-700 text-white p-2 rounded"> {{ $expertise->name }} </h4>
+                        @endif
+                    @endforeach
+                </div>
+                @endif
                 <div class="grid gap-4 md:gap-6 xl:gap-8 grid-cols-2 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
                     @foreach($employees as $employee)
                         <x-profilecard :employee="$employee"></x-profilecard>
