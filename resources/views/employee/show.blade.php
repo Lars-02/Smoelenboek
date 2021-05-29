@@ -23,7 +23,7 @@
             </div>
         @endif
 
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-x-3">
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-x-3 gap-y-5">
             @include('employee.show.account')
             @include('employee.show.other')
         </div>

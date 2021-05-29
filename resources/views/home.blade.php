@@ -2,8 +2,57 @@
     <form id="filterForm" method="GET" action="{{ route('home') }}">
         <div class="mx-3 sm:mx-4 md:mx-5 my-4">
             <div class="space-y-5">
-                @if(Auth::user()->isAdmin())
-                    <x-button class="absolute right-5 "><a href="{{route('register')}}">Nieuwe gebruiker</a></x-button>
+                @if($request->has('courses') || $request->has('roles') || $request->has('workDays') || $request->has('learningLines') || $request->has('departments') || $request->has('hobbies') || $request->has('lectorates') || $request->has('minors') || $request->has('expertises'))
+                    <div class="mb-4 bg-gray-200 pt-3 pb-1 px-3 rounded-md">
+                        <h3 class="inline-block">
+                            Gekozen filters:
+                        </h3>
+                        @foreach($courses as $course)
+                            @if(isset($request->get("courses")[$course->id]))
+                                <h4 class="mb-2 inline-block bg-red-700 text-white p-2 rounded"> {{ $course->name }} </h4>
+                            @endif
+                        @endforeach
+                        @foreach($roles as $role)
+                            @if(isset($request->get("roles")[$role->id]))
+                                <h4 class="mb-2 inline-block bg-red-700 text-white p-2 rounded"> {{ $role->name }} </h4>
+                            @endif
+                        @endforeach
+                        @foreach($workDays as $workDay)
+                            @if(isset($request->get("workDays")[$workDay->id]))
+                                <h4 class="mb-2 inline-block bg-red-700 text-white p-2 rounded"> {{ $workDay->name }} </h4>
+                            @endif
+                        @endforeach
+                        @foreach($learningLines as $learningLine)
+                            @if(isset($request->get("expertises")[$learningLine->id]))
+                                <h4 class="mb-2 inline-block bg-red-700 text-white p-2 rounded"> {{ $learningLine->name }} </h4>
+                            @endif
+                        @endforeach
+                        @foreach($departments as $department)
+                            @if(isset($request->get("departments")[$department->id]))
+                                <h4 class="mb-2 inline-block bg-red-700 text-white p-2 rounded"> {{ $department->name }} </h4>
+                            @endif
+                        @endforeach
+                        @foreach($hobbies as $hobby)
+                            @if(isset($request->get("hobbies")[$hobby->id]))
+                                <h4 class="mb-2 inline-block bg-red-700 text-white p-2 rounded"> {{ $hobby->name }} </h4>
+                            @endif
+                        @endforeach
+                        @foreach($lectorates as $lectorate)
+                            @if(isset($request->get("lecorates")[$lectorate->id]))
+                                <h4 class="mb-2 inline-block bg-red-700 text-white p-2 rounded"> {{ $lectorate->name }} </h4>
+                            @endif
+                        @endforeach
+                        @foreach($minors as $minor)
+                            @if(isset($request->get("minors")[$minor->id]))
+                                <h4 class="mb-2 inline-block bg-red-700 text-white p-2 rounded"> {{ $minor->name }} </h4>
+                            @endif
+                        @endforeach
+                        @foreach($expertises as $expertise)
+                            @if(isset($request->get("expertises")[$expertise->id]))
+                                <h4 class="mb-2 inline-block bg-red-700 text-white p-2 rounded"> {{ $expertise->name }} </h4>
+                            @endif
+                        @endforeach
+                    </div>
                 @endif
             </div>
         </div>
