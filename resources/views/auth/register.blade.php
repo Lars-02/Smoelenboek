@@ -1,6 +1,6 @@
 <x-layout>
     <x-card title="Nieuwe medewerker">
-        <form method="POST" action="{{ route('registerNewUser') }}">
+        <form method="POST" action="{{ route('register.store') }}">
             @csrf
             <x-input
                 icon="fas fa-user"
