@@ -4,7 +4,7 @@
         <div class="ml-8 select-none flex-none self-center p-2 text-xl text-red-700 hover:text-red-800 font-bold">
             <a href="{{ route('home') }}">{{ __('Home') }}</a>
         </div>
-        @if(uth::user()->employee != null && Auth::user()->isAdmin())
+        @if(Auth::user()->employee != null && Auth::user()->isAdmin())
         <div class="select-none flex-none self-center p-2 text-xl text-red-700 hover:text-red-800 font-bold hidden lg:block">
             <a href="#">{{ __('Gegevens') }}</a>
         </div>
