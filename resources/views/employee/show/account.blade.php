@@ -5,7 +5,7 @@
             @if (empty($employee->user->photoUrl))
                 <img src="https://www.shareicon.net/data/128x128/2016/07/26/801997_user_512x512.png" class="select-none md:flex-shrink-0 md:w-48 min-h-full max-h-full mx-auto">
             @else
-                <img src="{{$employee->user->photoUrl}}" class="select-none md:flex-shrink-0 min-h-full max-h-full mx-auto">
+                <img src="{{asset('storage/' . $employee->user->photoUrl)}}" class="select-none md:flex-shrink-0 min-h-full max-h-full mx-auto">
             @endif
         </div>
         <div class="m-0 text-center">
