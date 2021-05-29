@@ -52,7 +52,7 @@
                                 <span class="absolute pl-3 pt-1 sm:pt-2 md:pt-1.5 lg:pt-2.5 xl:pt-3 text-gray-600">
                                     <i class="fas fa-search"></i>
                                 </span>
-                                <input type="text"  value="{{$request["searchbar"]}}" name="searchbar" id="searchbar" placeholder="Zoeken..." class="text-xs sm:text-sm md:text-base lg:text-lg pl-8 rounded border-gray-400 focus:border-gray-400 text-gray-600 focus:ring-0"/>
+                                <input type="text"  value="{{$request["searchbar"]}}" name="searchbar" id="searchbar" placeholder="Zoeken..." class="text-xs min-w-max sm:text-sm w-max md:text-base lg:text-lg pl-8 rounded border-gray-400 focus:border-gray-400 text-gray-600 focus:ring-0"/>
                             </div>
                             <x-filterModal title="Cursus">
                                 @foreach($courses as $course)
@@ -174,7 +174,7 @@
                         </nav>
                     </aside>
                     <!-- Sidebars button -->
-                    <div class="z-30 fixed flex items-center right-10 space-x-4 top-3.5 content-center">
+                    <div class="z-30 fixed top-3 left-3 flex items-center space-x-4 content-center">
                         <div
                             @click="isSidebarOpen = true; $nextTick(() => { $refs.sidebar.focus() })"
                             class="focus:outline-none cursor-pointer p-1 text-white transition-colors duration-200 rounded-md bg-red-700 hover:bg-red-500 focus:outline-none focus:ring"
