@@ -4,14 +4,16 @@
         <div class="ml-8 select-none flex-none self-center p-2 text-xl text-red-700 hover:text-red-800 font-bold">
             <a href="{{ route('home') }}">{{ __('Home') }}</a>
         </div>
-{{--        @if(Auth::user()->employee != null && Auth::user()->isAdmin())--}}
+        @auth
+        @if(Auth::user()->employee != null && Auth::user()->isAdmin())
         <div class="select-none flex-none self-center p-2 text-xl text-red-700 hover:text-red-800 font-bold hidden lg:block">
             <a href="#">{{ __('Gegevens') }}</a>
         </div>
         <div class="select-none flex-none self-center p-2 text-xl text-red-700 hover:text-red-800 font-bold hidden lg:block">
             <a href="{{route('register.create')}}">Nieuwe gebruiker</a>
         </div>
-{{--        @endif--}}
+        @endif
+        @endauth
         <div class="flex-auto"></div>
         @guest()
             <div class="select-none flex-none self-center p-2 text-xl text-red-700 hover:text-red-800 font-bold hidden lg:block">
