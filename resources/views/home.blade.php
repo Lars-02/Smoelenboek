@@ -97,11 +97,11 @@
                                 <x-button class="w-32 h-12"><a href="{{ route('home') }}">Clear</a></x-button>
                                 <x-button class="w-32 h-12" type="submit">Apply</x-button>
                             </div>
-                            <div>
-                                <span class="absolute pl-3 pt-1 sm:pt-2 md:pt-1.5 lg:pt-2.5 xl:pt-3 text-gray-600">
+                            <div class="relative">
+                                <input type="text"  value="{{$request["searchbar"]}}" name="searchbar" id="searchbar" placeholder="Zoeken..." class="relative text-xs min-w-max sm:text-sm w-max md:text-base lg:text-lg pl-8 rounded border-gray-400 focus:border-gray-400 text-gray-600 focus:ring-0"/>
+                                <span class="pl-3 pt-1 sm:pt-2 md:pt-1.5 lg:pt-2.5 xl:pt-3 text-gray-600">
                                     <i class="fas fa-search"></i>
                                 </span>
-                                <input type="text"  value="{{$request["searchbar"]}}" name="searchbar" id="searchbar" placeholder="Zoeken..." class="text-xs min-w-max sm:text-sm w-max md:text-base lg:text-lg pl-8 rounded border-gray-400 focus:border-gray-400 text-gray-600 focus:ring-0"/>
                             </div>
                             <x-filterModal title="Cursus">
                                 @foreach($courses as $course)
