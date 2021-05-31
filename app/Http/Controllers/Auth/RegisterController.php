@@ -6,15 +6,12 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\UserRequests\CreateUserRequest;
 use App\Mail\RegistrationMail;
 use App\Models\Role;
-use App\Providers\RouteServiceProvider;
 use App\Models\User;
+use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\RegistersUsers;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
-use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 
 class RegisterController extends Controller
@@ -49,7 +46,7 @@ class RegisterController extends Controller
         $this->middleware('auth');
     }
 
-    public function index() {
+    public function create() {
         $user = auth()->user();
 
         if($user != null && $user->isAdmin() != null)
@@ -65,9 +62,9 @@ class RegisterController extends Controller
      * Create a new user instance after a valid registration.
      *
      * @param  array  $data
-     * @return User
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function registerNewUser(CreateUserRequest $request)
+    public function store(CreateUserRequest $request)
     {
         $validated = $request->validated();
 

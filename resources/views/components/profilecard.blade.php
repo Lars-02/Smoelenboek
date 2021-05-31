@@ -9,7 +9,7 @@
                 <i class="text-white text-6xl far fa-user-circle d-flex place-self-center"></i>
             </div>
         @else
-            <img class="rounded-t-lg absolute h-full w-full object-cover" src="{{asset($employee->user->photoUrl)}}"
+            <img class="rounded-t-lg absolute h-full w-full object-cover" src="{{asset('storage/' . $employee->user->photoUrl)}}"
                  alt="Profile picture">
         @endisset
     </div>
