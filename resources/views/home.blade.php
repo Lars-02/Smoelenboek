@@ -98,10 +98,8 @@
                                 <x-button class="w-32 h-12" type="submit">Apply</x-button>
                             </div>
                             <div class="relative">
-                                <input type="text"  value="{{$request["searchbar"]}}" name="searchbar" id="searchbar" placeholder="Zoeken..." class="relative text-xs min-w-max sm:text-sm w-max md:text-base lg:text-lg pl-8 rounded border-gray-400 focus:border-gray-400 text-gray-600 focus:ring-0"/>
-                                <span class="pl-3 pt-1 sm:pt-2 md:pt-1.5 lg:pt-2.5 xl:pt-3 text-gray-600">
-                                    <i class="fas fa-search"></i>
-                                </span>
+                                <input type="text"  value="{{$request["searchbar"]}}" name="searchbar" id="searchbar" placeholder="Zoeken..." class="select-text relative text-xs sm:text-sm md:text-base lg:text-lg px-2.5 py-2.5 pl-8 w-full rounded border-gray-400 focus:border-gray-400 text-gray-600 focus:ring-0"/>
+                                <i class="select-none absolute left-3 bottom-3 sm:bottom-4 text-gray-600 fas fa-search"></i>
                             </div>
                             <x-filterModal title="Cursus">
                                 @foreach($courses as $course)
