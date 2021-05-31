@@ -9,8 +9,8 @@ use Tests\DuskTestCase;
 
 class ProfileEditTest extends DuskTestCase
 {
-    
-    public function setUp() :void 
+
+    public function setUp() :void
     {
         parent::setUp();
         foreach (static::$browsers as $browser) {
@@ -93,7 +93,7 @@ class ProfileEditTest extends DuskTestCase
             $this->assertEquals(env('APP_URL').'employee/102/edit', $url);
         });
     }
-    
+
     /**
      * A standard user can cancel editing information on its own profile.
      * @return void
@@ -156,7 +156,7 @@ class ProfileEditTest extends DuskTestCase
             ->press('Opslaan');
             $url = $browser->driver->getCurrentURL();
             // $this->assertEquals(env('APP_URL').'employee/1', $url); Temporary
-            $this->assertEquals(env('APP_URL').'employee/1/edit', $url);
+            $this->assertEquals(env('APP_URL').'employee/1', $url);
         });
     }
 }
