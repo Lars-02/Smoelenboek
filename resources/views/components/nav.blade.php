@@ -39,7 +39,7 @@
             <div @click="open = !open"
                  class="focus:outline-none cursor-pointer"
             >
-                <i class="fas fa-bars"></i>
+                <i class="fas fa-user"></i>
             </div>
         </div>
     </div>
