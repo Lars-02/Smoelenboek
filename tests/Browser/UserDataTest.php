@@ -2,18 +2,9 @@
 
 namespace Tests\Browser;
 
-use Laravel\Dusk\Chrome;
 use App\Models\User;
-use App\Models\Employee;
-use Carbon\Carbon;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Support\Facades\DB;
-use Laravel\Dusk\Browser;
-use Tests\DuskTestCase;
 use Tests\Browser\TestPreparations\DatabasePreparer;
-use Illuminate\Foundation\Testing\WithoutMiddleware;
-use Tests\TestCase;
+use Tests\DuskTestCase;
 use Illuminate\Support\Facades\Log;
 
 class UserDataTest extends DuskTestCase
@@ -27,15 +18,7 @@ class UserDataTest extends DuskTestCase
         foreach (static::$browsers as $browser) {
             $browser->driver->manage()->deleteAllCookies();
         }
-    }
 
-    /**
-     * Test to prepare the database a single time. This preparation includes migrating and seeding te test database.
-     *
-     * @return void
-     */
-    public function test_setup_database()
-    {
         DatabasePreparer::migrate_seed_database();
         $this->assertTrue(true);
     }
@@ -83,13 +66,8 @@ class UserDataTest extends DuskTestCase
      */
     public function test_user_gets_redirected_to_form_when_first_logged_in()
     {
-        $user = User::factory()->create(['email' => 'taylor@laravel.com']);
-        // $user = User::factory(User::class)->make([
-        //     'email' => 'taylor@laravel.com',
-        // ]);
-
-        // Log::info('BESTAAT'.': '.$user->email.' Password:'.$user->password);
-
+        $user = User::factory()->create(['email' => mt_rand().'employee@avans.nl']);
+        Log::info('BESTAAT'.': '.$user->email.' Password:'.$user->password);
         $this->browse(function ($browser) use ($user) {
             $browser->visit('/login')
                     ->type('email',  $user->email)

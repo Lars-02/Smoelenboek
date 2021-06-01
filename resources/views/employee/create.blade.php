@@ -52,7 +52,7 @@
 
                     <div class="w-full overflow-hidden">
                         <div>
-                            <x-button class="select-none" type="submit">Afronden</x-button>
+                            <x-button id="Afronden" class="select-none" type="submit">Afronden</x-button>
                         </div>
                     </div>
                 </div>
