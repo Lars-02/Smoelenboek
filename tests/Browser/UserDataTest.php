@@ -47,7 +47,7 @@ class UserDataTest extends DuskTestCase
      *
      * @return void
      */
-    public function test_user_gets_redirected_to_login_when_not_logedin()
+    public function test_user_gets_redirected_to_login_when_not_logged_in()
     {
         
         $this->browse(function ($browser) {
