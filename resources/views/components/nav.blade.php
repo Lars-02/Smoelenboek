@@ -59,9 +59,11 @@
                 <a href="{{ route('login') }}">Login</a>
             </div>
         @else
-            <div class="select-none self-center p-2 text-xl text-red-700 hover:text-red-800 font-bold">
-                <a href="{{ route('employee.show', ['employee' => Auth::user()->employee]) }}">Mijn Profiel</a>
-            </div>
+            @if(Auth::user()->employee != null)
+                <div class="select-none self-center p-2 text-xl text-red-700 hover:text-red-800 font-bold">
+                    <a href="{{ route('employee.show', ['employee' => Auth::user()->employee]) }}">Mijn Profiel</a>
+                </div>
+            @endif
             <div class="select-none self-center p-2 text-xl text-red-700 hover:text-red-800 font-bold">
                 <a href="{{ route('logout') }}"
                    onclick="event.preventDefault(); document.getElementById('logout-form').submit();">{{ __('Logout') }}</a>
