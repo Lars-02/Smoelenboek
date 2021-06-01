@@ -17,6 +17,7 @@ class CreateRolesTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('label')->nullable();
+            $table->boolean('self_assignable')->default(false);
         });
 
         Schema::create('role_user', function (Blueprint $table) {

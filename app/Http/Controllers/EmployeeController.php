@@ -36,7 +36,7 @@ class EmployeeController extends Controller
     {
         $user = Auth::user();
         $departments = Department::all()->pluck('name', 'id');
-        $roles = Role::all()->whereNotIn('id', 1)->pluck('name', 'id');
+        $roles = Role::where('self_assignable', true)->pluck('name', 'id');
         $expertises = Expertise::all()->pluck('name', 'id');
         $workDays = WorkDay::all();
 
@@ -90,15 +90,15 @@ class EmployeeController extends Controller
      */
     public function edit(Employee $employee)
     {
-        $departments = Department::all();
         $workDays = WorkDay::all();
-        $hobbies = Hobby::all();
-        $courses = Course::all();
-        $lectorates = Lectorate::all();
-        $expertises = Expertise::all();
-        $learningLines = LearningLine::all();
-        $minors = Minor::all();
-        $roles = Role::all()->whereNotIn('id', 1);
+        $departments = Department::all()->pluck('name', 'id');
+        $hobbies = Hobby::all()->pluck('name', 'id');
+        $courses = Course::all()->pluck('name', 'id');
+        $lectorates = Lectorate::all()->pluck('name', 'id');
+        $expertises = Expertise::all()->pluck('name', 'id');
+        $learningLines = LearningLine::all()->pluck('name', 'id');
+        $minors = Minor::all()->pluck('name', 'id');
+        $roles = Role::where('self_assignable', true)->pluck('name', 'id');
 
         if ($employee->id == Auth::user()->id || Auth::user()->isAdmin()) {
             return view('employee.edit', compact(["employee"], 'departments', 'hobbies', 'courses', 'workDays', 'lectorates', 'expertises', 'learningLines', 'minors', 'roles'));
