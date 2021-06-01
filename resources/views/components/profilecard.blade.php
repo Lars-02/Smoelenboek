@@ -36,6 +36,16 @@
                     </div>
                 </div>
                 <div class="mb-3">
+                    @isset($courses)
+                        <div class="text-gray-500 select-none">Cursessen</div>
+                        @foreach($courses as $course)
+                            <div class="ml-2 text-red-700 select-all" title="{{ $course }}">{{ $course }}</div>
+                        @endforeach
+                    @else
+                        <span class="mr-1 select-none">Niet ingesteld</span>
+                    @endisset
+                </div>
+                <div class="mb-3">
                     @isset($expertises)
                         <div class="text-gray-500 select-none">Expertise</div>
                         @foreach($expertises as $expertise)

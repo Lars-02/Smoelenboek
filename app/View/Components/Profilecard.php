@@ -16,6 +16,7 @@ class Profilecard extends Component
      */
     public $employee;
     public $expertises;
+    public $courses;
     public $workingDays;
     public $function;
     public $department;
@@ -25,6 +26,9 @@ class Profilecard extends Component
     {
         $this->employee = $employee;
         $this->expertises = array_slice($employee->expertises->map(function ($item) {
+            return $item->name;
+        })->toArray(), 0, 2);
+        $this->courses = array_slice($employee->courses->map(function ($item) {
             return $item->name;
         })->toArray(), 0, 2);
         $this->workingDays = $employee->workDays->map(function ($item) {
