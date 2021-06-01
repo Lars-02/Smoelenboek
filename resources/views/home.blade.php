@@ -54,6 +54,7 @@
                         @endforeach
                     </div>
                 @endif
+
             </div>
         </div>
         <div class="mx-3 space-x-4 top-28 flex-grow mb-4 overflow-x-hidden overflow-y-scroll scrollbar-hide rounded-md pb-4">
