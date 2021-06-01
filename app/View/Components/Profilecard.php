@@ -24,9 +24,9 @@ class Profilecard extends Component
     public function __construct($employee)
     {
         $this->employee = $employee;
-        $this->expertises = $employee->expertises->map(function ($item) {
+        $this->expertises = array_slice($employee->expertises->map(function ($item) {
             return $item->name;
-        })->toArray();
+        })->toArray(), 0, 2);
         $this->workingDays = $employee->workDays->map(function ($item) {
             return $item->name;
         })->toArray();
