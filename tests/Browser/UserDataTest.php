@@ -80,6 +80,36 @@ class UserDataTest extends DuskTestCase
     }
 
     /**
+     * form correct ingevuld succesvol redirect naar home
+     *
+     * @return void
+     */
+    public function test_filled_in_form_correct()
+    {
+        $user = User::factory()->create(['email' => mt_rand().'employee@avans.nl']);
+
+        $this->browse(function ($browser) use ($user) {
+            $browser->visit('/login')
+                    ->type('email',  $user->email)
+                    ->type('password', 'password')
+                    ->press('Inloggen')
+                    ->visit('/employee/create')
+                    ->type('firstname',  'Seraphia')
+                    ->type('lastname', 'Jacobs')
+                    ->type('phoneNumber', '0612345678')
+                    ->check('departments[]')
+                    ->check('roles[]')
+                    ->check('expertises[]')
+                    ->press('@select-day')
+                    ->press('Afronden');
+
+            $url = $browser->driver->getCurrentURL();
+
+            $this->assertEquals(env('APP_URL'), $url);
+        });
+    }
+
+    /**
      * form niet ingevuld blijft op /employee/create
      *
      * @return void

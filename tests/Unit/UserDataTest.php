@@ -44,7 +44,4 @@ class UserDataTest extends TestCase
         $response = $this->actingAs($employee->user)->get('/employee/create');
         $response->assertRedirect('/home');
     }
-
-
-
 }
