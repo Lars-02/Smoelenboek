@@ -41,8 +41,6 @@
                         @foreach($courses as $course)
                             <div class="ml-2 text-red-700 select-all" title="{{ $course }}">{{ $course }}</div>
                         @endforeach
-                    @else
-                        <span class="mr-1 select-none">Niet ingesteld</span>
                     @endisset
                 </div>
                 <div class="mb-3">
@@ -51,8 +49,14 @@
                         @foreach($expertises as $expertise)
                             <div class="ml-2 text-red-700 select-all" title="{{ $expertise }}">{{ $expertise }}</div>
                         @endforeach
-                    @else
-                        <span class="mr-1 select-none">Niet ingesteld</span>
+                    @endisset
+                </div>
+                <div class="mb-3">
+                    @isset($minors)
+                        <div class="text-gray-500 select-none">Minors</div>
+                        @foreach($minors as $minor)
+                            <div class="ml-2 text-red-700 select-all" title="{{ $minor }}">{{ $minor }}</div>
+                        @endforeach
                     @endisset
                 </div>
             </div>

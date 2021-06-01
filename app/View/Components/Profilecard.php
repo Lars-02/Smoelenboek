@@ -6,6 +6,7 @@ use App\Models\DayOfWeek;
 use App\Models\WorkDay;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
+use function PHPUnit\Framework\isEmpty;
 
 class Profilecard extends Component
 {
@@ -17,6 +18,7 @@ class Profilecard extends Component
     public $employee;
     public $expertises;
     public $courses;
+    public $minors;
     public $workingDays;
     public $function;
     public $department;
@@ -25,12 +27,6 @@ class Profilecard extends Component
     public function __construct($employee)
     {
         $this->employee = $employee;
-        $this->expertises = array_slice($employee->expertises->map(function ($item) {
-            return $item->name;
-        })->toArray(), 0, 2);
-        $this->courses = array_slice($employee->courses->map(function ($item) {
-            return $item->name;
-        })->toArray(), 0, 2);
         $this->workingDays = $employee->workDays->map(function ($item) {
             return $item->name;
         })->toArray();
@@ -39,6 +35,20 @@ class Profilecard extends Component
         if ($employee->user->roles->first() != null)  $this->function = $employee->user->roles->first()->name;
         else $this->function = 'Geen Functie';
         $this->allDays = WorkDay::all()->pluck('name');
+
+        $this->expertises = array_slice($employee->expertises->map(function ($item) {
+            return $item->name;
+        })->toArray(), 0, 2);
+        $this->courses = array_slice($employee->courses->map(function ($item) {
+            return $item->name;
+        })->toArray(), 0, 2);
+
+        if (empty($this->expertises) || empty($this->courses)) {
+            $this->minors = array_slice($employee->minors->map(function ($item) {
+                return $item->name;
+            })->toArray(), 0, 2);
+            return;
+        }
     }
 
     /**
