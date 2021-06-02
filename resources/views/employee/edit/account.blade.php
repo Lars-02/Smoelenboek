@@ -59,10 +59,10 @@
                 </x-input>
             </div>
             <div class="grid md:grid-cols-1 mb-5">
-                <x-checkbox id="roles" :options="$roles">Rollen</x-checkbox>
+                <x-checkbox id="roles" :options="$roles" :oldvals="$employee->user->roles->pluck('name', 'id')">Rollen</x-checkbox>
             </div>
             <div class="grid md:grid-cols-1">
-                <x-checkbox id="departments" :options="$departments">Afdeling</x-checkbox>
+                <x-checkbox id="departments" :options="$departments" :oldvals="$employee->departments->pluck('name', 'id')">Afdeling</x-checkbox>
             </div>
 
         </div>

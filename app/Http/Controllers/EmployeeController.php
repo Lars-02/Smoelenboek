@@ -102,8 +102,7 @@ class EmployeeController extends Controller
 
         if ($employee->id == Auth::user()->id || Auth::user()->isAdmin()) {
             return view('employee.edit', compact(["employee"], 'departments', 'hobbies', 'courses', 'workDays', 'lectorates', 'expertises', 'learningLines', 'minors', 'roles'));
-        }
-        else {
+        } else {
             return back()->with('error', 'U heeft geen toegang tot het bewerken van andermans profielen.');
         }
     }
@@ -121,23 +120,24 @@ class EmployeeController extends Controller
         $validated = $request->validated();
 
         if ($employee->id == Auth::user()->id || Auth::user()->isAdmin()) {
+
+            // updateOrDelete only applies to nullable attributes
             $employee->update(request(['firstname', 'lastname', 'phoneNumber', 'expertise', 'linkedInUrl']));
             $employee->user->update(['email' => $validated['email']]);
             $employee->user->roles()->sync($validated['roles']);
 
             $employee->workDays()->sync($validated['workDays']);
             $employee->departments()->sync($validated['departments']);
-            $employee->lectorates()->sync($validated['lectorates']);
-            $employee->hobbies()->sync($validated['hobbies']);
-            $employee->learningLines()->sync($validated['learningLines']);
-            $employee->courses()->sync($validated['courses']);
-            $employee->minors()->sync($validated['minors']);
-            $employee->expertises()->sync($validated['expertises']);
+            $this->updateOrDelete($employee->lectorates(), 'lectorates', $validated);
+            $this->updateOrDelete($employee->hobbies(), 'hobbies', $validated);
+            $this->updateOrDelete($employee->learningLines(), 'learningLines', $validated);
+            $this->updateOrDelete($employee->courses(), 'courses', $validated);
+            $this->updateOrDelete($employee->minors(), 'minors', $validated);
+            $this->updateOrDelete($employee->expertises(), 'expertises', $validated);
             $employee->save();
 
             return redirect()->action([EmployeeController::class, 'show'], ['employee' => $employee, 'succes' => "Alle gegevens zijn succesvol opgeslagen"]);
-        }
-        else {
+        } else {
             return redirect()->action([EmployeeController::class, 'show'], ['employee' => $employee, 'succes' => "U heeft geen toegang tot het bewerken van andermans profielen."]);
         }
     }
@@ -151,5 +151,13 @@ class EmployeeController extends Controller
     public function destroy(Employee $employee)
     {
         return abort(404);
+    }
+
+    public function updateOrDelete($employeeAttribute, $attributeName, $validated){
+        if (empty($validated[$attributeName])) {
+            $employeeAttribute->detach();
+        } else {
+            $employeeAttribute->sync($validated[$attributeName]);
+        }
     }
 }
