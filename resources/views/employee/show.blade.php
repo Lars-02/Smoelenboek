@@ -2,7 +2,7 @@
     <div class="container mx-auto px-5 mb-5 w-full md:px-0 md:w-3/4">
         <div class="my-5 w-full bg-gray-200 rounded p-2">
             <x-button>
-                <a href="{{ url()->previous() }}">
+                <a href="{{ route('home') }}">
                     Terug
                 </a>
             </x-button>
