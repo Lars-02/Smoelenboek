@@ -40,8 +40,8 @@ class UserDataTest extends TestCase
     // test 3 : pagina niet zichtbaar wanneer niet 1e keer inloggen
     public function test_user_cant_view_form_when_not_first_logged_in()
     {
-        $employee = Employee::factory(Employee::class)->make();
+        $employee = Employee::factory(Employee::class)->create();
         $response = $this->actingAs($employee->user)->get('/employee/create');
-        $response->assertRedirect('/home');
+        $response->assertRedirect('home');
     }
 }
