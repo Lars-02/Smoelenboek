@@ -59,6 +59,22 @@
                         @endforeach
                     @endisset
                 </div>
+                <div class="mb-3">
+                    @isset($lectorates)
+                        <div class="text-gray-500 select-none">Leerlijnen</div>
+                        @foreach($lectorates as $lectorate)
+                            <div class="ml-2 text-red-700 select-all" title="{{ $lectorate }}">{{ $lectorate }}</div>
+                        @endforeach
+                    @endisset
+                </div>
+                <div class="mb-3">
+                    @isset($hobbies)
+                        <div class="text-gray-500 select-none">Hobbies</div>
+                        @foreach($hobbies as $hobby)
+                            <div class="ml-2 text-red-700 select-all" title="{{ $hobby }}">{{ $hobby }}</div>
+                        @endforeach
+                    @endisset
+                </div>
             </div>
         </div>
     </a>
