@@ -37,7 +37,9 @@
             </div>
             <div class="mb-5">
                 <label class="break-words text-lg md:text-2xl select-none font-semibold">E-mail</label>
-                <p class="break-words md:text-2xl select-all">{{$employee->user->email}}</p>
+                <div>
+                    <a href="mailto:{{$employee->user->email}}" class="break-words md:text-2xl select-all">{{$employee->user->email}}</a>
+                </div>
             </div>
             <div class="mb-5">
                 <label class="break-words text-lg md:text-2xl select-none font-semibold">Telefoon</label>
