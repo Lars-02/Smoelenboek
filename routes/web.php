@@ -27,17 +27,15 @@ Route::group(['middleware' => 'auth'], function () {
         Route::post('/', [EmployeeController::class, 'store'])->name('store');
     });
 
-    Route::resource('employee', EmployeeController::class);
     Route::group(['middleware' => 'employee'], function () {
 
         Route::get('/', [HomeController::class, 'index'])->name('home');
 
-        // TODO: Simplify these routes.
-        Route::get('/register', [RegisterController::class, 'index'])->name('register');
-        Route::post('/', [RegisterController::class, 'registerNewUser'])->name('registerNewUser');
+        Route::get('register', [RegisterController::class, 'create'])->name('register.create');
+        Route::post('register', [RegisterController::class, 'store'])->name('register.store');
 
         Route::resource('employee', EmployeeController::class)
-            ->only(['show']);
+            ->only(['show', 'update', 'edit']);
     });
 });
 

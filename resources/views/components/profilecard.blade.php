@@ -9,7 +9,7 @@
                 <i class="text-white text-6xl far fa-user-circle d-flex place-self-center"></i>
             </div>
         @else
-            <img class="rounded-t-lg absolute h-full w-full object-cover" src="{{asset($employee->user->photoUrl)}}"
+            <img class="rounded-t-lg absolute h-full w-full object-cover" src="{{asset('storage/' . $employee->user->photoUrl)}}"
                  alt="Profile picture">
         @endisset
     </div>
@@ -33,6 +33,7 @@
                     <div class="text-gray-500 select-none">Expertise</div>
                     @foreach(array_slice($expertises, 0, 2) as $expertise)
                         <div class="ml-2 text-red-700 select-all" title="{{ $expertise }}">{{ $expertise }}</div>
+                        @break
                     @endforeach
                 @else
                     <span class="mr-1 select-none">Niet ingesteld</span>

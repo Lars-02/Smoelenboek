@@ -124,8 +124,10 @@ class EmployeeController extends Controller
             // updateOrDelete only applies to nullable attributes
             $employee->update(request(['firstname', 'lastname', 'phoneNumber', 'expertise', 'linkedInUrl']));
             $employee->user->update(['email' => $validated['email']]);
+            if(!empty($request->file('photoUrl'))) {
+            $employee->user->update(['photoUrl' => $request->file('photoUrl')->store('photos')]);
+            }
             $employee->user->roles()->sync($validated['roles']);
-
             $employee->workDays()->sync($validated['workDays']);
             $employee->departments()->sync($validated['departments']);
             $this->updateOrDelete($employee->lectorates(), 'lectorates', $validated);
@@ -135,6 +137,8 @@ class EmployeeController extends Controller
             $this->updateOrDelete($employee->minors(), 'minors', $validated);
             $this->updateOrDelete($employee->expertises(), 'expertises', $validated);
             $employee->save();
+
+
 
             return redirect()->action([EmployeeController::class, 'show'], ['employee' => $employee, 'succes' => "Alle gegevens zijn succesvol opgeslagen"]);
         } else {
