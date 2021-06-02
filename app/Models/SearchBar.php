@@ -9,7 +9,7 @@ class SearchBar extends Facade
 {
     public function search(Collection $employees, string $search): Collection
     {
-        $filters = explode(" ", $search);
+        $filters = explode(",", str_replace(", ", ",", $search));
 
         $expertises = $this->filter(Expertise::all(), $filters);
         $courses = $this->filter(Course::all(), $filters);
