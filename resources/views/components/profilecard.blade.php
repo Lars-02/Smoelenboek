@@ -1,7 +1,7 @@
 <div class="bg-white shadow-lg rounded-lg">
     <div class="relative h-52">
         <div class="absolute bottom-2 left-2 z-20 w-full">
-            <div class="text-white text-md lg:text-lg xl:text-xl 2xl:text-2xl font-medium select-all " title="{{ $employee->fullname }}">{{ $employee->fullname }}</div>
+            <div class="text-white text-md lg:text-lg xl:text-xl 2xl:text-2xl font-medium select-all bg-gray-400 overflow-clip rounded-md w-2/3 px-2" title="{{ $employee->fullname }}">{{ $employee->fullname }}</div>
             <div class="h-2 w-2/3 bg-red-700 rounded-full my-1"></div>
         </div>
         @if(is_null($employee->user->photoUrl))
