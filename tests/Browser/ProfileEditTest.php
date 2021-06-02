@@ -10,7 +10,7 @@ use Tests\DuskTestCase;
 class ProfileEditTest extends DuskTestCase
 {
 
-    public function setUp() :void
+    public function setUp(): void
     {
         parent::setUp();
         foreach (static::$browsers as $browser) {
@@ -38,13 +38,13 @@ class ProfileEditTest extends DuskTestCase
     {
         $this->browse(function (Browser $browser) {
             $browser->visit(env('APP_URL'))
-            ->type('email', 'test@avans.nl')
-            ->type('password', 'password')
-            ->press('Inloggen')
-            ->visit(env('APP_URL').'employee/102')
-            ->press('Aanpassen');
+                ->type('email', 'test@avans.nl')
+                ->type('password', 'password')
+                ->press('Inloggen')
+                ->visit(env('APP_URL') . 'employee/102')
+                ->press('Aanpassen');
             $url = $browser->driver->getCurrentURL();
-            $this->assertEquals(env('APP_URL').'employee/102/edit', $url);
+            $this->assertEquals(env('APP_URL') . 'employee/102/edit', $url);
         });
     }
 
@@ -56,13 +56,13 @@ class ProfileEditTest extends DuskTestCase
     {
         $this->browse(function (Browser $browser) {
             $browser->visit(env('APP_URL'))
-            ->type('email', 'test@avans.nl')
-            ->type('password', 'password')
-            ->press('Inloggen')
-            ->visit(env('APP_URL').'employee/1')
-            ->visit(env('APP_URL').'employee/1/edit');
+                ->type('email', 'test@avans.nl')
+                ->type('password', 'password')
+                ->press('Inloggen')
+                ->visit(env('APP_URL') . 'employee/1')
+                ->visit(env('APP_URL') . 'employee/1/edit');
             $url = $browser->driver->getCurrentURL();
-            if($url == env('APP_URL').'employee/1' || $url == env('APP_URL')) $this->assertTrue(true);
+            if ($url == env('APP_URL') . 'employee/1' || $url == env('APP_URL')) $this->assertTrue(true);
         });
     }
 
@@ -74,23 +74,27 @@ class ProfileEditTest extends DuskTestCase
     {
         $this->browse(function (Browser $browser) {
             $browser->visit(env('APP_URL'))
-            ->type('email', 'test@avans.nl')
-            ->type('password', 'password')
-            ->press('Inloggen')
-            ->visit(env('APP_URL').'employee/102')
-            ->press('Aanpassen')
-            ->value('#firstname', 'newFirstName')
-            ->value('#lastname', 'newLastName')
-            ->value('#email', Carbon::now().'newEmail@avans.nl')
-            ->value('#phoneNumber', 'newPhoneNumber')
-            ->value('#linkedInUrl', 'linkedInUrl.nl')
-            ->press('Account')
-            ->press('Afdeling')
-            ->press('Werkdagen')
-            ->press('Blokken')
-            ->press('Opslaan');
+                ->type('email', 'test@avans.nl')
+                ->type('password', 'password')
+                ->press('Inloggen')
+                ->visit(env('APP_URL') . 'employee/102')
+                ->press('Aanpassen')
+                ->value('#firstname', 'newFirstName')
+                ->value('#lastname', 'newLastName')
+                ->value('#email', Carbon::now() . 'newEmail@avans.nl')
+                ->value('#phoneNumber', 'newPhoneNumber')
+                ->value('#linkedInUrl', 'linkedInUrl.nl')
+                ->check('departments[]')
+                ->check('roles[]')
+                ->check('lectorates[]')
+                ->check('hobbies[]')
+                ->check('courses[]')
+                ->check('learningLines[]')
+                ->check('minors[]')
+                ->check('expertises[]')
+                    ;
             $url = $browser->driver->getCurrentURL();
-            $this->assertEquals(env('APP_URL').'employee/102/edit', $url);
+            $this->assertEquals(env('APP_URL') . 'employee/102/edit', $url);
         });
     }
 
@@ -102,15 +106,15 @@ class ProfileEditTest extends DuskTestCase
     {
         $this->browse(function (Browser $browser) {
             $browser->visit(env('APP_URL'))
-            ->type('email', 'test@avans.nl')
-            ->type('password', 'password')
-            ->press('Inloggen')
-            ->visit(env('APP_URL').'employee/102')
-            ->press('Aanpassen')
-            ->pause(500)
-            ->press('Annuleren');
+                ->type('email', 'test@avans.nl')
+                ->type('password', 'password')
+                ->press('Inloggen')
+                ->visit(env('APP_URL') . 'employee/102')
+                ->press('Aanpassen')
+                ->pause(500)
+                ->press('Annuleren');
             $url = $browser->driver->getCurrentURL();
-            $this->assertEquals(env('APP_URL').'employee/102', $url);
+            $this->assertEquals(env('APP_URL') . 'employee/102', $url);
         });
     }
 
@@ -123,15 +127,15 @@ class ProfileEditTest extends DuskTestCase
     {
         $this->browse(function (Browser $browser) {
             $browser->visit(env('APP_URL'))
-            ->type('email', 'test@avans.nl')
-            ->type('password', 'password')
-            ->press('Inloggen')
-            ->visit(env('APP_URL').'employee/102')
-            ->press('Aanpassen')
-            ->value('#firstname', '')
-            ->press('Opslaan');
+                ->type('email', 'test@avans.nl')
+                ->type('password', 'password')
+                ->press('Inloggen')
+                ->visit(env('APP_URL') . 'employee/102')
+                ->press('Aanpassen')
+                ->value('#firstname', '')
+                ->press('Opslaan');
             $url = $browser->driver->getCurrentURL();
-            $this->assertEquals(env('APP_URL').'employee/102/edit', $url);
+            $this->assertEquals(env('APP_URL') . 'employee/102/edit', $url);
         });
     }
 
@@ -143,19 +147,19 @@ class ProfileEditTest extends DuskTestCase
     {
         $this->browse(function (Browser $browser) {
             $browser->visit(env('APP_URL'))
-            ->type('email', 'admin@avans.nl')
-            ->type('password', 'password')
-            ->press('Inloggen')
-            ->visit(env('APP_URL').'employee/1')
-            ->press('Aanpassen')
-            ->value('#firstname', 'newFirstName')
-            ->value('#lastname', 'newLastName')
-            ->value('#email', Carbon::now().'newEmail@avans.nl')
-            ->value('#phoneNumber', '0655445516')
-            ->value('#linkedInUrl', 'linkedInUrl.nl')
-            ->press('Opslaan');
+                ->type('email', 'admin@avans.nl')
+                ->type('password', 'password')
+                ->press('Inloggen')
+                ->visit(env('APP_URL') . 'employee/1')
+                ->press('Aanpassen')
+                ->value('#firstname', 'newFirstName')
+                ->value('#lastname', 'newLastName')
+                ->value('#email', Carbon::now() . 'newEmail@avans.nl')
+                ->value('#phoneNumber', '0655445516')
+                ->value('#linkedInUrl', 'linkedInUrl.nl')
+                ->press('Opslaan');
             $url = $browser->driver->getCurrentURL();
-            if($url == env('APP_URL').'employee/1/edit' || $url == env('APP_URL').'employee/1/') $this->assertTrue(true);
+            if ($url == env('APP_URL') . 'employee/1/edit' || $url == env('APP_URL') . 'employee/1/') $this->assertTrue(true);
         });
     }
 }

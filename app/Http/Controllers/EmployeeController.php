@@ -117,31 +117,30 @@ class EmployeeController extends Controller
      */
     public function update(EditEmployeeRequest $request, Employee $employee)
     {
+        if ($employee->id != Auth::user()->id || !Auth::user()->isAdmin())
+            return redirect()->action([EmployeeController::class, 'show'], ['employee' => $employee, 'succes' => "U heeft geen toegang tot het bewerken van andermans profielen."]);
+
         $validated = $request->validated();
 
-        if ($employee->id == Auth::user()->id || Auth::user()->isAdmin()) {
-
-            // updateOrDelete only applies to nullable attributes
-            $employee->update(request(['firstname', 'lastname', 'phoneNumber', 'expertise', 'linkedInUrl']));
-            $employee->user->update(['email' => $validated['email']]);
-            if(!empty($request->file('photoUrl'))) {
+        // updateOrDelete only applies to nullable attributes
+        $employee->update(request(['firstname', 'lastname', 'phoneNumber', 'expertise', 'linkedInUrl']));
+        $employee->user->update(['email' => $validated['email']]);
+        if (!empty($request->file('photoUrl'))) {
             $employee->user->update(['photoUrl' => $request->file('photoUrl')->store('photos')]);
-            }
-            $employee->user->roles()->sync($validated['roles']);
-            $employee->workDays()->sync($validated['workDays']);
-            $employee->departments()->sync($validated['departments']);
-            $this->updateOrDelete($employee->lectorates(), 'lectorates', $validated);
-            $this->updateOrDelete($employee->hobbies(), 'hobbies', $validated);
-            $this->updateOrDelete($employee->learningLines(), 'learningLines', $validated);
-            $this->updateOrDelete($employee->courses(), 'courses', $validated);
-            $this->updateOrDelete($employee->minors(), 'minors', $validated);
-            $this->updateOrDelete($employee->expertises(), 'expertises', $validated);
-            $employee->save();
-
-            return redirect()->action([EmployeeController::class, 'show'], ['employee' => $employee, 'succes' => "Alle gegevens zijn succesvol opgeslagen"]);
-        } else {
-            return redirect()->action([EmployeeController::class, 'show'], ['employee' => $employee, 'succes' => "U heeft geen toegang tot het bewerken van andermans profielen."]);
         }
+        $employee->user->roles()->sync($validated['roles']);
+        $employee->workDays()->sync($validated['workDays']);
+        $employee->departments()->sync($validated['departments']);
+        $this->updateOrDelete($employee->lectorates(), 'lectorates', $validated);
+        $this->updateOrDelete($employee->hobbies(), 'hobbies', $validated);
+        $this->updateOrDelete($employee->learningLines(), 'learningLines', $validated);
+        $this->updateOrDelete($employee->courses(), 'courses', $validated);
+        $this->updateOrDelete($employee->minors(), 'minors', $validated);
+        $this->updateOrDelete($employee->expertises(), 'expertises', $validated);
+        $employee->save();
+
+        return redirect()->action([EmployeeController::class, 'show'], ['employee' => $employee, 'succes' => "Alle gegevens zijn succesvol opgeslagen"]);
+
     }
 
     /**
@@ -155,7 +154,8 @@ class EmployeeController extends Controller
         return abort(404);
     }
 
-    public function updateOrDelete($employeeAttribute, $attributeName, $validated){
+    public function updateOrDelete($employeeAttribute, $attributeName, $validated)
+    {
         if (empty($validated[$attributeName])) {
             $employeeAttribute->detach();
         } else {

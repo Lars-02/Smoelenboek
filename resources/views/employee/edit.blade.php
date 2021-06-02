@@ -7,7 +7,7 @@
             <div class="my-5 w-full bg-gray-200 rounded p-2">
                 <x-button>
                     <a href="{{ url()->previous() }}">
-                        Terug
+                        Annuleren
                     </a>
                 </x-button>
                 <div class="float-right">

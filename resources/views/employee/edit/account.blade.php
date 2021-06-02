@@ -18,9 +18,11 @@
                      name="lastname" id="lastname" icon="fas fa-user-circle">Achternaam:
             </x-input>
 
-            <a href="{{$employee->linkedInUrl}}"
-               class="break-words text-blue-500 md:text-2xl font-semibold select-none"><i
-                    class="fab fa-linkedin-in"></i></a>
+            <div class="mb-5 md:pr-5">
+                <x-input value="{{$employee->linkedInUrl}}" type="text"
+                         name="linkedInUrl" id="linkedInUrl" icon="fas fa-user-circle">LinkedIn url:
+                </x-input>
+            </div>
         </div>
     </div>
 
