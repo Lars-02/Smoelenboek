@@ -49,6 +49,39 @@
                 @include('employee.edit.account')
                 @include('employee.edit.other')
             </div>
+            <div class="my-5 w-full bg-gray-200 rounded p-2">
+                <x-button>
+                    <a href="{{ url()->previous() }}">
+                        Annuleren
+                    </a>
+                </x-button>
+                <div class="float-right">
+                    <x-button type="submit">
+                        Opslaan
+                    </x-button>
+                </div>
+                @if($employee->user->isAdmin())
+                    <div class="pr-2 float-right">
+                        <x-modal
+                            modalTitle="Account Verwijderen"
+                            submitLabel="Verwijderen"
+                            cancelLabel="Annuleren"
+                            route="{{ route('home') }}"
+                            method="GET"
+                            icon="fas fa-trash">
+                            <x-slot name="trigger">
+                                <x-button>
+                                    Account verwijderen
+                                </x-button>
+                            </x-slot>
+                            <div>
+                                Weet u zeker dat u het account
+                                van {{$employee->firstname}} {{$employee->lastname}} wil verwijderen?
+                            </div>
+                        </x-modal>
+                    </div>
+                @endif
+            </div>
         </form>
     </div>
 </x-layout>
