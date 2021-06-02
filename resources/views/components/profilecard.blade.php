@@ -1,4 +1,4 @@
-<div class="bg-white shadow-lg rounded-lg cursor-pointer">
+<div class="bg-white shadow-lg rounded-lg cursor-pointer select-none">
     <a href="{{ route('employee.show', ['employee' => $employee]) }}">
         <div class="relative h-52">
             <div class="absolute bottom-2 left-2 z-20 w-full">
