@@ -20,10 +20,10 @@
             <div class="text-gray-500 text-lg lg:text-xl xl:text-2xl truncate"
                  title="{{ $department." - ".$function }}">{{ $department." - ".$function }}</div>
             <div class="text-sm md:text-md xl:text-lg truncate">
-                <a class="ml-2 text-red-700"
-                   title="{{ $employee->user->email }}">{{ $employee->user->email }}</a><br>
-                <a class="ml-2 text-red-700"
-                   title="{{ $employee->phoneNumber }}">{{ $employee->phoneNumber }}</a>
+                <div class="ml-2 text-red-700"
+                     title="{{ $employee->user->email }}">{{ $employee->user->email }}</div>
+                <div class="ml-2 text-red-700"
+                     title="{{ $employee->phoneNumber }}">{{ $employee->phoneNumber }}</div>
                 <div class="my-1 text-gray-500">
                     <div class="select-none">Werkt op</div>
                     <div>
