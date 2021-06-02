@@ -6,10 +6,10 @@
                 <img src="https://www.shareicon.net/data/128x128/2016/07/26/801997_user_512x512.png"
                      class="select-none md:flex-shrink-0 md:w-48 min-h-full max-h-full mx-auto">
             @else
-                <img src="{{$employee->user->photoUrl}}"
-                     class="select-none md:flex-shrink-0 min-h-full max-h-full mx-auto">
+                <img src="{{asset('storage/' . $employee->user->photoUrl)}}" class="w-40">
             @endif
         </div>
+        <input class="form-control-file" name="photoUrl" type="file">
         <div class="m-0 pt-5 text-center">
             <x-input value="{{$employee->firstname}}" type="text"
                      name="firstname" id="firstname" icon="fas fa-user-circle">Voornaam:

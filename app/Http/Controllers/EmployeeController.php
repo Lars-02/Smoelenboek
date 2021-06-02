@@ -138,8 +138,6 @@ class EmployeeController extends Controller
             $this->updateOrDelete($employee->expertises(), 'expertises', $validated);
             $employee->save();
 
-
-
             return redirect()->action([EmployeeController::class, 'show'], ['employee' => $employee, 'succes' => "Alle gegevens zijn succesvol opgeslagen"]);
         } else {
             return redirect()->action([EmployeeController::class, 'show'], ['employee' => $employee, 'succes' => "U heeft geen toegang tot het bewerken van andermans profielen."]);
