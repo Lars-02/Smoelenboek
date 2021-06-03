@@ -117,9 +117,6 @@ class EmployeeController extends Controller
      */
     public function update(EditEmployeeRequest $request, Employee $employee)
     {
-        if ($employee->id != Auth::user()->id && !Auth::user()->isAdmin())
-            return redirect()->action([EmployeeController::class, 'show'], ['employee' => $employee, 'succes' => "U heeft geen toegang tot het bewerken van andermans profielen."]);
-
         $validated = $request->validated();
 
         // updateOrDelete only applies to nullable attributes
