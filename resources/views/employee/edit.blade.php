@@ -15,7 +15,7 @@
                         Opslaan
                     </x-button>
                 </div>
-                @if($employee->user->isAdmin())
+                @if(Auth::user()->isAdmin())
                     <div class="pr-2 float-right">
                         <x-modal
                             modalTitle="Account Verwijderen"
