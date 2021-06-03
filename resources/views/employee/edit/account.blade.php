@@ -4,9 +4,9 @@
         <div>
             @if (empty($employee->user->photoUrl))
                 <img src="https://www.shareicon.net/data/128x128/2016/07/26/801997_user_512x512.png"
-                     class="select-none md:flex-shrink-0 md:w-48 min-h-full max-h-full mx-auto">
+                     class="select-none md:flex-shrink-0 md:w-48 min-h-full max-h-full mx-auto" alt="standaard profiel foto">
             @else
-                <img src="{{asset('storage/' . $employee->user->photoUrl)}}" class="w-40">
+                <img src="{{asset('storage/' . $employee->user->photoUrl)}}" class="w-40" alt="Profiel foto">
             @endif
         </div>
         <input class="mt-4 p-2 bg-red-700 rounded text-sm text-white font-medium" name="photoUrl" type="file">
