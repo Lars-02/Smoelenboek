@@ -25,7 +25,7 @@ class EmployeeFactory extends Factory
         return [
             'firstname' => $this->faker->firstName,
             'lastname' => $this->faker->lastName,
-            'phoneNumber' => $this->faker->phoneNumber,
+            'phoneNumber' => $this->faker->numerify('06########'),
             'linkedInUrl' => $this->faker->url,
             'user_id' => User::factory(),
         ];
