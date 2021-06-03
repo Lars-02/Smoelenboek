@@ -25,7 +25,6 @@ use App\Models\SearchBar;
 use App\Models\WorkDay;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
