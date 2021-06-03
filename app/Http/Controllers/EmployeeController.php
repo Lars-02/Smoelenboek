@@ -2,12 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\EmployeeRequests\CreateEmployeeRequest;
 use App\Http\Requests\EmployeeRequests\EditEmployeeRequest;
 use App\Http\Requests\EmployeeRequests\StoreEmployeeRequest;
-use App\Http\Requests\RegisterRequests\RegisterUserRequest;
 use App\Models\Course;
-use App\Models\DayOfWeek;
 use App\Models\Department;
 use App\Models\Employee;
 use App\Models\Expertise;
@@ -46,7 +43,7 @@ class EmployeeController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param Request $request
+     * @param StoreEmployeeRequest $request
      * @return RedirectResponse
      */
     public function store(StoreEmployeeRequest $request)
@@ -70,6 +67,7 @@ class EmployeeController extends Controller
      * Display the specified resource.
      *
      * @param Employee $employee
+     * @param null $succes
      * @return Response
      */
     public function show(Employee $employee, $succes = null)
@@ -111,7 +109,7 @@ class EmployeeController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param Request $request
+     * @param EditEmployeeRequest $request
      * @param Employee $employee
      * @return Response
      */

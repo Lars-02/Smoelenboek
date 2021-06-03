@@ -27,5 +27,22 @@
             @include('employee.show.account')
             @include('employee.show.other')
         </div>
+
+        <div class="my-5 w-full bg-gray-200 rounded p-2">
+            <x-button>
+                <a href="{{ route('home') }}">
+                    Terug
+                </a>
+            </x-button>
+            <div class="float-right">
+                @if(auth()->user()->isAdmin() || $employee->user->id == auth()->user()->id)
+                    <a href="{{ route('employee.edit', ['employee' => $employee]) }}">
+                        <x-button>
+                            Aanpassen
+                        </x-button>
+                    </a>
+                @endif
+            </div>
+        </div>
     </div>
 </x-layout>
