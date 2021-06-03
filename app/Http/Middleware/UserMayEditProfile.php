@@ -19,7 +19,7 @@ class UserMayEditProfile
     public function handle(Request $request, Closure $next)
     {
         if($request->user()->employee->id != Auth::user()->id && !Auth::user()->isAdmin())
-            return redirect()->action([EmployeeController::class, 'show'], ['employee' => $request->user()->employee, 'succes' => "U heeft geen toegang tot het bewerken van andermans profielen."]);
+            return redirect('home');
 
         return $next($request);
     }

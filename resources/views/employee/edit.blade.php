@@ -1,7 +1,6 @@
 <x-layout>
     <div class="container mx-auto px-5 mb-5 w-full md:px-0 md:w-3/4">
-        <form method="POST" enctype="multipart/form-data"
-              action="{{route('employee.update', $employee)}}">
+        <form method="POST" action="{{route('employee.update', $employee)}}">
             @csrf
             <input name="_method" type="hidden" value="PUT">
             <div class="my-5 w-full bg-gray-200 rounded p-2">
