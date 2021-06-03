@@ -1,12 +1,12 @@
 @component('mail::message')
 
-# Er is een acount voor je aangemaakt voor Smoelenboek 
-Welkom bij Smoelenboek uw login gegevens zijn:<br/>
-Gebruikersnaam: {{$user->email}} <br/>
+# Er is een account voor u aangemaakt bij Smoelenboek
+Welkom bij Smoelenboek. Uw inloggegevens zijn:<br/>
+Email: {{$user->email}} <br/>
 Wachtwoord: {{$password}}
 
 @component('mail::button',['url'=>$url])
-login bij Smoelenboek
+Inloggen bij Smoelenboek
 @endcomponent
 
 @endcomponent

@@ -57,13 +57,21 @@
 
             </div>
         </div>
-        <div class="mx-3 space-x-4 top-28 flex-grow mb-4 overflow-x-hidden overflow-y-scroll scrollbar-hide rounded-md pb-4">
-            <div class="grid gap-4 md:gap-6 xl:gap-8 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5">
-                @foreach($employees as $employee)
-                    <x-profilecard :employee="$employee"></x-profilecard>
-                @endforeach
+        @if($employees->count() == 0)
+            <div class="mx-3 space-x-4 content-center flex items-center justify-center top-28 flex-grow mb-4 overflow-x-hidden overflow-y-scroll scrollbar-hide rounded-md pb-4">
+                <div class="text-xl grid gap-4 content-center flex items-center justify-center md:gap-6 xl:gap-8 grid-cols-1">
+                    Er zijn geen resultaten gevonden.
+                </div>
             </div>
-        </div>
+        @else
+            <div class="mx-3 space-x-4 top-28 flex-grow mb-4 overflow-x-hidden overflow-y-scroll scrollbar-hide rounded-md pb-4">
+                <div class="grid gap-4 md:gap-6 xl:gap-8 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5">
+                        @foreach($employees as $employee)
+                            <x-profilecard :employee="$employee"></x-profilecard>
+                        @endforeach
+                </div>
+            </div>
+        @endif
 
 
         <div class="sm:flex sm:overflow-hidden mb-2 h-0 ml-0">
