@@ -18,7 +18,6 @@ use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 
@@ -68,7 +67,7 @@ class EmployeeController extends Controller
      *
      * @param Employee $employee
      * @param null $succes
-     * @return Response
+     * @return Application|Factory|View|Response
      */
     public function show(Employee $employee, $succes = null)
     {
@@ -84,7 +83,7 @@ class EmployeeController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param Employee $employee
-     * @return Response
+     * @return Application|Factory|View|Response
      */
     public function edit(Employee $employee)
     {
@@ -98,11 +97,7 @@ class EmployeeController extends Controller
         $minors = Minor::all()->pluck('name', 'id');
         $roles = Role::where('self_assignable', true)->pluck('name', 'id');
 
-        if ($employee->id == Auth::user()->id || Auth::user()->isAdmin()) {
-            return view('employee.edit', compact(["employee"], 'departments', 'hobbies', 'courses', 'workDays', 'lectorates', 'expertises', 'learningLines', 'minors', 'roles'));
-        } else {
-            return back()->with('error', 'U heeft geen toegang tot het bewerken van andermans profielen.');
-        }
+        return view('employee.edit', compact('employee', 'departments', 'hobbies', 'courses', 'workDays', 'lectorates', 'expertises', 'learningLines', 'minors', 'roles'));
     }
 
 
@@ -111,7 +106,7 @@ class EmployeeController extends Controller
      *
      * @param EditEmployeeRequest $request
      * @param Employee $employee
-     * @return Response
+     * @return RedirectResponse
      */
     public function update(EditEmployeeRequest $request, Employee $employee)
     {
@@ -138,17 +133,6 @@ class EmployeeController extends Controller
 
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param Employee $employee
-     * @return Response
-     */
-    public function destroy(Employee $employee)
-    {
-        return abort(404);
-    }
-
     public function updateOrDelete($employeeAttribute, $attributeName, $validated)
     {
         if (empty($validated[$attributeName])) {
@@ -156,5 +140,16 @@ class EmployeeController extends Controller
         } else {
             $employeeAttribute->sync($validated[$attributeName]);
         }
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param Employee $employee
+     * @return Response|void
+     */
+    public function destroy(Employee $employee)
+    {
+        return abort(404);
     }
 }

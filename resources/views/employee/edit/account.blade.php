@@ -9,7 +9,7 @@
                 <img src="{{asset('storage/' . $employee->user->photoUrl)}}" class="w-40">
             @endif
         </div>
-        <input class="form-control-file" name="photoUrl" type="file">
+        <input class="mt-4 p-2 bg-red-700 rounded text-sm text-white font-medium" name="photoUrl" type="file">
         <div class="m-0 pt-5 text-center">
             <x-input value="{{$employee->firstname}}" type="text"
                      name="firstname" id="firstname" icon="fas fa-user-circle">Voornaam:
