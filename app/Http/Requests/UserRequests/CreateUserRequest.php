@@ -25,6 +25,7 @@ class CreateUserRequest extends FormRequest
     {
         return [
             'email' => 'required|email|unique:users,email',
+            'isAmdin' => 'nullable',
         ];
     }
 

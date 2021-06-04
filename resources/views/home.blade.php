@@ -1,4 +1,7 @@
 <x-layout>
+    @if ($message = Session::get('success'))
+        <x-flash title="Succes" type="success">{{ $message }}</x-flash>
+    @endif
     <form id="filterForm" method="GET" action="{{ route('home') }}">
         <div class="mx-3 sm:mx-4 md:mx-5 my-4">
             <div class="space-y-5">
