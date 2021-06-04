@@ -1,4 +1,5 @@
 <x-layout>
+    <x-flash title="Succes" type="success">{{ session()->get('success') }}</x-flash>
     <form id="filterForm" method="GET" action="{{ route('home') }}">
         <div class="mx-3 sm:mx-4 md:mx-5 my-4">
             <div class="space-y-5">

@@ -35,7 +35,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::post('register', [RegisterController::class, 'store'])->name('register.store');
 
         Route::resource('employee', EmployeeController::class)
-            ->only(['show', 'update', 'edit']);
+            ->only(['show', 'update', 'edit', 'destroy']);
     });
 });
 

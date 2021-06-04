@@ -154,6 +154,8 @@ class EmployeeController extends Controller
      */
     public function destroy(Employee $employee)
     {
-        return abort(404);
+        $employee->delete();
+        
+        return redirect()->route('home')->with('success', 'Het account is succesvol verwijderd!');
     }
 }
