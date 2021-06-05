@@ -1,10 +1,11 @@
 <div class="bg-white shadow-lg rounded-lg cursor-pointer select-none">
     <a href="{{ route('employee.show', ['employee' => $employee]) }}">
-        <div class="relative h-52">
+        <div class="relative h-60">
             <div class="absolute bottom-2 left-2 z-20 w-full">
-                <div class="text-white text-md lg:text-lg xl:text-xl 2xl:text-2xl font-medium "
-                     title="{{ $employee->fullname }}">{{ $employee->fullname }}</div>
-                <div class="h-2 w-2/3 bg-red-700 rounded-full my-1"></div>
+                <div
+                    class="text-white text-md lg:text-lg xl:text-xl font-medium select-all bg-gray-400 overflow-clip rounded-md w-3/4 px-2 break-words"
+                    title="{{ $employee->fullname }}">{{ $employee->fullname }}</div>
+                <div class="h-2 w-3/4 bg-red-700 rounded-full my-1"></div>
             </div>
             @if(is_null($employee->user->photoUrl))
                 <div class="grid rounded-t-lg absolute h-full w-full object-cover bg-gray-400">
@@ -17,7 +18,7 @@
             @endisset
         </div>
         <div class="px-4 py-2">
-            <div class="text-gray-500 text-lg lg:text-xl xl:text-2xl truncate"
+            <div class="text-gray-500 text-lg lg:text-xl truncate"
                  title="{{ $department." - ".$function }}">{{ $department." - ".$function }}</div>
             <div class="text-sm md:text-md xl:text-lg truncate">
                 <div class="ml-2 text-red-700"
