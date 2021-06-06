@@ -26,6 +26,7 @@ use App\Models\WorkDay;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Collection;
 
 class HomeController extends Controller
 {
@@ -102,6 +103,75 @@ class HomeController extends Controller
         $roles = Role::all();
         $workDays = WorkDay::all();
 
-        return view('home', compact(["request", "employees", "courses", "departments", "expertises", "hobbies", "learningLines", "lectorates", "minors", "roles", "workDays"]));
+        $filteredItems = $this->filteredItems($request);
+
+        return view('home', compact(["request", "employees", "courses", "departments", "expertises", "hobbies", "learningLines", "lectorates", "minors", "roles", "workDays", "filteredItems"]));
+    }
+
+    protected function filteredItems(IndexHomeRequest $request) : Collection{
+        $filteredItems = collect();
+
+        $courses = Course::all();
+        $departments = Department::all();
+        $expertises = Expertise::all();
+        $hobbies = Hobby::all();
+        $learningLines = LearningLine::all();
+        $lectorates = Lectorate::all();
+        $minors = Minor::all();
+        $roles = Role::all();
+        $workDays = WorkDay::all();
+
+        if ($request->filled('searchbar')){
+            $searchQuery = new \stdClass();
+            $searchQuery->name =  '"'.$request->get('searchbar').'"';
+            $filteredItems->add($searchQuery);
+        }
+
+        foreach($courses as $course){
+            if(isset($request->get("courses")[$course->id]))
+                $filteredItems->add($course);
+        }
+
+        foreach($departments as $department){
+            if(isset($request->get("departments")[$department->id]))
+                $filteredItems->add($department);
+        }
+
+        foreach($expertises as $expertise){
+            if(isset($request->get("expertises")[$expertise->id]))
+                $filteredItems->add($expertise);
+        }
+
+        foreach($hobbies as $hobby){
+            if(isset($request->get("hobbies")[$hobby->id]))
+                $filteredItems->add($hobby);
+        }
+
+        foreach($learningLines as $learningLine){
+            if(isset($request->get("learningLines")[$learningLine->id]))
+                $filteredItems->add($learningLine);
+        }
+
+        foreach($lectorates as $lectorate){
+            if(isset($request->get("lectorates")[$lectorate->id]))
+                $filteredItems->add($lectorate);
+        }
+
+        foreach($minors as $minor){
+            if(isset($request->get("minors")[$minor->id]))
+                $filteredItems->add($minor);
+        }
+
+        foreach($roles as $role){
+            if(isset($request->get("roles")[$role->id]))
+                $filteredItems->add($role);
+        }
+
+        foreach($workDays as $workDay){
+            if(isset($request->get("workDays")[$workDay->id]))
+                $filteredItems->add($workDay);
+        }
+
+        return $filteredItems;
     }
 }

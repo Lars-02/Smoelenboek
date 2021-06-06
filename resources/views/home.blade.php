@@ -2,13 +2,7 @@
     <form id="filterForm" method="GET" action="{{ route('home') }}">
         <div x-data="setup()" x-init="$refs.loading.classList.add('hidden');">
 
-        @if($employees->count() == 0)
-            <div class="mx-3 space-x-4 content-center flex items-center justify-center top-28 flex-grow mb-4 overflow-x-hidden overflow-y-scroll scrollbar-hide rounded-md pb-4">
-                <div class="text-xl grid gap-4 content-center flex items-center justify-center md:gap-6 xl:gap-8 grid-cols-1">
-                    Er zijn geen resultaten gevonden.
-                </div>
-            </div>
-        @else
+
             <div class="mx-3 mt-4 mb-4 overflow-x-hidden overflow-y-scroll scrollbar-hide rounded-md">
                 <div class="flex justify-left gap-1 mb-4 bg-gray-200 p-2 md:p-3 rounded-md flex-wrap">
                     <!-- Sidebars button -->
@@ -17,59 +11,24 @@
                             <i class="fa fa-search text-center"></i>
                         </div>
                     </div>
-                    @foreach($courses as $course)
-                        @if(isset($request->get("courses")[$course->id]))
-                            <h4 class="inline-block bg-red-700 text-white p-2 rounded"> {{ $course->name }} </h4>
-                        @endif
-                    @endforeach
-                    @foreach($roles as $role)
-                        @if(isset($request->get("roles")[$role->id]))
-                            <h4 class="inline-block bg-red-700 text-white p-2 rounded"> {{ $role->name }} </h4>
-                        @endif
-                    @endforeach
-                    @foreach($workDays as $workDay)
-                        @if(isset($request->get("workDays")[$workDay->id]))
-                            <h4 class="inline-block bg-red-700 text-white p-2 rounded"> {{ $workDay->name }} </h4>
-                        @endif
-                    @endforeach
-                    @foreach($learningLines as $learningLine)
-                        @if(isset($request->get("expertises")[$learningLine->id]))
-                            <h4 class="inline-block bg-red-700 text-white p-2 rounded"> {{ $learningLine->name }} </h4>
-                        @endif
-                    @endforeach
-                    @foreach($departments as $department)
-                        @if(isset($request->get("departments")[$department->id]))
-                            <h4 class="inline-block bg-red-700 text-white p-2 rounded"> {{ $department->name }} </h4>
-                        @endif
-                    @endforeach
-                    @foreach($hobbies as $hobby)
-                        @if(isset($request->get("hobbies")[$hobby->id]))
-                            <h4 class="inline-block bg-red-700 text-white p-2 rounded"> {{ $hobby->name }} </h4>
-                        @endif
-                    @endforeach
-                    @foreach($lectorates as $lectorate)
-                        @if(isset($request->get("lecorates")[$lectorate->id]))
-                            <h4 class="inline-block bg-red-700 text-white p-2 rounded"> {{ $lectorate->name }} </h4>
-                        @endif
-                    @endforeach
-                    @foreach($minors as $minor)
-                        @if(isset($request->get("minors")[$minor->id]))
-                            <h4 class="inline-block bg-red-700 text-white p-2 rounded"> {{ $minor->name }} </h4>
-                        @endif
-                    @endforeach
-                    @foreach($expertises as $expertise)
-                        @if(isset($request->get("expertises")[$expertise->id]))
-                            <h4 class="inline-block bg-red-700 text-white p-2 rounded"> {{ $expertise->name }} </h4>
-                        @endif
-                    @endforeach
+                    @if(!empty($filteredItems))
+                        @foreach($filteredItems as $filteredItem)
+                            <h4 class="inline-block bg-red-700 text-white p-2 rounded"> {{ $filteredItem->name }} </h4>
+                        @endforeach
+                    @endif
                 </div>
+                @if($employees->count() == 0)
+                <div class="text-xl w-full text-center">
+                    Er zijn geen resultaten gevonden.
+                </div>
+                @else
                 <div class="grid gap-4 md:gap-6 xl:gap-8 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5">
                     @foreach($employees as $employee)
                         <x-profilecard :employee="$employee"></x-profilecard>
                     @endforeach
                 </div>
+                @endif
             </div>
-        @endif
 
         <!-- Filters -->
         <div class="sm:flex sm:overflow-hidden mb-2 h-0 ml-0">
