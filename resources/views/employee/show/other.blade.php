@@ -9,7 +9,7 @@
             </div>
         </li>
         <li class="bg-white rounded shadow-md p-5 mb-5">
-            <h4 class="md:text-2xl lg:text-3xl font-bold inline-block border-b border-red-500 mb-2">Hobby's</h4>
+            <h4 class="md:text-2xl lg:text-3xl font-bold inline-block border-b border-red-500 mb-2">Hobbies</h4>
             <div>
                 @foreach($employee->hobbies as $hobby)
                     <p class="text-sm md:text-xl lg:text-2xl select-all">{{$hobby->name}}</p>
@@ -17,7 +17,7 @@
             </div>
         </li>
         <li class="bg-white rounded shadow-md p-5 mb-5">
-            <h4 class="md:text-2xl lg:text-3xl font-bold inline-block border-b border-red-500 mb-2">Cursussen</h4>
+            <h4 class="md:text-2xl lg:text-3xl font-bold inline-block border-b border-red-500 mb-2">Vakken</h4>
             <div>
                 @foreach($employee->courses as $course)
                     <p class="text-sm md:text-xl lg:text-2xl select-all">{{$course->name}}</p>

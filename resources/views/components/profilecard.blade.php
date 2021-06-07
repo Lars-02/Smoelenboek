@@ -37,7 +37,7 @@
                 </div>
                 <div class="mb-3">
                     @isset($courses)
-                        <div class="text-gray-500">Cursessen</div>
+                        <div class="text-gray-500">Cursussen</div>
                         @foreach($courses as $course)
                             <div class="ml-2 text-red-700" title="{{ $course }}">{{ $course }}</div>
                         @endforeach
@@ -45,7 +45,7 @@
                 </div>
                 <div class="mb-3">
                     @isset($expertises)
-                        <div class="text-gray-500">Expertise</div>
+                        <div class="text-gray-500">Expertises</div>
                         @foreach($expertises as $expertise)
                             <div class="ml-2 text-red-700" title="{{ $expertise }}">{{ $expertise }}</div>
                         @endforeach
@@ -53,7 +53,7 @@
                 </div>
                 <div class="mb-3">
                     @isset($minors)
-                        <div class="text-gray-500">Minors</div>
+                        <div class="text-gray-500">Minoren</div>
                         @foreach($minors as $minor)
                             <div class="ml-2 text-red-700" title="{{ $minor }}">{{ $minor }}</div>
                         @endforeach
