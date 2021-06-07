@@ -29,8 +29,13 @@
                         @else
                             <img src="{{asset('storage/' . $employee->user->photoUrl)}}" class="w-40">
                         @endif
+                        <div>
+                            <input class="form-control-file block" name="photoUrl" type="file">
+                            @error('photoUrl')
+                            <span class="text-red-600">{{ $message }}</span>
+                            @enderror
+                        </div>
 
-                            <input class="form-control-file" name="photoUrl" type="file">
                         <p class="text-center md:text-left md:text-5xl sm:text-3xl select-all">{{$employee->firstname}} {{$employee->lastname}} </p>
                     </div>
 

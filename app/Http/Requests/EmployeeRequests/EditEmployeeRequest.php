@@ -29,7 +29,7 @@ class EditEmployeeRequest extends FormRequest
             'phoneNumber' => array('required', 'regex:/^((\+31)|(0031)|0)(\(0\)|)(\d{1,3})(\s|\-|)(\d{8}|\d{4}\s\d{4}|\d{2}\s\d{2}\s\d{2}\s\d{2})$/'),
             'email' => 'required|email',
             'linkedInUrl' => 'nullable',
-            'photoUrl' => 'nullable|mimes:jpg,png,jpeg,webp',
+            'photoUrl' => 'nullable|mimes:jpg,png,jpeg,webp|max:1024',
             'departments' => 'required',
             'expertises' => 'nullable',
             'minors' => 'nullable',
