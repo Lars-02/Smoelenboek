@@ -4,7 +4,7 @@
 
     <x-checkbox id="hobbies" :options="$hobbies">Hobbies</x-checkbox>
 
-    <x-checkbox id="courses" :options="$courses">Cursussen</x-checkbox>
+    <x-checkbox id="courses" :options="$courses">Vakken</x-checkbox>
 
     <x-checkbox id="learningLines" :options="$learningLines">Leerlijnen</x-checkbox>
 
