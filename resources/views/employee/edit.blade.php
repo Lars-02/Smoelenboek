@@ -5,7 +5,7 @@
             <input name="_method" type="hidden" value="PUT">
             <div class="my-5 w-full bg-gray-200 rounded p-2">
                 <x-button>
-                    <a href="{{ url()->previous() }}">
+                    <a href="{{ route('employee.show', $employee) }}">
                         Annuleren
                     </a>
                 </x-button>
@@ -14,7 +14,7 @@
                         Opslaan
                     </x-button>
                 </div>
-                @if(Auth::user()->isAdmin())
+                @if(auth()->user()->isAdmin())
                     <div class="pr-2 float-right">
                         <x-modal
                             modalTitle="Account Verwijderen"
@@ -50,7 +50,7 @@
             </div>
             <div class="my-5 w-full bg-gray-200 rounded p-2">
                 <x-button>
-                    <a href="{{ url()->previous() }}">
+                    <a href="{{ route('home') }}">
                         Annuleren
                     </a>
                 </x-button>
@@ -59,7 +59,7 @@
                         Opslaan
                     </x-button>
                 </div>
-                @if($employee->user->isAdmin())
+                @if(auth()->user()->isAdmin())
                     <div class="pr-2 float-right">
                         <x-modal
                             modalTitle="Account Verwijderen"
