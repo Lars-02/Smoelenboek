@@ -87,6 +87,6 @@ class RegisterController extends Controller
 
         Mail::to( $users->email)->send(new RegistrationMail($users , $randomPassword));
 
-        return redirect()->route('home');
+        return redirect()->route('home')->with('message', 'Email is verstuurd');
     }
 }
