@@ -28,7 +28,7 @@ class EditEmployeeRequest extends FormRequest
             'lastname' => 'required|min:2|max:60',
             'phoneNumber' => array('required', 'regex:/^((\+31)|(0031)|0)(\(0\)|)(\d{1,3})(\s|\-|)(\d{8}|\d{4}\s\d{4}|\d{2}\s\d{2}\s\d{2}\s\d{2})$/'),
             'email' => 'required|email',
-            'linkedInUrl' => 'nullable',
+            'linkedInUrl' => array('nullable', 'regex:/^((http|https):\/\/)?+(www.linkedin.com\/in\/).+$/'),
             'photoUrl' => 'nullable|mimes:jpg,png,jpeg,webp',
             'departments' => 'required',
             'expertises' => 'nullable',
@@ -47,10 +47,10 @@ class EditEmployeeRequest extends FormRequest
     *
     * @return array
     */
-    public function messages()
+    public function messages(): array
     {
         return [
-
+            'linkedInUrl' => 'Uw linkedIn url moet beginnen met https://www.linkedin.com/in/.',
         ];
     }
 }
