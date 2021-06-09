@@ -35,7 +35,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::post('register', [RegisterController::class, 'store'])->name('register.store');
 
         Route::group(['middleware' => 'employee.edit', 'prefix' => 'employee', 'as' => 'employee.'], function () {
-            Route::put('{employee}/edit', [EmployeeController::class, 'update'])->name('update');
+            Route::put('{employee}', [EmployeeController::class, 'update'])->name('update');
             Route::get('{employee}/edit', [EmployeeController::class, 'edit'])->name('edit');
         });
 
