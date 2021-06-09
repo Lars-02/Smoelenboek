@@ -85,10 +85,6 @@ class ProfileEditTest extends DuskTestCase
             ->value('#email', Carbon::now().'newEmail@avans.nl')
             ->value('#phoneNumber', 'newPhoneNumber')
             ->value('#linkedInUrl', 'https://www.linkedin.com/in/nick-van-zandwijk-32a3a120a/')
-            ->press('Account')
-            ->press('Afdeling')
-            ->press('Werkdagen')
-            ->press('Blokken')
             ->press('Opslaan');
             $url = $browser->driver->getCurrentURL();
             $this->assertEquals(env('APP_URL') . 'employee/102/edit', $url);
@@ -156,7 +152,7 @@ class ProfileEditTest extends DuskTestCase
             ->value('#linkedInUrl', 'https://www.linkedin.com/in/nick-van-zandwijk-32a3a120a/')
             ->press('Opslaan');
             $url = $browser->driver->getCurrentURL();
-            if ($url == env('APP_URL') . 'employee/1/edit' || $url == env('APP_URL') . 'employee/1/') $this->assertTrue(true);
+            $this->assertEquals(env('APP_URL') . 'employee/1/edit', $url);
         });
     }
 }
