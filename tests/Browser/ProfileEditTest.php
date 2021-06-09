@@ -74,25 +74,22 @@ class ProfileEditTest extends DuskTestCase
     {
         $this->browse(function (Browser $browser) {
             $browser->visit(env('APP_URL'))
-                ->type('email', 'test@avans.nl')
-                ->type('password', 'password')
-                ->press('Inloggen')
-                ->visit(env('APP_URL') . 'employee/102')
-                ->press('Aanpassen')
-                ->value('#firstname', 'newFirstName')
-                ->value('#lastname', 'newLastName')
-                ->value('#email', Carbon::now() . 'newEmail@avans.nl')
-                ->value('#phoneNumber', 'newPhoneNumber')
-                ->value('#linkedInUrl', 'linkedInUrl.nl')
-                ->check('departments[]')
-                ->check('roles[]')
-                ->check('lectorates[]')
-                ->check('hobbies[]')
-                ->check('courses[]')
-                ->check('learningLines[]')
-                ->check('minors[]')
-                ->check('expertises[]')
-                    ;
+
+            ->type('email', 'test@avans.nl')
+            ->type('password', 'password')
+            ->press('Inloggen')
+            ->visit(env('APP_URL').'employee/102')
+            ->press('Aanpassen')
+            ->value('#firstname', 'newFirstName')
+            ->value('#lastname', 'newLastName')
+            ->value('#email', Carbon::now().'newEmail@avans.nl')
+            ->value('#phoneNumber', 'newPhoneNumber')
+            ->value('#linkedInUrl', 'https://www.linkedin.com/in/nick-van-zandwijk-32a3a120a/')
+            ->press('Account')
+            ->press('Afdeling')
+            ->press('Werkdagen')
+            ->press('Blokken')
+            ->press('Opslaan');
             $url = $browser->driver->getCurrentURL();
             $this->assertEquals(env('APP_URL') . 'employee/102/edit', $url);
         });
@@ -147,17 +144,17 @@ class ProfileEditTest extends DuskTestCase
     {
         $this->browse(function (Browser $browser) {
             $browser->visit(env('APP_URL'))
-                ->type('email', 'admin@avans.nl')
-                ->type('password', 'password')
-                ->press('Inloggen')
-                ->visit(env('APP_URL') . 'employee/1')
-                ->press('Aanpassen')
-                ->value('#firstname', 'newFirstName')
-                ->value('#lastname', 'newLastName')
-                ->value('#email', Carbon::now() . 'newEmail@avans.nl')
-                ->value('#phoneNumber', '0655445516')
-                ->value('#linkedInUrl', 'linkedInUrl.nl')
-                ->press('Opslaan');
+            ->type('email', 'admin@avans.nl')
+            ->type('password', 'password')
+            ->press('Inloggen')
+            ->visit(env('APP_URL').'employee/1')
+            ->press('Aanpassen')
+            ->value('#firstname', 'newFirstName')
+            ->value('#lastname', 'newLastName')
+            ->value('#email', Carbon::now().'newEmail@avans.nl')
+            ->value('#phoneNumber', '0655445516')
+            ->value('#linkedInUrl', 'https://www.linkedin.com/in/nick-van-zandwijk-32a3a120a/')
+            ->press('Opslaan');
             $url = $browser->driver->getCurrentURL();
             if ($url == env('APP_URL') . 'employee/1/edit' || $url == env('APP_URL') . 'employee/1/') $this->assertTrue(true);
         });
