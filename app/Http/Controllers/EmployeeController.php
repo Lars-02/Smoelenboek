@@ -155,7 +155,11 @@ class EmployeeController extends Controller
     public function destroy(Employee $employee)
     {
         $employee->delete();
-        
+        if($employee->id == Auth::id()) 
+        {
+            Auth::logout(); 
+            return redirect()->route('login')->with('success', 'Uw account is succesvol verwijderd!');
+        }
         return redirect()->route('home')->with('success', 'Het account is succesvol verwijderd!');
     }
 }
