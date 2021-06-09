@@ -18,7 +18,7 @@ class UserMayEditProfile
      */
     public function handle(Request $request, Closure $next)
     {
-        if(!Auth::user()->isAdmin() || $request->user()->employee->id != Auth::user()->id)
+        if(!Auth::user()->isAdmin() && $request->user()->employee->id != Auth::id())
             return redirect('home');
 
         return $next($request);
