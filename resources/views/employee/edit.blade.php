@@ -81,6 +81,11 @@
                     </x-modal>
                 </div>
             @endif
+            <div class="content-center flex items-center justify-center flex-grow overflow-x-hidden scrollbar-hide rounded-md">
+                <div class="text-xl grid gap-4 content-center flex items-center justify-center md:gap-6 xl:gap-8 grid-cols-1">
+                    Log uit om uw wachtwoord te wijzigen.
+                </div>
+            </div>
         </div>
     </div>
 </x-layout>
