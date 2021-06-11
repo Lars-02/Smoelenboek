@@ -95,7 +95,12 @@ class EmployeeController extends Controller
         $expertises = Expertise::all()->pluck('name', 'id');
         $learningLines = LearningLine::all()->pluck('name', 'id');
         $minors = Minor::all()->pluck('name', 'id');
-        $roles = Role::where('self_assignable', true)->pluck('name', 'id');
+
+        if(Auth::user()->isAdmin()) {
+            $roles = Role::all()->pluck('name', 'id');
+        }else{
+            $roles = Role::where('self_assignable', true)->pluck('name', 'id');
+        }
 
         return view('employee.edit', compact('employee', 'departments', 'hobbies', 'courses', 'workDays', 'lectorates', 'expertises', 'learningLines', 'minors', 'roles'));
     }
