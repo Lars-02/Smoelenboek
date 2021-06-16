@@ -16,7 +16,7 @@ class EnsureEmployee
      */
     public function handle(Request $request, Closure $next)
     {
-        if (!isset($request->user()->employee))
+        if (empty($request->user()->employee))
             return redirect(route('employee.create'));
 
         return $next($request);
