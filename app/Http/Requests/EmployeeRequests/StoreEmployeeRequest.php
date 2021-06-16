@@ -27,7 +27,7 @@ class StoreEmployeeRequest extends FormRequest
             'user_id' => 'required|unique:employees',
             'firstname' => 'required|alpha|min:2|max:40',
             'lastname' => 'required|min:2|max:40',
-            'phoneNumber' => array('required', 'regex:/(^\+[0-9]{2}|^\+[0-9]{2}\(0\)|^\(\+[0-9]{2}\)\(0\)|^00[0-9]{2}|^0)([0-9]{9}$|[0-9\-\s]{10}$)/'),
+            'phoneNumber' => array('required', 'regex:/^((\+31)|(0031)|0)(\(0\)|)(\d{1,3})(\s|\-|)(\d{8}|\d{4}\s\d{4}|\d{2}\s\d{2}\s\d{2}\s\d{2})$/'),
             'photoUrl' => 'nullable|mimes:jpg,png,jpeg,webp',
             'departments' => 'required|exists:departments,id',
             'expertises' => 'required|exists:expertises,id',
