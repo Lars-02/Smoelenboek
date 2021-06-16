@@ -2,12 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\EmployeeRequests\CreateEmployeeRequest;
 use App\Http\Requests\EmployeeRequests\EditEmployeeRequest;
 use App\Http\Requests\EmployeeRequests\StoreEmployeeRequest;
-use App\Http\Requests\RegisterRequests\RegisterUserRequest;
 use App\Models\Course;
-use App\Models\DayOfWeek;
 use App\Models\Department;
 use App\Models\Employee;
 use App\Models\Expertise;
@@ -21,7 +18,6 @@ use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 
@@ -46,7 +42,7 @@ class EmployeeController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param Request $request
+     * @param StoreEmployeeRequest $request
      * @return RedirectResponse
      */
     public function store(StoreEmployeeRequest $request)
@@ -70,7 +66,8 @@ class EmployeeController extends Controller
      * Display the specified resource.
      *
      * @param Employee $employee
-     * @return Response
+     * @param null $succes
+     * @return Application|Factory|View|Response
      */
     public function show(Employee $employee, $succes = null)
     {
@@ -86,7 +83,7 @@ class EmployeeController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param Employee $employee
-     * @return Response
+     * @return Application|Factory|View|Response
      */
     public function edit(Employee $employee)
     {
@@ -98,51 +95,55 @@ class EmployeeController extends Controller
         $expertises = Expertise::all()->pluck('name', 'id');
         $learningLines = LearningLine::all()->pluck('name', 'id');
         $minors = Minor::all()->pluck('name', 'id');
-        $roles = Role::where('self_assignable', true)->pluck('name', 'id');
 
-        if ($employee->id == Auth::user()->id || Auth::user()->isAdmin()) {
-            return view('employee.edit', compact(["employee"], 'departments', 'hobbies', 'courses', 'workDays', 'lectorates', 'expertises', 'learningLines', 'minors', 'roles'));
+        if(Auth::user()->isAdmin()) {
+            $roles = Role::all()->pluck('name', 'id');
+        }else{
+            $roles = Role::where('self_assignable', true)->pluck('name', 'id');
         }
-        else {
-            return back()->with('error', 'U heeft geen toegang tot het bewerken van andermans profielen.');
-        }
+
+        return view('employee.edit', compact('employee', 'departments', 'hobbies', 'courses', 'workDays', 'lectorates', 'expertises', 'learningLines', 'minors', 'roles'));
     }
 
 
     /**
      * Update the specified resource in storage.
      *
-     * @param Request $request
+     * @param EditEmployeeRequest $request
      * @param Employee $employee
-     * @return Response
+     * @return RedirectResponse
      */
     public function update(EditEmployeeRequest $request, Employee $employee)
     {
         $validated = $request->validated();
 
-        if ($employee->id == Auth::user()->id || Auth::user()->isAdmin()) {
-            $employee->update(request(['firstname', 'lastname', 'phoneNumber', 'expertise', 'linkedInUrl']));
-            $employee->user->update(['email' => $validated['email']]);
-            if(!empty($request->file('photoUrl'))) {
+        // updateOrDelete only applies to nullable attributes
+        $employee->update(request(['firstname', 'lastname', 'phoneNumber', 'expertise', 'linkedInUrl']));
+        $employee->user->update(['email' => $validated['email']]);
+        if (!empty($request->file('photoUrl'))) {
             $employee->user->update(['photoUrl' => $request->file('photoUrl')->store('photos')]);
-            }
-            $employee->user->roles()->sync($validated['roles']);
-            $employee->workDays()->sync($validated['workDays']);
-            $employee->departments()->sync($validated['departments']);
-            $employee->lectorates()->sync($validated['lectorates']);
-            $employee->hobbies()->sync($validated['hobbies']);
-            $employee->learningLines()->sync($validated['learningLines']);
-            $employee->courses()->sync($validated['courses']);
-            $employee->minors()->sync($validated['minors']);
-            $employee->expertises()->sync($validated['expertises']);
-            $employee->save();
-
-
-
-            return redirect()->action([EmployeeController::class, 'show'], ['employee' => $employee, 'succes' => "Alle gegevens zijn succesvol opgeslagen"]);
         }
-        else {
-            return redirect()->action([EmployeeController::class, 'show'], ['employee' => $employee, 'succes' => "U heeft geen toegang tot het bewerken van andermans profielen."]);
+        $employee->user->roles()->sync($validated['roles']);
+        $employee->workDays()->sync($validated['workDays']);
+        $employee->departments()->sync($validated['departments']);
+        $this->updateOrDelete($employee->lectorates(), 'lectorates', $validated);
+        $this->updateOrDelete($employee->hobbies(), 'hobbies', $validated);
+        $this->updateOrDelete($employee->learningLines(), 'learningLines', $validated);
+        $this->updateOrDelete($employee->courses(), 'courses', $validated);
+        $this->updateOrDelete($employee->minors(), 'minors', $validated);
+        $this->updateOrDelete($employee->expertises(), 'expertises', $validated);
+        $employee->save();
+
+        return redirect()->action([EmployeeController::class, 'show'], ['employee' => $employee, 'succes' => "Alle gegevens zijn succesvol opgeslagen"]);
+
+    }
+
+    public function updateOrDelete($employeeAttribute, $attributeName, $validated)
+    {
+        if (empty($validated[$attributeName])) {
+            $employeeAttribute->detach();
+        } else {
+            $employeeAttribute->sync($validated[$attributeName]);
         }
     }
 
@@ -150,7 +151,7 @@ class EmployeeController extends Controller
      * Remove the specified resource from storage.
      *
      * @param Employee $employee
-     * @return Response
+     * @return Response|void
      */
     public function destroy(Employee $employee)
     {

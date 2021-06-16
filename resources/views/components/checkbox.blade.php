@@ -5,7 +5,7 @@
         @foreach($options as $option => $value)
             <div>
                 <label class="cursor-pointer">
-                    <input @isset($employee) @if ($employee->$options->contains($value->id)) checked @endif @endisset
+                    <input @isset($oldvals) @if ($oldvals->contains($value)) checked @endif @endisset
                     value="{{ $option }}"
                            @if (old($id) !== null)
                            @foreach(old($id) as $val)
