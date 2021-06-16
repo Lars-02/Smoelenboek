@@ -3,15 +3,21 @@
     <div class="items-center space-x-2 font-semibold text-gray-900 leading-8 mb-5 md:flex-shrink-0">
         <div>
             @if (empty($employee->user->photoUrl))
-                <img src="https://www.shareicon.net/data/128x128/2016/07/26/801997_user_512x512.png" class="select-none md:flex-shrink-0 md:w-48 min-h-full max-h-full mx-auto">
+                <img src="https://www.shareicon.net/data/128x128/2016/07/26/801997_user_512x512.png"
+                     class="select-none md:flex-shrink-0 md:w-48 min-h-full max-h-full mx-auto">
             @else
-                <img src="{{asset('storage/' . $employee->user->photoUrl)}}" class="select-none md:flex-shrink-0 min-h-full max-h-full mx-auto">
+                <img src="{{asset('storage/' . $employee->user->photoUrl)}}"
+                     class="select-none md:flex-shrink-0 min-h-full max-h-full mx-auto">
             @endif
         </div>
         <div class="m-0 text-center">
             <p class="text-2xl md:text-4xl sm:text-3xl select-all mt-3">{{$employee->firstname}} {{$employee->lastname}}</p>
 
-            <a href="{{$employee->linkedInUrl}}" class="break-words text-blue-500 md:text-2xl font-semibold select-none"><i class="fab fa-linkedin-in"></i></a>
+            @if(!empty($employee->linkedInUrl))
+                <a href="{{$employee->linkedInUrl}}" class="break-words text-blue-500 md:text-2xl font-semibold select-none">
+                    <i class="fab fa-linkedin-in"></i>
+                </a>
+            @endif
         </div>
     </div>
 
@@ -22,7 +28,8 @@
                 <div class="grid grid-cols-5 lg:grid-cols-4 xl:grid-cols-5">
                     @foreach($allDays as $day)
                         @if(in_array($day, $workingDays))
-                            <span class="grid-cols-1 select-all text-red-700 text-center shadow-inner py-2 font-bold shadow rounded text-xs sm:text-sm md:text-base lg:text-lg">
+                            <span
+                                class="grid-cols-1 select-all text-red-700 text-center shadow-inner py-2 font-bold shadow rounded text-xs sm:text-sm md:text-base lg:text-lg">
                             {{ substr($day, 0, 2) }}
                             </span>
                         @endif
@@ -32,11 +39,15 @@
             </div>
             <div class="mb-5">
                 <label class="break-words text-lg md:text-2xl select-none font-semibold">E-mail</label>
-                <p class="break-words md:text-2xl select-all">{{$employee->user->email}}</p>
+                <div>
+                    <a href="mailto:{{$employee->user->email}}" class="break-words md:text-2xl select-all">{{$employee->user->email}}</a>
+                </div>
             </div>
             <div class="mb-5">
                 <label class="break-words text-lg md:text-2xl select-none font-semibold">Telefoon</label>
-                <p class="break-words md:text-2xl select-all">{{$employee->phoneNumber}}</p>
+                <div>
+                    <a href="tel:{{$employee->phoneNumber}}" class="break-words md:text-2xl select-all">{{$employee->phoneNumber}}</a>
+                </div>
             </div>
             <div class="mb-5">
                 <p class="select-none font-bold text-lg md:text-2xl">Rol(len):</p>
