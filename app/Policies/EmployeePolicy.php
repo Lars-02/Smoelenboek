@@ -11,19 +11,6 @@ class EmployeePolicy
     use HandlesAuthorization;
 
     /**
-     * Perform pre-authorization checks.
-     *
-     * @param User $user
-     * @return bool|void
-     */
-    public function before(User $user)
-    {
-        if ($user->isAdmin())
-            return true;
-        return;
-    }
-
-    /**
      * Determine whether the user can view the model.
      *
      * @param User $user
@@ -55,7 +42,7 @@ class EmployeePolicy
      */
     public function update(User $user, Employee $employee): bool
     {
-        return $user->id === $employee->user_id;
+        return $user->id === $employee->user_id || $user->isAdmin();
     }
 
     /**
@@ -67,6 +54,6 @@ class EmployeePolicy
      */
     public function delete(User $user, Employee $employee): bool
     {
-        return $user->id === $employee->user_id;
+        return $user->id === $employee->user_id || $user->isAdmin();
     }
 }
