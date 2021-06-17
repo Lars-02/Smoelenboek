@@ -13,9 +13,11 @@
         <div class="m-0 text-center">
             <p class="text-2xl md:text-4xl sm:text-3xl select-all mt-3 break-words">{{$employee->firstname}} {{$employee->lastname}}</p>
 
-            <a href="{{$employee->linkedInUrl}}"
-               class="break-words text-blue-500 md:text-2xl font-semibold select-none"><i
-                    class="fab fa-linkedin-in"></i></a>
+            @if(!empty($employee->linkedInUrl))
+                <a href="{{$employee->linkedInUrl}}" class="break-words text-blue-500 md:text-2xl font-semibold select-none">
+                    <i class="fab fa-linkedin-in"></i>
+                </a>
+            @endif
         </div>
     </div>
 
