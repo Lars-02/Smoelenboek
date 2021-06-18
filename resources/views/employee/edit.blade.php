@@ -18,8 +18,8 @@
                         modalTitle="Account Verwijderen"
                         submitLabel="Verwijderen"
                         cancelLabel="Annuleren"
-                        route="{{ route('home') }}"
-                        method="GET"
+                        route="{{ route('employee.destroy', ['employee' => $employee]) }}"
+                        method="DELETE"
                         icon="fas fa-trash">
                         <x-slot name="trigger">
                             <x-button>

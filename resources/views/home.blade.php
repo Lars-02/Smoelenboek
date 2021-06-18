@@ -1,4 +1,7 @@
 <x-layout>
+    @if ($message = Session::get('success'))
+        <x-flash title="Succes" type="success">{{ $message }}</x-flash>
+    @endif
     <form id="filterForm" method="GET" action="{{ route('home') }}">
         <div x-data="setup()" x-init="$refs.loading.classList.add('hidden');">
 
