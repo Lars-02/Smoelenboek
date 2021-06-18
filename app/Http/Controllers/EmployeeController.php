@@ -57,7 +57,7 @@ class EmployeeController extends Controller
         $employee->workDays()->sync($validated['workDays']);
         $employee->save();
 
-        $employee->user->roles()->sync($validated['roles']);
+        $employee->user->roles()->sync($validated['roles'], false);
         $employee->user->save();
 
         return redirect(route('home'));
