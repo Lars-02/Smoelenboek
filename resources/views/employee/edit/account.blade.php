@@ -61,10 +61,10 @@
                 </x-input>
             </div>
             <div class="grid md:grid-cols-1 mb-5">
-                <x-checkbox id="roles" :options="$roles" :oldvals="$employee->user->roles->pluck('name', 'id')">Rollen</x-checkbox>
+                <x-select id="roles" :options="$roles" :oldvals="$employee->user->roles->pluck('name', 'id')">Rol(len)</x-select>
             </div>
             <div class="grid md:grid-cols-1">
-                <x-checkbox id="departments" :options="$departments" :oldvals="$employee->departments->pluck('name', 'id')">Afdeling</x-checkbox>
+                <x-select id="departments" :options="$departments" :oldvals="$employee->departments->pluck('name', 'id')">Afdeling(en)</x-select>
             </div>
 
         </div>

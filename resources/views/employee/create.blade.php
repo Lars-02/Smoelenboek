@@ -17,11 +17,11 @@
                          value="{{ old('phoneNumber') }}">Telefoonnummer
                 </x-input>
 
-                <x-checkbox id="departments" :options="$departments">Afdelingen</x-checkbox>
+                <x-select id="departments" :options="$departments">Afdelingen</x-select>
 
-                <x-checkbox id="roles" :options="$roles">Rollen</x-checkbox>
+                <x-select id="roles" :options="$roles">Rollen</x-select>
 
-                <x-checkbox id="expertises" :options="$expertises">Expertises</x-checkbox>
+                <x-select id="expertises" :options="$expertises">Expertises</x-select>
 
                 <div class="flex flex-wrap overflow-hidden">
                     <div class="w-full overflow-hidden">

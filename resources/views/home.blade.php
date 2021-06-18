@@ -265,7 +265,7 @@
             </div>
         </div>
     </form>
-    <script>
+    <script type="text/javascript">
         const setup = () => {
             return {
                 loading: true,
