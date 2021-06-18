@@ -24,4 +24,16 @@ class ForgotPasswordController extends Controller
     {
         return redirect()->route('login')->with('message', 'Email is verstuurd');
     }
+
+    public function showLinkRequestForm()
+    {
+        $user = auth()->user();
+
+        if($user != null)
+            return redirect()->route('home');
+
+        return view('auth.passwords.email');
+    }
+
+
 }

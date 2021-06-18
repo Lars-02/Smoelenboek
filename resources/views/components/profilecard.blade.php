@@ -36,44 +36,10 @@
                     </div>
                 </div>
                 <div class="mb-3">
-                    @isset($courses)
-                        <div class="text-gray-500">Cursessen</div>
-                        @foreach($courses as $course)
-                            <div class="ml-2 text-red-700" title="{{ $course }}">{{ $course }}</div>
-                        @endforeach
-                    @endisset
-                </div>
-                <div class="mb-3">
-                    @isset($expertises)
-                        <div class="text-gray-500">Expertise</div>
-                        @foreach($expertises as $expertise)
-                            <div class="ml-2 text-red-700" title="{{ $expertise }}">{{ $expertise }}</div>
-                        @endforeach
-                    @endisset
-                </div>
-                <div class="mb-3">
-                    @isset($minors)
-                        <div class="text-gray-500">Minors</div>
-                        @foreach($minors as $minor)
-                            <div class="ml-2 text-red-700" title="{{ $minor }}">{{ $minor }}</div>
-                        @endforeach
-                    @endisset
-                </div>
-                <div class="mb-3">
-                    @isset($lectorates)
-                        <div class="text-gray-500">Leerlijnen</div>
-                        @foreach($lectorates as $lectorate)
-                            <div class="ml-2 text-red-700" title="{{ $lectorate }}">{{ $lectorate }}</div>
-                        @endforeach
-                    @endisset
-                </div>
-                <div class="mb-3">
-                    @isset($hobbies)
-                        <div class="text-gray-500">Hobbies</div>
-                        @foreach($hobbies as $hobby)
-                            <div class="ml-2 text-red-700" title="{{ $hobby }}">{{ $hobby }}</div>
-                        @endforeach
-                    @endisset
+                    <div class="text-gray-500">{{ $items[0] }}</div>
+                    @foreach($items[1] as $item)
+                        <div class="ml-2 text-red-700" title="{{ $item }}">{{ $item }}</div>
+                    @endforeach
                 </div>
             </div>
         </div>
