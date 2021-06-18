@@ -40,7 +40,7 @@ class HomeController extends Controller
         $validated = $request->validated();
 
         if (!isset($employees)) {
-            $employees = Employee::all();
+            $employees = Employee::all()->sortBy('lastname')->sortBy('firstname');
         }
 
         if (!is_null($request['searchbar'])) {
