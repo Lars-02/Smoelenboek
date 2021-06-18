@@ -34,9 +34,16 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('register', [RegisterController::class, 'create'])->name('register.create');
         Route::post('register', [RegisterController::class, 'store'])->name('register.store');
 
-        Route::resource('employee', EmployeeController::class)
-            ->only(['show', 'update', 'edit']);
+        Route::group(['middleware' => 'employee.edit', 'prefix' => 'employee', 'as' => 'employee.'], function () {
+
+            Route::get('{employee}/edit', [EmployeeController::class, 'edit'])->name('edit');
+        });
+        Route::put('{employee}', [EmployeeController::class, 'update'])->name('employee.update');
+
+        Route::get('employee/{employee}', [EmployeeController::class, 'show'])->name('employee.show');
+        Route::delete('employee/{employee}/destroy', [EmployeeController::class, 'destroy'])->name('employee.destroy');
     });
+
 });
 
 Route::fallback(function () {

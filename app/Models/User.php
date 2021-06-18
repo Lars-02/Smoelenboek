@@ -58,6 +58,6 @@ class User extends Authenticatable
     }
 
     public function isAdmin() {
-        return $this->roles()->where('role_id', 1)->first();
+        return $this->roles()->where('name', 'Admin')->exists();
     }
 }
