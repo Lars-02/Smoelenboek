@@ -25,7 +25,7 @@ class CreateUserRequest extends FormRequest
     {
         return [
             'email' => 'required|email|unique:users,email',
-            'isAmdin' => 'nullable',
+            'isAdmin' => 'nullable',
         ];
     }
 
@@ -37,7 +37,7 @@ class CreateUserRequest extends FormRequest
     public function messages()
     {
         return [
-            
+
         ];
     }
 }
