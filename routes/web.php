@@ -41,6 +41,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::put('{employee}', [EmployeeController::class, 'update'])->name('employee.update');
 
         Route::get('employee/{employee}', [EmployeeController::class, 'show'])->name('employee.show');
+        Route::delete('employee/{employee}/destroy', [EmployeeController::class, 'destroy'])->name('employee.destroy');
     });
 
 });

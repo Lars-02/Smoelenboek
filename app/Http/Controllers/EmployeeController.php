@@ -13,6 +13,7 @@ use App\Models\LearningLine;
 use App\Models\Lectorate;
 use App\Models\Minor;
 use App\Models\Role;
+use App\Models\User;
 use App\Models\WorkDay;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
@@ -155,6 +156,16 @@ class EmployeeController extends Controller
      */
     public function destroy(Employee $employee)
     {
-        return abort(404);
+        if($employee->user_id == Auth::id()) 
+        {
+            $route = 'login';
+            Auth::logout(); 
+        }
+        else{
+            $route = 'home';
+        }
+        $employee->delete();
+        User::find($employee->user_id)->delete();
+        return redirect()->route($route)->with('success', 'Het account is succesvol verwijderd!');
     }
 }
