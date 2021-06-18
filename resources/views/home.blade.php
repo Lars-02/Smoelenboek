@@ -54,14 +54,14 @@
                         <!-- Sidebar links -->
                         <nav aria-label="Main" class="h-screen flex-1 px-2 w-80 bg-gray-100 py-4 space-y-2 overflow-y-scroll hover:overflow-y-auto">
                             <div class="grid grid-cols-2 place-items-center pb-2 content-center justify-center w-full">
-                                <x-button class="w-32 h-12"><a href="{{ route('home') }}">Clear</a></x-button>
-                                <x-button class="w-32 h-12" type="submit">Apply</x-button>
+                                <x-button class="w-32 h-12"><a href="{{ route('home') }}">Wissen</a></x-button>
+                                <x-button class="w-32 h-12" type="submit">Toepassen</x-button>
                             </div>
                             <div class="relative">
                                 <input type="text"  value="{{$request["searchbar"]}}" name="searchbar" id="searchbar" placeholder="Zoeken..." class="select-text relative text-xs sm:text-sm md:text-base lg:text-lg px-2.5 py-2.5 pl-8 w-full rounded border-gray-400 focus:border-gray-400 text-gray-600 focus:ring-0"/>
                                 <i class="select-none absolute left-3 bottom-3 sm:bottom-4 text-gray-600 fas fa-search"></i>
                             </div>
-                            <x-filterModal title="Cursus">
+                            <x-filterModal title="Vakken">
                                 @foreach($courses as $course)
                                     @if(isset($request->get("courses")[$course->id]))
                                         <x-filterSelector name="courses[{{ $course->id }}]" checked="true">
@@ -74,7 +74,7 @@
                                     @endif
                                 @endforeach
                             </x-filterModal>
-                            <x-filterModal title="Functie">
+                            <x-filterModal title="Functies">
                                 @foreach($roles as $role)
                                     @if(isset($request->get("roles")[$role->id]))
                                         <x-filterSelector name="roles[{{ $role->id }}]" checked="true">
@@ -139,7 +139,7 @@
                                     @endif
                                 @endforeach
                             </x-filterModal>
-                            <x-filterModal title="Lectorates">
+                            <x-filterModal title="Lectoraten">
                                 @foreach($lectorates as $lectorate)
                                     @if(isset($request->get("lectorates")[$lectorate->id]))
                                         <x-filterSelector name="lectorates[{{ $lectorate->id }}]" checked="true">
@@ -152,7 +152,7 @@
                                     @endif
                                 @endforeach
                             </x-filterModal>
-                            <x-filterModal title="Minors">
+                            <x-filterModal title="Minoren">
                                 @foreach($minors as $minor)
                                     @if(isset($request->get("minors")[$minor->id]))
                                         <x-filterSelector name="minors[{{ $minor->id }}]" checked="true">
