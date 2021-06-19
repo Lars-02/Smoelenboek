@@ -14,6 +14,7 @@ use App\Models\LearningLine;
 use App\Models\Lectorate;
 use App\Models\Minor;
 use App\Models\Role;
+use App\Models\User;
 use App\Models\WorkDay;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
@@ -157,4 +158,27 @@ class EmployeeController extends Controller
             $employeeAttribute->sync($validated[$attributeName]);
         }
     }
+  
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param Employee $employee
+     * @return Response|void
+     */
+    public function destroy(Employee $employee)
+    {
+        if($employee->user_id == Auth::id()) 
+        {
+            $route = 'login';
+            Auth::logout(); 
+        }
+        else{
+            $route = 'home';
+        }
+        $employee->delete();
+        User::find($employee->user_id)->delete();
+        return redirect()->route($route)->with('success', 'Het account is succesvol verwijderd!');
+    }
+  
 }

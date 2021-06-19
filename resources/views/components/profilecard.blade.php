@@ -1,10 +1,11 @@
 <div class="bg-white shadow-lg rounded-lg cursor-pointer select-none">
     <a href="{{ route('employee.show', ['employee' => $employee]) }}">
-        <div class="relative h-52">
+        <div class="relative h-60">
             <div class="absolute bottom-2 left-2 z-20 w-full">
-                <div class="text-white text-md lg:text-lg xl:text-xl 2xl:text-2xl font-medium "
-                     title="{{ $employee->fullname }}">{{ $employee->fullname }}</div>
-                <div class="h-2 w-2/3 bg-red-700 rounded-full my-1"></div>
+                <div
+                    class="text-white text-md lg:text-lg xl:text-xl font-medium select-all bg-gray-400 overflow-clip rounded-md w-3/4 px-2 break-words"
+                    title="{{ $employee->fullname }}">{{ $employee->fullname }}</div>
+                <div class="h-2 w-3/4 bg-red-700 rounded-full my-1"></div>
             </div>
             @if(is_null($employee->user->photoUrl))
                 <div class="grid rounded-t-lg absolute h-full w-full object-cover bg-gray-400">
@@ -17,7 +18,7 @@
             @endisset
         </div>
         <div class="px-4 py-2">
-            <div class="text-gray-500 text-lg lg:text-xl xl:text-2xl truncate"
+            <div class="text-gray-500 text-lg lg:text-xl truncate"
                  title="{{ $department." - ".$function }}">{{ $department." - ".$function }}</div>
             <div class="text-sm md:text-md xl:text-lg truncate">
                 <div class="ml-2 text-red-700"
@@ -36,44 +37,10 @@
                     </div>
                 </div>
                 <div class="mb-3">
-                    @isset($courses)
-                        <div class="text-gray-500">Cursessen</div>
-                        @foreach($courses as $course)
-                            <div class="ml-2 text-red-700" title="{{ $course }}">{{ $course }}</div>
-                        @endforeach
-                    @endisset
-                </div>
-                <div class="mb-3">
-                    @isset($expertises)
-                        <div class="text-gray-500">Expertise</div>
-                        @foreach($expertises as $expertise)
-                            <div class="ml-2 text-red-700" title="{{ $expertise }}">{{ $expertise }}</div>
-                        @endforeach
-                    @endisset
-                </div>
-                <div class="mb-3">
-                    @isset($minors)
-                        <div class="text-gray-500">Minors</div>
-                        @foreach($minors as $minor)
-                            <div class="ml-2 text-red-700" title="{{ $minor }}">{{ $minor }}</div>
-                        @endforeach
-                    @endisset
-                </div>
-                <div class="mb-3">
-                    @isset($lectorates)
-                        <div class="text-gray-500">Leerlijnen</div>
-                        @foreach($lectorates as $lectorate)
-                            <div class="ml-2 text-red-700" title="{{ $lectorate }}">{{ $lectorate }}</div>
-                        @endforeach
-                    @endisset
-                </div>
-                <div class="mb-3">
-                    @isset($hobbies)
-                        <div class="text-gray-500">Hobbies</div>
-                        @foreach($hobbies as $hobby)
-                            <div class="ml-2 text-red-700" title="{{ $hobby }}">{{ $hobby }}</div>
-                        @endforeach
-                    @endisset
+                    <div class="text-gray-500">{{ $items[0] }}</div>
+                    @foreach($items[1] as $item)
+                        <div class="ml-2 text-red-700" title="{{ $item }}">{{ $item }}</div>
+                    @endforeach
                 </div>
             </div>
         </div>
