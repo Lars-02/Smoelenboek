@@ -1,4 +1,7 @@
 <x-layout>
+    @if ($message = Session::get('success'))
+        <x-flash title="Succes" type="success">{{ $message }}</x-flash>
+    @endif
     <form id="filterForm" method="GET" action="{{ route('home') }}">
         <div x-data="setup()" x-init="$refs.loading.classList.add('hidden');">
 
@@ -43,153 +46,145 @@
 
                         <div x-show="isSidebarOpen" @click="isSidebarOpen = false"
                              class="fixed inset-0 z-10 bg-gray-500" style="opacity: 0.5" aria-hidden="true"></div>
-
-                        <aside x-show="isSidebarOpen"
-                               x-transition:enter="transition-all transform duration-300 ease-in-out"
-                               x-transition:enter-start="-translate-x-full opacity-0"
-                               x-transition:enter-end="translate-x-0 opacity-100"
-                               x-transition:leave="transition-all transform duration-300 ease-in-out"
-                               x-transition:leave-start="translate-x-0 opacity-100"
-                               x-transition:leave-end="-translate-x-full opacity-0"
-                               x-ref="sidebar"
-                               tabindex="-1"
-                               class="z-40 fixed inset-y-0 flex flex-shrink-0 overflow-hidden bg-gray-100 border-r focus:outline-none ">
-                            <!-- Sidebar links -->
-                            <nav aria-label="Main"
-                                 class="h-screen flex-1 px-2 w-80 bg-gray-100 py-4 space-y-2 overflow-y-scroll hover:overflow-y-auto">
-                                <div
-                                    class="grid grid-cols-2 place-items-center pb-2 content-center justify-center w-full">
-                                    <x-button class="w-32 h-12"><a href="{{ route('home') }}">Clear</a></x-button>
-                                    <x-button class="w-32 h-12" type="submit">Apply</x-button>
-                                </div>
-                                <div class="relative">
-                                    <input type="text" value="{{$request["searchbar"]}}" name="searchbar" id="searchbar"
-                                           placeholder="Zoeken..."
-                                           class="select-text relative text-xs sm:text-sm md:text-base lg:text-lg px-2.5 py-2.5 pl-8 w-full rounded border-gray-400 focus:border-gray-400 text-gray-600 focus:ring-0"/>
-                                    <i class="select-none absolute left-3 bottom-3 sm:bottom-4 text-gray-600 fas fa-search"></i>
-                                </div>
-                                <x-filterModal title="Cursus">
-                                    @foreach($courses as $course)
-                                        @if(isset($request->get("courses")[$course->id]))
-                                            <x-filterSelector name="courses[{{ $course->id }}]" checked="true">
-                                                {{ $course->name }}
-                                            </x-filterSelector>
-                                        @else
-                                            <x-filterSelector name="courses[{{ $course->id }}]" checked="false">
-                                                {{ $course->name }}
-                                            </x-filterSelector>
-                                        @endif
-                                    @endforeach
-                                </x-filterModal>
-                                <x-filterModal title="Functie">
-                                    @foreach($roles as $role)
-                                        @if(isset($request->get("roles")[$role->id]))
-                                            <x-filterSelector name="roles[{{ $role->id }}]" checked="true">
-                                                {{ $role->name }}
-                                            </x-filterSelector>
-                                        @else
-                                            <x-filterSelector name="roles[{{ $role->id }}]" checked="false">
-                                                {{ $role->name }}
-                                            </x-filterSelector>
-                                        @endif
-                                    @endforeach
-                                </x-filterModal>
-                                <x-filterModal title="Werkdagen">
-                                    @foreach($workDays as $workDay)
-                                        @if(isset($request->get("workDays")[$workDay->id]))
-                                            <x-filterSelector name="workDays[{{ $workDay->id }}]" checked="true">
-                                                {{ $workDay->name }}
-                                            </x-filterSelector>
-                                        @else
-                                            <x-filterSelector name="workDays[{{ $workDay->id }}]" checked="false">
-                                                {{ $workDay->name }}
-                                            </x-filterSelector>
-                                        @endif
-                                    @endforeach
-                                </x-filterModal>
-                                <x-filterModal title="Leerlijn">
-                                    @foreach($learningLines as $learningLine)
-                                        @if(isset($request->get("learningLines")[$learningLine->id]))
-                                            <x-filterSelector name="learningLines[{{ $learningLine->id }}]"
-                                                              checked="true">
-                                                {{ $learningLine->name }}
-                                            </x-filterSelector>
-                                        @else
-                                            <x-filterSelector name="learningLines[{{ $learningLine->id }}]"
-                                                              checked="false">
-                                                {{ $learningLine->name }}
-                                            </x-filterSelector>
-                                        @endif
-                                    @endforeach
-                                </x-filterModal>
-                                <x-filterModal title="Afdeling">
-                                    @foreach($departments as $department)
-                                        @if(isset($request->get("departments")[$department->id]))
-                                            <x-filterSelector name="departments[{{ $department->id }}]" checked="true">
-                                                {{ $department->name }}
-                                            </x-filterSelector>
-                                        @else
-                                            <x-filterSelector name="departments[{{ $department->id }}]" checked="false">
-                                                {{ $department->name }}
-                                            </x-filterSelector>
-                                        @endif
-                                    @endforeach
-                                </x-filterModal>
-                                <x-filterModal title="Hobbies">
-                                    @foreach($hobbies as $hobby)
-                                        @if(isset($request->get("hobbies")[$hobby->id]))
-                                            <x-filterSelector name="hobbies[{{ $hobby->id }}]" checked="true">
-                                                {{ $hobby->name }}
-                                            </x-filterSelector>
-                                        @else
-                                            <x-filterSelector name="hobbies[{{ $hobby->id }}]" checked="false">
-                                                {{ $hobby->name }}
-                                            </x-filterSelector>
-                                        @endif
-                                    @endforeach
-                                </x-filterModal>
-                                <x-filterModal title="Lectorates">
-                                    @foreach($lectorates as $lectorate)
-                                        @if(isset($request->get("lectorates")[$lectorate->id]))
-                                            <x-filterSelector name="lectorates[{{ $lectorate->id }}]" checked="true">
-                                                {{ $lectorate->name }}
-                                            </x-filterSelector>
-                                        @else
-                                            <x-filterSelector name="lectorates[{{ $lectorate->id }}]" checked="false">
-                                                {{ $lectorate->name }}
-                                            </x-filterSelector>
-                                        @endif
-                                    @endforeach
-                                </x-filterModal>
-                                <x-filterModal title="Minors">
-                                    @foreach($minors as $minor)
-                                        @if(isset($request->get("minors")[$minor->id]))
-                                            <x-filterSelector name="minors[{{ $minor->id }}]" checked="true">
-                                                {{ $minor->name }}
-                                            </x-filterSelector>
-                                        @else
-                                            <x-filterSelector name="minors[{{ $minor->id }}]" checked="false">
-                                                {{ $minor->name }}
-                                            </x-filterSelector>
-                                        @endif
-                                    @endforeach
-                                </x-filterModal>
-                                <x-filterModal title="Expertises">
-                                    @foreach($expertises as $expertise)
-                                        @if(isset($request->get("expertises")[$expertise->id]))
-                                            <x-filterSelector name="expertises[{{ $expertise->id }}]" checked="true">
-                                                {{ $expertise->name }}
-                                            </x-filterSelector>
-                                        @else
-                                            <x-filterSelector name="expertises[{{ $expertise->id }}]" checked="false">
-                                                {{ $expertise->name }}
-                                            </x-filterSelector>
-                                        @endif
-                                    @endforeach
-                                </x-filterModal>
-                            </nav>
-                        </aside>
-                    </div>
+                    <aside x-show="isSidebarOpen"
+                        x-transition:enter="transition-all transform duration-300 ease-in-out"
+                        x-transition:enter-start="-translate-x-full opacity-0"
+                        x-transition:enter-end="translate-x-0 opacity-100"
+                        x-transition:leave="transition-all transform duration-300 ease-in-out"
+                        x-transition:leave-start="translate-x-0 opacity-100"
+                        x-transition:leave-end="-translate-x-full opacity-0"
+                        x-ref="sidebar"
+                        tabindex="-1"
+                        class="z-40 fixed inset-y-0 flex flex-shrink-0 overflow-hidden bg-gray-100 border-r focus:outline-none ">
+                        <!-- Sidebar links -->
+                        <nav aria-label="Main" class="h-screen flex-1 px-2 w-80 bg-gray-100 py-4 space-y-2 overflow-y-scroll hover:overflow-y-auto">
+                            <div class="grid grid-cols-2 place-items-center pb-2 content-center justify-center w-full">
+                                <x-button class="w-32 h-12"><a href="{{ route('home') }}">Wissen</a></x-button>
+                                <x-button class="w-32 h-12" type="submit">Toepassen</x-button>
+                            </div>
+                            <div class="relative">
+                                <input type="text"  value="{{$request["searchbar"]}}" name="searchbar" id="searchbar" placeholder="Zoeken..." class="select-text relative text-xs sm:text-sm md:text-base lg:text-lg px-2.5 py-2.5 pl-8 w-full rounded border-gray-400 focus:border-gray-400 text-gray-600 focus:ring-0"/>
+                                <i class="select-none absolute left-3 bottom-3 sm:bottom-4 text-gray-600 fas fa-search"></i>
+                            </div>
+                            <x-filterModal title="Vakken">
+                                @foreach($courses as $course)
+                                    @if(isset($request->get("courses")[$course->id]))
+                                        <x-filterSelector name="courses[{{ $course->id }}]" checked="true">
+                                            {{ $course->name }}
+                                        </x-filterSelector>
+                                    @else
+                                        <x-filterSelector name="courses[{{ $course->id }}]" checked="false">
+                                            {{ $course->name }}
+                                        </x-filterSelector>
+                                    @endif
+                                @endforeach
+                            </x-filterModal>
+                            <x-filterModal title="Functies">
+                                @foreach($roles as $role)
+                                    @if(isset($request->get("roles")[$role->id]))
+                                        <x-filterSelector name="roles[{{ $role->id }}]" checked="true">
+                                            {{ $role->name }}
+                                        </x-filterSelector>
+                                    @else
+                                        <x-filterSelector name="roles[{{ $role->id }}]" checked="false">
+                                            {{ $role->name }}
+                                        </x-filterSelector>
+                                    @endif
+                                @endforeach
+                            </x-filterModal>
+                            <x-filterModal title="Werkdagen">
+                                @foreach($workDays as $workDay)
+                                    @if(isset($request->get("workDays")[$workDay->id]))
+                                        <x-filterSelector name="workDays[{{ $workDay->id }}]" checked="true">
+                                            {{ $workDay->name }}
+                                        </x-filterSelector>
+                                    @else
+                                        <x-filterSelector name="workDays[{{ $workDay->id }}]" checked="false">
+                                            {{ $workDay->name }}
+                                        </x-filterSelector>
+                                    @endif
+                                @endforeach
+                            </x-filterModal>
+                            <x-filterModal title="Leerlijn">
+                                @foreach($learningLines as $learningLine)
+                                    @if(isset($request->get("learningLines")[$learningLine->id]))
+                                        <x-filterSelector name="learningLines[{{ $learningLine->id }}]" checked="true">
+                                            {{ $learningLine->name }}
+                                        </x-filterSelector>
+                                    @else
+                                        <x-filterSelector name="learningLines[{{ $learningLine->id }}]" checked="false">
+                                            {{ $learningLine->name }}
+                                        </x-filterSelector>
+                                    @endif
+                                @endforeach
+                            </x-filterModal>
+                            <x-filterModal title="Afdeling">
+                                @foreach($departments as $department)
+                                    @if(isset($request->get("departments")[$department->id]))
+                                        <x-filterSelector name="departments[{{ $department->id }}]" checked="true">
+                                            {{ $department->name }}
+                                        </x-filterSelector>
+                                    @else
+                                        <x-filterSelector name="departments[{{ $department->id }}]" checked="false">
+                                            {{ $department->name }}
+                                        </x-filterSelector>
+                                    @endif
+                                @endforeach
+                            </x-filterModal>
+                            <x-filterModal title="Hobbies">
+                                @foreach($hobbies as $hobby)
+                                    @if(isset($request->get("hobbies")[$hobby->id]))
+                                        <x-filterSelector name="hobbies[{{ $hobby->id }}]" checked="true">
+                                            {{ $hobby->name }}
+                                        </x-filterSelector>
+                                    @else
+                                        <x-filterSelector name="hobbies[{{ $hobby->id }}]" checked="false">
+                                            {{ $hobby->name }}
+                                        </x-filterSelector>
+                                    @endif
+                                @endforeach
+                            </x-filterModal>
+                            <x-filterModal title="Lectoraten">
+                                @foreach($lectorates as $lectorate)
+                                    @if(isset($request->get("lectorates")[$lectorate->id]))
+                                        <x-filterSelector name="lectorates[{{ $lectorate->id }}]" checked="true">
+                                            {{ $lectorate->name }}
+                                        </x-filterSelector>
+                                    @else
+                                        <x-filterSelector name="lectorates[{{ $lectorate->id }}]" checked="false">
+                                            {{ $lectorate->name }}
+                                        </x-filterSelector>
+                                    @endif
+                                @endforeach
+                            </x-filterModal>
+                            <x-filterModal title="Minoren">
+                                @foreach($minors as $minor)
+                                    @if(isset($request->get("minors")[$minor->id]))
+                                        <x-filterSelector name="minors[{{ $minor->id }}]" checked="true">
+                                            {{ $minor->name }}
+                                        </x-filterSelector>
+                                    @else
+                                        <x-filterSelector name="minors[{{ $minor->id }}]" checked="false">
+                                            {{ $minor->name }}
+                                        </x-filterSelector>
+                                    @endif
+                                @endforeach
+                            </x-filterModal>
+                            <x-filterModal title="Expertises">
+                                @foreach($expertises as $expertise)
+                                    @if(isset($request->get("expertises")[$expertise->id]))
+                                        <x-filterSelector name="expertises[{{ $expertise->id }}]" checked="true">
+                                            {{ $expertise->name }}
+                                        </x-filterSelector>
+                                    @else
+                                        <x-filterSelector name="expertises[{{ $expertise->id }}]" checked="false">
+                                            {{ $expertise->name }}
+                                        </x-filterSelector>
+                                    @endif
+                                @endforeach
+                            </x-filterModal>
+                        </nav>
+                    </aside>
                 </div>
             </div>
         </div>
