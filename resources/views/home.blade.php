@@ -10,7 +10,8 @@
                 <div class="flex justify-left gap-1 mb-4 bg-gray-200 p-2 md:p-3 rounded-md flex-wrap">
                     <!-- Sidebars button -->
                     <div class="inline-block mr-2">
-                        <div @click="isSidebarOpen = true; $nextTick(() => { $refs.sidebar.focus() })" class="focus:outline-none cursor-pointer py-2 px-3 text-white transition-colors duration-200 rounded-md bg-red-700 hover:bg-red-500 focus:outline-none focus:ring">
+                        <div @click="isSidebarOpen = true; $nextTick(() => { $refs.sidebar.focus() })"
+                             class="focus:outline-none cursor-pointer py-2 px-3 text-white transition-colors duration-200 rounded-md bg-red-700 hover:bg-red-500 focus:outline-none focus:ring">
                             <i class="fa fa-search text-center"></i>
                         </div>
                     </div>
@@ -21,26 +22,30 @@
                     @endif
                 </div>
                 @if($employees->count() == 0)
-                <div class="text-xl w-full text-center">
-                    Er zijn geen resultaten gevonden.
-                </div>
+                    <div class="text-xl w-full text-center">
+                        Er zijn geen resultaten gevonden.
+                    </div>
                 @else
-                <div class="grid gap-4 md:gap-6 xl:gap-8 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5">
-                    @foreach($employees as $employee)
-                        <x-profilecard :employee="$employee"></x-profilecard>
-                    @endforeach
-                </div>
+                    <div
+                        class="grid gap-4 md:gap-6 xl:gap-8 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 2xl:grid-cols-5">
+                        @foreach($employees as $employee)
+                            <x-profilecard :employee="$employee"></x-profilecard>
+                        @endforeach
+                    </div>
                 @endif
             </div>
 
-        <!-- Filters -->
-        <div class="sm:flex sm:overflow-hidden mb-2 h-0 ml-0">
-            <div class="max-w-xs sm:w-1/2 xl:w-1/3 mr-0 sm:mr-3 h-0 sm:overflow-y-scroll scrollbar-hide">
-                <div class="fixed z-40 flex h-screen antialiased text-gray-900 bg-gray-100">
-                    <div x-ref="loading" class="fixed inset-0 z-50 flex items-center justify-center text-2xl font-semibold text-white bg-red-700">Loading..... </div>
+            <!-- Filters -->
+            <div class="sm:flex sm:overflow-hidden mb-2 h-0 ml-0">
+                <div class="max-w-xs sm:w-1/2 xl:w-1/3 mr-0 sm:mr-3 h-0 sm:overflow-y-scroll scrollbar-hide">
+                    <div class="fixed z-40 flex h-screen antialiased text-gray-900 bg-gray-100">
+                        <div x-ref="loading"
+                             class="fixed inset-0 z-50 flex items-center justify-center text-2xl font-semibold text-white bg-red-700">
+                            Loading.....
+                        </div>
 
-                    <div x-show="isSidebarOpen" @click="isSidebarOpen = false" class="fixed inset-0 z-10 bg-gray-500" style="opacity: 0.5" aria-hidden="true" ></div>
-
+                        <div x-show="isSidebarOpen" @click="isSidebarOpen = false"
+                             class="fixed inset-0 z-10 bg-gray-500" style="opacity: 0.5" aria-hidden="true"></div>
                     <aside x-show="isSidebarOpen"
                         x-transition:enter="transition-all transform duration-300 ease-in-out"
                         x-transition:enter-start="-translate-x-full opacity-0"
@@ -181,7 +186,6 @@
                         </nav>
                     </aside>
                 </div>
-            </div>
             </div>
         </div>
     </form>
