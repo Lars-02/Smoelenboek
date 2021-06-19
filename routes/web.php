@@ -3,6 +3,7 @@
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\SubFilterController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -27,10 +28,11 @@ Route::group(['middleware' => 'auth'], function () {
         Route::post('/', [EmployeeController::class, 'store'])->name('store');
     });
 
+
     Route::group(['middleware' => 'employee'], function () {
 
         Route::get('/', [HomeController::class, 'index'])->name('home');
-
+        Route::get('/', [HomeController::class, 'index'])->name('home');
         Route::get('register', [RegisterController::class, 'create'])->name('register.create');
         Route::post('register', [RegisterController::class, 'store'])->name('register.store');
 
@@ -42,6 +44,9 @@ Route::group(['middleware' => 'auth'], function () {
 
         Route::get('employee/{employee}', [EmployeeController::class, 'show'])->name('employee.show');
         Route::delete('employee/{employee}/destroy', [EmployeeController::class, 'destroy'])->name('employee.destroy');
+
+        Route::resource('subfilter', SubFilterController::class);
+        Route::delete('subfilter/destroy', [SubFilterController::class, 'destroy'])->name('subfilter.destroy');
     });
 
 });
