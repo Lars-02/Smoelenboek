@@ -69,16 +69,15 @@ class RegisterController extends Controller
     {
         $validated = $request->validated();
 
-        if ($request->isAdmin) $roleId = Role::where('name', 'Admin')->get(['id'])->first();
-        else $roleId = Role::where('name', 'Docent')->get(['id'])->first();
-
         $user = User::create([
             'email' => $validated['email'],
             'email_verified_at' => now(),
             'password' => Hash::make($randomPassword = Str::random(20)),
             'remember_token' => Str::random(10),
         ]);
-        $user->roles()->attach($roleId);
+        if ($request->isAdmin) {
+            $user->roles()->attach(Role::where('name', 'Admin')->get(['id'])->first());
+        }
 
         Mail::to($user->email)->send(new RegistrationMail($user, $randomPassword));
 
