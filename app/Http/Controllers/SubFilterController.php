@@ -39,9 +39,45 @@ class SubFilterController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+        $identifier = $request->identifier;
+        $name = $request->name;
+
+        $subfilter == null;
+
+        switch($identifier) {
+            case "expertise":
+                $subfilter = new Expertise;
+
+                break;
+            case "course":
+                $subfilter = new Course;
+                break;
+            case "department":
+                $subfilter = new Department;
+                break;
+            case "hobby":
+                $subfilter = new Hobby;
+                break;
+            case "learningLine":
+                $subfilter = new LearningLine;
+                break;
+            case "lectorate":
+                $subfilter = new Lectorate;
+                break;
+            case "minor":
+                $subfilter = new Minor;
+                break;
+            case "role":
+                $subfilter = new Role;
+                break;
+        }
+
+        if ($subfilter != null){
+            $subfilter->name = $name;
+            $subfilter->save();
+        }
     }
 
     /**
