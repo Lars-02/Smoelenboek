@@ -44,7 +44,7 @@ class SubFilterController extends Controller
         $identifier = $request->identifier;
         $name = $request->name;
 
-        $subfilter == null;
+        $subfilter = null;
 
         switch($identifier) {
             case "expertise":
@@ -104,9 +104,44 @@ class SubFilterController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($id,Request $request)
     {
-        //
+        $identifier = $request->identifier;
+        $name = $request->name;
+
+        $subfilter = null;
+
+        switch($identifier) {
+            case "expertise":
+                $subfilter = Expertise::find($id);
+                break;
+            case "course":
+                $subfilter = Course::find($id);
+                break;
+            case "department":
+                $subfilter = Department::find($id);
+                break;
+            case "hobby":
+                $subfilter = Hobby::find($id);
+                break;
+            case "learningLine":
+                $subfilter = LearningLine::find($id);
+                break;
+            case "lectorate":
+                $subfilter = Lectorate::find($id);
+                break;
+            case "minor":
+                $subfilter = Minor::find($id);
+                break;
+            case "role":
+                $subfilter = Role::find($id);
+                break;
+        }
+
+        if ($subfilter != null){
+            $subfilter->name = $name;
+            $subfilter->save();
+        }
     }
 
     /**
