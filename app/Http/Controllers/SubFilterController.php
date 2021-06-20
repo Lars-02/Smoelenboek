@@ -11,6 +11,7 @@ use App\Models\Lectorate;
 use App\Models\Minor;
 use App\Models\Role;
 use App\Models\WorkDay;
+use Illuminate\Http\Request;
 
 class SubFilterController extends Controller
 {
@@ -90,8 +91,39 @@ class SubFilterController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($id, Request $request)
     {
-        dd($id);
+       switch ($request->name)
+       {
+           case 'courses':
+               Course::destroy($id);
+               break;
+           case 'departments':
+               Department::destroy($id);
+               break;
+           case 'expertises':
+               Expertise::destroy($id);
+               break;
+           case 'hobbies':
+               Hobby::destroy($id);
+               break;
+           case 'learningLines':
+               LearningLine::destroy($id);
+               break;
+           case 'lectorates':
+               Lectorate::destroy($id);
+               break;
+           case 'minors':
+               Minor::destroy($id);
+               break;
+           case 'roles':
+               Role::destroy($id);
+               break;
+           case 'workDays':
+               WorkDay::destroy($id);
+               break;
+
+       }
+                return redirect()->route('subfilter.index')->with('success', 'De subfilter is succesvol verwijderd!');
     }
 }

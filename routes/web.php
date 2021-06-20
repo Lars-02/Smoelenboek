@@ -46,7 +46,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::delete('employee/{employee}/destroy', [EmployeeController::class, 'destroy'])->name('employee.destroy');
 
         Route::resource('subfilter', SubFilterController::class);
-        Route::delete('subfilter/destroy', [SubFilterController::class, 'destroy'])->name('subfilter.destroy');
+        Route::delete('subfilter/destroy/{id}', [SubFilterController::class, 'destroy'])->name('subfilter.destroy');
     });
 
 });
