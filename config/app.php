@@ -165,6 +165,7 @@ return [
         /*
          * Package Service Providers...
          */
+        RachidLaasri\LaravelInstaller\Providers\LaravelInstallerServiceProvider::class,
 
         /*
          * Application Service Providers...
