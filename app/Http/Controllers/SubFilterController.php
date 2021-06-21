@@ -39,14 +39,14 @@ class SubFilterController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Request $request)
+    public function create(Request $request,$filter)
     {
-        $identifier = $request->identifier;
+        //$identifier = $request->identifier;
         $name = $request->name;
 
         $subfilter = null;
 
-        switch($identifier) {
+        switch($filter) {
             case "expertise":
                 $subfilter = new Expertise;
 
@@ -78,6 +78,8 @@ class SubFilterController extends Controller
             $subfilter->name = $name;
             $subfilter->save();
         }
+
+        return redirect()->route('subfilter.index')->with('success', 'De subfilter is succesvol toegevoerd!');
     }
 
     /**
@@ -104,14 +106,13 @@ class SubFilterController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id,Request $request)
+    public function edit($id,$filter,Request $request)
     {
-        $identifier = $request->identifier;
         $name = $request->name;
 
         $subfilter = null;
 
-        switch($identifier) {
+        switch($filter) {
             case "expertise":
                 $subfilter = Expertise::find($id);
                 break;
