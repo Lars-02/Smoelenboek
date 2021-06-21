@@ -3,8 +3,8 @@
         <ul class="flex flex-col w-full">
             <li class="my-px">
                 <a x-data="{ open: false }">
-                    <span class="ml-3">{{$title}}</span>
-                    <span type="button" @click="open = true" class="flex items-center justify-center text-xl text-white  bg-red-700 h-6 px-2 rounded-full ml-auto m-0">{{$title}} toevoegen</span>
+                    <span class="ml-3">{{$filter}}</span>
+                    <span type="button" @click="open = true" class="flex items-center justify-center text-xl text-white  bg-red-700 h-6 px-2 rounded-full ml-auto m-0">{{$filter}} toevoegen</span>
                     <x-inputModal
                     route="{{route('createsubfilter', ['filter' => $title])}}"
                     >{{$title}}</x-inputModal>
