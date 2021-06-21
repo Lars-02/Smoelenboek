@@ -41,36 +41,38 @@ class SubFilterController extends Controller
      */
     public function create(Request $request,$filter)
     {
-        //$identifier = $request->identifier;
+        Info("request->name =");
+        Info($request->name);
         $name = $request->name;
 
-        $subfilter = null;
-
         switch($filter) {
-            case "expertise":
+            case "expertises":
                 $subfilter = new Expertise;
-
                 break;
-            case "course":
+            case "courses":
                 $subfilter = new Course;
+                $subfilter->term=0;
                 break;
-            case "department":
+            case "departments":
                 $subfilter = new Department;
                 break;
-            case "hobby":
+            case "hobbies":
                 $subfilter = new Hobby;
                 break;
-            case "learningLine":
+            case "learningLines":
                 $subfilter = new LearningLine;
                 break;
-            case "lectorate":
+            case "lectorates":
                 $subfilter = new Lectorate;
                 break;
-            case "minor":
+            case "minors":
                 $subfilter = new Minor;
                 break;
-            case "role":
+            case "roles":
                 $subfilter = new Role;
+                break;
+            default:
+                $subfilter = null;
                 break;
         }
 
@@ -106,36 +108,39 @@ class SubFilterController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id,$filter,Request $request)
-    {
+    public function edit($filter,$id,Request $request)
+    {   
+        Info("name is :");
+        Info($request->name);
         $name = $request->name;
 
-        $subfilter = null;
-
         switch($filter) {
-            case "expertise":
+            case "expertises":
                 $subfilter = Expertise::find($id);
                 break;
-            case "course":
+            case "courses":
                 $subfilter = Course::find($id);
                 break;
-            case "department":
+            case "departments":
                 $subfilter = Department::find($id);
                 break;
-            case "hobby":
+            case "hobbies":
                 $subfilter = Hobby::find($id);
                 break;
-            case "learningLine":
+            case "learningLines":
                 $subfilter = LearningLine::find($id);
                 break;
-            case "lectorate":
+            case "lectorates":
                 $subfilter = Lectorate::find($id);
                 break;
-            case "minor":
+            case "minors":
                 $subfilter = Minor::find($id);
                 break;
-            case "role":
+            case "roles":
                 $subfilter = Role::find($id);
+                break;
+            default:
+                $subfilter = null;
                 break;
         }
 

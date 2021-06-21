@@ -6,7 +6,7 @@
                 <x-input
                 icon="fas fa-filter"
                 id={{$slot}}
-                name={{$slot}}
+                name="name"
                 value="{{$slot}}"
             >{{$slot}}
             </x-input>
