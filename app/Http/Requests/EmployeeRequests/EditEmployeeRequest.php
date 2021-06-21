@@ -24,8 +24,8 @@ class EditEmployeeRequest extends FormRequest
     public function rules()
     {
         return [
-            'firstname' => 'required|alpha|min:2|max:60',
-            'lastname' => 'required|min:2|max:60',
+            'firstname' => 'required|alpha|min:2|max:16',
+            'lastname' => 'required|min:2|max:16',
             'phoneNumber' => array('required', 'regex:/^((\+31)|(0031)|0)(\(0\)|)(\d{1,3})(\s|\-|)(\d{8}|\d{4}\s\d{4}|\d{2}\s\d{2}\s\d{2}\s\d{2})$/'),
             'email' => 'required|email',
             'linkedInUrl' => array('nullable', 'regex:/^((http|https):\/\/)?+(www.linkedin.com\/in\/).+$/'),
