@@ -22,16 +22,26 @@ class SubFilterController extends Controller
      */
     public function index()
     {
-        $courses = Course::all();
-        $departments = Department::all();
-        $expertises = Expertise::all();
-        $hobbies = Hobby::all();
-        $learningLines = LearningLine::all();
-        $lectorates = Lectorate::all();
-        $minors = Minor::all();
-        $roles = Role::all();
-        $workDays = WorkDay::all();
-        return view('subfilter', compact(["courses", "departments", "expertises", "hobbies", "learningLines", "lectorates", "minors", "roles", "workDays"]));
+        $user = auth()->user();
+
+        if($user != null && $user->isAdmin() != null){
+            $courses = Course::all();
+            $departments = Department::all();
+            $expertises = Expertise::all();
+            $hobbies = Hobby::all();
+            $learningLines = LearningLine::all();
+            $lectorates = Lectorate::all();
+            $minors = Minor::all();
+            $roles = Role::all();
+            $workDays = WorkDay::all();
+            return view('subfilter', compact(["courses", "departments", "expertises", "hobbies", "learningLines", "lectorates", "minors", "roles", "workDays"]));
+        }
+        else if($user != null)
+            return redirect()->route('home');
+
+        return redirect()->route('auth.login');
+
+        
     }
 
     /**
