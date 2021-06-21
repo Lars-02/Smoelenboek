@@ -31,7 +31,7 @@
                                 modalTitle="Subfilter Verwijderen"
                                 submitLabel="Verwijderen"
                                 cancelLabel="Annuleren"
-                                route="{{route('subfilter.destroy', ['id' => $option->id, 'name'=> $title])}}"
+                                route="{{route('destroysubfilter', ['id' => $option->id, 'name'=> $title])}}"
                                 method="DELETE"
                                 icon="fas fa-backspace">
                                 <x-slot name="trigger">
