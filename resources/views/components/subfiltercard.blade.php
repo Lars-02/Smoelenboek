@@ -15,15 +15,18 @@
             </li>
             @foreach($options as  $option)
                 <li class="my-px mb-5">
-                    <a x-data="{ open: false }" class="grid grid-cols-6 gap-4 px-4 rounded-lg text-gray-500 text-xl">
-                            <span class="ml-3 col-span-4" name="{{ $option->name }}">
-                                {{ $option->name }}
-                            </span>
-                            <button type="button" @click="open = true"  class="fas fa-edit col-span-1 h-10 w-10 bg-red-700 hover:bg-red-900 text-white font-bold rounded focus:outline-none"></button>
+                    <a class="grid grid-cols-5 gap-4 px-4 rounded-lg text-gray-500 text-xl">
+                        <span class="ml-3 col-start-1 col-end-4 break-words" name="{{ $option->name }}">
+                            {{ $option->name }}
+                        </span>
+                        <div  x-data="{ open: false }" class="col-start-4 col-end-5">
+                            <button type="button" @click="open = true"  class="fas fa-edit h-10 w-10 bg-red-700 hover:bg-red-900 text-white font-bold rounded focus:outline-none"></button>
                             <x-inputModal
                             route="{{route('editsubfilter',['id' => $option->id, 'filter'=> $title])}}"
                             >{{$option->name}}</x-inputModal>
-                        <div class="ml-auto col-span-1">
+                        </div>
+                        <div x-data="{ VerwijderPopUp: false }" class="col-start-5 col-end-6">
+                            <button type="button" @click="VerwijderPopUp = true"  class="fas fa-backspace h-10 w-10 bg-red-700 hover:bg-red-900 text-white font-bold rounded focus:outline-none"></button>
                             <x-modal
                                 modalTitle="Subfilter Verwijderen"
                                 submitLabel="Verwijderen"
@@ -40,7 +43,6 @@
                                 </div>
                             </x-modal>
                         </div>
-
                     </a>
 
                 </li>
