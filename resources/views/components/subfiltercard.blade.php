@@ -27,7 +27,7 @@
                         </div>
                         <div x-data="{ VerwijderPopUp: false }" class="col-start-5 col-end-6">
                             <button type="button" @click="VerwijderPopUp = true"  class="fas fa-backspace h-10 w-10 bg-red-700 hover:bg-red-900 text-white font-bold rounded focus:outline-none"></button>
-                            <x-modal
+                            <x-removeFilterModal
                                 modalTitle="Subfilter Verwijderen"
                                 submitLabel="Verwijderen"
                                 cancelLabel="Annuleren"
@@ -41,7 +41,7 @@
                                 <div>
                                     Weet u zeker dat u het subfilter {{ $option->name }} wilt verwijderen?
                                 </div>
-                            </x-modal>
+                            </x-removeFilterModal>
                         </div>
                     </a>
 
