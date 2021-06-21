@@ -143,6 +143,7 @@ class SubFilterController extends Controller
             $subfilter->name = $name;
             $subfilter->save();
         }
+        return redirect()->route('subfilter.index')->with('success', 'De subfilter is succesvol aangepast!');
     }
 
     /**
@@ -196,6 +197,6 @@ class SubFilterController extends Controller
                break;
 
        }
-                return redirect()->route('subfilter.index')->with('success', 'De subfilter is succesvol verwijderd!');
+        return redirect()->route('subfilter.index')->with('success', 'De subfilter is succesvol verwijderd!');
     }
 }

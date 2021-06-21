@@ -1,6 +1,7 @@
 <div id="popUp" class="absolute fixed transform" x-show="open" @click.away="open = false">
     <div class="p-5 bg-white border-2 border-black rounded-md"> 
         <form method="POST" action="{{ $route }}">
+            @csrf
             <span class="m:text-sm md:text-base lg:text-lg">
                 <x-input
                 icon="fas fa-filter"
