@@ -69,24 +69,18 @@ class RegisterController extends Controller
     {
         $validated = $request->validated();
 
-        if ($request->isAdmin)
-            $roles = Role::where('name', 'Admin')->get(['id'])->first();
-        else
-            $roles = Role::where('name', 'Docent')->get(['id'])->first();
+        $user = User::create([
+            'email' => $validated['email'],
+            'email_verified_at' => now(),
+            'password' => Hash::make($randomPassword = Str::random(20)),
+            'remember_token' => Str::random(10),
+        ]);
+        if ($request->isAdmin) {
+            $user->roles()->attach(Role::where('name', 'Admin')->get(['id'])->first());
+        }
 
-        $randomPassword = Str::random(20);
-        $users = new User;
-        $users->email = $validated['email'];
-        $users->password = Hash::make($randomPassword);
+        Mail::to($user->email)->send(new RegistrationMail($user, $randomPassword));
 
-        DB::transaction(function () use ($users, $roles) {
-            $users->save();
-            $users->roles()->attach($roles);
-            $roles->save();
-        });
-
-        Mail::to( $users->email)->send(new RegistrationMail($users , $randomPassword));
-
-        return redirect()->route('home');
+        return redirect()->route('home')->with('success', 'Het account is succesvol aangemaakt! Er is een mail verzonden met verdere instructies.');
     }
 }
