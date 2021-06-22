@@ -1,7 +1,7 @@
 <div class="bg-white rounded p-10 col-span-1 shadow h-full">
 
     <div class="items-center space-x-2 font-semibold text-gray-900 leading-8 mb-5 md:flex-shrink-0">
-        
+
         <div>
             @if (empty($employee->user->photoUrl))
                 <img src="https://www.shareicon.net/data/128x128/2016/07/26/801997_user_512x512.png"
@@ -12,13 +12,13 @@
         </div>
         <div class="flex">
             <div class="flex-1">
-                <input class="mt-4 p-2 bg-red-700 rounded text-sm text-white font-medium" name="photoUrl" type="file">
+                <input class="mt-4 p-2 bg-red-700 rounded text-sm text-white font-medium" name="photoUrl" id="photoUrl" type="file">
             </div>
             <div class="flex items-center">
                 <x-contextHelp>{{ __('upload hier uw profielfoto.') }}</x-contextHelp>
             </div>
         </div>
-        
+
         <div class="m-0 pt-5 text-center">
             <x-input value="{{$employee->firstname}}" type="text"
                      name="firstname" id="firstname" icon="fas fa-user-circle">Voornaam:
@@ -86,7 +86,7 @@
                 <x-contextHelp>{{__('Vink aan voor de rollen die voor u van toepassing zijn, u kunt meerdere rollen selecteren.')}}</x-contextHelp>
             </div>
             <div class="grid md:grid-cols-1 mb-5">
-                
+
                 <x-checkbox id="roles" :options="$roles" :oldvals="$employee->user->roles->pluck('name', 'id')">Rollen</x-checkbox>
             </div>
 

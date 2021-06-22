@@ -28,7 +28,7 @@ class StoreEmployeeRequest extends FormRequest
             'firstname' => 'required|alpha|min:2|max:16',
             'lastname' => 'required|min:2|max:16',
             'phoneNumber' => array('required', 'regex:/(^\+[0-9]{2}|^\+[0-9]{2}\(0\)|^\(\+[0-9]{2}\)\(0\)|^00[0-9]{2}|^0)([0-9]{9}$|[0-9\-\s]{10}$)/'),
-            'photoUrl' => 'nullable|mimes:jpg,png,jpeg,webp',
+            'photoUrl' => 'nullable',
             'departments' => 'required|exists:departments,id',
             'expertises' => 'required|exists:expertises,id',
             'roles' => 'required|exists:roles,id',
