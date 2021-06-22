@@ -12,7 +12,7 @@
         </div>
         <div class="flex">
             <div class="flex-1">
-                <input class="mt-4 p-2 bg-red-700 rounded text-sm text-white font-medium" name="photoUrl" id="photoUrl" type="file">
+                <input class="mt-4 p-2 bg-red-700 rounded text-sm text-white font-medium" accept='image/jpeg , image/jpg, image/gif, image/png' name="photoUrl" id="photoUrl" type="file">
             </div>
             <div class="flex items-center">
                 <x-contextHelp>{{ __('upload hier uw profielfoto.') }}</x-contextHelp>
