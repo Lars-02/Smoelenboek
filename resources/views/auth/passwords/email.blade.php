@@ -2,7 +2,16 @@
     <x-card title="Wachtwoord Vergeten">
         <form method="POST" action="{{ route('password.email') }}">
             @csrf
-            <x-input id="email" type="email" name="email" icon="fas fa-user">{{ __('Email') }}</x-input>
+            
+            <div class="flex">
+                <div class="flex-1">
+                    <x-input id="email" type="email" name="email" icon="fas fa-user">{{ __('Email') }}</x-input>
+                </div>
+                <div class="flex items-center">
+                    <x-contextHelp>{{ __('Vul hier het emailadres in dat gekoppeld is aan het account waar u het wachtwoord van bent vergeten.') }}</x-contextHelp>
+                </div>
+            </div>
+
             <div class="flex">
                 <div class="mr-4">
                     <x-button type="submit">Wachtwoord resetten</x-button>
