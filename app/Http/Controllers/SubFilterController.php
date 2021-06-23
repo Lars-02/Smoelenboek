@@ -33,8 +33,7 @@ class SubFilterController extends Controller
             $lectorates = Lectorate::all();
             $minors = Minor::all();
             $roles = Role::all();
-            $workDays = WorkDay::all();
-            return view('subfilter', compact(["courses", "departments", "expertises", "hobbies", "learningLines", "lectorates", "minors", "roles", "workDays"]));
+            return view('subfilter', compact(["courses", "departments", "expertises", "hobbies", "learningLines", "lectorates", "minors", "roles"]));
         }
         else if($user != null)
             return redirect()->route('home');
@@ -229,10 +228,6 @@ class SubFilterController extends Controller
            case 'roles':
                Role::destroy($id);
                break;
-           case 'workDays':
-               WorkDay::destroy($id);
-               break;
-
        }
         return redirect()->route('subfilter.index')->with('success', 'De subfilter is succesvol verwijderd!');
     }

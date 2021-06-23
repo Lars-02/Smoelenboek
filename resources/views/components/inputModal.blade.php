@@ -3,14 +3,6 @@
         <form method="POST" action="{{ $route }}">
             @csrf
             <span class="m:text-sm md:text-base lg:text-lg">
-                {{-- <x-input
-                icon="fas fa-filter"
-                id={{$slot}}
-                name="name"
-                value="{{$slot}}"
-            >{{$slot}}
-            </x-input> --}}
-
             <div class="select-none mb-2">
                 <x-input.label id="{{$slot}}">{{$slot}}</x-input.label>
                 <div class="relative">
