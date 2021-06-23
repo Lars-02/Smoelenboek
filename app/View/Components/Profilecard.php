@@ -61,6 +61,8 @@ class Profilecard extends Component
      */
     private function MapList($startList)
     {
+        if (empty($startList))
+            return false;
         $mappedList = array_slice($startList->map(function ($item) {
             return $item->name;
         })->toArray(), 0, 2);
