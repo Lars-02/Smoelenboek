@@ -3,7 +3,7 @@
         {{ $trigger }}
     </div>
 
-    <div class="fixed top-10 sm:top-20 md:top-32 lg:top-40 xl:top-52 px-4 pb-4 inset-0 items-center justify-center" x-show="open">
+    <div class="fixed top-10 sm:top-20 md:top-32 lg:top-40 xl:top-52 px-4 pb-4 inset-0 items-center justify-center z-10" x-show="open">
         <div
             class="fixed inset-0 transition-opacity"
             x-show="open"
@@ -53,13 +53,13 @@
                     </div>
                 </div>
 
-                <div class="bg-gray-50 px-4 py-3 sm:px-6 flex flex-row-reverse">
+                <div class="bg-gray-50 px-4 py-3 sm:px-6 flex flex-row-reverse z-10">
                     <div class="flex rounded-md shadow-sm ml-3 w-auto">
                         <x-button type="submit">
                             {{ $submitLabel ?? 'Submit' }}
                         </x-button>
                     </div>
-                    <div class="flex rounded-md shadow-sm mt-0 w-auto">
+                    <div class="flex rounded-md shadow-sm mt-0 w-auto z-10">
                         <x-button @click="open = false">
                             {{ $cancelLabel ?? 'Cancel' }}
                         </x-button>
