@@ -172,7 +172,6 @@ class HomeController extends Controller
             if(isset($request->get("workDays")[$workDay->id]))
                 $filteredItems->add($workDay);
         }
-
         return $filteredItems;
     }
 }
