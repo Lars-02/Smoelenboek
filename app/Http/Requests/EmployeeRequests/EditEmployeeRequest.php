@@ -16,18 +16,7 @@ class EditEmployeeRequest extends FormRequest
     {
         return true;
     }
-
-    /**
-     * Prepare the data for validation.
-     *
-     * @return void
-     */
-    protected function prepareForValidation()
-    {
-        $this->merge([
-        ]);
-    }
-
+    
     /**
      * Get the validation rules that apply to the request.
      *
