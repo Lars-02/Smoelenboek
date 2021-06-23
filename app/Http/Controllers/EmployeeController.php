@@ -7,6 +7,7 @@ use App\Http\Requests\EmployeeRequests\StoreEmployeeRequest;
 use App\Models\Course;
 use App\Models\Department;
 use App\Models\Employee;
+use App\Models\Event;
 use App\Models\Expertise;
 use App\Models\Hobby;
 use App\Models\LearningLine;
@@ -25,9 +26,19 @@ use Illuminate\Support\Facades\Auth;
 class EmployeeController extends Controller
 {
     /**
+     * Create the controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->authorizeResource(Employee::class);
+    }
+
+    /**
      * Show the form for creating a new resource.
      *
-     * @return Application|Factory|View|Response
+     * @return Application|Factory|View
      */
     public function create()
     {
@@ -68,7 +79,7 @@ class EmployeeController extends Controller
      *
      * @param Employee $employee
      * @param null $succes
-     * @return Application|Factory|View|Response
+     * @return Application|Factory|View
      */
     public function show(Employee $employee, $succes = null)
     {
@@ -84,7 +95,7 @@ class EmployeeController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param Employee $employee
-     * @return Application|Factory|View|Response
+     * @return Application|Factory|View
      */
     public function edit(Employee $employee)
     {
@@ -147,6 +158,7 @@ class EmployeeController extends Controller
             $employeeAttribute->sync($validated[$attributeName]);
         }
     }
+  
 
     /**
      * Remove the specified resource from storage.
@@ -168,4 +180,5 @@ class EmployeeController extends Controller
         User::find($employee->user_id)->delete();
         return redirect()->route($route)->with('success', 'Het account is succesvol verwijderd!');
     }
+  
 }
