@@ -53,13 +53,13 @@
                     </div>
                 </div>
 
-                <div class="bg-gray-50 px-4 py-3 sm:px-6 flex flex-row-reverse z-10">
+                <div class="bg-gray-50 px-4 py-3 sm:px-6 flex flex-row-reverse">
                     <div class="flex rounded-md shadow-sm ml-3 w-auto">
                         <x-button type="submit">
                             {{ $submitLabel ?? 'Submit' }}
                         </x-button>
                     </div>
-                    <div class="flex rounded-md shadow-sm mt-0 w-auto z-10">
+                    <div class="flex rounded-md shadow-sm mt-0 w-auto">
                         <x-button @click="open = false">
                             {{ $cancelLabel ?? 'Cancel' }}
                         </x-button>
