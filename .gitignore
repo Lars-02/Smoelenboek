@@ -136,7 +136,6 @@ fabric.properties
 /public/css
 /public/js
 /public/fonts
-/public/installer/css
 /public/installer/fonts
 
 ### commandline ###
