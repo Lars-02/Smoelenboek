@@ -22,13 +22,13 @@
             <x-contextHelp>{{__('Vink aan voor de expertises die voor u van toepassing zijn, u kunt meerdere expertises selecteren.')}}</x-contextHelp>
         </div>
         <li class="grid md:grid-cols-1 bg-white rounded shadow-md p-5 mb-5">
-            <x-select id="learningLines" :options="$learningLines" :oldvals="$employee->expertises->pluck('name', 'id')">Leerlijnen</x-select>
+            <x-select id="expertises" :options="$expertises" :oldvals="$employee->expertises->pluck('name', 'id')">Expertises</x-select>
         </li>
         <div class="float-right">
             <x-contextHelp>{{__('Vink aan voor de leerlijnen die voor u van toepassing zijn, u kunt meerdere leerlijnen selecteren.')}}</x-contextHelp>
         </div>
         <li class="grid md:grid-cols-1 bg-white rounded shadow-md p-5 mb-5">
-            <x-select id="expertises" :options="$expertises" :oldvals="$employee->learningLines->pluck('name', 'id')">Expertises</x-select>
+            <x-select id="learningLines" :options="$learningLines" :oldvals="$employee->learningLines->pluck('name', 'id')">Leerlijnen</x-select>
         </li>
         <div class="float-right">
             <x-contextHelp>{{__('Vink aan voor de minoren die voor u van toepassing zijn, u kunt meerdere minoren selecteren.')}}</x-contextHelp>
