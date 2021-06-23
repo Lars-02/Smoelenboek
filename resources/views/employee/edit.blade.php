@@ -1,6 +1,5 @@
 <x-layout>
     <div class="container mx-auto px-5 mb-5 w-full md:px-0 md:w-3/4">
-
         <div class="my-5 w-full bg-gray-200 rounded p-2">
             <x-button>
                 <a href="{{ route('employee.show', $employee) }}">
@@ -18,8 +17,8 @@
                         modalTitle="Account Verwijderen"
                         submitLabel="Verwijderen"
                         cancelLabel="Annuleren"
-                        route="{{ route('home') }}"
-                        method="GET"
+                        route="{{ route('employee.destroy', ['employee' => $employee]) }}"
+                        method="DELETE"
                         icon="fas fa-trash">
                         <x-slot name="trigger">
                             <x-button>

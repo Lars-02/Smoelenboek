@@ -15,15 +15,11 @@ class Profilecard extends Component
      * @return void
      */
     public $employee;
-    public $expertises;
-    public $courses;
-    public $minors;
-    public $hobbies;
-    public $lectorates;
-    public $workingDays;
+    public $items;
     public $function;
     public $department;
     public $allDays;
+    public $workingDays;
 
     public function __construct($employee)
     {
@@ -37,44 +33,38 @@ class Profilecard extends Component
         else $this->function = 'Geen Functie';
         $this->allDays = WorkDay::all()->pluck('name');
 
-        $infoLists = 0;
 
-        $this->expertises = $this->MapList($employee->expertises);
-        if (!isset($this->expertises))
-            $infoLists++;
-
-        $this->courses = $this->MapList($employee->courses);
-        if (!isset($this->courses))
-            $infoLists++;
-
-        if ($infoLists <= 0)
+        if ($this->MapList($employee->expertises) !== false) {
+            $this->items = ['Expertise', $this->MapList($employee->expertises)];
             return;
-        $infoLists--;
-
-        $this->minors = $this->MapList($employee->minors);
-        if (!isset($this->minors))
-            $infoLists++;
-
-        if ($infoLists <= 0)
+        }
+        if ($this->MapList($employee->courses) !== false) {
+            $this->items = ['Cursus', $this->MapList($employee->courses)];
             return;
-        $infoLists--;
-
-        $this->hobbies = $this->MapList($employee->hobbies);
-        if (!isset($this->hobbies))
-            $infoLists++;
-
-        if ($infoLists <= 0)
+        }
+        if ($this->MapList($employee->minors) !== false) {
+            $this->items = ['Minors', $this->MapList($employee->minors)];
             return;
-
-        $this->lectorates = $this->MapList($employee->lectorates);
+        }
+        if ($this->MapList($employee->hobbies) !== false) {
+            $this->items = ["Hobby's", $this->MapList($employee->hobbies)];
+            return;
+        }
+        if ($this->MapList($employee->lecorates) !== false) {
+            $this->items = ['Lectoraten', $this->MapList($employee->lecorates)];
+        }
     }
 
+    /**
+     * @param $startList
+     * @return array|false
+     */
     private function MapList($startList)
     {
         $mappedList = array_slice($startList->map(function ($item) {
             return $item->name;
         })->toArray(), 0, 2);
-        return empty($mappedList) ? null : $mappedList;
+        return empty($mappedList) ? false : $mappedList;
     }
 
     /**
@@ -82,7 +72,8 @@ class Profilecard extends Component
      *
      * @return View|string
      */
-    public function render()
+    public
+    function render()
     {
         return view('components.profilecard');
     }

@@ -11,7 +11,7 @@
             @endif
         </div>
         <div class="m-0 text-center">
-            <p class="text-2xl md:text-4xl sm:text-3xl select-all mt-3">{{$employee->firstname}} {{$employee->lastname}}</p>
+            <p class="text-2xl md:text-4xl sm:text-3xl select-all mt-3 break-words">{{$employee->firstname}} {{$employee->lastname}}</p>
 
             @if(!empty($employee->linkedInUrl))
                 <a href="{{$employee->linkedInUrl}}" class="break-words text-blue-500 md:text-2xl font-semibold select-none">
@@ -27,12 +27,10 @@
                 <h4 class="font-bold text-lg md:text-2xl mb-5 select-none">Werkdagen</h4>
                 <div class="grid grid-cols-5 lg:grid-cols-4 xl:grid-cols-5">
                     @foreach($allDays as $day)
-                        @if(in_array($day, $workingDays))
-                            <span
-                                class="grid-cols-1 select-all text-red-700 text-center shadow-inner py-2 font-bold shadow rounded text-xs sm:text-sm md:text-base lg:text-lg">
+                        <span
+                            class="ml-2 text-xs sm:text-sm md:text-base lg:text-lg {{ in_array($day, $workingDays) ? "select-all text-red-700 font-medium" : "" }}">
                             {{ substr($day, 0, 2) }}
-                            </span>
-                        @endif
+                        </span>
                     @endforeach
                 </div>
 

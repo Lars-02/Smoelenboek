@@ -7,12 +7,14 @@ use App\Http\Requests\EmployeeRequests\StoreEmployeeRequest;
 use App\Models\Course;
 use App\Models\Department;
 use App\Models\Employee;
+use App\Models\Event;
 use App\Models\Expertise;
 use App\Models\Hobby;
 use App\Models\LearningLine;
 use App\Models\Lectorate;
 use App\Models\Minor;
 use App\Models\Role;
+use App\Models\User;
 use App\Models\WorkDay;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
@@ -24,9 +26,19 @@ use Illuminate\Support\Facades\Auth;
 class EmployeeController extends Controller
 {
     /**
+     * Create the controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->authorizeResource(Employee::class);
+    }
+
+    /**
      * Show the form for creating a new resource.
      *
-     * @return Application|Factory|View|Response
+     * @return Application|Factory|View
      */
     public function create()
     {
@@ -56,7 +68,7 @@ class EmployeeController extends Controller
         $employee->workDays()->sync($validated['workDays']);
         $employee->save();
 
-        $employee->user->roles()->sync($validated['roles']);
+        $employee->user->roles()->syncWithoutDetaching($validated['roles']);
         $employee->user->save();
 
         return redirect(route('home'));
@@ -67,7 +79,7 @@ class EmployeeController extends Controller
      *
      * @param Employee $employee
      * @param null $succes
-     * @return Application|Factory|View|Response
+     * @return Application|Factory|View
      */
     public function show(Employee $employee, $succes = null)
     {
@@ -83,7 +95,7 @@ class EmployeeController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param Employee $employee
-     * @return Application|Factory|View|Response
+     * @return Application|Factory|View
      */
     public function edit(Employee $employee)
     {
@@ -146,6 +158,7 @@ class EmployeeController extends Controller
             $employeeAttribute->sync($validated[$attributeName]);
         }
     }
+  
 
     /**
      * Remove the specified resource from storage.
@@ -155,6 +168,17 @@ class EmployeeController extends Controller
      */
     public function destroy(Employee $employee)
     {
-        return abort(404);
+        if($employee->user_id == Auth::id()) 
+        {
+            $route = 'login';
+            Auth::logout(); 
+        }
+        else{
+            $route = 'home';
+        }
+        $employee->delete();
+        User::find($employee->user_id)->delete();
+        return redirect()->route($route)->with('success', 'Het account is succesvol verwijderd!');
     }
+  
 }
