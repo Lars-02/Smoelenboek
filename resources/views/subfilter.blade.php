@@ -1,5 +1,9 @@
 <x-layout>
-    <div class="grid gap-4 md:gap-6 xl:gap-8 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+    {{-- melding neerzetten --}}
+    @if ($message = Session::get('success'))
+    <x-flash title="Succes" type="success">{{ $message }}</x-flash>
+    @endif
+    <div class="grid gap-4 md:gap-6 xl:gap-8 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 justify-around">
         <x-subfiltercard filter="Cursussen" title="courses" :options="$courses"></x-subfiltercard>
         <x-subfiltercard filter="Afdelingen" title="departments" :options="$departments"></x-subfiltercard>
         <x-subfiltercard filter="Expertises" title="expertises" :options="$expertises"></x-subfiltercard>
