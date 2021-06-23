@@ -39,8 +39,8 @@ Route::group(['middleware' => 'auth'], function () {
         Route::resource('subfilter', SubFilterController::class);
         Route::delete('subfilter/destroy/{id}', [SubFilterController::class, 'destroy'])->name('destroysubfilter');
         Route::post('subfilter/create/{filter}', [SubFilterController::class, 'create'])->name('createsubfilter');
-        Route::post('subfilter/edit/{filter}/{id}', [SubFilterController::class, 'edit'])->name('editsubfilter');
-      
+        Route::put('subfilter/edit/{filter}/{id}', [SubFilterController::class, 'edit'])->name('editsubfilter');
+
         Route::resource('employee', EmployeeController::class)
             ->only('show', 'edit', 'update', 'destroy');
     });

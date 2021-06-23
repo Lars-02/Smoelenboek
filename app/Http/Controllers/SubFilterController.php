@@ -40,7 +40,7 @@ class SubFilterController extends Controller
 
         return redirect()->route('auth.login');
 
-        
+
     }
 
     /**
@@ -48,21 +48,21 @@ class SubFilterController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Request $request,$filter)
+    public function create(Request $request, $filter)
     {
-        $name = $request->name;
+        $name = $request->get('name');
 
         switch($filter) {
             case "expertises":
                 if (!Expertise::where('name', '=', $name)->exists()) {
                     $subfilter = new Expertise;
-                 } 
+                 }
                 break;
             case "courses":
                 if (!Course::where('name', '=', $name)->exists()) {
                     $subfilter = new Course;
                     $subfilter->term=0;
-                 }              
+                 }
                 break;
             case "departments":
                 if (!Department::where('name', '=', $name)->exists()) {
@@ -129,19 +129,19 @@ class SubFilterController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit($filter,$id,Request $request)
-    {   
+    {
         $name = $request->name;
 
         switch($filter) {
             case "expertises":
                 if (!Expertise::where('name', '=', $name)->exists()) {
                     $subfilter = Expertise::find($id);
-                 } 
+                 }
                 break;
             case "courses":
                 if (!Course::where('name', '=', $name)->exists()) {
                     $subfilter = Course::find($id);
-                 }              
+                 }
                 break;
             case "departments":
                 if (!Department::where('name', '=', $name)->exists()) {
