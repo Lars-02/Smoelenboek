@@ -137,6 +137,9 @@ fabric.properties
 /public/js
 /public/fonts
 /public/installer/fonts
+/public/installer/css/scss/font-awesome/
+/public/installer/css/scss/
+/public/installer/css/sass/
 
 ### commandline ###
 .idea/commandlinetools
