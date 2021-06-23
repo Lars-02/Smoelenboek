@@ -105,7 +105,7 @@ class UserDataTest extends DuskTestCase
 
             $url = $browser->driver->getCurrentURL();
 
-            $this->assertEquals(env('APP_URL'), $url);
+            $this->assertEquals(env('APP_URL').'employee/create', $url);
         });
     }
 
