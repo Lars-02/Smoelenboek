@@ -60,9 +60,8 @@ class ProfileEditTest extends DuskTestCase
                 ->type('password', 'password')
                 ->press('Inloggen')
                 ->visit(env('APP_URL') . 'employee/1')
-                ->visit(env('APP_URL') . 'employee/1/edit');
-            $url = $browser->driver->getCurrentURL();
-            $this->assertEquals(env('APP_URL'), $url);
+                ->visit(env('APP_URL') . 'employee/1/edit')
+                ->assertDontSee('Opslaan');
         });
     }
 

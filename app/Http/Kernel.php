@@ -88,6 +88,5 @@ class Kernel extends HttpKernel
         'verified' => EnsureEmailIsVerified::class,
         'employee' => EnsureEmployee::class,
         'employee.empty' => EnsureEmptyEmployee::class,
-        'employee.edit' => UserMayEditProfile::class,
     ];
 }
