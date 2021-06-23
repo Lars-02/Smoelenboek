@@ -4,37 +4,37 @@
             <x-contextHelp>{{__('Vink aan voor de lectoraten die voor u van toepassing zijn, u kunt meerdere lectoraten selecteren.')}}</x-contextHelp>
         </div>
         <li class="grid md:grid-cols-1 bg-white rounded shadow-md p-5 mb-5">
-            <x-checkbox id="lectorates" :options="$lectorates">Lectoraten</x-checkbox>
+            <x-select id="lectorates" :options="$lectorates" :oldvals="$employee->lectorates->pluck('name', 'id')">Lectoraten</x-select>
         </li>
         <div class="float-right">
             <x-contextHelp>{{__('Vink aan voor de hobbies die voor u van toepassing zijn, u kunt meerdere hobbies selecteren.')}}</x-contextHelp>
         </div>
         <li class="grid md:grid-cols-1 bg-white rounded shadow-md p-5 mb-5">
-            <x-checkbox id="hobbies" :options="$hobbies">Hobbies</x-checkbox>
+            <x-select id="hobbies" :options="$hobbies" :oldvals="$employee->hobbies->pluck('name', 'id')">Hobbies</x-select>
         </li>
         <div class="float-right">
             <x-contextHelp>{{__('Vink aan voor de cursussen die voor u van toepassing zijn, u kunt meerdere cursussen selecteren.')}}</x-contextHelp>
         </div>
         <li class="grid md:grid-cols-1 bg-white rounded shadow-md p-5 mb-5">
-            <x-checkbox id="courses" :options="$courses">Vakken</x-checkbox>
+            <x-select id="courses" :options="$courses" :oldvals="$employee->courses->pluck('name', 'id')">Cursussen</x-select>
         </li>
         <div class="float-right">
             <x-contextHelp>{{__('Vink aan voor de expertises die voor u van toepassing zijn, u kunt meerdere expertises selecteren.')}}</x-contextHelp>
         </div>
         <li class="grid md:grid-cols-1 bg-white rounded shadow-md p-5 mb-5">
-            <x-checkbox id="expertises" :options="$expertises">Expertises</x-checkbox>
+            <x-select id="expertises" :options="$expertises" :oldvals="$employee->expertises->pluck('name', 'id')">Expertises</x-select>
         </li>
         <div class="float-right">
             <x-contextHelp>{{__('Vink aan voor de leerlijnen die voor u van toepassing zijn, u kunt meerdere leerlijnen selecteren.')}}</x-contextHelp>
         </div>
         <li class="grid md:grid-cols-1 bg-white rounded shadow-md p-5 mb-5">
-            <x-checkbox id="learningLines" :options="$learningLines">Leerlijnen</x-checkbox>
+            <x-select id="learningLines" :options="$learningLines" :oldvals="$employee->learningLines->pluck('name', 'id')">Leerlijnen</x-select>
         </li>
         <div class="float-right">
             <x-contextHelp>{{__('Vink aan voor de minoren die voor u van toepassing zijn, u kunt meerdere minoren selecteren.')}}</x-contextHelp>
         </div>
         <li class="grid md:grid-cols-1 bg-white rounded shadow-md p-5">
-            <x-checkbox id="minors" :options="$minors">Minoren</x-checkbox>
+            <x-select id="minors" :options="$minors" :oldvals="$employee->minors->pluck('name', 'id')">Minoren</x-select>
         </li>
     </ul>
 </div>

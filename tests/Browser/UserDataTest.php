@@ -11,8 +11,8 @@ class UserDataTest extends DuskTestCase
 {
 
     // use DatabaseMigrations, RefreshDatabase;
-    
-    public function setUp() :void 
+
+    public function setUp() :void
     {
         parent::setUp();
         foreach (static::$browsers as $browser) {
@@ -30,7 +30,7 @@ class UserDataTest extends DuskTestCase
      */
     public function test_user_gets_redirected_to_home_when_not_first_login()
     {
-        $this->browse(function ($browser){        
+        $this->browse(function ($browser){
             $browser->visit(env('APP_URL').'/login')
             ->type('email', 'test@avans.nl')
             ->type('password', 'password')
@@ -49,7 +49,7 @@ class UserDataTest extends DuskTestCase
      */
     public function test_user_gets_redirected_to_login_when_not_logged_in()
     {
-        
+
         $this->browse(function ($browser) {
             $browser->visit(env('APP_URL').'/employee/create');
 
@@ -97,9 +97,9 @@ class UserDataTest extends DuskTestCase
                     ->type('firstname',  'Seraphia')
                     ->type('lastname', 'Jacobs')
                     ->type('phoneNumber', '0612345678')
-                    ->check('departments[]')
-                    ->check('roles[]')
-                    ->check('expertises[]')
+                    ->select('departments[]')
+                    ->select('roles[]')
+                    ->select('expertises[]')
                     ->press('@select-day')
                     ->press('Afronden');
 
@@ -129,7 +129,7 @@ class UserDataTest extends DuskTestCase
 
             $this->assertEquals(env('APP_URL').'employee/create', $url);
         });
-        
+
     }
 
 }

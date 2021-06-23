@@ -31,9 +31,9 @@
                     </div>
                 </div>
 
-                <x-checkbox id="departments" :options="$departments">Afdelingen</x-checkbox>
-                <x-checkbox id="roles" :options="$roles">Rollen</x-checkbox>
-                <x-checkbox id="expertises" :options="$expertises">Expertises</x-checkbox>
+                <x-select id="departments" :options="$departments">Afdelingen</x-select>
+                <x-select id="roles" :options="$roles">Rollen</x-select>
+                <x-select id="expertises" :options="$expertises">Expertises</x-select>
                 <div>
                     <div class="float-right">
                         <x-contextHelp>{{__('Vink aan voor de afdelingen die voor u van toepassing zijn, u kunt meerdere afdelingen selecteren.')}}</x-contextHelp>

@@ -90,21 +90,15 @@
                 <x-contextHelp>{{__('Vink aan voor de rollen die voor u van toepassing zijn, u kunt meerdere rollen selecteren.')}}</x-contextHelp>
             </div>
             <div class="grid md:grid-cols-1 mb-5">
-
-                <x-checkbox id="roles" :options="$roles" :oldvals="$employee->user->roles->pluck('name', 'id')">Rollen
-                </x-checkbox>
+                <x-select id="roles" :options="$roles" :oldvals="$employee->user->roles->pluck('name', 'id')">Rollen</x-select>
             </div>
 
             <div class="grid md:grid-cols-1 mb-5 float-right">
                 <x-contextHelp>{{__('Vink aan voor de afdelingen die voor u van toepassing zijn, u kunt meerdere afdelingen selecteren.')}}</x-contextHelp>
             </div>
             <div class="grid md:grid-cols-1">
-                <x-checkbox id="departments" :options="$departments"
-                            :oldvals="$employee->departments->pluck('name', 'id')">Afdeling
-                </x-checkbox>
+                <x-select id="departments" :options="$departments" :oldvals="$employee->departments->pluck('name', 'id')">Afdeling</x-select>
             </div>
-
-
         </div>
     </div>
 </div>
