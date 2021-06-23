@@ -7,10 +7,10 @@
         @auth
             @if(Auth::user()->employee != null && Auth::user()->isAdmin())
                 <div class="select-none flex-none self-center p-2 text-xl text-red-700 hover:text-red-800 font-bold hidden lg:block">
-                    <a href="#">{{ __('Gegevens') }}</a>
+                    <a href="{{route('register.create')}}">Nieuwe gebruiker</a>
                 </div>
                 <div class="select-none flex-none self-center p-2 text-xl text-red-700 hover:text-red-800 font-bold hidden lg:block">
-                    <a href="{{route('register.create')}}">Nieuwe gebruiker</a>
+                    <a href="{{route('subfilter.index')}}">Nieuwe subfilter</a>
                 </div>
             @endif
         @endauth

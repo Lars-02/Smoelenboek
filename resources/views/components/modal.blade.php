@@ -36,7 +36,7 @@
                     <div class="sm:flex sm:items-start">
                         @if(!is_null($icon))
                             <div
-                                class="bg-red-200 text-red-700 mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full sm:mx-0 sm:h-10 sm:w-10">
+                                class="bg-gray-200 text-gray-700 mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full sm:mx-0 sm:h-10 sm:w-10">
                                 <i class="{{ $icon }}"></i>
                             </div>
                         @endif
