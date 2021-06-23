@@ -3,7 +3,7 @@
         {{ $trigger }}
     </div>
 
-    <div class="fixed top-10 sm:top-20 md:top-32 lg:top-40 xl:top-52 px-4 pb-4 inset-0 items-center justify-center" x-show="open">
+    <div class="fixed top-10 sm:top-20 md:top-32 lg:top-40 xl:top-52 px-4 pb-4 inset-0 items-center justify-center z-10" x-show="open">
         <div
             class="fixed inset-0 transition-opacity"
             x-show="open"
