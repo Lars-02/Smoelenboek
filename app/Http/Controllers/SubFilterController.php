@@ -51,42 +51,53 @@ class SubFilterController extends Controller
      */
     public function create(Request $request,$filter)
     {
-        Info("request->name =");
-        Info($request->name);
         $name = $request->name;
 
         switch($filter) {
             case "expertises":
-                $subfilter = new Expertise;
+                if (!Expertise::where('name', '=', $name)->exists()) {
+                    $subfilter = new Expertise;
+                 } 
                 break;
             case "courses":
-                $subfilter = new Course;
-                $subfilter->term=0;
+                if (!Course::where('name', '=', $name)->exists()) {
+                    $subfilter = new Course;
+                    $subfilter->term=0;
+                 }              
                 break;
             case "departments":
-                $subfilter = new Department;
+                if (!Department::where('name', '=', $name)->exists()) {
+                    $subfilter = new Department;
+                 }
                 break;
             case "hobbies":
-                $subfilter = new Hobby;
+                if (!Hobby::where('name', '=', $name)->exists()) {
+                    $subfilter = new Hobby;
+                 }
                 break;
             case "learningLines":
-                $subfilter = new LearningLine;
+                if (!LearningLine::where('name', '=', $name)->exists()) {
+                    $subfilter = new LearningLine;
+                 }
                 break;
             case "lectorates":
-                $subfilter = new Lectorate;
+                if (!Lectorate::where('name', '=', $name)->exists()) {
+                    $subfilter = new Lectorate;
+                 }
                 break;
             case "minors":
-                $subfilter = new Minor;
+                if (!Minor::where('name', '=', $name)->exists()) {
+                    $subfilter = new Minor;
+                 }
                 break;
             case "roles":
-                $subfilter = new Role;
-                break;
-            default:
-                $subfilter = null;
+                if (!Role::where('name', '=', $name)->exists()) {
+                    $subfilter = new Role;
+                 }
                 break;
         }
 
-        if ($subfilter != null){
+        if (isset($subfilter)){
             $subfilter->name = $name;
             $subfilter->save();
         }
@@ -120,41 +131,52 @@ class SubFilterController extends Controller
      */
     public function edit($filter,$id,Request $request)
     {   
-        Info("name is :");
-        Info($request->name);
         $name = $request->name;
 
         switch($filter) {
             case "expertises":
-                $subfilter = Expertise::find($id);
+                if (!Expertise::where('name', '=', $name)->exists()) {
+                    $subfilter = Expertise::find($id);
+                 } 
                 break;
             case "courses":
-                $subfilter = Course::find($id);
+                if (!Course::where('name', '=', $name)->exists()) {
+                    $subfilter = Course::find($id);
+                 }              
                 break;
             case "departments":
-                $subfilter = Department::find($id);
+                if (!Department::where('name', '=', $name)->exists()) {
+                    $subfilter = Department::find($id);
+                 }
                 break;
             case "hobbies":
-                $subfilter = Hobby::find($id);
+                if (!Hobby::where('name', '=', $name)->exists()) {
+                    $subfilter = Hobby::find($id);
+                 }
                 break;
             case "learningLines":
-                $subfilter = LearningLine::find($id);
+                if (!LearningLine::where('name', '=', $name)->exists()) {
+                    $subfilter = LearningLine::find($id);
+                 }
                 break;
             case "lectorates":
-                $subfilter = Lectorate::find($id);
+                if (!Lectorate::where('name', '=', $name)->exists()) {
+                    $subfilter = Lectorate::find($id);
+                 }
                 break;
             case "minors":
-                $subfilter = Minor::find($id);
+                if (!Minor::where('name', '=', $name)->exists()) {
+                    $subfilter = Minor::find($id);
+                 }
                 break;
             case "roles":
-                $subfilter = Role::find($id);
-                break;
-            default:
-                $subfilter = null;
+                if (!Role::where('name', '=', $name)->exists()) {
+                    $subfilter = Role::find($id);
+                 }
                 break;
         }
 
-        if ($subfilter != null){
+        if (isset($subfilter)){
             $subfilter->name = $name;
             $subfilter->save();
         }
