@@ -1,24 +1,28 @@
 <div class="bg-white rounded p-10 col-span-1 shadow h-full">
 
     <div class="items-center space-x-2 font-semibold text-gray-900 leading-8 mb-5 md:flex-shrink-0">
-        
+
         <div>
             @if (empty($employee->user->photoUrl))
                 <img src="https://www.shareicon.net/data/128x128/2016/07/26/801997_user_512x512.png"
-                     class="select-none md:flex-shrink-0 md:w-48 min-h-full max-h-full mx-auto" alt="standaard profiel foto">
+                     class="select-none md:flex-shrink-0 md:w-48 min-h-full max-h-full mx-auto"
+                     alt="standaard profiel foto">
             @else
                 <img src="{{asset('storage/' . $employee->user->photoUrl)}}" class="w-40" alt="Profiel foto">
             @endif
         </div>
         <div class="flex">
-            <div class="flex-1">
+            <div class="flex flex-col self-center">
                 <input class="mt-4 p-2 bg-red-700 rounded text-sm text-white font-medium" name="photoUrl" type="file">
+                @error('photoUrl')
+                <span class="text-red-600">{{ $message }}</span>
+                @enderror
             </div>
             <div class="flex items-center">
                 <x-contextHelp>{{ __('upload hier uw profielfoto.') }}</x-contextHelp>
             </div>
         </div>
-        
+
         <div class="m-0 pt-5 text-center">
             <x-input value="{{$employee->firstname}}" type="text"
                      name="firstname" id="firstname" icon="fas fa-user-circle">Voornaam:
@@ -31,7 +35,7 @@
                 <div class="flex">
                     <div class="flex-1">
                         <x-input value="{{$employee->linkedInUrl}}" type="text"
-                            name="linkedInUrl" id="linkedInUrl" icon="fas fa-user-circle">LinkedIn url:
+                                 name="linkedInUrl" id="linkedInUrl" icon="fas fa-user-circle">LinkedIn url:
                         </x-input>
                     </div>
                     <div class="flex items-center">
@@ -86,15 +90,18 @@
                 <x-contextHelp>{{__('Vink aan voor de rollen die voor u van toepassing zijn, u kunt meerdere rollen selecteren.')}}</x-contextHelp>
             </div>
             <div class="grid md:grid-cols-1 mb-5">
-                
-                <x-checkbox id="roles" :options="$roles" :oldvals="$employee->user->roles->pluck('name', 'id')">Rollen</x-checkbox>
+
+                <x-checkbox id="roles" :options="$roles" :oldvals="$employee->user->roles->pluck('name', 'id')">Rollen
+                </x-checkbox>
             </div>
 
             <div class="grid md:grid-cols-1 mb-5 float-right">
                 <x-contextHelp>{{__('Vink aan voor de afdelingen die voor u van toepassing zijn, u kunt meerdere afdelingen selecteren.')}}</x-contextHelp>
             </div>
             <div class="grid md:grid-cols-1">
-                <x-checkbox id="departments" :options="$departments" :oldvals="$employee->departments->pluck('name', 'id')">Afdeling</x-checkbox>
+                <x-checkbox id="departments" :options="$departments"
+                            :oldvals="$employee->departments->pluck('name', 'id')">Afdeling
+                </x-checkbox>
             </div>
 
 

@@ -12,9 +12,9 @@
         </div>
         <div class="m-0 text-center">
             <p class="text-2xl md:text-4xl sm:text-3xl select-all mt-3 break-words">{{$employee->firstname}} {{$employee->lastname}}</p>
-
             @if(!empty($employee->linkedInUrl))
-                <a href="{{$employee->linkedInUrl}}" class="break-words text-blue-500 md:text-2xl font-semibold select-none">
+                <a href="{{$employee->linkedInUrl}}"
+                   class="break-words text-blue-500 md:text-2xl font-semibold select-none">
                     <i class="fab fa-linkedin-in"></i>
                 </a>
             @endif
@@ -38,13 +38,15 @@
             <div class="mb-5">
                 <label class="break-words text-lg md:text-2xl select-none font-semibold">E-mail</label>
                 <div>
-                    <a href="mailto:{{$employee->user->email}}" class="break-words md:text-2xl select-all">{{$employee->user->email}}</a>
+                    <a href="mailto:{{$employee->user->email}}"
+                       class="break-words md:text-2xl select-all">{{$employee->user->email}}</a>
                 </div>
             </div>
             <div class="mb-5">
                 <label class="break-words text-lg md:text-2xl select-none font-semibold">Telefoon</label>
                 <div>
-                    <a href="tel:{{$employee->phoneNumber}}" class="break-words md:text-2xl select-all">{{$employee->phoneNumber}}</a>
+                    <a href="tel:{{$employee->phoneNumber}}"
+                       class="break-words md:text-2xl select-all">{{$employee->phoneNumber}}</a>
                 </div>
             </div>
             <div class="mb-5">

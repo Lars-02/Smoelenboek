@@ -27,6 +27,7 @@ use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
+use stdClass;
 
 class HomeController extends Controller
 {
@@ -122,7 +123,7 @@ class HomeController extends Controller
         $workDays = WorkDay::all();
 
         if ($request->filled('searchbar')){
-            $searchQuery = new \stdClass();
+            $searchQuery = new stdClass();
             $searchQuery->name =  '"'.$request->get('searchbar').'"';
             $filteredItems->add($searchQuery);
         }

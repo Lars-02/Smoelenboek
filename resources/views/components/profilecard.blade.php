@@ -37,10 +37,12 @@
                     </div>
                 </div>
                 <div class="mb-3">
-                    <div class="text-gray-500">{{ $items[0] }}</div>
-                    @foreach($items[1] as $item)
-                        <div class="ml-2 text-red-700" title="{{ $item }}">{{ $item }}</div>
-                    @endforeach
+                    @if(!empty($items))
+                        <div class="text-gray-500">{{ $items[0] }}</div>
+                        @foreach($items[1] as $item)
+                            <div class="ml-2 text-red-700" title="{{ $item }}">{{ $item }}</div>
+                        @endforeach
+                    @endif
                 </div>
             </div>
         </div>
