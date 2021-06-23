@@ -96,12 +96,16 @@ class SubFilterController extends Controller
                 break;
         }
 
-        if (isset($subfilter)){
+        if (isset($subfilter)&& isset($name)){
             $subfilter->name = $name;
             $subfilter->save();
+            return redirect()->route('subfilter.index')->with('success', 'De subfilter is succesvol toegevoerd!');
+        }
+        else{
+            return redirect()->route('subfilter.index');
         }
 
-        return redirect()->route('subfilter.index')->with('success', 'De subfilter is succesvol toegevoerd!');
+        
     }
 
     /**
@@ -175,11 +179,14 @@ class SubFilterController extends Controller
                 break;
         }
 
-        if (isset($subfilter)){
+        if (isset($subfilter)&& isset($name)){
             $subfilter->name = $name;
             $subfilter->save();
+            return redirect()->route('subfilter.index')->with('success', 'De subfilter is succesvol toegevoerd!');
         }
-        return redirect()->route('subfilter.index')->with('success', 'De subfilter is succesvol aangepast!');
+        else{
+            return redirect()->route('subfilter.index');
+        }
     }
 
     /**
