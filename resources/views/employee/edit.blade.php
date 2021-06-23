@@ -34,7 +34,7 @@
             @endif
         </div>
         <!-- Right Side -->
-        <form id="edit-form" method="POST" action="{{route('employee.update', $employee)}}">
+        <form id="edit-form" method="POST" action="{{route('employee.update', $employee)}}" enctype="multipart/form-data">
             @csrf
             @method('PUT')
             @if(session()->has('error'))

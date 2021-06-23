@@ -129,7 +129,6 @@ class EmployeeController extends Controller
     {
         $validated = $request->validated();
 
-        // updateOrDelete only applies to nullable attributes
         $employee->update(request(['firstname', 'lastname', 'phoneNumber', 'expertise', 'linkedInUrl']));
         $employee->user->update(['email' => $validated['email']]);
         if (!empty($request->file('photoUrl'))) {
@@ -158,7 +157,7 @@ class EmployeeController extends Controller
             $employeeAttribute->sync($validated[$attributeName]);
         }
     }
-  
+
 
     /**
      * Remove the specified resource from storage.
@@ -168,10 +167,10 @@ class EmployeeController extends Controller
      */
     public function destroy(Employee $employee)
     {
-        if($employee->user_id == Auth::id()) 
+        if($employee->user_id == Auth::id())
         {
             $route = 'login';
-            Auth::logout(); 
+            Auth::logout();
         }
         else{
             $route = 'home';
@@ -180,5 +179,5 @@ class EmployeeController extends Controller
         User::find($employee->user_id)->delete();
         return redirect()->route($route)->with('success', 'Het account is succesvol verwijderd!');
     }
-  
+
 }

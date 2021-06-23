@@ -3,6 +3,7 @@
 namespace App\Http\Requests\EmployeeRequests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
 
 class EditEmployeeRequest extends FormRequest
 {
@@ -14,6 +15,17 @@ class EditEmployeeRequest extends FormRequest
     public function authorize()
     {
         return true;
+    }
+
+    /**
+     * Prepare the data for validation.
+     *
+     * @return void
+     */
+    protected function prepareForValidation()
+    {
+        $this->merge([
+        ]);
     }
 
     /**
@@ -29,7 +41,7 @@ class EditEmployeeRequest extends FormRequest
             'phoneNumber' => array('required', 'regex:/^((\+31)|(0031)|0)(\(0\)|)(\d{1,3})(\s|\-|)(\d{8}|\d{4}\s\d{4}|\d{2}\s\d{2}\s\d{2}\s\d{2})$/'),
             'email' => 'required|email',
             'linkedInUrl' => array('nullable', 'regex:/^((http|https):\/\/)?+(www.linkedin.com\/in\/).+$/'),
-            'photoUrl' => 'nullable|mimes:jpg,png,jpeg,webp|max:1024|dimensions:min_width=180,min_height=180,max_width=1000,max_height=1000',
+            'photoUrl' => 'nullable|image|max:2048|dimensions:min_width=180,min_height=180,max_width=1000,max_height=1000',
             'departments' => 'required',
             'expertises' => 'nullable',
             'minors' => 'nullable',
