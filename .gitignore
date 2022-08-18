@@ -18,6 +18,8 @@ public_html/hot
 
 storage/*.key
 .env
+.env.dusk.local
+.env.backup
 Homestead.yaml
 Homestead.json
 /.vagrant
@@ -133,3 +135,29 @@ fabric.properties
 ### Webpack mix ###
 /public/css
 /public/js
+/public/fonts
+/public/installer/fonts
+/public/installer/css/scss/font-awesome/
+/public/installer/css/scss/
+/public/installer/css/sass/
+
+### commandline ###
+.idea/commandlinetools
+resources/lang/ar/installer_messages.php
+resources/lang/de/installer_messages.php
+resources/lang/es/installer_messages.php
+resources/lang/et/installer_messages.php
+resources/lang/fa/installer_messages.php
+resources/lang/fr/installer_messages.php
+resources/lang/gr/installer_messages.php
+resources/lang/id/installer_messages.php
+resources/lang/it/installer_messages.php
+resources/lang/pl/installer_messages.php
+resources/lang/pt-br/installer_messages.php
+resources/lang/pt/installer_messages.php
+resources/lang/ro/installer_messages.php
+resources/lang/ru/installer_messages.php
+resources/lang/th/installer_messages.php
+resources/lang/tr/installer_messages.php
+resources/lang/zh-CN/installer_messages.php
+resources/lang/zh-TW/installer_messages.php
